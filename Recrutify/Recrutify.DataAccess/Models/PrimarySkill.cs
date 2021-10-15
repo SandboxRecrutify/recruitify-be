@@ -9,7 +9,12 @@ namespace Recrutify.DataAccess.Models
     public enum PrimarySkill
     {
         Net,
-        Js,
-        BA
+        JavaScript,
+        AutomationQA,
+        BusinessAnalyst,
+        DevOps,
+        Java,
+        PHP,
+        ProjectManager
     }
 }
