@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace Recrutify.DataAccess.Models
 {
     public interface IDataModel

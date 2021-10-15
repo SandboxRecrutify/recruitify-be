@@ -1,9 +1,11 @@
 ﻿using Recrutify.DataAccess.Models;
 using System;
-using System.Collections.Generic;
 
 namespace Recrutify.DataAccess
 {
+    /// <summary>
+    /// Сollection Course in database.
+    /// </summary>
     public class Course : IDataModel
     {
         public Guid Id { get; set; }

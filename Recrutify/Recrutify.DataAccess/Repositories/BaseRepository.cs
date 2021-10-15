@@ -1,11 +1,8 @@
 ﻿using MongoDB.Driver;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.IRepository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Repositories
 {
