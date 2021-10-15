@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    public abstract class BaseModel 
+    public enum PrimarySkill
     {
-        public Guid Id { get; set; }
+        Net,
+        Js,
+        BA
     }
 }

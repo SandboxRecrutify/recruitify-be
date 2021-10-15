@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Feedback
+    public enum EnglishLevel
     {
-        public string Feetbacks { get; set; }
-        public int Rating { get; set; }
+        Beginner,
+        PreIntermediate,
+        Intermediate,
+        Advanced,
+        Native
     }
 }

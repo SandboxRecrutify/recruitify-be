@@ -1,25 +1,24 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Recrutify.DataAccess.Models;
 using System;
+using System.Collections.Generic;
 
 namespace Recrutify.DataAccess
 {
-    public class Course
+    public class Course : IDataModel
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public Guid Id { get; set; }
-        [BsonElement("CourseName")]
-        public string CourseName { get; set; }
-        [BsonElement("DateFrom")]
-        public DateTime DateFrom { get; set; }
-        [BsonElement("DateTo")]
-        public DateTime DateTo { get; set; }
-        [BsonElement("QuantityALLApplication")]
-        public int QuantityALLApplication { get; set; }
-        [BsonElement("QuantitySubmittedApplication")]
-        public int QuantitySubmittedApplication { get; set; }
-        [BsonElement("PrimarySkills")]
-        public string PrimarySkills { get; set; }
+
+        public string Name { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        public int CurrentApplicationsCount { get; set; }
+
+        public int PlannedApplicationsCount { get; set; }
+
+        public string Description { get; set; }
 
     }
 }

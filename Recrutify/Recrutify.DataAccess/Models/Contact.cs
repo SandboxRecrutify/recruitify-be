@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Feedback
+    public class Contact
     {
-        public string Feetbacks { get; set; }
-        public int Rating { get; set; }
+        public string Type { get; set; }
+        public string Value { get; set; }
     }
 }

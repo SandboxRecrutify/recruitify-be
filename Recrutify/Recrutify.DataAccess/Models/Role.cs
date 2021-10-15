@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Feedback
+    public enum Role
     {
-        public string Feetbacks { get; set; }
-        public int Rating { get; set; }
+        Admin,
+        Manager,
+        Recruiter,
+        Interviewer,
+        Mentor
+
     }
 }

@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 namespace Recrutify.DataAccess.Repositories
 {
     public abstract class BaseRepository<ModelType>
-        : IBaseRepository<ModelType> where ModelType : BaseModel
+        : IBaseRepository<ModelType> where ModelType : IDataModel
     {
         private readonly IMongoCollection<ModelType> _collection;
+        public BaseRepository(IMongoDatabase database, string collectionName)
+        {
+            _collection = database.GetCollection<ModelType>(collectionName);
+        }
+
         public List<ModelType> GetAll()
         {
-            return _collection.Find(car => true).ToList();
+            return _collection.Find(x => true).ToList();
         }
-        
     }
 }

@@ -8,31 +8,16 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    class Users
-    { 
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
-        public Guid Id { get; set; }
-        [Required]
-        public string Login { get; set; }
-        [Required]
-        public string Password { get; set; }
-        [BsonElement("Name")]
-        public string Name { get; set; }
-        [BsonElement("Surname")]
-        public string Surname { get; set; }
-        public Roles Role { get; set; }
-
-
-    }
-    public enum Roles
+    class User
     {
-        Candidate,
-        Admin,
-        Manager,
-        Recruiter,
-        Interviewer,
-        Mentor
+        public Guid Id { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public List<Role> Roles { get; set; }
 
     }
+
 }
