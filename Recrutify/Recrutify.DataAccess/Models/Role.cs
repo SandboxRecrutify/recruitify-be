@@ -6,7 +6,6 @@
         Manager,
         Recruiter,
         Interviewer,
-        Mentor
-
+        Mentor,
     }
 }

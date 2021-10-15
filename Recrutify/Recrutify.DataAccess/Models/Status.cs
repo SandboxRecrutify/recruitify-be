@@ -9,7 +9,6 @@
         TechInterviewSecondStep,
         Accepted,
         Declined,
-        CandidateRejected
-
+        CandidateRejected,
     }
 }

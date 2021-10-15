@@ -3,9 +3,6 @@ using System;
 
 namespace Recrutify.DataAccess
 {
-    /// <summary>
-    /// Сollection Course in database.
-    /// </summary>
     public class Course : IDataModel
     {
         public Guid Id { get; set; }
@@ -21,6 +18,5 @@ namespace Recrutify.DataAccess
         public int PlannedApplicationsCount { get; set; }
 
         public string Description { get; set; }
-
     }
 }

@@ -6,6 +6,6 @@
         PreIntermediate,
         Intermediate,
         Advanced,
-        Native
+        Native,
     }
 }

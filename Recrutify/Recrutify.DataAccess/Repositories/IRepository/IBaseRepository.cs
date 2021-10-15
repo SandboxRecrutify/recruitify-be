@@ -1,14 +1,9 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Repositories.IRepository
 {
-    public interface IBaseRepository<ModelType>
+    public interface IBaseRepository<T>
     {
-        public List<ModelType> GetAll();
+        public List<T> GetAll();
     }
 }

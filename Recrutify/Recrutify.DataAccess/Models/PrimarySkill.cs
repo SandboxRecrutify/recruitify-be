@@ -9,6 +9,6 @@
         DevOps,
         Java,
         PHP,
-        ProjectManager
+        ProjectManager,
     }
 }

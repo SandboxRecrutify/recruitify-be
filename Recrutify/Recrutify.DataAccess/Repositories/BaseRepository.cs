@@ -6,18 +6,20 @@ using System.Linq;
 
 namespace Recrutify.DataAccess.Repositories
 {
-    public abstract class BaseRepository<ModelType>
-        : IBaseRepository<ModelType> where ModelType : IDataModel
+    public abstract class BaseRepository<T>
+        : IBaseRepository<T>
+        where T : IDataModel
     {
-        private readonly IMongoCollection<ModelType> _collection;
-        public BaseRepository(IMongoDatabase database, string collectionName)
+        private readonly IMongoCollection<T> collection;
+
+        protected BaseRepository(IMongoDatabase database, string collectionName)
         {
-            _collection = database.GetCollection<ModelType>(collectionName);
+            this.collection = database.GetCollection<T>(collectionName);
         }
 
-        public List<ModelType> GetAll()
+        public List<T> GetAll()
         {
-            return _collection.Find(x => true).ToList();
+            return this.collection.Find(x => true).ToList();
         }
     }
 }
