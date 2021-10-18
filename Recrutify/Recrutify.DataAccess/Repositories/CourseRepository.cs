@@ -2,19 +2,24 @@
 using System.Linq;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Repositories.IRepository;
+using Recrutify.Host.Configuration;
 
 namespace Recrutify.DataAccess.Repositories
 {
     public class CourseRepository : BaseRepository<Course>, ICourseRepository
     {
-        public CourseRepository(IMongoDatabase database, string collectionName)
-            : base(database, collectionName)
+        public CourseRepository(MongoSettings settings)
+            : base(settings)
         {
         }
 
-        public List<Course> GetAll()
+        public Course Create(Course course)
         {
-            return collection.Find(cours => true).ToList();
+            _collection.InsertOne(course);
+            return course;
         }
+
+        public List<Course> ReadAll() =>
+            _collection.Find(course => true).ToList();
     }
 }

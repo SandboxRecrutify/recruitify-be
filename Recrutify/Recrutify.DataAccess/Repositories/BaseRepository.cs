@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.IRepository;
+using Recrutify.Host.Configuration;
 
 namespace Recrutify.DataAccess.Repositories
 {
@@ -10,16 +12,22 @@ namespace Recrutify.DataAccess.Repositories
         : IBaseRepository<T>
         where T : IDataModel
     {
-        protected readonly IMongoCollection<T> collection;
+        protected readonly IMongoCollection<T> _collection;
 
-        protected BaseRepository(IMongoDatabase database, string collectionName)
+        public BaseRepository(MongoSettings settings)
         {
-            collection = database.GetCollection<T>(collectionName);
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _collection = database.GetCollection<T>("T");
         }
 
-        public List<T> GetAll()
+        public T Creat(T type)
         {
-            return collection.Find(x => true).ToList();
+            _collection.InsertOne(type);
+            return type;
         }
+
+        public List<T> Read() =>
+            _collection.Find(type => true).ToList();
     }
 }

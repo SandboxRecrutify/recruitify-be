@@ -8,6 +8,8 @@ namespace Recrutify.DataAccess.Repositories.IRepository
 {
     public interface ICourseRepository
     {
-        public List<Course> GetAll();
+        public Course Create(Course course);
+
+        public List<Course> ReadAll();
     }
 }

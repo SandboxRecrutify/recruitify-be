@@ -4,6 +4,8 @@ namespace Recrutify.DataAccess.Repositories.IRepository
 {
     public interface IBaseRepository<T>
     {
-        public List<T> GetAll();
+        public T Creat(T type);
+
+        public List<T> Read();
     }
 }
