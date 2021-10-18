@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Recrutify.DataAccess\Recrutify.DataAccess.csproj" />
     <ProjectReference Include="..\Recrutify.Services\Recrutify.Services.csproj" />
   </ItemGroup>

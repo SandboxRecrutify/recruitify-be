@@ -2,7 +2,7 @@
 {
     public class Feedback
     {
-        public string Feetbacks { get; set; }
+        public string TextFeedback { get; set; }
 
         public int Rating { get; set; }
     }

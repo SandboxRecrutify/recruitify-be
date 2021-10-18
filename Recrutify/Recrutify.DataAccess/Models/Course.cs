@@ -1,5 +1,5 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.DataAccess
 {

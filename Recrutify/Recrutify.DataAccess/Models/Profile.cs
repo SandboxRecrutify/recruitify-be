@@ -1,6 +1,6 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.DataAccess
 {
@@ -26,13 +26,13 @@ namespace Recrutify.DataAccess
 
         public DateTime RegistrationDate { get; set; }
 
-        public string BestTime { get; set; }
+        public string BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
 
-        public List<Result> Results { get; set; }
+        public List<Result> CoursesResults { get; set; }
 
-        public string CurrentWork { get; set; }
+        public string CurrentJob { get; set; }
 
         public string Certificates { get; set; }
 

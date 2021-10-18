@@ -3,6 +3,7 @@
     public enum PrimarySkill
     {
         Net,
+        QA,
         JavaScript,
         AutomationQA,
         BusinessAnalyst,
