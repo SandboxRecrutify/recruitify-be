@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Repositories.IRepository
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<TDocument>
     {
-        public T Creat(T type);
+        Task CreateAsync(TDocument item);
 
-        public List<T> Read();
+        Task<List<TDocument>> GetAllAsync();
     }
 }

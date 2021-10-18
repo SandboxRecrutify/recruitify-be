@@ -1,14 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Recrutify.Host.Configuration;
+using Recrutify.DataAccess.Configuration;
 
 namespace Recrutify.Host
 {
@@ -26,9 +22,6 @@ namespace Recrutify.Host
         {
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
-
-            services.AddSingleton(sp =>
-                sp.GetRequiredService<IOptions<MongoSettings>>().Value);
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

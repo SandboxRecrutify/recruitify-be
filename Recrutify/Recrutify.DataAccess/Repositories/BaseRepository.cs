@@ -1,33 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.IRepository;
-using Recrutify.Host.Configuration;
 
 namespace Recrutify.DataAccess.Repositories
 {
-    public abstract class BaseRepository<T>
-        : IBaseRepository<T>
-        where T : IDataModel
+    public abstract class BaseRepository<TDocument>
+        : IBaseRepository<TDocument>
+        where TDocument : IDataModel
     {
-        protected readonly IMongoCollection<T> _collection;
+        private readonly IMongoDatabase _database;
+        private readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
 
-        public BaseRepository(MongoSettings settings)
+        protected BaseRepository(IOptions<MongoSettings> options)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _collection = database.GetCollection<T>("T");
+            var client = new MongoClient(options.Value.ConnectionString);
+            _database = client.GetDatabase(new MongoUrlBuilder(options.Value.ConnectionString).DatabaseName);
+            _filterBuilder = Builders<TDocument>.Filter;
         }
 
-        public T Creat(T type)
+        public Task CreateAsync(TDocument item)
         {
-            _collection.InsertOne(type);
-            return type;
+           return GetCollection().InsertOneAsync(item);
         }
 
-        public List<T> Read() =>
-            _collection.Find(type => true).ToList();
+        public Task<List<TDocument>> GetAllAsync()
+        {
+            var filter = _filterBuilder.Empty;
+            return GetCollection().Find(filter).ToListAsync();
+        }
+
+        private IMongoCollection<TDocument> GetCollection()
+        {
+            return _database.GetCollection<TDocument>(nameof(TDocument));
+        }
     }
 }

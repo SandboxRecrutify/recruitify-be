@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Result
+    public class CourseResult
     {
         public List<Feedback> Feedbacks { get; set; }
 
