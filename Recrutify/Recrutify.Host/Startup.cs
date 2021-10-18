@@ -40,8 +40,7 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recrutify.Host v1"));
+                
             }
 
             app.UseHttpsRedirection();
@@ -53,6 +52,13 @@ namespace Recrutify.Host
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
+                c.RoutePrefix = string.Empty;
             });
         }
     }

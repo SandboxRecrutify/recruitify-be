@@ -24,6 +24,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet]
+        [Route("get")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
