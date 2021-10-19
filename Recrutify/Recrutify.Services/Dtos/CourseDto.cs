@@ -1,8 +1,8 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Recrutify.DataAccess.Models;
 
-namespace Recrutify.Host.Configuration.Profiles
+namespace Recrutify.Services.Dtos
 {
     public class CourseDto
     {

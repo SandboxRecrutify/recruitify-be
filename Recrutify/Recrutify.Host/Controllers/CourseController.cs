@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.DataAccess;
 using Recrutify.Host.Configuration.Profiles;
+using Recrutify.Services.Dtos;
+using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Host.Controllers
 {

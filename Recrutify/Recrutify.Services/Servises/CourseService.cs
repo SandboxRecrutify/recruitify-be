@@ -1,12 +1,10 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
+using Recrutify.Services.Dtos;
 using Recrutify.Services.Servises.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recrutify.Services.Servises
 {

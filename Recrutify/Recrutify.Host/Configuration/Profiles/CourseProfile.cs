@@ -1,4 +1,5 @@
 ﻿using Recrutify.DataAccess;
+using Recrutify.Services.Dtos;
 
 namespace Recrutify.Host.Configuration.Profiles
 {

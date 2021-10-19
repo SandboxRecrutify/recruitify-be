@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Recrutify.Services.Dtos;
 
 namespace Recrutify.Services.Servises.Abstract
 {
@@ -10,6 +8,6 @@ namespace Recrutify.Services.Servises.Abstract
     {
         public Task Creat(CourseDto courseDto);
 
-        Task<List<CourseDto>> GetAllAsync();
+        public Task<List<CourseDto>> GetAllAsync();
     }
 }

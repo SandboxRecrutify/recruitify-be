@@ -8,6 +8,8 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.Servises;
+using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Host
 {
@@ -26,6 +28,7 @@ namespace Recrutify.Host
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
             services.AddSingleton<ICourseRepository, CourseRepository>();
+            services.AddSingleton<ICourseService, CourseService>();
             var mapper = MapperConfig.GetConfiguration().CreateMapper();
             services.AddSingleton(mapper);
             services.AddControllers();
