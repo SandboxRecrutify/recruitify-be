@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
 namespace Recrutify.DataAccess
@@ -18,5 +19,7 @@ namespace Recrutify.DataAccess
         public int PlannedApplicationsCount { get; set; }
 
         public string Description { get; set; }
+
+        public List<PrimarySkill> PrimarySkills { get; set; }
     }
 }
