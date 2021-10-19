@@ -1,4 +1,4 @@
-﻿namespace Recrutify.DataAccess.Repositories.IRepository
+﻿namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface ICourseRepository : IBaseRepository<Course>
     {

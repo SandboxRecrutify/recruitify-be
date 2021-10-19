@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Recrutify.DataAccess.Repositories.IRepository
+namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface IBaseRepository<TDocument>
     {

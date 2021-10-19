@@ -4,9 +4,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
-using Recrutify.DataAccess.Repositories.IRepository;
 
-namespace Recrutify.DataAccess.Repositories
+namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public abstract class BaseRepository<TDocument>
         : IBaseRepository<TDocument>

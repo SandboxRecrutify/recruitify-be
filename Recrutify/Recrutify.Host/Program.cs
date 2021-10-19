@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace Recrutify.Host
 {
-    public static class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

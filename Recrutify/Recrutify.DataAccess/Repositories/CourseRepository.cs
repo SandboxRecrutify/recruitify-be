@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Recrutify.DataAccess.Configuration;
-using Recrutify.DataAccess.Repositories.IRepository;
+using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.DataAccess.Repositories
 {
