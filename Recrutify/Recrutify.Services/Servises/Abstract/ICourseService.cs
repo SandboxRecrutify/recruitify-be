@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Recrutify.Services.Servises.Abstract
 {
-    interface ICourseService
+    public interface ICourseService
     {
+        public Task Creat(CourseDto courseDto);
+
+        Task<List<CourseDto>> GetAllAsync();
     }
 }
