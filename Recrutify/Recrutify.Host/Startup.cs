@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Repositories;
+using Recrutify.DataAccess.Repositories.Abstract;
+using Recrutify.Host.Configuration;
 
 namespace Recrutify.Host
 {
@@ -22,7 +25,9 @@ namespace Recrutify.Host
         {
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
-
+            services.AddSingleton<ICourseRepository, CourseRepository>();
+            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            services.AddSingleton(mapper);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,7 +41,6 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
             }
 
             app.UseHttpsRedirection();
