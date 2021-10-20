@@ -9,9 +9,13 @@ namespace Recrutify.Host.Configuration
         public static MapperConfiguration GetConfiguration()
         {
             var configExpression = new MapperConfigurationExpression();
+
             configExpression.AddProfile<CourseProfile>();
 
-            return new MapperConfiguration(configExpression);
+            var config = new MapperConfiguration(configExpression);
+            config.AssertConfigurationIsValid();
+
+            return config;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Recrutify.Services.Servises
             _mapper = mapper;
         }
 
-        public async Task Creat(CourseDto courseDto)
+        public async Task CreatAsynk(CourseDto courseDto)
         {
             var course = _mapper.Map<Course>(courseDto);
             await _courseRepository.CreateAsync(course);

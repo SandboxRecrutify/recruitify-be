@@ -23,3 +23,6 @@ dotnet_diagnostic.SA0001.severity = none
 
 # S1118: Utility classes should not have public constructors
 dotnet_diagnostic.S1118.severity = none
+
+# CS0618: Type or member is obsolete
+dotnet_diagnostic.CS0618.severity = none

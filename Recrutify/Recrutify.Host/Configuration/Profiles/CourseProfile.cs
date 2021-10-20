@@ -7,7 +7,8 @@ namespace Recrutify.Host.Configuration.Profiles
     {
         public CourseProfile()
         {
-            CreateMap<Course, CourseDto>();
+            CreateMap<Course, CourseDto>()
+                .ReverseMap();
         }
     }
 }

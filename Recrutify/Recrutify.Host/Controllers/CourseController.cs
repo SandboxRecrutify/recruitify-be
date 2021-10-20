@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.DataAccess;
-using Recrutify.Host.Configuration.Profiles;
 using Recrutify.Services.Dtos;
 using Recrutify.Services.Servises.Abstract;
 
@@ -19,16 +19,17 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Course>> Index()
+        public async Task<ActionResult<List<Course>>> GetAsync()
         {
-            return Ok(_courseService.GetAllAsync());
+            var result = await _courseService.GetAllAsync();
+            return Ok(result);
         }
 
         [HttpPost]
-        public IActionResult AddCourse(CourseDto courseDto)
+        public async Task<ActionResult> AddCourse(CourseDto courseDto)
         {
-            _courseService.Creat(courseDto);
-            return CreatedAtRoute("Get", new { id = courseDto.Id }, courseDto);
+            await _courseService.CreatAsynk(courseDto);
+            return Created(string.Empty, courseDto);
         }
     }
 }

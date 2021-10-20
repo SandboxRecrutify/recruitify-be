@@ -9,5 +9,7 @@ namespace Recrutify.DataAccess.Models
         public int Rating { get; set; }
 
         public Guid UserID { get; set; }
+
+        public FeedbackType Type { get; set; }
     }
 }

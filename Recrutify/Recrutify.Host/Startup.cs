@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
@@ -25,6 +27,7 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
             services.AddSingleton<ICourseRepository, CourseRepository>();
@@ -32,6 +35,7 @@ namespace Recrutify.Host
             var mapper = MapperConfig.GetConfiguration().CreateMapper();
             services.AddSingleton(mapper);
             services.AddControllers();
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
