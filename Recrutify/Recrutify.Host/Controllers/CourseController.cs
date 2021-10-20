@@ -19,17 +19,17 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Course>>> GetAsync()
+        public async Task<ActionResult<List<Project>>> GetAsync()
         {
             var result = await _courseService.GetAllAsync();
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCourse(CourseDto courseDto)
+        public async Task<ActionResult> AddCourse(CreateCourseDto courseDto)
         {
-            await _courseService.CreatAsync(courseDto);
-            return Created(string.Empty, courseDto);
+            var result = await _courseService.CreateAsync(courseDto);
+            return Created(string.Empty, result);
         }
     }
 }

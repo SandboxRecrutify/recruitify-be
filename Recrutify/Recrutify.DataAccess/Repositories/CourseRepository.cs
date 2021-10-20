@@ -4,7 +4,7 @@ using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.DataAccess.Repositories
 {
-    public class CourseRepository : BaseRepository<Course>, ICourseRepository
+    public class CourseRepository : BaseRepository<Project>, ICourseRepository
     {
         public CourseRepository(IOptions<MongoSettings> options)
             : base(options)

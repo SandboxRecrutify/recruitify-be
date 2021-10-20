@@ -1,4 +1,5 @@
-﻿using Recrutify.DataAccess;
+﻿using System;
+using Recrutify.DataAccess;
 using Recrutify.Services.Dtos;
 
 namespace Recrutify.Host.Configuration.Profiles
@@ -7,8 +8,9 @@ namespace Recrutify.Host.Configuration.Profiles
     {
         public CourseProfile()
         {
-            CreateMap<Course, CourseDto>()
-                .ReverseMap();
+            CreateMap<CreateCourseDto, Project>()
+                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
+            CreateMap<Project, CourseDto>();
         }
     }
 }
