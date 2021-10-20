@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
@@ -27,13 +30,16 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            MongoDefaults.GuidRepresentation = MongoDB.Bson.GuidRepresentation.Standard;
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
             services.AddSingleton<ICourseRepository, CourseRepository>();
             services.AddSingleton<ICourseService, CourseService>();
+
             var mapper = MapperConfig.GetConfiguration().CreateMapper();
             services.AddSingleton(mapper);
+
             services.AddControllers();
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>

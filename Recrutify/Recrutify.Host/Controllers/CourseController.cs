@@ -28,7 +28,7 @@ namespace Recrutify.Host.Controllers
         [HttpPost]
         public async Task<ActionResult> AddCourse(CourseDto courseDto)
         {
-            await _courseService.CreatAsynk(courseDto);
+            await _courseService.CreatAsync(courseDto);
             return Created(string.Empty, courseDto);
         }
     }

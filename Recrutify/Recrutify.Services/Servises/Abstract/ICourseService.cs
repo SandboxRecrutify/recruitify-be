@@ -6,7 +6,7 @@ namespace Recrutify.Services.Servises.Abstract
 {
     public interface ICourseService
     {
-        public Task CreatAsynk(CourseDto courseDto);
+        public Task CreatAsync(CourseDto courseDto);
 
         public Task<List<CourseDto>> GetAllAsync();
     }
