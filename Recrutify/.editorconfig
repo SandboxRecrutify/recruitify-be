@@ -23,4 +23,3 @@ dotnet_diagnostic.SA0001.severity = none
 
 # S1118: Utility classes should not have public constructors
 dotnet_diagnostic.S1118.severity = none
-
