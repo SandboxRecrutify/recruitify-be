@@ -23,3 +23,6 @@ dotnet_diagnostic.SA0001.severity = none
 
 # S1118: Utility classes should not have public constructors
 dotnet_diagnostic.S1118.severity = none
+
+# S101: Types should be named in PascalCase
+dotnet_diagnostic.S101.severity = none

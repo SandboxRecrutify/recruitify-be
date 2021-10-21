@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
-namespace Recrutify.DataAccess
+namespace Recrutify.Services.Dtos
 {
-    public class Course : IDataModel
+    public class ProjectCreateDTO
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public DateTime StartDate { get; set; }
