@@ -34,8 +34,8 @@ namespace Recrutify.Host
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
-            services.AddSingleton<ICourseRepository, CourseRepository>();
-            services.AddSingleton<ICourseService, CourseService>();
+            services.AddSingleton<IProjectRepository, ProjectRepository>();
+            services.AddSingleton<IProjectService, ProjectService>();
 
             var mapper = MapperConfig.GetConfiguration().CreateMapper();
             services.AddSingleton(mapper);

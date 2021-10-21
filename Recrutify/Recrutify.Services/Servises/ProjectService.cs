@@ -8,29 +8,29 @@ using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Services.Servises
 {
-    public class CourseService : ICourseService
+    public class ProjectService : IProjectService
     {
-        private readonly ICourseRepository _courseRepository;
+        private readonly IProjectRepository _courseRepository;
         private readonly IMapper _mapper;
 
-        public CourseService(ICourseRepository courseRepository, IMapper mapper)
+        public ProjectService(IProjectRepository courseRepository, IMapper mapper)
         {
             _courseRepository = courseRepository;
             _mapper = mapper;
         }
 
-        public async Task<CourseDto> CreateAsync(CreateCourseDto courseDto)
+        public async Task<ProjectDto> CreateAsync(ProjectCreateDto courseDto)
         {
             var course = _mapper.Map<Project>(courseDto);
             await _courseRepository.CreateAsync(course);
 
-            return _mapper.Map<CourseDto>(course);
+            return _mapper.Map<ProjectDto>(course);
         }
 
-        public async Task<List<CourseDto>> GetAllAsync()
+        public async Task<List<ProjectDto>> GetAllAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
-            return _mapper.Map<List<CourseDto>>(courses);
+            return _mapper.Map<List<ProjectDto>>(courses);
         }
     }
 }

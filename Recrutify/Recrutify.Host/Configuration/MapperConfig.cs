@@ -10,7 +10,7 @@ namespace Recrutify.Host.Configuration
         {
             var configExpression = new MapperConfigurationExpression();
 
-            configExpression.AddProfile<CourseProfile>();
+            configExpression.AddProfile<ProjectProfile>();
 
             var config = new MapperConfiguration(configExpression);
             config.AssertConfigurationIsValid();

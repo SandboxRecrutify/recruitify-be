@@ -4,13 +4,13 @@ using Recrutify.Services.Dtos;
 
 namespace Recrutify.Host.Configuration.Profiles
 {
-    public class CourseProfile : AutoMapper.Profile
+    public class ProjectProfile : AutoMapper.Profile
     {
-        public CourseProfile()
+        public ProjectProfile()
         {
-            CreateMap<CreateCourseDto, Project>()
+            CreateMap<ProjectCreateDto, Project>()
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
-            CreateMap<Project, CourseDto>();
+            CreateMap<Project, ProjectDto>();
         }
     }
 }

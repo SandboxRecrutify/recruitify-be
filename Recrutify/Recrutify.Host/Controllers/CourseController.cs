@@ -11,9 +11,9 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly ICourseService _courseService;
+        private readonly IProjectService _courseService;
 
-        public CourseController(ICourseService courseService)
+        public CourseController(IProjectService courseService)
         {
             _courseService = courseService;
         }
@@ -26,7 +26,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddCourse(CreateCourseDto courseDto)
+        public async Task<ActionResult> AddCourse(ProjectCreateDto courseDto)
         {
             var result = await _courseService.CreateAsync(courseDto);
             return Created(string.Empty, result);

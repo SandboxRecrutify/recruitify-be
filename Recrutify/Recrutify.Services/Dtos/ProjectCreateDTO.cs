@@ -4,7 +4,7 @@ using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.Dtos
 {
-    public class CreateCourseDto
+    public class ProjectCreateDto
     {
         public string Name { get; set; }
 

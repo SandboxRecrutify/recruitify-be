@@ -4,10 +4,10 @@ using Recrutify.Services.Dtos;
 
 namespace Recrutify.Services.Servises.Abstract
 {
-    public interface ICourseService
+    public interface IProjectService
     {
-        public Task<CourseDto> CreateAsync(CreateCourseDto courseDto);
+        public Task<ProjectDto> CreateAsync(ProjectCreateDto courseDto);
 
-        public Task<List<CourseDto>> GetAllAsync();
+        public Task<List<ProjectDto>> GetAllAsync();
     }
 }
