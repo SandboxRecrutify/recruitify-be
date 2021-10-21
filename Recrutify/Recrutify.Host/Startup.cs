@@ -2,10 +2,21 @@ using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Repositories;
+using Recrutify.DataAccess.Repositories.Abstract;
+using Recrutify.Host.Configuration;
+using Recrutify.Services.Servises;
+using Recrutify.Services.Servises.Abstract;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.ISRecrutify.Setting;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -27,7 +38,15 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var mongoDbSettings = Configuration.GetSection(nameof(MongoDbConfig)).Get<MongoDbConfig>();           
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+            services.Configure<MongoSettings>(
+                Configuration.GetSection(nameof(MongoSettings)));
+            services.AddSingleton<IProjectRepository, ProjectRepository>();
+            services.AddSingleton<IProjectService, ProjectService>();
+
+            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddIdentityServer()
                  .AddDeveloperSigningCredential()
@@ -50,6 +69,7 @@ namespace Recrutify.Host
                 options.RequireHttpsMetadata = false;
             });
             services.AddControllers();
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
@@ -96,6 +116,8 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();                             
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recrutify.Host v1"));
             }
             
             app.UseStaticFiles();
@@ -117,37 +139,16 @@ namespace Recrutify.Host
             
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });           
-        }
-    }
-    public class AuthorizeCheckOperationFilter : IOperationFilter
-    {
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
-
-            var isAuthorized = context.MethodInfo.DeclaringType.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any() ||
-                              context.MethodInfo.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any();
-
-
-            if (!isAuthorized) return;
-
-            operation.Responses.TryAdd("401", new OpenApiResponse { Description = "Unauthorized" });
-            operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
-
-
-            var oauth2SecurityScheme = new OpenApiSecurityScheme()
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" },
-            };
-
-            operation.Security.Add(new OpenApiSecurityRequirement()
-            {
-                [oauth2SecurityScheme] = new[] { "recruitify_api" } 
-
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
+                c.RoutePrefix = string.Empty;
+            });
+                endpoints.MapControllers();
+            });
         }
     }
 }

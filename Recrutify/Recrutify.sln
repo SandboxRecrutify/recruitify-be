@@ -3,13 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recrutify.DataAccess", "Recrutify.DataAccess\Recrutify.DataAccess.csproj", "{B0D0708F-2659-4FD4-B7B7-37CA605AD413}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recrutify.DataAccess", "Recrutify.DataAccess\Recrutify.DataAccess.csproj", "{B0D0708F-2659-4FD4-B7B7-37CA605AD413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recrutify.Services", "Recrutify.Services\Recrutify.Services.csproj", "{356A3B91-1428-4258-97BD-DD9E112C7D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recrutify.Services", "Recrutify.Services\Recrutify.Services.csproj", "{356A3B91-1428-4258-97BD-DD9E112C7D95}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B0D0708F-2659-4FD4-B7B7-37CA605AD413} = {B0D0708F-2659-4FD4-B7B7-37CA605AD413}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recrutify.Host", "Recrutify.Host\Recrutify.Host.csproj", "{3A0BDCE2-53DB-41D5-92D3-E4E62D2156FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recrutify.Host", "Recrutify.Host\Recrutify.Host.csproj", "{3A0BDCE2-53DB-41D5-92D3-E4E62D2156FF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B0D0708F-2659-4FD4-B7B7-37CA605AD413} = {B0D0708F-2659-4FD4-B7B7-37CA605AD413}
+		{356A3B91-1428-4258-97BD-DD9E112C7D95} = {356A3B91-1428-4258-97BD-DD9E112C7D95}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recrutify.Tests", "Recrutify.Tests\Recrutify.Tests.csproj", "{EE815CB3-09DF-4C43-9391-ED4EDC716D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recrutify.Tests", "Recrutify.Tests\Recrutify.Tests.csproj", "{EE815CB3-09DF-4C43-9391-ED4EDC716D95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F15B0D93-7854-4253-8A80-C13E9BD35A7B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
