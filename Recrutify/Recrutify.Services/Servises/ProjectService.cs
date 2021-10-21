@@ -19,18 +19,18 @@ namespace Recrutify.Services.Servises
             _mapper = mapper;
         }
 
-        public async Task<ProjectDto> CreateAsync(ProjectCreateDto courseDto)
+        public async Task<ProjectDTO> CreateAsync(ProjectCreateDTO courseDto)
         {
             var course = _mapper.Map<Project>(courseDto);
             await _courseRepository.CreateAsync(course);
 
-            return _mapper.Map<ProjectDto>(course);
+            return _mapper.Map<ProjectDTO>(course);
         }
 
-        public async Task<List<ProjectDto>> GetAllAsync()
+        public async Task<List<ProjectDTO>> GetAllAsync()
         {
             var courses = await _courseRepository.GetAllAsync();
-            return _mapper.Map<List<ProjectDto>>(courses);
+            return _mapper.Map<List<ProjectDTO>>(courses);
         }
     }
 }

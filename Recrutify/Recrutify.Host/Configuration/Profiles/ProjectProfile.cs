@@ -8,9 +8,9 @@ namespace Recrutify.Host.Configuration.Profiles
     {
         public ProjectProfile()
         {
-            CreateMap<ProjectCreateDto, Project>()
+            CreateMap<ProjectCreateDTO, Project>()
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
-            CreateMap<Project, ProjectDto>();
+            CreateMap<Project, ProjectDTO>();
         }
     }
 }

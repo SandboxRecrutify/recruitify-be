@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.Dtos
 {
-    public class ProjectDto : ProjectCreateDto
+    public class ProjectDTO : ProjectCreateDTO
     {
         public Guid Id { get; set; }
     }
