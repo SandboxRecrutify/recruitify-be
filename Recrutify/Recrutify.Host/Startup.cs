@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -9,12 +11,15 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.Dtos;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -37,10 +42,14 @@ namespace Recrutify.Host
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
 
-            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            var mapper = MapperConfig.GetConfiguration()
+                .CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation();
+            services.AddSingleton<IValidator<ProjectCreateDTO>, ProjectValidator>();
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
