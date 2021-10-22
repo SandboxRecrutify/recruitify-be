@@ -61,9 +61,9 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.Recruters)
                 .NotNull()
                 .NotEmpty()
-                .ChildRules(orders =>
+                .ChildRules(s =>
                 {
-                    orders.RuleFor(x => x.UserName)
+                    s.RuleFor(x => x.UserName)
                     .NotNull()
                     .NotEmpty();
                 });
