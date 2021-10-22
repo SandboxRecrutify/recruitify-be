@@ -31,6 +31,18 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
+            RuleForEach(p => p.Staff)
+                .NotNull()
+                .NotEmpty()
+                .ChildRules(orders =>
+                {
+                    orders.RuleFor(x => x.Name)
+                    .NotNull()
+                    .NotEmpty();
+                    orders.RuleFor(x => x.Role)
+                    .NotNull()
+                    .NotEmpty();
+                });
         }
     }
 }
