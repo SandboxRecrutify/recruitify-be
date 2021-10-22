@@ -26,7 +26,7 @@ namespace Recrutify.DataAccess
 
         public List<Staff> Interviewers { get; set; }
 
-        public List<Staff> Recruters { get; set; }
+        public List<Staff> Recruiters { get; set; }
 
         public List<Staff> Mentors { get; set; }
 

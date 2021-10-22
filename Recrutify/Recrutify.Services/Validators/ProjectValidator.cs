@@ -31,44 +31,29 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
+            RuleFor(p => p.Mentors)
+                 .NotNull()
+                 .NotEmpty();
             RuleForEach(p => p.Mentors)
                 .NotNull()
-                .NotEmpty()
-                .ChildRules(orders =>
-                {
-                    orders.RuleFor(x => x.UserName)
-                    .NotNull()
-                    .NotEmpty();
-                });
+                .NotEmpty();
+            RuleFor(p => p.Managers)
+                 .NotNull()
+                 .NotEmpty();
             RuleForEach(p => p.Managers)
-                .NotNull()
-                .NotEmpty()
-                .ChildRules(orders =>
-                {
-                    orders.RuleFor(x => x.UserName)
-                    .NotNull()
-                    .NotEmpty();
-                });
+                .NotEmpty();
+            RuleFor(p => p.Interviewers)
+                 .NotNull()
+                 .NotEmpty();
             RuleForEach(p => p.Interviewers)
                 .NotNull()
-                .NotEmpty()
-                .ChildRules(orders =>
-                {
-                    orders.RuleFor(x => x.UserName)
-                    .NotNull()
-                    .NotEmpty();
-                });
-            RuleForEach(p => p.Recruters)
+                .NotEmpty();
+            RuleFor(p => p.Recruiters)
                 .NotNull()
-                .NotEmpty()
-                .ChildRules(s =>
-                {
-                    s.RuleFor(x => x.UserName)
-                    .NotNull()
-                    .NotEmpty();
-                });
-            RuleFor(p => p.IsRecommended)
-                .NotNull();
+                .NotEmpty();
+            RuleForEach(p => p.Recruiters)
+               .NotNull()
+               .NotEmpty();
         }
     }
 }

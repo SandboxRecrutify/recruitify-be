@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Recrutify.DataAccess.Models
+namespace Recrutify.Services.Dtos
 {
-    public class Staff
+    public class StaffDTO
     {
         public string UserName { get; set; }
 

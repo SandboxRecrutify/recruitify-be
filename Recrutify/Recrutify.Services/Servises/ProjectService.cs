@@ -10,27 +10,27 @@ namespace Recrutify.Services.Servises
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectRepository _courseRepository;
+        private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository courseRepository, IMapper mapper)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
         {
-            _courseRepository = courseRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
         }
 
-        public async Task<ProjectDTO> CreateAsync(ProjectCreateDTO courseDto)
+        public async Task<ProjectDTO> CreateAsync(ProjectCreateDTO projectDto)
         {
-            var course = _mapper.Map<Project>(courseDto);
-            await _courseRepository.CreateAsync(course);
+            var project = _mapper.Map<Project>(projectDto);
+            await _projectRepository.CreateAsync(project);
 
-            return _mapper.Map<ProjectDTO>(course);
+            return _mapper.Map<ProjectDTO>(project);
         }
 
         public async Task<List<ProjectDTO>> GetAllAsync()
         {
-            var courses = await _courseRepository.GetAllAsync();
-            return _mapper.Map<List<ProjectDTO>>(courses);
+            var project = await _projectRepository.GetAllAsync();
+            return _mapper.Map<List<ProjectDTO>>(project);
         }
     }
 }

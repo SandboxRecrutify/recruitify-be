@@ -26,3 +26,6 @@ dotnet_diagnostic.S1118.severity = none
 
 # S101: Types should be named in PascalCase
 dotnet_diagnostic.S101.severity = none
+
+# SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = none
