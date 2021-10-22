@@ -21,5 +21,15 @@ namespace Recrutify.DataAccess
         public string Description { get; set; }
 
         public List<PrimarySkill> PrimarySkills { get; set; }
+
+        public List<Staff> Managers { get; set; }
+
+        public List<Staff> Interviewers { get; set; }
+
+        public List<Staff> Recruiters { get; set; }
+
+        public List<Staff> Mentors { get; set; }
+
+        public bool IsRecommended { get; set; }
     }
 }

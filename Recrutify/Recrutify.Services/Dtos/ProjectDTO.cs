@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Recrutify.Services.Dtos
+namespace Recrutify.Services.DTOs
 {
     public class ProjectDTO : ProjectCreateDTO
     {

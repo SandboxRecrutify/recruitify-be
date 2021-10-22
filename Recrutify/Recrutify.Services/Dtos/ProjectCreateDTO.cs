@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
-namespace Recrutify.Services.Dtos
+namespace Recrutify.Services.DTOs
 {
     public class ProjectCreateDTO
     {
@@ -18,6 +18,16 @@ namespace Recrutify.Services.Dtos
 
         public string Description { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<PrimarySkillDTO> PrimarySkills { get; set; }
+
+        public List<StaffDTO> Managers { get; set; }
+
+        public List<StaffDTO> Interviewers { get; set; }
+
+        public List<StaffDTO> Recruiters { get; set; }
+
+        public List<StaffDTO> Mentors { get; set; }
+
+        public bool IsRecommended { get; set; }
     }
 }

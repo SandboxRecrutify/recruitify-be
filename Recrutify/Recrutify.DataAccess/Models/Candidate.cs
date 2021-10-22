@@ -30,7 +30,7 @@ namespace Recrutify.DataAccess
 
         public bool GoingToExadel { get; set; }
 
-        public List<CourseResult> CoursesResults { get; set; }
+        public List<ProjectResult> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 

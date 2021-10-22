@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentValidation;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
@@ -31,6 +31,30 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
+            RuleFor(p => p.Mentors)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Mentors)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Managers)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Managers)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Interviewers)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Interviewers)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Recruiters)
+                .NotNull()
+                .NotEmpty();
+            RuleForEach(p => p.Recruiters)
+               .NotNull()
+               .NotEmpty();
         }
     }
 }
