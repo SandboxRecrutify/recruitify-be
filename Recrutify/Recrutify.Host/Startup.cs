@@ -16,9 +16,10 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.Dtos;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
-using Recrutify.Services.Validators.Filters;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -41,18 +42,18 @@ namespace Recrutify.Host
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
 
-            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            var mapper = MapperConfig.GetConfiguration()
+                .CreateMapper();
             services.AddSingleton(mapper);
 
-            services
-                .AddControllers(options =>
+            services.AddControllers()
+                .AddFluentValidation(s =>
                 {
-                options.Filters.Add<ValidationFilter>();
-                })
-                .AddFluentValidation(fv =>
-                {
-                    fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    s.RegisterValidatorsFromAssemblyContaining<Startup>();
+                    s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
                 });
+            services.AddSingleton<IValidator<ProjectCreateDTO>, ProjectValidator>();
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
