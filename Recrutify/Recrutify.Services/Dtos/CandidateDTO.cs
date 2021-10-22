@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recrutify.Services.Services.Abstract
+namespace Recrutify.Services.Dtos
 {
-    interface ICandidateService
+    class CandidateDTO : CandidateCreateDTO
     {
-        Task 
+        public Guid Id { get; set; }
     }
 }
