@@ -11,24 +11,24 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IProjectService _courseService;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService courseService)
+        public ProjectController(IProjectService projectService)
         {
-            _courseService = courseService;
+            _projectService = projectService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
-            var result = await _courseService.GetAllAsync();
+            var result = await _projectService.GetAllAsync();
             return Ok(result);
         }
 
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddCourse(ProjectCreateDTO courseDto)
         {
-            var result = await _courseService.CreateAsync(courseDto);
+            var result = await _projectService.CreateAsync(courseDto);
             return Created(string.Empty, result);
         }
     }
