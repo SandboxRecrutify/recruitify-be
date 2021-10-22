@@ -10,9 +10,11 @@ namespace Recrutify.Services.Validators
         {
             RuleFor(p => p.Name)
                 .NotNull()
+                .MaximumLength(128)
                 .NotEmpty();
             RuleFor(p => p.Description)
                 .NotNull()
+                .MaximumLength(500)
                 .NotEmpty();
             RuleFor(p => p.StartDate)
                 .NotNull()
