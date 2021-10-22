@@ -13,18 +13,22 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(p => p.Description)
                 .NotNull()
-                .NotEmpty()
-                .WithMessage("Please describe the description");
+                .NotEmpty();
             RuleFor(p => p.StartDate)
-                .GreaterThanOrEqualTo(DateTime.Today)
-                .WithMessage("Date must be in the future");
-            RuleFor(p => p.EndDate).NotNull();
-            RuleFor(p => p.CurrentApplicationsCount).NotEmpty();
-            RuleFor(p => p.PlannedApplicationsCount).NotEmpty();
+                .NotNull()
+                .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
+                .WithMessage("Date must be in the today or future!");
+            RuleFor(p => p.EndDate)
+                .NotNull()
+                .GreaterThan(p => p.StartDate)
+                .WithMessage("The date must be greater than the start date!");
+            RuleFor(p => p.CurrentApplicationsCount)
+                .NotEmpty();
+            RuleFor(p => p.PlannedApplicationsCount)
+                .NotEmpty();
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
-                .NotEmpty()
-                .WithMessage("Values in the {PrimarySkills} can't be empty");
+                .NotEmpty();
         }
     }
 }

@@ -47,11 +47,7 @@ namespace Recrutify.Host
             services.AddSingleton(mapper);
 
             services.AddControllers()
-                .AddFluentValidation(s =>
-                {
-                    s.RegisterValidatorsFromAssemblyContaining<Startup>();
-                    s.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                });
+                .AddFluentValidation();
             services.AddSingleton<IValidator<ProjectCreateDTO>, ProjectValidator>();
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
