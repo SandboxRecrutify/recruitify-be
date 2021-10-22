@@ -29,8 +29,8 @@ namespace Recrutify.Services.Servises
 
         public async Task<List<ProjectDTO>> GetAllAsync()
         {
-            var project = await _projectRepository.GetAllAsync();
-            return _mapper.Map<List<ProjectDTO>>(project);
+            var projects = await _projectRepository.GetAllAsync();
+            return _mapper.Map<List<ProjectDTO>>(projects);
         }
     }
 }

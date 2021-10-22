@@ -10,9 +10,8 @@ namespace Recrutify.Host.Configuration.Profiles
         public ProjectProfile()
         {
             CreateMap<ProjectCreateDTO, Project>()
-                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()))
-                .ReverseMap();
-            CreateMap<Project, ProjectDTO>().ReverseMap();
+                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
+            CreateMap<Project, ProjectDTO>();
             CreateMap<StaffDTO, Staff>().ReverseMap();
             CreateMap<PrimarySkillDTO, PrimarySkill>().ReverseMap();
         }
