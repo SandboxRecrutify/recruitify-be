@@ -36,7 +36,7 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .ChildRules(orders =>
                 {
-                    orders.RuleFor(x => x.Name)
+                    orders.RuleFor(x => x.UserName)
                     .NotNull()
                     .NotEmpty();
                 });
@@ -45,7 +45,7 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .ChildRules(orders =>
                 {
-                    orders.RuleFor(x => x.Name)
+                    orders.RuleFor(x => x.UserName)
                     .NotNull()
                     .NotEmpty();
                 });
@@ -54,7 +54,7 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .ChildRules(orders =>
                 {
-                    orders.RuleFor(x => x.Name)
+                    orders.RuleFor(x => x.UserName)
                     .NotNull()
                     .NotEmpty();
                 });
@@ -63,7 +63,7 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .ChildRules(orders =>
                 {
-                    orders.RuleFor(x => x.Name)
+                    orders.RuleFor(x => x.UserName)
                     .NotNull()
                     .NotEmpty();
                 });

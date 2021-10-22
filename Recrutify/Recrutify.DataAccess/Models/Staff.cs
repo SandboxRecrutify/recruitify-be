@@ -8,7 +8,7 @@ namespace Recrutify.DataAccess.Models
 {
     public class Staff
     {
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         public Guid UserId { get; set; }
     }
