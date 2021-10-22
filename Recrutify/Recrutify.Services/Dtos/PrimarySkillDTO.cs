@@ -1,4 +1,4 @@
-﻿namespace Recrutify.Services.Dtos
+﻿namespace Recrutify.Services.DTOs
 {
     public enum PrimarySkillDTO
     {

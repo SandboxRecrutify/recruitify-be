@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
-namespace Recrutify.Services.Dtos
+namespace Recrutify.Services.DTOs
 {
     public class ProjectCreateDTO
     {

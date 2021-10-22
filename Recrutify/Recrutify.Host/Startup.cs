@@ -16,7 +16,7 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
 using Recrutify.Services.Validators;

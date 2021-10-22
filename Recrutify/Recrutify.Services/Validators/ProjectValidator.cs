@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentValidation;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
