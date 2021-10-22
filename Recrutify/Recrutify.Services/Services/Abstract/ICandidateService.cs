@@ -8,5 +8,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     interface ICandidateService
     {
+
     }
 }

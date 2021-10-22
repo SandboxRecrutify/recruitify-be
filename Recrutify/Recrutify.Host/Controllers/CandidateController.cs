@@ -17,8 +17,6 @@ namespace Recrutify.Host.Controllers
         {
             _candidateService = candidateService;
         }
-
-
     }
 }
  

@@ -8,5 +8,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 {
     interface ICandidateRepository
     {
+        
     }
 }
