@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.Services.Abstract;
+using Recrutify.DataAccess;
+using Recrutify.Services.Dtos;
 
 namespace Recrutify.Host.Controllers
 {
@@ -16,6 +18,13 @@ namespace Recrutify.Host.Controllers
         public CandidateController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
+        {
+            var result = await _candidateService.GetAllAsync();
+            return Ok(result);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     interface ICandidateService
     {
-        Task 
+        Task<List<CandidateDTO>> GetAllAsync();
     }
 }
