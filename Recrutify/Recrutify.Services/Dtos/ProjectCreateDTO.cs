@@ -18,7 +18,7 @@ namespace Recrutify.Services.DTOs
 
         public string Description { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<PrimarySkillDTO> PrimarySkills { get; set; }
 
         public List<StaffDTO> Managers { get; set; }
 

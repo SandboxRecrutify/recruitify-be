@@ -41,6 +41,7 @@ namespace Recrutify.Services.Validators
                  .NotNull()
                  .NotEmpty();
             RuleForEach(p => p.Managers)
+                .NotNull()
                 .NotEmpty();
             RuleFor(p => p.Interviewers)
                  .NotNull()
