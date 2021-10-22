@@ -20,7 +20,13 @@ namespace Recrutify.Services.Dtos
 
         public List<PrimarySkill> PrimarySkills { get; set; }
 
-        public List<Staff> Staff { get; set; }
+        public List<Staff> Managers { get; set; }
+
+        public List<Staff> Interviewers { get; set; }
+
+        public List<Staff> Recruters { get; set; }
+
+        public List<Staff> Mentors { get; set; }
 
         public bool IsRecommended { get; set; }
     }

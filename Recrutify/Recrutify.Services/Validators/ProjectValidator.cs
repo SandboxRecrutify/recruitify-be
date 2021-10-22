@@ -31,7 +31,7 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
-            RuleForEach(p => p.Staff)
+            RuleForEach(p => p.Mentors)
                 .NotNull()
                 .NotEmpty()
                 .ChildRules(orders =>
@@ -39,10 +39,36 @@ namespace Recrutify.Services.Validators
                     orders.RuleFor(x => x.Name)
                     .NotNull()
                     .NotEmpty();
-                    orders.RuleFor(x => x.Role)
+                });
+            RuleForEach(p => p.Managers)
+                .NotNull()
+                .NotEmpty()
+                .ChildRules(orders =>
+                {
+                    orders.RuleFor(x => x.Name)
                     .NotNull()
                     .NotEmpty();
                 });
+            RuleForEach(p => p.Interviewers)
+                .NotNull()
+                .NotEmpty()
+                .ChildRules(orders =>
+                {
+                    orders.RuleFor(x => x.Name)
+                    .NotNull()
+                    .NotEmpty();
+                });
+            RuleForEach(p => p.Recruters)
+                .NotNull()
+                .NotEmpty()
+                .ChildRules(orders =>
+                {
+                    orders.RuleFor(x => x.Name)
+                    .NotNull()
+                    .NotEmpty();
+                });
+            RuleFor(p => p.IsRecommended)
+                .NotNull();
         }
     }
 }
