@@ -48,7 +48,7 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
-            services.AddSingleton<IValidator<ProjectCreateDTO>, ProjectValidator>();
+            services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>

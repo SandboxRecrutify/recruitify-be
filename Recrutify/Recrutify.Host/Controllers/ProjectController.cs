@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Servises.Abstract;
 
@@ -26,10 +25,24 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectDTO>> AddCourse(ProjectCreateDTO courseDto)
+        public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
-            var result = await _projectService.CreateAsync(courseDto);
+            var result = await _projectService.CreateAsync(projectDto);
             return Created(string.Empty, result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
+        {
+            var result = await _projectService.UpdateAsync(courseDto);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync(ProjectDTO projectDto)
+        {
+            var result = await _projectService.RemoveAsync(projectDto);
+            return Ok(result);
         }
     }
 }

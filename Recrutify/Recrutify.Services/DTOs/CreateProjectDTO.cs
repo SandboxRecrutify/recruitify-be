@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.DTOs
 {
-    public class ProjectCreateDTO
+    public class CreateProjectDTO
     {
         public string Name { get; set; }
 
@@ -27,7 +26,5 @@ namespace Recrutify.Services.DTOs
         public List<StaffDTO> Recruiters { get; set; }
 
         public List<StaffDTO> Mentors { get; set; }
-
-        public bool IsRecommended { get; set; }
     }
 }

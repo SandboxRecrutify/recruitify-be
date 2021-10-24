@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Repositories.Abstract
@@ -7,6 +8,12 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task CreateAsync(TDocument item);
 
+        Task<TDocument> GetAsync(Guid id);
+
         Task<List<TDocument>> GetAllAsync();
+
+        Task UpdateAsync(TDocument item);
+
+        Task RemoveAsync(TDocument item);
     }
 }
