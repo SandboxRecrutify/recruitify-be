@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Recrutify.Services\Recrutify.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="JavaScripts\UploadDataToDB.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

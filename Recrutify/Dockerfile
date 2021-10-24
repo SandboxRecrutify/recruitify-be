@@ -1,4 +1,6 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+#FROM mongo:latest AS dataBase
+#COPY UploadDataToDB.js /scripts/UploadDataToDB.js
+#CMD bash -c "mongo mongodb+srv://BestTeam2:123qwerty@recruitifyproject.epdnl.mongodb.net/puired /scripts/UploadDataToDB.js"
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
@@ -22,4 +24,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
+
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet Recrutify.Host.dll
+
