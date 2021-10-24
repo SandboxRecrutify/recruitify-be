@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="JavaScripts\UploadDataToDB.js">
+    <None Update="DBScripts\db_init_projects_collections.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

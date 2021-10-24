@@ -1,7 +1,3 @@
-#FROM mongo:latest AS dataBase
-#COPY UploadDataToDB.js /scripts/UploadDataToDB.js
-#CMD bash -c "mongo mongodb+srv://BestTeam2:123qwerty@recruitifyproject.epdnl.mongodb.net/puired /scripts/UploadDataToDB.js"
-
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -23,7 +19,6 @@ RUN dotnet publish "Recrutify.Host.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
 
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet Recrutify.Host.dll
 
