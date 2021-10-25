@@ -51,11 +51,5 @@ namespace Recrutify.Services.Servises
         {
             await _projectRepository.RemoveIDAsync(id);
         }
-
-        public async Task<ProjectDTO> GetIDAsync(Guid id)
-        {
-            var project = await _projectRepository.GetAsync(id);
-            return _mapper.Map<ProjectDTO>(project);
-        }
     }
 }

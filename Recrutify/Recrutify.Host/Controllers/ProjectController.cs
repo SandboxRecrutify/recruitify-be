@@ -48,7 +48,7 @@ namespace Recrutify.Host.Controllers
         [HttpGet("id")]
         public async Task<ActionResult<ProjectDTO>> GetIDAsync(Guid id)
         {
-            var result = await _projectService.GetIDAsync(id);
+            var result = await _projectService.GetAsync(id);
             return Ok(result);
         }
     }
