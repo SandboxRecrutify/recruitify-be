@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class User
+    public class User : IDataModel
     {
         public Guid Id { get; set; }
 

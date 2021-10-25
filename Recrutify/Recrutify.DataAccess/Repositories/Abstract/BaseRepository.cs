@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -12,11 +13,12 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         : IBaseRepository<TDocument>
         where TDocument : IDataModel
     {
+        protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
         private readonly IMongoDatabase _database;
-        private readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
             var client = new MongoClient(options.Value.ConnectionString);
             _database = client.GetDatabase(new MongoUrlBuilder(options.Value.ConnectionString).DatabaseName);
             _filterBuilder = Builders<TDocument>.Filter;
@@ -31,6 +33,12 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         {
             var filter = _filterBuilder.Empty;
             return GetCollection().Find(filter).ToListAsync();
+        }
+
+        public Task<TDocument> GetByIdAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(u => u.Id, id);
+            return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task<TDocument> GetAsync(Guid id)
@@ -51,7 +59,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             await GetCollection().DeleteOneAsync(filter);
         }
 
-        private IMongoCollection<TDocument> GetCollection()
+        protected IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
