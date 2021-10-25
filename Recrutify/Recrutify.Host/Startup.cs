@@ -1,5 +1,6 @@
+using System;
+using System.Collections.Generic;
 using IdentityServer4.AccessTokenValidation;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -10,19 +11,14 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
-using Recrutify.Services.Servises;
-using Recrutify.Services.Servises.Abstract;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.ISRecrutify.Setting;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Recrutify.Services.Servises;
+using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Host
 {
@@ -30,7 +26,7 @@ namespace Recrutify.Host
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;          
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -42,6 +38,7 @@ namespace Recrutify.Host
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
 
@@ -63,7 +60,7 @@ namespace Recrutify.Host
                 options.DefaultAuthenticateScheme = IdentityServerAuthenticationDefaults.AuthenticationScheme;
             })
             .AddIdentityServerAuthentication(options =>
-            {               
+            {
                 options.Authority = "https://localhost:5001";
                 options.ApiName = "recruitify_api";
                 options.RequireHttpsMetadata = false;
@@ -80,13 +77,13 @@ namespace Recrutify.Host
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri("https://localhost:5001/connect/token"),                            
+                            TokenUrl = new Uri("https://localhost:5001/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                { "recruitify_api", "Full Access to Recruitify Api" }                               
-                            }
-                        }
-                    }
+                                { "recruitify_api", "Full Access to Recruitify Api" },
+                            },
+                        },
+                    },
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
@@ -96,18 +93,18 @@ namespace Recrutify.Host
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "oauth2"
+                                Id = "oauth2",
                             },
                             Scheme = "oauth2",
                             Name = "Bearer",
-                            In = ParameterLocation.Header
+                            In = ParameterLocation.Header,
                         },
                         new List<string>()
-                    }
-                }) ; 
+                    },
+                });
                 services.AddAuthorization();
                 services.AddControllers();
-            });                     
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,38 +112,26 @@ namespace Recrutify.Host
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                             
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recrutify.Host v1"));
             }
-            
+
             app.UseStaticFiles();
             app.UseIdentityServer();
 
-            app.UseSwagger();   
+            app.UseSwagger();
             app.UseRouting();
-            
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
-                c.OAuthClientId("recruitify_api");                
+                c.OAuthClientId("recruitify_api");
                 c.OAuthAppName("Recruitify Api");
             });
-
-            
             app.UseAuthentication();
             app.UseAuthorization();
-            
-
             app.UseEndpoints(endpoints =>
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
-                c.RoutePrefix = string.Empty;
-            });
                 endpoints.MapControllers();
             });
         }

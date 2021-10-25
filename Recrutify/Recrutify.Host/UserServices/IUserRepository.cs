@@ -1,19 +1,14 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Recrutify.DataAccess.Models;
+using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User>
     {
-        bool ValidateCredentials(string login, string password);
-
-        User FindBySubjectId(string subjectId);
-
-        User FindByLogin(string login);
-       
+        Task<User> GetByEmailAsync(string email);
     }
 }

@@ -1,29 +1,40 @@
-﻿using IdentityModel;
-using IdentityServer4.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
+using IdentityModel;
+using IdentityServer4.Validation;
 
 namespace Recrutify.Host
 {
     public class CustomResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
         public CustomResourceOwnerPasswordValidator(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            _userRepository = userRepository;
         }
-        public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
+
+        public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            if (userRepository.ValidateCredentials(context.UserName, context.Password))
+            var user = await _userRepository.GetByEmailAsync(context.UserName);
+            if (user != null && GetHashSha256(context.Password) == user.Password)
             {
-                var user = userRepository.FindByLogin(context.UserName);
-                context.Result = new GrantValidationResult(user.Id, OidcConstants.AuthenticationMethods.Password);
+                context.Result = new GrantValidationResult(user.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
+            }
+        }
+
+        private static string GetHashSha256(string randomString)
+        {
+            var crypt = new SHA256Managed();
+            var hash = new StringBuilder();
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(randomString));
+            foreach (byte theByte in crypto)
+            {
+                hash.Append(theByte.ToString("x2"));
             }
 
-            return Task.FromResult(0);
+            return hash.ToString();
         }
     }
 }

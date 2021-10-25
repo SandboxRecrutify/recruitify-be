@@ -1,55 +1,26 @@
-﻿using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Models;
+using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        private readonly List<User> users = new List<User>
+        public UserRepository(IOptions<MongoSettings> options)
+           : base(options)
         {
-            new User
-            {
-                Id = "123",
-                UserName = "log@mail.ru",
-                Password = "1234",
-                Name = "Ilya",
-                Surname ="Hamich",
-                Salt = "adasdq",
-                Roles = new List<Role>{Role.Admin}
-            },
-            new User
-            {
-                Id = "124",
-                UserName = "log1@mail.ru",
-                Password = "qwer",
-                Name = "Vasya",
-                Surname ="Pupkin",
-                Salt = "adasdq",
-                Roles = new List<Role>{Role.Manager}
-            }
-        };
-        public User FindByLogin(string login)
-        {
-            return users.FirstOrDefault(x => x.UserName.Equals(login, StringComparison.OrdinalIgnoreCase));
         }
 
-        public User FindBySubjectId(string subjectId)
+        public Task<User> GetByEmailAsync(string email)
         {
-           return  users.FirstOrDefault(x => x.Id == subjectId);           
-        }
-
-        public bool ValidateCredentials(string login, string password)
-        {
-            var user = FindByLogin(login);
-            if (user != null)
-            {
-                return user.Password.Equals(password);
-            }
-
-            return false;
+            var filter = _filterBuilder.Eq(u => u.Login, email);
+            return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
     }
 }
