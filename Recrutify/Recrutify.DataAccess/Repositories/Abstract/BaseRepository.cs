@@ -45,15 +45,15 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().ReplaceOneAsync(filter, item);
         }
 
-        public async Task RemoveAsync(TDocument item)
+        public async Task RemoveIDAsync(Guid id)
         {
-            var filter = _filterBuilder.Eq(e => e.Id, item.Id);
+            var filter = _filterBuilder.Eq(e => e.Id, id);
             await GetCollection().DeleteOneAsync(filter);
         }
 
         private IMongoCollection<TDocument> GetCollection()
         {
-            return _database.GetCollection<TDocument>(nameof(TDocument));
+            return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
     }
 }

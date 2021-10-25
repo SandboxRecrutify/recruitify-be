@@ -47,10 +47,14 @@ namespace Recrutify.Services.Servises
             return _mapper.Map<ProjectDTO>(project);
         }
 
-        public async Task<ProjectDTO> RemoveAsync(ProjectDTO projectDto)
+        public async Task RemoveIDAsync(Guid id)
         {
-            var project = _mapper.Map<Project>(projectDto);
-            await _projectRepository.RemoveAsync(project);
+            await _projectRepository.RemoveIDAsync(id);
+        }
+
+        public async Task<ProjectDTO> GetIDAsync(Guid id)
+        {
+            var project = await _projectRepository.GetAsync(id);
             return _mapper.Map<ProjectDTO>(project);
         }
     }

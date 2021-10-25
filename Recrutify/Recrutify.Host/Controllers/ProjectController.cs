@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
@@ -38,10 +39,16 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(ProjectDTO projectDto)
+        [HttpDelete("id")]
+        public async Task RemoveIDAsync(Guid id)
         {
-            var result = await _projectService.RemoveAsync(projectDto);
+            await _projectService.RemoveIDAsync(id);
+        }
+
+        [HttpGet("id")]
+        public async Task<ActionResult<ProjectDTO>> GetIDAsync(Guid id)
+        {
+            var result = await _projectService.GetIDAsync(id);
             return Ok(result);
         }
     }
