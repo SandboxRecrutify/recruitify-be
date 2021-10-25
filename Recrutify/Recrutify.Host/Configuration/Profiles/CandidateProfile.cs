@@ -13,7 +13,7 @@ namespace Recrutify.Host.Configuration.Profiles
         {
             CreateMap<CandidateCreateDTO, CandidateDTO>()
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
-            CreateMap<CandidateDTO, Candidate>();
+            CreateMap<Candidate, CandidateDTO>();
         }
     }
 }

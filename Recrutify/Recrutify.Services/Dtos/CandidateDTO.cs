@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recrutify.Services.Dtos
 {
-    class CandidateDTO : CandidateCreateDTO
+    public class CandidateDTO : CandidateCreateDTO
     {
         public Guid Id { get; set; }
     }

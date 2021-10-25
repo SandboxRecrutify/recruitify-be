@@ -4,7 +4,7 @@ using Recrutify.DataAccess.Models;
 
 namespace Recrutify.DataAccess
 {
-    public class Candidate
+    public class Candidate : IDataModel
     {
         public Guid Id { get; set; }
 

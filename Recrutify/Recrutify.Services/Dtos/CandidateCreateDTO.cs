@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.Dtos
 {
-    class CandidateCreateDTO
+    public class CandidateCreateDTO
     {
         public string Name { get; set; }
 
