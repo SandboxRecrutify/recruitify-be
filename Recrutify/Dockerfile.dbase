@@ -1,8 +1,5 @@
 FROM mongo:latest
-COPY Recrutify.Host\DBScripts\users_collection.js users_collection.js
-COPY Recrutify.Host\DBScripts\projects_collections.js projects_collections.js
-COPY Recrutify.Host\DBScripts\candidates_collection.js candidates_collection.js
-COPY Recrutify.Host\DBScripts\main_upload_script.js main_upload_script.js
+COPY Recrutify.Host\DBScripts\*.js .
 
-CMD bash -c "mongo mongodb+srv://BestTeam2:123qwerty@recruitifyproject.epdnl.mongodb.net/RecruitifyTest main_upload_script.js"
+CMD bash -c "mongo ${DbConnectionStringTest} main_upload_script.js"
 

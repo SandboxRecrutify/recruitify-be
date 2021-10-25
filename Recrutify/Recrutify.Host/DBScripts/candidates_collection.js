@@ -2,7 +2,7 @@
         {
             "_id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
             "AdditionalInfo": "I can only do an internship in the evening",
-            "BestTimeToConnect": "14-16",
+            "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(20)],
             "Certificates": "",
             "Contacts": [
                 {
@@ -11,7 +11,7 @@
                 },
                 {
                     "Type": "Instagram",
-                    "Value": "@Gigbaby"
+                    "Value": "@bigbaby"
                 }
             ],
             "ProjectResults": [
@@ -46,8 +46,8 @@
                     "Status": NumberInt(1)
                 }
             ],
-            "CurrentJob": "ЗАО \"Альфа\"",
-            "Email": "Elliott@mail.ru",
+            "CurrentJob": "LTD Bank-Alfa ",
+            "Email": "elliott@mail.ru",
             "EnglishLevel": NumberInt(0),
             "GoingToExadel": true,
             "Location": {
@@ -63,7 +63,7 @@
         {
             "_id": UUID("c89c4d88-30e7-11ec-929c-0f374fa83b31"),
             "AdditionalInfo": "Ready to start anytime",
-            "BestTimeToConnect": "19-20",
+            "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
             "Certificates": "Oracle Certified",
             "Contacts": [
                 {
@@ -97,8 +97,8 @@
                     "Status": NumberInt(5)
                 }
             ],
-            "CurrentJob": "ОАО \"Акронис\"",
-            "Email": "Robertio@mail.ru",
+            "CurrentJob": "Cafe Mint",
+            "Email": "robertio@mail.ru",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": true,
             "Location": {
@@ -114,7 +114,7 @@
         {
             "_id": UUID("7d4ab133-4c7b-47c2-a7c6-827bdd010aae"),
             "AdditionalInfo": "Ready to start now",
-            "BestTimeToConnect": "18-20",
+            "BestTimeToConnect": [NumberInt(8), NumberInt(9),NumberInt(18), NumberInt(19),NumberInt(20)],
             "Certificates": "CompTIA",
             "Contacts": [
                 {
@@ -145,8 +145,8 @@
                     "Status": NumberInt(0)
                 }
             ],
-            "CurrentJob": "ОАО \"Акронис\"",
-            "Email": "Jackson@gmail.com",
+            "CurrentJob": "LLC Acronis",
+            "Email": "jackson@gmail.com",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": false,
             "Location": {
@@ -161,7 +161,7 @@
         },
         {
             "AdditionalInfo": "I have experience in programming in js",
-            "BestTimeToConnect": "11-20",
+            "BestTimeToConnect": [NumberInt(14), NumberInt(15),NumberInt(16), NumberInt(17),NumberInt(18)],
             "ProjectResults": [
                 {
                     "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
@@ -192,7 +192,7 @@
                     "Status": NumberInt(0)
                 }
             ],
-            "CurrentJob": "ОАО \"Тракторный завод\"",
+            "CurrentJob": "LLC Pilot",
             "Email": "gainesss@gmail.com",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": true,
@@ -209,7 +209,7 @@
         },
         {
             "AdditionalInfo": "Always available for calls",
-            "BestTimeToConnect": "11-20",
+            "BestTimeToConnect": [NumberInt(14), NumberInt(15),NumberInt(16), NumberInt(20),NumberInt(21)],
             "Contacts": [],
             "ProjectResults": [
                 {
@@ -241,7 +241,7 @@
                     "Status": NumberInt(0)
                 }
             ],
-            "CurrentJob": "ОАО \"CosmosTV\"",
+            "CurrentJob": "PLC CosmosTV",
             "Email": "hugharvey@gmail.com",
             "EnglishLevel": NumberInt(4),
             "GoingToExadel": true,
@@ -257,7 +257,7 @@
             "Surname": "Harvey"
         },
         {
-            "BestTimeToConnect": "08-22",
+            "BestTimeToConnect": [NumberInt(06), NumberInt(07), NumberInt(13), NumberInt(14),NumberInt(15), NumberInt(20), NumberInt(21),NumberInt(22)],
             "Certificates": "Oracle Certified",
             "Contacts": [
                 {
@@ -271,8 +271,8 @@
                     "Status": NumberInt(0)
                 }
             ],
-            "CurrentJob": "ОАО \"Huandai\"",
-            "Email": "AnthonyD@mail.ru",
+            "CurrentJob": "LLC Huandai",
+            "Email": "anthonyD@mail.ru",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": false,
             "_id": UUID("cc85a012-5d25-41a0-bbb7-95a6403a6296"),
