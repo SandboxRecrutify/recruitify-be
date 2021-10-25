@@ -35,19 +35,38 @@ namespace Recrutify.Host.Controllers
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
         {
+            var project = await _projectService.GetAsync(courseDto.Id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
             var result = await _projectService.UpdateAsync(courseDto);
             return Ok(result);
         }
 
         [HttpDelete("{id:guid}")]
-        public async Task DeleteAsync(Guid id)
+        public async Task<ActionResult> DeleteAsync(Guid id)
         {
+            var project = await _projectService.GetAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
             await _projectService.DeleteAsync(id);
+            return NoContent();
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
+            var project = await _projectService.GetAsync(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
             var result = await _projectService.GetAsync(id);
             return Ok(result);
         }
