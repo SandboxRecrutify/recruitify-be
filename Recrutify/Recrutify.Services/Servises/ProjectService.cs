@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
@@ -19,7 +20,7 @@ namespace Recrutify.Services.Servises
             _mapper = mapper;
         }
 
-        public async Task<ProjectDTO> CreateAsync(ProjectCreateDTO projectDto)
+        public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
             var project = _mapper.Map<Project>(projectDto);
             await _projectRepository.CreateAsync(project);
@@ -27,10 +28,28 @@ namespace Recrutify.Services.Servises
             return _mapper.Map<ProjectDTO>(project);
         }
 
+        public async Task<ProjectDTO> GetAsync(Guid id)
+        {
+            var project = await _projectRepository.GetAsync(id);
+            return _mapper.Map<ProjectDTO>(project);
+        }
+
         public async Task<List<ProjectDTO>> GetAllAsync()
         {
             var projects = await _projectRepository.GetAllAsync();
             return _mapper.Map<List<ProjectDTO>>(projects);
+        }
+
+        public async Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto)
+        {
+            var project = _mapper.Map<Project>(projectDto);
+            await _projectRepository.UpdateAsync(project);
+            return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _projectRepository.DeleteAsync(id);
         }
     }
 }

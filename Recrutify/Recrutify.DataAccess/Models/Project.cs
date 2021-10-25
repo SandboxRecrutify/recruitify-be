@@ -29,7 +29,5 @@ namespace Recrutify.DataAccess
         public List<Staff> Recruiters { get; set; }
 
         public List<Staff> Mentors { get; set; }
-
-        public bool IsRecommended { get; set; }
     }
 }

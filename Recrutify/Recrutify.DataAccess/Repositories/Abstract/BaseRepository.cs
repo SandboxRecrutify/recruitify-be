@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -32,9 +33,27 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().Find(filter).ToListAsync();
         }
 
+        public async Task<TDocument> GetAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            return await GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public Task UpdateAsync(TDocument item)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, item.Id);
+            return GetCollection().ReplaceOneAsync(filter, item);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, id);
+            await GetCollection().DeleteOneAsync(filter);
+        }
+
         private IMongoCollection<TDocument> GetCollection()
         {
-            return _database.GetCollection<TDocument>(nameof(TDocument));
+            return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
     }
 }

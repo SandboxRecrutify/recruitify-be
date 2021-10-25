@@ -35,7 +35,7 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -48,7 +48,7 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
-            services.AddSingleton<IValidator<ProjectCreateDTO>, ProjectValidator>();
+            services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
