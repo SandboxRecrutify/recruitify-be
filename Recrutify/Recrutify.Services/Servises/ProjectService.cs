@@ -1,36 +1,55 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Services.Servises
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectRepository _courseRepository;
+        private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IProjectRepository courseRepository, IMapper mapper)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
         {
-            _courseRepository = courseRepository;
+            _projectRepository = projectRepository;
             _mapper = mapper;
         }
 
-        public async Task<ProjectDTO> CreateAsync(ProjectCreateDTO courseDto)
+        public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
-            var course = _mapper.Map<Project>(courseDto);
-            await _courseRepository.CreateAsync(course);
+            var project = _mapper.Map<Project>(projectDto);
+            await _projectRepository.CreateAsync(project);
 
-            return _mapper.Map<ProjectDTO>(course);
+            return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public async Task<ProjectDTO> GetAsync(Guid id)
+        {
+            var project = await _projectRepository.GetAsync(id);
+            return _mapper.Map<ProjectDTO>(project);
         }
 
         public async Task<List<ProjectDTO>> GetAllAsync()
         {
-            var courses = await _courseRepository.GetAllAsync();
-            return _mapper.Map<List<ProjectDTO>>(courses);
+            var projects = await _projectRepository.GetAllAsync();
+            return _mapper.Map<List<ProjectDTO>>(projects);
+        }
+
+        public async Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto)
+        {
+            var project = _mapper.Map<Project>(projectDto);
+            await _projectRepository.UpdateAsync(project);
+            return _mapper.Map<ProjectDTO>(project);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _projectRepository.DeleteAsync(id);
         }
     }
 }

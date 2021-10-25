@@ -42,6 +42,25 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         }
 
         protected IMongoCollection<TDocument> GetCollection()
+        public async Task<TDocument> GetAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            return await GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public Task UpdateAsync(TDocument item)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, item.Id);
+            return GetCollection().ReplaceOneAsync(filter, item);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, id);
+            await GetCollection().DeleteOneAsync(filter);
+        }
+
+        private IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }

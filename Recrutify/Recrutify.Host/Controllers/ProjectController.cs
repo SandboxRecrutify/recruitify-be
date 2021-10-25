@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.Servises.Abstract;
 
 namespace Recrutify.Host.Controllers
@@ -11,25 +11,45 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IProjectService _courseService;
+        private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService courseService)
+        public ProjectController(IProjectService projectService)
         {
-            _courseService = courseService;
+            _projectService = projectService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
-            var result = await _courseService.GetAllAsync();
+            var result = await _projectService.GetAllAsync();
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<ProjectDTO>> AddCourse(ProjectCreateDTO courseDto)
+        public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
-            var result = await _courseService.CreateAsync(courseDto);
+            var result = await _projectService.CreateAsync(projectDto);
             return Created(string.Empty, result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
+        {
+            var result = await _projectService.UpdateAsync(courseDto);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task DeleteAsync(Guid id)
+        {
+            await _projectService.DeleteAsync(id);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
+        {
+            var result = await _projectService.GetAsync(id);
+            return Ok(result);
         }
     }
 }

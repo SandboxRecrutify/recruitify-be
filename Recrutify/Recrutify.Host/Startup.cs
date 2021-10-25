@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
 using IdentityServer4.AccessTokenValidation;
@@ -11,6 +13,8 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
@@ -19,6 +23,7 @@ using Recrutify.Host.UserServices;
 using Recrutify.Services.ISRecrutify.Setting;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -34,7 +39,7 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -43,7 +48,8 @@ namespace Recrutify.Host
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<IUserRepository, UserRepository>();
 
-            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            var mapper = MapperConfig.GetConfiguration()
+                .CreateMapper();
             services.AddSingleton(mapper);
 
             services.AddIdentityServer()
