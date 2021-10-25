@@ -39,13 +39,13 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id:guid}")]
         public async Task RemoveIDAsync(Guid id)
         {
             await _projectService.DeleteAsync(id);
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetIDAsync(Guid id)
         {
             var result = await _projectService.GetAsync(id);
