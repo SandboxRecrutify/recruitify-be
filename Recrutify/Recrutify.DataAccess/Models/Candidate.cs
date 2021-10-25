@@ -26,7 +26,7 @@ namespace Recrutify.DataAccess
 
         public DateTime RegistrationDate { get; set; }
 
-        public List<string> BestTimeToContact { get; set; }
+        public List<int> BestTimeToContact { get; set; }
 
         public bool GoingToExadel { get; set; }
 
