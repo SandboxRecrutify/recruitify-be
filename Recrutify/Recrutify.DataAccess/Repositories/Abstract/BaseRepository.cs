@@ -45,7 +45,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().ReplaceOneAsync(filter, item);
         }
 
-        public async Task RemoveIDAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var filter = _filterBuilder.Eq(e => e.Id, id);
             await GetCollection().DeleteOneAsync(filter);

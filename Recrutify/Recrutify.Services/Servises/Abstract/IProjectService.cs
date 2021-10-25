@@ -15,6 +15,6 @@ namespace Recrutify.Services.Servises.Abstract
 
         Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto);
 
-        Task RemoveIDAsync(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

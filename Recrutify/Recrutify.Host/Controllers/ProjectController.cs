@@ -42,7 +42,7 @@ namespace Recrutify.Host.Controllers
         [HttpDelete("id")]
         public async Task RemoveIDAsync(Guid id)
         {
-            await _projectService.RemoveIDAsync(id);
+            await _projectService.DeleteAsync(id);
         }
 
         [HttpGet("id")]
