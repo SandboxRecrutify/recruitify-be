@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Repositories.Abstract
 {
-    interface ICandidateRepository : IBaseRepository<Candidate>
-    {  
+    public interface ICandidateRepository : IBaseRepository<Candidate>
+    {
     }
 }
