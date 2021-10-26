@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Recrutify.Services.Dtos;
 
-namespace Recrutify.Services.Servises.Abstract
+namespace Recrutify.Services.Services.Abstract
 {
     public interface IProjectService
     {

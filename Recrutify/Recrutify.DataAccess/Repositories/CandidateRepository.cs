@@ -15,11 +15,5 @@ namespace Recrutify.DataAccess.Repositories
             : base(options)
         {
         }
-
-        // public async task<list<candidate>> getallasync()
-        // {
-        //    var candidates = new list<candidate>();
-        //    return candidates;
-        // }
     }
 }

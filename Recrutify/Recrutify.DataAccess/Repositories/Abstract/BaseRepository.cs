@@ -34,7 +34,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         private IMongoCollection<TDocument> GetCollection()
         {
-            return _database.GetCollection<TDocument>(nameof(TDocument));
+            return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
     }
 }

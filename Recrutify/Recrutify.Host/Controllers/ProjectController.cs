@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.DataAccess;
 using Recrutify.Services.Dtos;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
 {
