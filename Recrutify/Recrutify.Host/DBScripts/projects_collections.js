@@ -211,7 +211,6 @@ var projects = [
                     "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                     "UserName": "Christopher Johnson"                    
                 }
-            ],
-            "IsRecommended": false
+            ]
         }
     ]

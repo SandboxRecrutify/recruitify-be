@@ -3,7 +3,6 @@
             "_id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
             "AdditionalInfo": "I can only do an internship in the evening",
             "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(20)],
-            "Certificates": "",
             "Contacts": [
                 {
                     "Type": "VK",
@@ -33,7 +32,8 @@
                     "Feedbacks": [
                         {
                             "Type": NumberInt(0),
-                            "Rating": NumberInt(4)
+                            "Rating": NumberInt(4),
+                            "IsRecommended": true
                         },
                         {
                             "UserId": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
@@ -46,7 +46,7 @@
                     "Status": NumberInt(1)
                 }
             ],
-            "CurrentJob": "LTD Bank-Alfa ",
+            "CurrentJob": "LTD Bank-Alfa",
             "Email": "elliott@mail.ru",
             "EnglishLevel": NumberInt(0),
             "GoingToExadel": true,
@@ -84,7 +84,8 @@
                         },
                         {
                             "Type": NumberInt(0),
-                            "Rating": NumberInt(5)
+                            "Rating": NumberInt(5),
+                            "IsRecommended": true
                         },
                         {
                             "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
@@ -160,6 +161,7 @@
             "Surname": "Jackson"
         },
         {
+            "_id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
             "AdditionalInfo": "I have experience in programming in js",
             "BestTimeToConnect": [NumberInt(14), NumberInt(15),NumberInt(16), NumberInt(17),NumberInt(18)],
             "ProjectResults": [
@@ -175,7 +177,8 @@
                         },
                         {
                             "Type": NumberInt(0),
-                            "Rating": NumberInt(3),
+                            "Rating": NumberInt(2),
+                            "IsRecommended": false
                         },
                         {
                             "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
@@ -196,7 +199,6 @@
             "Email": "gainesss@gmail.com",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": true,
-            "_id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
             "Location": {
                 "City": "Kiev",
                 "Country": "Ukraine"
@@ -208,6 +210,7 @@
             "Surname": "Gaines"
         },
         {
+            "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
             "AdditionalInfo": "Always available for calls",
             "BestTimeToConnect": [NumberInt(14), NumberInt(15),NumberInt(16), NumberInt(20),NumberInt(21)],
             "Contacts": [],
@@ -224,7 +227,8 @@
                         },
                         {
                             "Type": NumberInt(0),
-                            "Rating": NumberInt(3)
+                            "Rating": NumberInt(3),
+                            "IsRecommended": true
                         },
                         {
                             "UserId": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
@@ -245,7 +249,6 @@
             "Email": "hugharvey@gmail.com",
             "EnglishLevel": NumberInt(4),
             "GoingToExadel": true,
-            "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
             "Location": {
                 "City": "Grodno",
                 "Country": "Belarus"
@@ -257,6 +260,7 @@
             "Surname": "Harvey"
         },
         {
+            "_id": UUID("cc85a012-5d25-41a0-bbb7-95a6403a6296"),
             "BestTimeToConnect": [NumberInt(06), NumberInt(07), NumberInt(13), NumberInt(14),NumberInt(15), NumberInt(20), NumberInt(21),NumberInt(22)],
             "Certificates": "Oracle Certified",
             "Contacts": [
@@ -275,7 +279,6 @@
             "Email": "anthonyD@mail.ru",
             "EnglishLevel": NumberInt(2),
             "GoingToExadel": false,
-            "_id": UUID("cc85a012-5d25-41a0-bbb7-95a6403a6296"),
             "Location": {
                 "City": "Moscow",
                 "Country": "Russian Federation"
