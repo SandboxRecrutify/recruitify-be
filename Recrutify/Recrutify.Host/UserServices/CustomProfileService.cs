@@ -27,8 +27,6 @@ namespace Recrutify.Host
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            _logger.LogDebug(context.Client.ClientId);
-
             var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
             var claims = new List<Claim>
             {
