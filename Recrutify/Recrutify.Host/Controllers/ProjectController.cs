@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
-using Recrutify.DataAccess;
-using Recrutify.Services.Dtos;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers

@@ -31,7 +31,7 @@ namespace Recrutify.Services.Dtos
 
         public bool GoingToExadel { get; set; }
 
-        public List<CourseResult> ProjectResults { get; set; }
+        public List<ProjectResult> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 
