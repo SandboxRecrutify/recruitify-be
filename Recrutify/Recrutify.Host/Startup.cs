@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,9 +16,11 @@ using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.UserServices;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.ISRecrutify.Setting;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -43,6 +47,10 @@ namespace Recrutify.Host
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddControllers()
+                .AddFluentValidation();
+            services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
 
             services.AddIdentityServer()
                  .AddDeveloperSigningCredential()
@@ -112,8 +120,6 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Recrutify.Host v1"));
             }
 
             app.UseStaticFiles();
@@ -123,7 +129,7 @@ namespace Recrutify.Host
             app.UseRouting();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify");
                 c.OAuthClientId("recruitify_api");
                 c.OAuthAppName("Recruitify Api");
             });
