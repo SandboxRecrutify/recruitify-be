@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
 {

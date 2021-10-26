@@ -1,0 +1,5 @@
+FROM mongo:latest
+COPY Recrutify.Host\DBScripts\*.js .
+
+CMD bash -c "mongo ${MongoSettings__ConnectionString} main_upload_script.js"
+

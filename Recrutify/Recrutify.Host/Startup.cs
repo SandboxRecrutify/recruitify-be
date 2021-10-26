@@ -44,6 +44,8 @@ namespace Recrutify.Host
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
+            services.AddSingleton<ICandidateRepository, CandidateRepository>();
+            services.AddSingleton<ICandidateService, CandidateService>();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
@@ -56,6 +58,7 @@ namespace Recrutify.Host
                     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
             services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
+            services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
 
             services.AddIdentityServer()
                  .AddDeveloperSigningCredential()

@@ -7,7 +7,7 @@ namespace Recrutify.DataAccess.Models
     {
         public List<Feedback> Feedbacks { get; set; }
 
-        public Guid CourseId { get; set; }
+        public Guid ProjectId { get; set; }
 
         public Status Status { get; set; }
     }
