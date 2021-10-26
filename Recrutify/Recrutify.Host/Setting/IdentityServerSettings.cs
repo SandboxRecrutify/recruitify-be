@@ -11,6 +11,9 @@ namespace Recrutify.Services.ISRecrutify.Setting
         {
             return new List<IdentityResource>
             {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile(),
+                new IdentityResources.Email(),
                 new IdentityResource
                 {
                     Name = JwtClaimTypes.Role,
@@ -19,9 +22,6 @@ namespace Recrutify.Services.ISRecrutify.Setting
                         JwtClaimTypes.Role,
                     },
                 },
-                new IdentityResources.OpenId(),
-                new IdentityResources.Profile(),
-                new IdentityResources.Email(),
             };
         }
 

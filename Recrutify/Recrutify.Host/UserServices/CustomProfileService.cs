@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -28,15 +29,24 @@ namespace Recrutify.Host
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
+
+            //var roles = user.Roles.Select(r => r.ToString()).ToList();
+            var roles = new List<string>();
+            foreach(var role in user.Roles)
+            {
+                if(role == Role.Recruiter)
+                {
+                    roles.Add(nameof(Role.Recruiter));
+                }
+            }
+
+            var a = JsonSerializer.Serialize(roles);
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
+                new Claim(JwtClaimTypes.Role, a, IdentityServerConstants.ClaimValueTypes.Json),
             };
-            foreach (var role in user.Roles)
-            {
-                claims.Add(new Claim(JwtClaimTypes.Role, role.ToString()));
-            }
 
             context.IssuedClaims = claims;
         }
