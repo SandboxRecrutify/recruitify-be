@@ -110,7 +110,6 @@ namespace Recrutify.Host
                     },
                 });
                 services.AddAuthorization();
-                services.AddControllers();
             });
         }
 
