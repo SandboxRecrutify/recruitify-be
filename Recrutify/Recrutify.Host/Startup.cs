@@ -8,17 +8,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Servises;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services;
+using Recrutify.Services.Services.Abstract;
 using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
@@ -41,6 +37,8 @@ namespace Recrutify.Host
                 Configuration.GetSection(nameof(MongoSettings)));
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
+            services.AddSingleton<ICandidateRepository, CandidateRepository>();
+            services.AddSingleton<ICandidateService, CandidateService>();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();

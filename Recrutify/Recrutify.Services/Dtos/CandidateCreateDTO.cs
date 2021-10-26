@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
-namespace Recrutify.DataAccess
+namespace Recrutify.Services.Dtos
 {
-    public class Candidate : IDataModel
+    public class CandidateCreateDTO
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Surname { get; set; }

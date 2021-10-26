@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Recrutify.Services.DTOs;
 
-namespace Recrutify.Services.Servises.Abstract
+namespace Recrutify.Services.Services.Abstract
 {
     public interface IProjectService
     {
