@@ -2,7 +2,6 @@
 {
     public enum PrimarySkillDTO
     {
-
         Net,
         QA,
         JavaScript,
