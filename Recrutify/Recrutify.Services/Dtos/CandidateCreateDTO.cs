@@ -6,6 +6,7 @@ namespace Recrutify.Services.Dtos
 {
     public class CandidateCreateDTO
     {
+
         public string Name { get; set; }
 
         public string Surname { get; set; }
