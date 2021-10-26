@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using IdentityModel;
@@ -18,7 +19,7 @@ namespace Recrutify.Host
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             var user = await _userRepository.GetByEmailAsync(context.UserName);
-            if (user != null && GetHashSha256(context.Password, user.Salt) == user.Password)
+            if (user != null && string.Equals(GetHashSha256(context.Password, user.Salt), user.Password.ToLower(), StringComparison.OrdinalIgnoreCase))
             {
                 context.Result = new GrantValidationResult(user.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
             }

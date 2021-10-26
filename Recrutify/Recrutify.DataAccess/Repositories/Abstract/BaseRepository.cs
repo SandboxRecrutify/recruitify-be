@@ -18,7 +18,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {
-            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
             var client = new MongoClient(options.Value.ConnectionString);
             _database = client.GetDatabase(new MongoUrlBuilder(options.Value.ConnectionString).DatabaseName);
             _filterBuilder = Builders<TDocument>.Filter;

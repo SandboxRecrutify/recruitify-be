@@ -76,7 +76,7 @@ namespace Recrutify.Host
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host" });
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
@@ -133,6 +133,7 @@ namespace Recrutify.Host
                 c.OAuthClientId("recruitify_api");
                 c.OAuthAppName("Recruitify Api");
             });
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

@@ -24,4 +24,6 @@
     <ProjectReference Include="..\Recrutify.Services\Recrutify.Services.csproj" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties properties_4launchsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
