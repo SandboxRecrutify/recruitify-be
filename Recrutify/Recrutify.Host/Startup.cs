@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
 using IdentityServer4.AccessTokenValidation;
@@ -39,7 +41,6 @@ namespace Recrutify.Host
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
-            services.AddSingleton<IUserRepository, UserRepository>();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
