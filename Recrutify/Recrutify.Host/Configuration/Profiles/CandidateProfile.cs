@@ -1,6 +1,6 @@
 ﻿using System;
 using Recrutify.DataAccess;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 
 namespace Recrutify.Host.Configuration.Profiles
 {
