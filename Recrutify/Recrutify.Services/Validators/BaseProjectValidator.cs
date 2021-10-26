@@ -4,10 +4,10 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
+    public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        public BaseProjectValidator()
+        protected BaseProjectValidator()
         {
             RuleFor(p => p.Name)
                 .NotNull()

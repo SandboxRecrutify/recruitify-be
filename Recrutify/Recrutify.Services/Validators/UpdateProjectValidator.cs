@@ -8,7 +8,6 @@ namespace Recrutify.Services.Validators
         public UpdateProjectValidator()
         {
             RuleFor(b => b.Id)
-                .NotNull()
                 .NotEmpty();
         }
     }
