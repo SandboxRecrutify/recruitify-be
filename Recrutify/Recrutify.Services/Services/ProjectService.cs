@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
-using Recrutify.Services.Dtos;
-using Recrutify.Services.Services.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
 {

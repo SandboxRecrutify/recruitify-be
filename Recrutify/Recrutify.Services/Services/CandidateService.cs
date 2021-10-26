@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.Dtos;
 using Recrutify.Services.Services.Abstract;
@@ -22,6 +23,14 @@ namespace Recrutify.Services.Services
         {
             var candidates = await _candidateRepository.GetAllAsync();
             return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
+
+        public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        {
+            var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
+            await _candidateRepository.CreateAsync(candidate);
+            var result = _mapper.Map<CandidateDTO>(candidate);
+            return result;
         }
     }
 }

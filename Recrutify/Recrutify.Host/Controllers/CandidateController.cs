@@ -23,5 +23,12 @@ namespace Recrutify.Host.Controllers
             var result = await _candidateService.GetAllAsync();
             return Ok(result);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        {
+            var result = await _candidateService.CreateAsync(candidateCreateDTO);
+            return Created(string.Empty, result);
+        }
     }
 }
