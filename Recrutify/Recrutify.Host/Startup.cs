@@ -16,8 +16,9 @@ using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Servises;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services;
+using Recrutify.Services.Services.Abstract;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -39,6 +40,8 @@ namespace Recrutify.Host
                 Configuration.GetSection(nameof(MongoSettings)));
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<IProjectService, ProjectService>();
+            services.AddSingleton<ICandidateRepository, CandidateRepository>();
+            services.AddSingleton<ICandidateService, CandidateService>();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
@@ -47,6 +50,7 @@ namespace Recrutify.Host
             services.AddControllers()
                 .AddFluentValidation();
             services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
+            services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>

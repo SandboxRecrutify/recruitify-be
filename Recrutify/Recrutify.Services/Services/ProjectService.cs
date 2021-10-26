@@ -5,9 +5,10 @@ using AutoMapper;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services.Abstract;
+using Recrutify.Services.DTOs;
 
-namespace Recrutify.Services.Servises
+namespace Recrutify.Services.Services
 {
     public class ProjectService : IProjectService
     {
