@@ -18,17 +18,17 @@ namespace Recrutify.Host
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
             var user = await _userRepository.GetByEmailAsync(context.UserName);
-            if (user != null && GetHashSha256(context.Password) == user.Password)
+            if (user != null && GetHashSha256(context.Password, user.Salt) == user.Password)
             {
                 context.Result = new GrantValidationResult(user.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
             }
         }
 
-        private static string GetHashSha256(string randomString)
+        private static string GetHashSha256(string password, string salt)
         {
             var crypt = new SHA256Managed();
             var hash = new StringBuilder();
-            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(randomString));
+            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(password + salt));
             foreach (byte theByte in crypto)
             {
                 hash.Append(theByte.ToString("x2"));

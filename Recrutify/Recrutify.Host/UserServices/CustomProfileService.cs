@@ -28,17 +28,15 @@ namespace Recrutify.Host
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             _logger.LogDebug(
-                "Get profile called for subject {subject} from client {client} with claim types {claimTypes} via {caller}",
+                "Get profile called for subject {subject} from client {client}",
                 context.Subject.GetSubjectId(),
-                context.Client.ClientName ?? context.Client.ClientId,
-                context.RequestedClaimTypes,
-                context.Caller);
+                context.Client.ClientName ?? context.Client.ClientId);
 
             var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
             var claims = new List<Claim>
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
-                new Claim(JwtClaimTypes.Email, user.Login),
+                new Claim(JwtClaimTypes.Email, user.Email),
             };
             foreach (var role in user.Roles)
             {

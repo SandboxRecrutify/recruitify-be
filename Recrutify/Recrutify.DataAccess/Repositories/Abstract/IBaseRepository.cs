@@ -8,14 +8,12 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task CreateAsync(TDocument item);
 
-        Task<TDocument> GetAsync(Guid id);
+        Task<TDocument> GetByIdAsync(Guid id);
 
         Task<List<TDocument>> GetAllAsync();
 
         Task UpdateAsync(TDocument item);
 
         Task DeleteAsync(Guid id);
-
-        Task<TDocument> GetByIdAsync(Guid id);
     }
 }

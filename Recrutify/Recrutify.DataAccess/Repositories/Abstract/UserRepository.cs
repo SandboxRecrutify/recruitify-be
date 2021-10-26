@@ -19,7 +19,7 @@ namespace Recrutify.Host
 
         public Task<User> GetByEmailAsync(string email)
         {
-            var filter = _filterBuilder.Eq(u => u.Login, email);
+            var filter = _filterBuilder.Eq(u => u.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
     }

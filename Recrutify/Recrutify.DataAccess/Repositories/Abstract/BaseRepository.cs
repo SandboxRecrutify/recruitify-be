@@ -41,12 +41,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<TDocument> GetAsync(Guid id)
-        {
-            var filter = _filterBuilder.Eq(x => x.Id, id);
-            return await GetCollection().Find(filter).FirstOrDefaultAsync();
-        }
-
         public Task UpdateAsync(TDocument item)
         {
             var filter = _filterBuilder.Eq(e => e.Id, item.Id);

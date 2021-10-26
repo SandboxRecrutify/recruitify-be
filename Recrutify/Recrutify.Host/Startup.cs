@@ -1,5 +1,3 @@
-using FluentValidation;
-using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
 using IdentityServer4.AccessTokenValidation;
@@ -11,10 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
@@ -23,7 +17,6 @@ using Recrutify.Host.UserServices;
 using Recrutify.Services.ISRecrutify.Setting;
 using Recrutify.Services.Servises;
 using Recrutify.Services.Servises.Abstract;
-using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
