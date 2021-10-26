@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Recrutify.Services.Dtos
+namespace Recrutify.Services.DTOs
 {
-    public class ProjectDTO : ProjectCreateDTO
+    public class ProjectDTO : CreateProjectDTO
     {
         public Guid Id { get; set; }
     }

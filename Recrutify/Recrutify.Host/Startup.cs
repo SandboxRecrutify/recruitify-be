@@ -1,3 +1,5 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -9,10 +11,15 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.DTOs;
+using Recrutify.Services.Servises;
+using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Validators;
 using Recrutify.Services.Services;
 using Recrutify.Services.Services.Abstract;
 
@@ -30,7 +37,7 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -39,10 +46,14 @@ namespace Recrutify.Host
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
             services.AddSingleton<ICandidateService, CandidateService>();
 
-            var mapper = MapperConfig.GetConfiguration().CreateMapper();
+            var mapper = MapperConfig.GetConfiguration()
+                .CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation();
+            services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
