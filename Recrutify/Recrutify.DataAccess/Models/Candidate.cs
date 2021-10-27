@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Recrutify.DataAccess.Models;
 
-namespace Recrutify.DataAccess
+namespace Recrutify.DataAccess.Models
 {
     public class Candidate : IDataModel
     {
