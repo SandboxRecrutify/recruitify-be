@@ -26,5 +26,7 @@ namespace Recrutify.Services.DTOs
         public List<StaffDTO> Recruiters { get; set; }
 
         public List<StaffDTO> Mentors { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

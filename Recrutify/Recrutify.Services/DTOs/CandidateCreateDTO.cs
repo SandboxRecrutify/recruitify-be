@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 
-namespace Recrutify.Services.Dtos
+namespace Recrutify.Services.DTOs
 {
     public class CandidateCreateDTO
     {
@@ -20,7 +20,7 @@ namespace Recrutify.Services.Dtos
 
         public Location Location { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 

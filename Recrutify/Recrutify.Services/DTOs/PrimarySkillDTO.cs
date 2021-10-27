@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Recrutify.DataAccess.Models
+namespace Recrutify.Services.DTOs
 {
-    public class PrimarySkill : IDataModel
+    public class PrimarySkillDTO
     {
         public Guid Id { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Recrutify.Services.Dtos;
+using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
 {
