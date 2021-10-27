@@ -6,7 +6,6 @@ using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
-using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services
 {
@@ -51,6 +50,11 @@ namespace Recrutify.Services.Services
         public async Task DeleteAsync(Guid id)
         {
             await _projectRepository.DeleteAsync(id);
+        }
+
+        public Task<bool> ExistsAsync(Guid id)
+        {
+            return _projectRepository.ExistsAsync(id);
         }
     }
 }
