@@ -30,6 +30,6 @@ namespace Recrutify.DataAccess
 
         public List<Staff> Mentors { get; set; }
 
-        public bool IsActve { get; set; }
+        public bool IsActive { get; set; }
     }
 }
