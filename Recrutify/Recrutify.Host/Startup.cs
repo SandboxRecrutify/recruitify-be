@@ -39,6 +39,8 @@ namespace Recrutify.Host
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
             services.AddSingleton<ICandidateService, CandidateService>();
+            services.AddSingleton<IPrimarySkillRepository, PrimarySkillRepository>();
+            services.AddSingleton<IPrimarySkillService, PrimarySkillService>();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
