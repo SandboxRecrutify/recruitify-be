@@ -10,6 +10,8 @@ namespace Recrutify.DataAccess.Models
 
         public Guid UserId { get; set; }
 
+        public DateTime Created { get; set; }
+
         public FeedbackType Type { get; set; }
 
         public bool IsRecommended { get; set; }

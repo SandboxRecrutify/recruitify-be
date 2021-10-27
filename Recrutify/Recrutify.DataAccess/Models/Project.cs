@@ -31,5 +31,7 @@ namespace Recrutify.DataAccess
         public List<Staff> Mentors { get; set; }
 
         public bool IsActive { get; set; }
+
+        public string TestLink { get; set; }
     }
 }
