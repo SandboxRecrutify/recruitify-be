@@ -33,15 +33,15 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
+        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
         {
-            var projectExists = await _projectService.ExistsAsync(courseDto.Id);
+            var projectExists = await _projectService.ExistsAsync(projectDto.Id);
             if (!projectExists)
             {
                 return NotFound();
             }
 
-            var result = await _projectService.UpdateAsync(courseDto);
+            var result = await _projectService.UpdateAsync(projectDto);
             return Ok(result);
         }
 
