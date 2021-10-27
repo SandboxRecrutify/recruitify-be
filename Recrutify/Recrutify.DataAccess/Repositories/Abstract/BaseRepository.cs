@@ -51,6 +51,13 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             await GetCollection().DeleteOneAsync(filter);
         }
 
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, id);
+            var result = await GetCollection().Find(filter).CountDocumentsAsync();
+            return result != 0;
+        }
+
         private IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);

@@ -15,5 +15,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task UpdateAsync(TDocument item);
 
         Task DeleteAsync(Guid id);
+
+        Task<bool> ExistsAsync(Guid id);
     }
 }

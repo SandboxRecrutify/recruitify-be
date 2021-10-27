@@ -35,8 +35,8 @@ namespace Recrutify.Host.Controllers
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
         {
-            var project = await _projectService.GetAsync(courseDto.Id);
-            if (project == null)
+            var project = await _projectService.ExistsAsync(courseDto.Id);
+            if (!project)
             {
                 return NotFound();
             }
@@ -48,8 +48,8 @@ namespace Recrutify.Host.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
-            var project = await _projectService.GetAsync(id);
-            if (project == null)
+            var project = await _projectService.ExistsAsync(id);
+            if (!project)
             {
                 return NotFound();
             }
@@ -61,8 +61,8 @@ namespace Recrutify.Host.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
-            var project = await _projectService.GetAsync(id);
-            if (project == null)
+            var project = await _projectService.ExistsAsync(id);
+            if (!project)
             {
                 return NotFound();
             }
