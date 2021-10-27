@@ -59,8 +59,6 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.Recruiters)
                .NotNull()
                .NotEmpty();
-            RuleFor(p => p.IsActive)
-                .NotEmpty();
         }
     }
 }

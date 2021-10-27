@@ -4,7 +4,7 @@
     {
         New,
         Test,
-        RecruiterIinterview,
+        RecruiterInterview,
         TechInterviewOneStep,
         TechInterviewSecondStep,
         Accepted,
