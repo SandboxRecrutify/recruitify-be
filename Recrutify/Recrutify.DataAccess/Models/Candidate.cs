@@ -22,7 +22,7 @@ namespace Recrutify.DataAccess
 
         public Location Location { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<CandidatePrimarySkill> PrimarySkills { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 

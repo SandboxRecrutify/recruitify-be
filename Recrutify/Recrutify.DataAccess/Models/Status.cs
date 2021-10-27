@@ -4,11 +4,10 @@
     {
         New,
         Test,
-        Interview,
+        RecruiterIinterview,
         TechInterviewOneStep,
         TechInterviewSecondStep,
         Accepted,
         Declined,
-        CandidateRejected,
     }
 }
