@@ -20,7 +20,7 @@ namespace Recrutify.Host.Controllers
             _primarySkillService = primarySkillService;
         }
 
-        [HttpGet("PrimarySkill")]
+        [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
             var result = await _primarySkillService.GetAllAsync();
