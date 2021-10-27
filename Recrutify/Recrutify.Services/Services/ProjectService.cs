@@ -52,15 +52,9 @@ namespace Recrutify.Services.Services
             await _projectRepository.DeleteAsync(id);
         }
 
-        public async Task<bool> ExistsAsync(Guid id)
+        public Task<bool> ExistsAsync(Guid id)
         {
-            var filter = _projectRepository.ExistsAsync(id);
-            if (await filter)
-            {
-                return true;
-            }
-
-            return false;
+            return _projectRepository.ExistsAsync(id);
         }
     }
 }
