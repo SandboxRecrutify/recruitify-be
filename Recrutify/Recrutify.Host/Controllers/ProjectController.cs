@@ -12,10 +12,19 @@ namespace Recrutify.Host.Controllers
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
+        private readonly IPrimarySkillService _primarySkillService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, IPrimarySkillService primarySkillService)
         {
             _projectService = projectService;
+            _primarySkillService = primarySkillService;
+        }
+
+        [HttpGet("PrimarySkill")]
+        public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
+        {
+            var result = await _primarySkillService.GetAllAsync();
+            return Ok(result);
         }
 
         [HttpGet]
