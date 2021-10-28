@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -12,7 +11,6 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-
         private readonly IProjectService _projectService;
         private readonly IPrimarySkillService _primarySkillService;
 
