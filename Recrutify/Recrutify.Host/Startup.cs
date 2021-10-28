@@ -30,35 +30,29 @@ namespace Recrutify.Host
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
-                    "GetAsync",
+                    "GetPolicy",
                     builder =>
                     builder.AllowAnyOrigin()
                     .AllowAnyHeader()
-                    .WithHeaders("GET"));
+                    .WithMethods("GET"));
 
                 cors.AddPolicy(
-                    "AddProject",
+                    "PostPolice",
                     builder =>
                     builder.AllowAnyOrigin()
-                    .WithHeaders("POST"));
+                    .WithMethods("POST"));
 
                 cors.AddPolicy(
-                    "UpateProject",
+                    "PutPolice",
                     builder =>
                     builder.AllowAnyOrigin()
-                    .WithHeaders("PUT"));
+                    .WithMethods("PUT"));
 
                 cors.AddPolicy(
-                   "DeleteAsync",
+                   "DeletePolice",
                    builder =>
                    builder.AllowAnyOrigin()
-                   .WithHeaders("DELETE"));
-
-                cors.AddPolicy(
-                  "AllPolicy",
-                  builder =>
-                  builder.AllowAnyOrigin()
-                  .AllowAnyMethod());
+                   .WithMethods("DELETE"));
             });
 
             services.Configure<MongoSettings>(
@@ -93,9 +87,7 @@ namespace Recrutify.Host
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseCors("GetAsync");
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

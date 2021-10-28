@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -17,6 +18,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
+        [EnableCors("GetPolicy")]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {

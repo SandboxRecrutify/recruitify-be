@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -18,6 +19,7 @@ namespace Recrutify.Host.Controllers
             _projectService = projectService;
         }
 
+        [EnableCors("GetPolicy")]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -25,6 +27,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
+        [EnableCors("PostPolice")]
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
@@ -32,6 +35,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+        [EnableCors("PutPolice")]
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
         {
@@ -45,6 +49,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
+        [EnableCors("GetPolice")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
@@ -58,6 +63,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
+        [EnableCors("GetPolice")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
