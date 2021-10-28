@@ -2,7 +2,7 @@
     {
         "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
         "Name": ".Net",
-        "Description": "ООП, Design patterns, SQL, ASP.NET",
+        "Description": "OOP, Design patterns, SQL, ASP.NET",
         "TestLink": "https://exadel.com/tests/net"
     },
     {
@@ -38,7 +38,7 @@
     {
         "_id": UUID("bf0e38c8-3775-11ec-b1a0-f3805eec868b"),
         "Name": "PHP",
-        "Description": "ООП, web server APACHE, PhpMyAdmin, Active Records",
+        "Description": "OOP, web server APACHE, PhpMyAdmin, Active Records",
         "TestLink": "https://exadel.com/tests/php"
     },
     {
