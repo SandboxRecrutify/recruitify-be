@@ -44,15 +44,15 @@ namespace Recrutify.Host
                 .AddFluentValidation();
             services.AddValidators();
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+            services.AddControllers().AddOData(opt => opt.Filter().Expand().Select().OrderBy().AddRouteComponents("odata", GetEdmModel()));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
             });
-            //services.AddOData(opt => opt.Filter().Expand().Select().OrderBy()
-            //    .AddModel("odata", GetEdmModel()));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -82,7 +82,7 @@ namespace Recrutify.Host
         private static IEdmModel GetEdmModel()
         {
             var builder = new ODataConventionModelBuilder();
-            builder.EntitySet<ProjectDTO>("Project");
+            builder.EntitySet<ProjectDTO>("Projects");
             return builder.GetEdmModel();
         }
     }

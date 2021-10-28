@@ -8,11 +8,11 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers.OData
 {
-    public class ProjectController : ODataController
+    public class ProjectsController : ODataController
     {
         private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectsController(IProjectService projectService)
         {
             _projectService = projectService;
         }
