@@ -4,7 +4,7 @@ using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Services.Extensions
 {
-    public static class RegistrationRepositorie
+    public static class RepositoriesRegistration
     {
         public static void AddRepositories(this IServiceCollection services)
         {

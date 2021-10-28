@@ -4,7 +4,7 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Extensions
 {
-    public static class RegistrationService
+    public static class ServicesRegistration
     {
         public static void AddServices(this IServiceCollection services)
         {

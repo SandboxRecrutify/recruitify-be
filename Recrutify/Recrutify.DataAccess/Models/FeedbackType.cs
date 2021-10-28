@@ -6,6 +6,6 @@
         Interview,
         TechInterviewOneStep,
         TechInterviewSecondStep,
-        MentorInterview,
+        Mentor,
     }
 }

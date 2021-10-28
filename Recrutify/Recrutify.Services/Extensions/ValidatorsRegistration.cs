@@ -5,7 +5,7 @@ using Recrutify.Services.Validators;
 
 namespace Recrutify.Services.Extensions
 {
-    public static class RegistrationValidator
+    public static class ValidatorsRegistration
     {
         public static void AddValidators(this IServiceCollection services)
         {
