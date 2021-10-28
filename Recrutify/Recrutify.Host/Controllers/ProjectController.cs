@@ -12,14 +12,23 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IProjectService _projectService;
 
-        public ProjectController(IProjectService projectService)
+        private readonly IProjectService _projectService;
+        private readonly IPrimarySkillService _primarySkillService;
+
+        public ProjectController(IProjectService projectService, IPrimarySkillService primarySkillService)
         {
             _projectService = projectService;
+            _primarySkillService = primarySkillService;
         }
 
-        [EnableCors("GetPolicy")]
+        [HttpGet("primary_skills")]
+        public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
+        {
+            var result = await _primarySkillService.GetAllAsync();
+            return Ok(result);
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -27,7 +36,6 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [EnableCors("PostPolice")]
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
@@ -35,26 +43,24 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        [EnableCors("PutPolice")]
         [HttpPut]
-        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO courseDto)
+        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
         {
-            var project = await _projectService.GetAsync(courseDto.Id);
-            if (project == null)
+            var projectExists = await _projectService.ExistsAsync(projectDto.Id);
+            if (!projectExists)
             {
                 return NotFound();
             }
 
-            var result = await _projectService.UpdateAsync(courseDto);
+            var result = await _projectService.UpdateAsync(projectDto);
             return Ok(result);
         }
 
-        [EnableCors("GetPolice")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
-            var project = await _projectService.GetAsync(id);
-            if (project == null)
+            var projectExists = await _projectService.ExistsAsync(id);
+            if (!projectExists)
             {
                 return NotFound();
             }
@@ -63,7 +69,6 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [EnableCors("GetPolice")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
@@ -73,8 +78,7 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
-            var result = await _projectService.GetAsync(id);
-            return Ok(result);
+            return Ok(project);
         }
     }
 }
