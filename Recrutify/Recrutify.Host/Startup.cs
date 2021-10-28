@@ -26,33 +26,16 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+            var corsOrigins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>();
 
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
-                    "GetPolicy",
+                    "CorsForUI",
                     builder =>
-                    builder.AllowAnyOrigin()
+                    builder.WithOrigins(corsOrigins.Origins)
                     .AllowAnyHeader()
-                    .WithMethods("GET"));
-
-                cors.AddPolicy(
-                    "PostPolice",
-                    builder =>
-                    builder.AllowAnyOrigin()
-                    .WithMethods("POST"));
-
-                cors.AddPolicy(
-                    "PutPolice",
-                    builder =>
-                    builder.AllowAnyOrigin()
-                    .WithMethods("PUT"));
-
-                cors.AddPolicy(
-                   "DeletePolice",
-                   builder =>
-                   builder.AllowAnyOrigin()
-                   .WithMethods("DELETE"));
+                    .AllowAnyMethod());
             });
 
             services.Configure<MongoSettings>(
