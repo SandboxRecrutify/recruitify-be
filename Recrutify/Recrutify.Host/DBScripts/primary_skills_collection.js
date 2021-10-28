@@ -2,7 +2,7 @@
     {
         "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
         "Name": ".Net",
-        "Description": "ООП, Патерны проектирования, SQL, ASP.NET",
+        "Description": "ООП, Design patterns, SQL, ASP.NET",
         "TestLink": "https://exadel.com/tests/net"
     },
     {
@@ -26,7 +26,7 @@
     {
         "_id": UUID("afc19c2a-3775-11ec-90a5-8785abd9a90d"),
         "Name": "DevOps",
-        "Description": "Архитектура ОС(Debian, Ubuntu, CentOS), модели OSI и TCP/IP, работа с SSH",
+        "Description": "Architecture  OS(Debian, Ubuntu, CentOS), model OSI and TCP/IP, basics SSH",
         "TestLink": "https://exadel.com/tests/devops"
     },
     {
@@ -38,7 +38,7 @@
     {
         "_id": UUID("bf0e38c8-3775-11ec-b1a0-f3805eec868b"),
         "Name": "PHP",
-        "Description": "ООП, веб-сервер APACHE, PhpMyAdmin, Active Records",
+        "Description": "ООП, web server APACHE, PhpMyAdmin, Active Records",
         "TestLink": "https://exadel.com/tests/php"
     },
     {
