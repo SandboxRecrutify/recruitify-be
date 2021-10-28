@@ -40,9 +40,11 @@ namespace Recrutify.Host
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
             services.AddSingleton(mapper);
+
             services.AddControllers()
                 .AddFluentValidation();
             services.AddValidators();
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
             services.AddControllers().AddOData(opt => opt.Filter().Expand().Select().OrderBy().AddRouteComponents("odata", GetEdmModel()));
@@ -79,7 +81,7 @@ namespace Recrutify.Host
             });
         }
 
-        private static IEdmModel GetEdmModel()
+        private IEdmModel GetEdmModel()
         {
             var builder = new ODataConventionModelBuilder();
             builder.EntitySet<ProjectDTO>("Projects");
