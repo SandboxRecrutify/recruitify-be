@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using IdentityModel;
-using IdentityServer4;
 using IdentityServer4.Models;
 
-namespace Recrutify.Services.ISRecrutify.Setting
+namespace Recrutify.Host.Setting
 {
     public class IdentityServerSettings
     {

@@ -6,7 +6,6 @@ using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
-using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services
 {

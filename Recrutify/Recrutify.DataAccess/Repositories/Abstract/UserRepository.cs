@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
-using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.Host
+namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {

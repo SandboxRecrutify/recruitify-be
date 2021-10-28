@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Recrutify.DataAccess.Models;
-using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.Host
+namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface IUserRepository : IBaseRepository<User>
     {

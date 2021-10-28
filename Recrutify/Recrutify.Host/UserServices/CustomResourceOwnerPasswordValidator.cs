@@ -4,8 +4,9 @@ using System.Text;
 using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4.Validation;
+using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.Host
+namespace Recrutify.Host.UserServices
 {
     public class CustomResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {

@@ -16,11 +16,11 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.Setting;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.ISRecrutify.Setting;
-using Recrutify.Services.Servises;
-using Recrutify.Services.Servises.Abstract;
+using Recrutify.Services.Services;
+using Recrutify.Services.Services.Abstract;
 using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
