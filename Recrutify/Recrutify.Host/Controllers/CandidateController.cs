@@ -18,12 +18,18 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        [EnableCors("GetPolicy")]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
             var result = await _candidateService.GetAllAsync();
             return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        {
+            var result = await _candidateService.CreateAsync(candidateCreateDTO);
+            return Created(string.Empty, result);
         }
     }
 }
