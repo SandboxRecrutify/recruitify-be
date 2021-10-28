@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading.Tasks;
 using IdentityModel;
+using IdentityServer4;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
@@ -26,7 +28,7 @@ namespace Recrutify.Host.UserServices
         {
             var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
 
-            IList<string> roles = new List<string>();
+            List<string> roles = new List<string>();
             var claims = new List<Claim>()
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
@@ -35,9 +37,10 @@ namespace Recrutify.Host.UserServices
 
             foreach (var role in user.Roles)
             {
-                claims.Add(new Claim(JwtClaimTypes.Role, role.ToString()));
+                roles.Add(role.ToString());
             }
 
+            claims.Add(new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(roles), IdentityServerConstants.ClaimValueTypes.Json));
             context.IssuedClaims = claims;
         }
 
