@@ -10,5 +10,7 @@ namespace Recrutify.DataAccess.Models
         public Guid ProjectId { get; set; }
 
         public Status Status { get; set; }
+
+        public string Reason { get; set; }
     }
 }
