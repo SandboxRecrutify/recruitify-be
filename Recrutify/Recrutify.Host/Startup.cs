@@ -1,7 +1,4 @@
 using FluentValidation.AspNetCore;
-using System;
-using System.Collections.Generic;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -29,6 +26,40 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy(
+                    "GetAsync",
+                    builder =>
+                    builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .WithHeaders("GET"));
+
+                cors.AddPolicy(
+                    "AddProject",
+                    builder =>
+                    builder.AllowAnyOrigin()
+                    .WithHeaders("POST"));
+
+                cors.AddPolicy(
+                    "UpateProject",
+                    builder =>
+                    builder.AllowAnyOrigin()
+                    .WithHeaders("PUT"));
+
+                cors.AddPolicy(
+                   "DeleteAsync",
+                   builder =>
+                   builder.AllowAnyOrigin()
+                   .WithHeaders("DELETE"));
+
+                cors.AddPolicy(
+                  "AllPolicy",
+                  builder =>
+                  builder.AllowAnyOrigin()
+                  .AllowAnyMethod());
+            });
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -62,6 +93,8 @@ namespace Recrutify.Host
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("GetAsync");
 
             app.UseAuthorization();
 
