@@ -54,7 +54,7 @@ namespace Recrutify.Services.Services
 
         public Task<bool> ExistsAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return _projectRepository.ExistsAsync(id);
         }
     }
 }
