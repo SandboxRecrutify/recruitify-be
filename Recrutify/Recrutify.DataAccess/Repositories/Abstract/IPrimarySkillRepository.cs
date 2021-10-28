@@ -2,7 +2,7 @@
 
 namespace Recrutify.DataAccess.Repositories.Abstract
 {
-    public interface ICandidateRepository : IBaseRepository<Candidate>
+    public interface IPrimarySkillRepository : IBaseRepository<PrimarySkill>
     {
     }
 }
