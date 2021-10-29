@@ -1,7 +1,5 @@
-using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
@@ -13,14 +11,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Repositories;
+using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
-using Recrutify.Services.Extensions;
 using Recrutify.Host.Setting;
 using Recrutify.Host.UserServices;
-using Recrutify.Services.DTOs;
+using Recrutify.Services.Extensions;
 using Recrutify.Services.Services;
 using Recrutify.Services.Services.Abstract;
-using Recrutify.Services.Validators;
 
 namespace Recrutify.Host
 {
@@ -87,6 +85,23 @@ namespace Recrutify.Host
                                 { "recruitify_api", "Full Access to Recruitify Api" },
                             },
                         },
+                    },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2",
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
                     },
                 });
             });
