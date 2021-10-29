@@ -62,11 +62,10 @@ namespace Recrutify.Host
                 .AddInMemoryApiScopes(IdentityServerSettings.GetApiScopes())
                 .AddInMemoryClients(IdentityServerSettings.GetClients())
                 .AddCustomUserStore();
-
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
             {
-                options.Authority = Configuration.GetSection(nameof(AuthoritySettings)).Get<AuthoritySettings>().Authority;
+                options.Authority = Configuration["Authority"];
                 options.ApiName = "recruitify_api";
             });
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -80,7 +79,7 @@ namespace Recrutify.Host
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri($"{Configuration.GetSection(nameof(AuthoritySettings)).Get<AuthoritySettings>().Authority}/connect/token"),
+                            TokenUrl = new Uri($"{Configuration["Authority"]}/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
                                 { "recruitify_api", "Full Access to Recruitify Api" },
@@ -91,7 +90,6 @@ namespace Recrutify.Host
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
