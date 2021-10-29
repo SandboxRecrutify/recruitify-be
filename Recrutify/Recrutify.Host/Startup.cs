@@ -62,13 +62,17 @@ namespace Recrutify.Host
                 .AddInMemoryApiScopes(IdentityServerSettings.GetApiScopes())
                 .AddInMemoryClients(IdentityServerSettings.GetClients())
                 .AddCustomUserStore();
+
+            var authority = Configuration["Authority"];
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
             {
-                options.Authority = Configuration["Authority"];
+                options.Authority = authority;
                 options.ApiName = "recruitify_api";
             });
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host" });
@@ -79,7 +83,7 @@ namespace Recrutify.Host
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri($"{Configuration["Authority"]}/connect/token"),
+                            TokenUrl = new Uri($"{authority}/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
                                 { "recruitify_api", "Full Access to Recruitify Api" },

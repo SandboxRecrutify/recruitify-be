@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -10,7 +11,7 @@ namespace Recrutify.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = nameof(Role.Admin))]
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -22,7 +23,6 @@ namespace Recrutify.Host.Controllers
             _primarySkillService = primarySkillService;
         }
 
-        [Authorize(Roles = "Recruiter, Manager")]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
@@ -30,7 +30,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Recruiter, Manager")]
+        [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Manager))]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -71,7 +71,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Recruiter, Manager")]
+        [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Manager))]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {

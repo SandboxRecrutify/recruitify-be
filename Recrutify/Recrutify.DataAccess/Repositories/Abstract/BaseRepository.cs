@@ -12,8 +12,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         : IBaseRepository<TDocument>
         where TDocument : IDataModel
     {
-        private readonly IMongoDatabase _database;
         protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
+        private readonly IMongoDatabase _database;
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {
