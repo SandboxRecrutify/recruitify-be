@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,18 @@ namespace Recrutify.Host.Controllers
         {
             var result = await _candidateService.CreateAsync(candidateCreateDTO);
             return Created(string.Empty, result);
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
+        {
+            var result = await _candidateService.GetAsync(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }
