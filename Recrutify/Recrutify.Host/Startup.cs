@@ -135,7 +135,6 @@ namespace Recrutify.Host
             app.UseCors();
             app.UseIdentityServer();
             app.UseAuthentication();
-           
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

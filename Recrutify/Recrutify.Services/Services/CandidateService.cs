@@ -28,7 +28,7 @@ namespace Recrutify.Services.Services
 
         public async Task<CandidateDTO> GetAsync(Guid id)
         {
-            var candidate = await _candidateRepository.GetAsync(id);
+            var candidate = await _candidateRepository.GetByIdAsync(id);
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
