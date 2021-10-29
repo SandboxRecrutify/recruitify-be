@@ -52,11 +52,7 @@ namespace Recrutify.Host
             services.AddSingleton(mapper);
 
             services.AddControllers()
-                .AddFluentValidation()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+                .AddFluentValidation();
             services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
             services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
 
@@ -71,7 +67,7 @@ namespace Recrutify.Host
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
             {
-                options.Authority = "https://localhost:5001";
+                options.Authority = Configuration.GetSection(nameof(AuthoritySettings)).Get<AuthoritySettings>().Authority;
                 options.ApiName = "recruitify_api";
             });
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -85,7 +81,7 @@ namespace Recrutify.Host
                     {
                         Password = new OpenApiOAuthFlow
                         {
-                            TokenUrl = new Uri("https://localhost:5001/connect/token"),
+                            TokenUrl = new Uri($"{Configuration.GetSection(nameof(AuthoritySettings)).Get<AuthoritySettings>().Authority}/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
                                 { "recruitify_api", "Full Access to Recruitify Api" },
