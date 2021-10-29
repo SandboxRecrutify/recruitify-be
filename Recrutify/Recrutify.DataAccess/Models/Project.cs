@@ -20,7 +20,7 @@ namespace Recrutify.DataAccess
 
         public string Description { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<ProjectPrimarySkill> PrimarySkills { get; set; }
 
         public List<Staff> Managers { get; set; }
 
