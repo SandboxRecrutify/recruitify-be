@@ -26,16 +26,6 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-            var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
-            services.AddCors(cors =>
-            {
-                cors.AddPolicy(
-                    "CorsForUI",
-                    builder =>
-                    builder.WithOrigins(origins)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-            });
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -50,6 +40,17 @@ namespace Recrutify.Host
             services.AddControllers()
                 .AddFluentValidation();
             services.AddValidators();
+
+            var origins = (Configuration.GetSection(nameof(CorsOriginsSettings)) as CorsOriginsSettings).Origins;
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy(
+                    "CorsForUI",
+                    builder =>
+                    builder.WithOrigins(origins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
