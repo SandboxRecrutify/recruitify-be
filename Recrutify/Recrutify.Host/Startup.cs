@@ -26,12 +26,13 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+            var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
                     "CorsForUI",
                     builder =>
-                    builder.WithOrigins(Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins)
+                    builder.WithOrigins(origins)
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
