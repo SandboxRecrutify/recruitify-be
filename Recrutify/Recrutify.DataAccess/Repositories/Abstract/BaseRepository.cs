@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -13,8 +12,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         : IBaseRepository<TDocument>
         where TDocument : IDataModel
     {
-        protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
         private readonly IMongoDatabase _database;
+        protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {

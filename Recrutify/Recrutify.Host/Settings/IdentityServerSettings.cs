@@ -2,7 +2,7 @@
 using IdentityModel;
 using IdentityServer4.Models;
 
-namespace Recrutify.Host.Setting
+namespace Recrutify.Host.Settings
 {
     public class IdentityServerSettings
     {

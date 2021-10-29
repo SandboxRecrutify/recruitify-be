@@ -3,8 +3,9 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
+using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.DataAccess.Repositories.Abstract
+namespace Recrutify.DataAccess.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
