@@ -71,7 +71,7 @@ namespace Recrutify.Host
                 options.ApiName = "recruitify_api";
             });
 
-            var origins = (Configuration.GetSection(nameof(CorsOriginsSettings)) as CorsOriginsSettings).Origins;
+            var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
