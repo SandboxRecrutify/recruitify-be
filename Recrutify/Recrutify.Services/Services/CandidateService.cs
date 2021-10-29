@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Models;
@@ -31,6 +32,13 @@ namespace Recrutify.Services.Services
             await _candidateRepository.CreateAsync(candidate);
             var result = _mapper.Map<CandidateDTO>(candidate);
             return result;
+        }
+
+        public async Task<CandidateDTO> UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        {
+            var feedback = _mapper.Map<Feedback>(feedbackDto);
+            await _candidateRepository.UpsertAsync(id, projectId, feedback);
+            return _mapper.Map<CandidateDTO>(feedback);
         }
     }
 }

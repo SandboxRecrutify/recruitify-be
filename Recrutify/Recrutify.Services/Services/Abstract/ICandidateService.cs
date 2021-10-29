@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Recrutify.Services.DTOs;
 
@@ -9,5 +10,7 @@ namespace Recrutify.Services.Services.Abstract
         public Task<List<CandidateDTO>> GetAllAsync();
 
         public Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO);
+
+        Task<CandidateDTO> UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto);
     }
 }

@@ -26,3 +26,12 @@ dotnet_diagnostic.S1118.severity = none
 
 # S101: Types should be named in PascalCase
 dotnet_diagnostic.S101.severity = none
+
+# CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = none
+
+# SA1202: Elements should be ordered by access
+dotnet_diagnostic.SA1202.severity = none

@@ -13,7 +13,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         where TDocument : IDataModel
     {
         private readonly IMongoDatabase _database;
-        private readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
+        protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {
@@ -58,7 +58,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return result != 0;
         }
 
-        private IMongoCollection<TDocument> GetCollection()
+        protected IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
@@ -29,6 +30,13 @@ namespace Recrutify.Host.Controllers
         {
             var result = await _candidateService.CreateAsync(candidateCreateDTO);
             return Created(string.Empty, result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<CandidateDTO>> UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        {
+            var result = await _candidateService.UpsertAsync(id, projectId, feedbackDto);
+            return Ok(result);
         }
     }
 }
