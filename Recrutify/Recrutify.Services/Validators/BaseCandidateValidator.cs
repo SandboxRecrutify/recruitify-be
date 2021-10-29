@@ -34,10 +34,16 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
+            RuleForEach(c => c.Contacts)
+                .NotNull()
+                .NotEmpty();
             RuleFor(c => c.Location)
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.PrimarySkills)
+                .NotNull()
+                .NotEmpty();
+            RuleForEach(c => c.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.RegistrationDate)
@@ -46,18 +52,16 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.BestTimeToConnect)
                 .NotNull()
                 .NotEmpty();
+            RuleForEach(c => c.BestTimeToConnect)
+                .NotNull()
+                .NotEmpty();
             RuleFor(c => c.GoingToExadel)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(c => c.ProjectResults)
-                .NotNull()
-                .NotEmpty();
             RuleFor(c => c.CurrentJob)
-                .NotNull()
-                .NotEmpty();
+                .NotNull();
             RuleFor(c => c.Certificates)
-                .NotNull()
-                .NotEmpty();
+                .NotNull();
             RuleFor(c => c.AdditionalQuestions)
                 .NotNull()
                 .NotEmpty();
