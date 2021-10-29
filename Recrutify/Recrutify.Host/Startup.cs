@@ -41,6 +41,17 @@ namespace Recrutify.Host
                 .AddFluentValidation();
             services.AddValidators();
 
+            var origins = (Configuration.GetSection(nameof(CorsOriginsSettings)) as CorsOriginsSettings).Origins;
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy(
+                    "CorsForUI",
+                    builder =>
+                    builder.WithOrigins(origins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
             services.AddSwaggerGen(c =>
             {
@@ -59,7 +70,7 @@ namespace Recrutify.Host
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
