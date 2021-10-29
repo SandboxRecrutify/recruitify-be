@@ -13,7 +13,7 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
             CreateMap<Project, ProjectDTO>().ReverseMap();
             CreateMap<StaffDTO, Staff>().ReverseMap();
-            CreateMap<PrimarySkillDTO, PrimarySkill>().ReverseMap();
+            CreateMap<PrimarySkill, PrimarySkillDTO>().ReverseMap();
         }
     }
 }

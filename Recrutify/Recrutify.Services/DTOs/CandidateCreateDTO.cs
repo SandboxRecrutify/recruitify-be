@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.DTOs
 {
@@ -10,17 +9,17 @@ namespace Recrutify.Services.DTOs
 
         public string Surname { get; set; }
 
-        public EnglishLevel EnglishLevel { get; set; }
+        public EnglishLevelDTO EnglishLevel { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
-        public List<Contact> Contacts { get; set; }
+        public List<ContactDTO> Contacts { get; set; }
 
-        public Location Location { get; set; }
+        public LocationDTO Location { get; set; }
 
-        public List<PrimarySkill> PrimarySkills { get; set; }
+        public List<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 
@@ -28,7 +27,7 @@ namespace Recrutify.Services.DTOs
 
         public bool GoingToExadel { get; set; }
 
-        public List<ProjectResult> ProjectResults { get; set; }
+        public List<ProjectResultDTO> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 

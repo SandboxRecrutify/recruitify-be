@@ -51,5 +51,10 @@ namespace Recrutify.Services.Services
         {
             await _projectRepository.DeleteAsync(id);
         }
+
+        public Task<bool> ExistsAsync(Guid id)
+        {
+            return _projectRepository.ExistsAsync(id);
+        }
     }
 }

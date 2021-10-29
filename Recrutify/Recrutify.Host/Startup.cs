@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
 using FluentValidation;
@@ -12,9 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
-using Recrutify.DataAccess.Repositories;
-using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.Extensions;
 using Recrutify.Host.Setting;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.DTOs;
@@ -46,14 +46,16 @@ namespace Recrutify.Host
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
             services.AddSingleton<ICandidateService, CandidateService>();
 
+            services.AddRepositories();
+            services.AddServices();
+
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
             services.AddSingleton(mapper);
 
             services.AddControllers()
                 .AddFluentValidation();
-            services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
-            services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
+            services.AddValidators();
 
             services.AddIdentityServer()
                  .AddDeveloperSigningCredential()

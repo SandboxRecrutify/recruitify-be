@@ -1,6 +1,6 @@
-﻿namespace Recrutify.DataAccess.Models
+﻿namespace Recrutify.Services.DTOs
 {
-    public enum Status
+    public enum StatusDTO
     {
         New,
         Test,

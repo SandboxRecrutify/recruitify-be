@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Recrutify.DataAccess.Models
+namespace Recrutify.Services.DTOs
 {
-    public class Feedback
+    public class FeedbackDTO
     {
         public string TextFeedback { get; set; }
 
@@ -12,7 +12,7 @@ namespace Recrutify.DataAccess.Models
 
         public DateTime CreatedOn { get; set; }
 
-        public FeedbackType Type { get; set; }
+        public FeedbackTypeDTO Type { get; set; }
 
         public bool IsRecommended { get; set; }
     }

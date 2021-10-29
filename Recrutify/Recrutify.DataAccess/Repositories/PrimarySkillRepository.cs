@@ -5,9 +5,9 @@ using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.DataAccess.Repositories
 {
-    public class CandidateRepository : BaseRepository<Candidate>, ICandidateRepository
+    public class PrimarySkillRepository : BaseRepository<PrimarySkill>, IPrimarySkillRepository
     {
-        public CandidateRepository(IOptions<MongoSettings> options)
+        public PrimarySkillRepository(IOptions<MongoSettings> options)
             : base(options)
         {
         }

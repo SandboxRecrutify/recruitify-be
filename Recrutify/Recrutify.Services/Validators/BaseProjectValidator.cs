@@ -32,6 +32,9 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
+            RuleForEach(p => p.PrimarySkills)
+                .NotNull()
+                .NotEmpty();
             RuleFor(p => p.Mentors)
                  .NotNull()
                  .NotEmpty();

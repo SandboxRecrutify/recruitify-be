@@ -30,6 +30,9 @@
     <None Update="DBScripts\main_upload_script.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="DBScripts\primary_skills_collection.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="DBScripts\projects_collections.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
