@@ -1,7 +1,4 @@
 using FluentValidation.AspNetCore;
-using System;
-using System.Collections.Generic;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
