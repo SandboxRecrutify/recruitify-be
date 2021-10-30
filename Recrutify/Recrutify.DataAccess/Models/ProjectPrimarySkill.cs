@@ -6,10 +6,10 @@ namespace Recrutify.DataAccess.Models
     {
         public Guid PrimarySkillId { get; set; }
 
-        public string Name { get; set; }
+        public string PrimarySkillName { get; set; }
 
-        public string Description { get; set; }
+        public string PrimarySkillDescription { get; set; }
 
-        public string TestLink { get; set; }
+        public string PrimarySkillTestLink { get; set; }
     }
 }
