@@ -23,7 +23,7 @@
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
+                "PrimarySkillName": ".Net"
             }
         ],
         "RegistrationDate": new Date("2021-02-12T00:00:00.000Z"),
@@ -88,11 +88,11 @@
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
+                "PrimarySkillName": "BusinessAnalyst"
             },
             {
                 "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "Name": "JavaScript"
+                "PrimarySkillName": "JavaScript"
             }
         ],
         "RegistrationDate": new Date("2021-03-11T00:00:00.000Z"),
@@ -156,15 +156,15 @@
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
+                "PrimarySkillName": ".Net"
             },
             {
                 "PrimarySkillId": UUID("afc19c2a-3775-11ec-90a5-8785abd9a90d"),
-                "Name": "DevOps"
+                "PrimarySkillName": "DevOps"
             },
             {
                 "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
+                "PrimarySkillName": "Java"
             }
         ],
         "RegistrationDate": new Date("2021-01-18T00:00:00.000Z"),
@@ -208,11 +208,11 @@
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
+                "PrimarySkillName": "Java"
             },
             {
                 "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "Name": "ProjectManager"
+                "PrimarySkillName": "ProjectManager"
             }
         ],
         "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
@@ -269,11 +269,11 @@
        "PrimarySkills": [
            {
                "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-               "Name": "JavaScript"
+               "PrimarySkillName": "JavaScript"
            },
            {
                "PrimarySkillId": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
-               "Name": "AutomationQA",
+               "PrimarySkillName": "AutomationQA",
            }
        ],
        "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
@@ -336,11 +336,11 @@
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("9ff9ab3e-3775-11ec-92f5-134491be8f5a"),
-                "Name": "QA"
+                "PrimarySkillName": "QA"
             },
             {
                 "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
+                "PrimarySkillName": "BusinessAnalyst"
             }
         ],
         "RegistrationDate": new Date("2021-10-19T00:00:00.000Z"),

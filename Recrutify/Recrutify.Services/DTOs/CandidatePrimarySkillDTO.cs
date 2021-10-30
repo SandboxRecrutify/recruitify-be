@@ -6,6 +6,6 @@ namespace Recrutify.Services.DTOs
     {
         public Guid PrimarySkillId { get; set; }
 
-        public string Name { get; set; }
+        public string PrimarySkillName { get; set; }
     }
 }

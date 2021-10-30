@@ -10,15 +10,21 @@ var projects = [
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
+                "PrimarySkillName": "Java",
+                "PrimarySkillDescription": "JDBC & Hibernate, Java EE / Spring, Java Core",
+                "PrimarySkillTestLink": "https://exadel.com/tests/java"
             },
             {
                 "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "Name": "ProjectManager"
+                "PrimarySkillName": "ProjectManager",
+                "PrimarySkillDescription": "Scrum, Agile, PMBOK",
+                "PrimarySkillTestLink": "https://exadel.com/tests/projectmanager"
             },
             {
                 "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
+                "PrimarySkillName": "BusinessAnalyst",
+                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
             }
         ],
         "Managers": [
@@ -70,7 +76,9 @@ var projects = [
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
+                "PrimarySkillName": ".Net",
+                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
+                "PrimarySkillTestLink": "https://exadel.com/tests/net"
             }
         ],
         "Managers": [
@@ -114,7 +122,9 @@ var projects = [
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
+                "PrimarySkillName": "Java",
+                "PrimarySkillDescription": "JDBC & Hibernate, Java EE / Spring, Java Core",
+                "PrimarySkillTestLink": "https://exadel.com/tests/java"
             }
         ],
         "Managers": [
@@ -162,15 +172,21 @@ var projects = [
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
+                "PrimarySkillName": ".Net",
+                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
+                "PrimarySkillTestLink": "https://exadel.com/tests/net"
             },
             {
                 "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "Name": "JavaScript"
+                "PrimarySkillName": "JavaScript",
+                "PrimarySkillDescription": "HTML, React, Github, Bash, Express.js",
+                "PrimarySkillTestLink": "https://exadel.com/tests/javascript"
             },
             {
                 "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
+                "PrimarySkillName": "BusinessAnalyst",
+                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
             }
         ],
         "Managers": [
@@ -218,19 +234,27 @@ var projects = [
         "PrimarySkills": [
             {
                 "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
+                "PrimarySkillName": ".Net",
+                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
+                "PrimarySkillTestLink": "https://exadel.com/tests/net"
             },
             {
                 "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "Name": "JavaScript"
+                "PrimarySkillName": "JavaScript",
+                "PrimarySkillDescription": "HTML, React, Github, Bash, Express.js",
+                "PrimarySkillTestLink": "https://exadel.com/tests/javascript"
             },
             {
                 "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
+                "PrimarySkillName": "BusinessAnalyst",
+                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
             },
             {
                 "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "Name": "ProjectManager"
+                "PrimarySkillName": "ProjectManager",
+                "PrimarySkillDescription": "Scrum, Agile, PMBOK",
+                "PrimarySkillTestLink": "https://exadel.com/tests/projectmanager"
             }
         ],
         "Managers": [
