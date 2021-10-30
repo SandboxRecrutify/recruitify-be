@@ -9,15 +9,15 @@ var projects = [
         "Description": "The Java Web Development course is an introduction to software development in the Jav programming language and related technologies. The program includes learning the basics of Java and JDK, Servlets API and JS, implementation of simple web applications.",
         "PrimarySkills": [
             {
-                "Id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                 "Name": "Java"
             },
             {
-                "Id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
                 "Name": "ProjectManager"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst"
             }
         ],
@@ -69,7 +69,7 @@ var projects = [
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net"
             }
         ],
@@ -113,7 +113,7 @@ var projects = [
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "Id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                 "Name": "Java"
             }
         ],
@@ -161,15 +161,15 @@ var projects = [
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net"
             },
             {
-                "Id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                 "Name": "JavaScript"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst"
             }
         ],
@@ -217,19 +217,19 @@ var projects = [
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net"
             },
             {
-                "Id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                 "Name": "JavaScript"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst"
             },
             {
-                "Id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
                 "Name": "ProjectManager"
             }
         ],
