@@ -38,11 +38,6 @@ namespace Recrutify.Host
 
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
-            services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IProjectRepository, ProjectRepository>();
-            services.AddSingleton<IProjectService, ProjectService>();
-            services.AddSingleton<ICandidateRepository, CandidateRepository>();
-            services.AddSingleton<ICandidateService, CandidateService>();
 
             services.AddRepositories();
             services.AddServices();
