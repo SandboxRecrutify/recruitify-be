@@ -30,7 +30,7 @@ namespace Recrutify.Services.Services
 
         public async Task<ProjectDTO> GetAsync(Guid id)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
+            var project = await _projectRepository.GetAsync(id);
             return _mapper.Map<ProjectDTO>(project);
         }
 

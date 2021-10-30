@@ -33,7 +33,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().Find(filter).ToListAsync();
         }
 
-        public Task<TDocument> GetByIdAsync(Guid id)
+        public Task<TDocument> GetAsync(Guid id)
         {
             var filter = _filterBuilder.Eq(u => u.Id, id);
             return GetCollection().Find(filter).FirstOrDefaultAsync();

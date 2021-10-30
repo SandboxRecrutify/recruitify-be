@@ -13,7 +13,7 @@ using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host.UserServices
 {
-    internal class CustomProfileService : IProfileService
+    public class CustomProfileService : IProfileService
     {
         private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
@@ -26,7 +26,7 @@ namespace Recrutify.Host.UserServices
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
+            var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
 
             List<string> roles = new List<string>();
             var claims = new List<Claim>()
@@ -46,7 +46,7 @@ namespace Recrutify.Host.UserServices
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-            var user = await _userRepository.GetByIdAsync(Guid.Parse(context.Subject.GetSubjectId()));
+            var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
             context.IsActive = user != null;
         }
     }
