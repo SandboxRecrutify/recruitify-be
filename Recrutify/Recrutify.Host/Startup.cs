@@ -47,7 +47,7 @@ namespace Recrutify.Host
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-            services.AddControllers().AddOData(opt => opt.Filter().Expand().Select().OrderBy().AddRouteComponents("odata", GetEdmModel()));
+            services.AddControllers().AddOData(opt => opt.Filter().Expand().Select().OrderBy().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel()));
 
             services.AddSwaggerGen(c =>
             {
