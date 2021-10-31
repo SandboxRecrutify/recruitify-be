@@ -20,7 +20,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        [Authorize (Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager) + nameof(Role.Manager))]
+        [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager))]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
