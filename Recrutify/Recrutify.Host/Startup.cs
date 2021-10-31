@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.Extensions;
 
 namespace Recrutify.Host
@@ -53,13 +54,13 @@ namespace Recrutify.Host
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
