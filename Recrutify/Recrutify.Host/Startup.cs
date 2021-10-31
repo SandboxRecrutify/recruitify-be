@@ -85,6 +85,7 @@ namespace Recrutify.Host
         {
             var builder = new ODataConventionModelBuilder();
             builder.EntitySet<ProjectDTO>("Projects");
+            builder.EntitySet<PrimarySkillDTO>("PrimarySkills");
             return builder.GetEdmModel();
         }
     }

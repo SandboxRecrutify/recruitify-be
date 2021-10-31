@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
@@ -40,6 +41,15 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ProjectDTO>>(projects);
         }
 
+        public IQueryable<ProjectDTO> Get()
+        {
+            var projects = _projectRepository.Get();
+            var arr1 = projects.ToArray();
+            var dto = _mapper.ProjectTo<ProjectDTO>(projects);
+            //var arr2 = dto.ToArray();
+            return dto;
+        }
+
         public async Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto)
         {
             var project = _mapper.Map<Project>(projectDto);
@@ -56,5 +66,7 @@ namespace Recrutify.Services.Services
         {
             return _projectRepository.ExistsAsync(id);
         }
+
+        
     }
 }

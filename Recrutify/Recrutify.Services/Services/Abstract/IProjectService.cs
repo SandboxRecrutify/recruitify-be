@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Recrutify.Services.DTOs;
 
@@ -12,6 +13,8 @@ namespace Recrutify.Services.Services.Abstract
         Task<ProjectDTO> GetAsync(Guid id);
 
         Task<List<ProjectDTO>> GetAllAsync();
+
+        IQueryable<ProjectDTO> Get();
 
         Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto);
 

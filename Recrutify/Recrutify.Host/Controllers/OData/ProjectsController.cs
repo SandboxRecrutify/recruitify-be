@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -17,10 +18,16 @@ namespace Recrutify.Host.Controllers.OData
             _projectService = projectService;
         }
 
+        //[EnableQuery]
+        //public async Task<ActionResult<List<ProjectDTO>>> Get()
+        //{
+        //    return Ok(await _projectService.GetAllAsync());
+        //}
+
         [EnableQuery]
-        public async Task<ActionResult<List<ProjectDTO>>> Get()
+        public ActionResult<IQueryable<ProjectDTO>> Get()
         {
-            return Ok(await _projectService.GetAllAsync());
+            return Ok(_projectService.Get());
         }
     }
 }
