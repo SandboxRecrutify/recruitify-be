@@ -35,3 +35,6 @@ dotnet_diagnostic.SA1401.severity = none
 
 # SA1202: Elements should be ordered by access
 dotnet_diagnostic.SA1202.severity = none
+
+# S1854: Unused assignments should be removed
+dotnet_diagnostic.S1854.severity = none
