@@ -1,6 +1,7 @@
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,7 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
+using Newtonsoft.Json;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.Host.Configuration;
 using Recrutify.Services.DTOs;
@@ -47,7 +49,7 @@ namespace Recrutify.Host
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
-            services.AddControllers().AddOData(opt => opt.Filter().Expand().Select().OrderBy().SetMaxTop(100).AddRouteComponents("odata", GetEdmModel()));
+            services.AddControllers().AddOData(opt => opt.Filter().OrderBy().SetMaxTop(100).Count().AddRouteComponents("odata", GetEdmModel()));
 
             services.AddSwaggerGen(c =>
             {

@@ -17,15 +17,15 @@ namespace Recrutify.Services.DTOs
 
         public string Description { get; set; }
 
-        //public List<ProjectPrimarySkillDTO> PrimarySkills { get; set; }
+        public IEnumerable<ProjectPrimarySkillDTO> PrimarySkills { get; set; }
 
-        //public List<StaffDTO> Managers { get; set; }
+        public IEnumerable<StaffDTO> Managers { get; set; }
 
-        //public List<StaffDTO> Interviewers { get; set; }
+        public IEnumerable<StaffDTO> Interviewers { get; set; }
 
-        //public List<StaffDTO> Recruiters { get; set; }
+        public IEnumerable<StaffDTO> Recruiters { get; set; }
 
-        //public List<StaffDTO> Mentors { get; set; }
+        public IEnumerable<StaffDTO> Mentors { get; set; }
 
         public bool IsActive { get; set; }
     }

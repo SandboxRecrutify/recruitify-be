@@ -9,6 +9,7 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers.OData
 {
+    [ApiExplorerSettings(IgnoreApi = false)]
     public class ProjectsController : ODataController
     {
         private readonly IProjectService _projectService;
