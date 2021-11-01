@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -18,6 +20,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
+        // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager))]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
@@ -32,6 +35,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+
         [HttpPut]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
         {
@@ -40,9 +44,20 @@ namespace Recrutify.Host.Controllers
             {
                 return NotFound();
             }
-
             await _candidateService.UpsertAsync(id, projectId, feedbackDto);
             return NoContent();
+            
+        // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager))]
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
+        {
+            var result = await _candidateService.GetAsync(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }
