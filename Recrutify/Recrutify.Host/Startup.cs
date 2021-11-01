@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -9,7 +12,8 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.Host.Configuration;
-using Recrutify.Services.DTOs;
+using Recrutify.Host.Settings;
+using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
 
 namespace Recrutify.Host
@@ -42,6 +46,22 @@ namespace Recrutify.Host
                 .AddFluentValidation();
             services.AddValidators();
 
+            services.AddIdentityServer()
+                 .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(IdentityServerSettings.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityServerSettings.GetApiResources())
+                .AddInMemoryApiScopes(IdentityServerSettings.GetApiScopes())
+                .AddInMemoryClients(IdentityServerSettings.GetClients())
+                .AddCustomUserStore();
+
+            var authority = Configuration["Authority"];
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            .AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = authority;
+                options.ApiName = "recruitify_api";
+            });
+
             var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
             services.AddCors(cors =>
             {
@@ -57,7 +77,39 @@ namespace Recrutify.Host
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Password = new OpenApiOAuthFlow
+                        {
+                            TokenUrl = new Uri($"{authority}/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "recruitify_api", "Full Access to Recruitify Api" },
+                            },
+                        },
+                    },
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2",
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    },
+                });
             });
         }
 
@@ -69,11 +121,12 @@ namespace Recrutify.Host
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-            app.UseCors();
-            app.UseAuthorization();
 
+            app.UseCors();
+            app.UseIdentityServer();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -82,7 +135,9 @@ namespace Recrutify.Host
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify");
+                c.OAuthClientId("recruitify_api");
+                c.OAuthAppName("Recruitify Api");
                 c.RoutePrefix = string.Empty;
             });
         }

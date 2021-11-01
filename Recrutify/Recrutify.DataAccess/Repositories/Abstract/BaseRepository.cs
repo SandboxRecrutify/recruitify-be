@@ -12,8 +12,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         : IBaseRepository<TDocument>
         where TDocument : IDataModel
     {
+        protected readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
         private readonly IMongoDatabase _database;
-        private readonly FilterDefinitionBuilder<TDocument> _filterBuilder;
 
         protected BaseRepository(IOptions<MongoSettings> options)
         {
@@ -33,10 +33,10 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().Find(filter).ToListAsync();
         }
 
-        public async Task<TDocument> GetAsync(Guid id)
+        public Task<TDocument> GetAsync(Guid id)
         {
-            var filter = _filterBuilder.Eq(x => x.Id, id);
-            return await GetCollection().Find(filter).FirstOrDefaultAsync();
+            var filter = _filterBuilder.Eq(u => u.Id, id);
+            return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
         public Task UpdateAsync(TDocument item)
@@ -58,7 +58,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return result != 0;
         }
 
-        private IMongoCollection<TDocument> GetCollection()
+        protected IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);
         }
