@@ -14,6 +14,7 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
+using Recrutify.Services.DTOs;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
