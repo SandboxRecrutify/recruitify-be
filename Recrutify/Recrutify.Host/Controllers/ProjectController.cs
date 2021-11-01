@@ -12,7 +12,7 @@ namespace Recrutify.Host.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    // [Authorize(Roles = nameof(Role.Admin))]
+    [Authorize(Policy = "ProjectAdminPolicy")]
     public class ProjectController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -24,7 +24,7 @@ namespace Recrutify.Host.Controllers
             _primarySkillService = primarySkillService;
         }
 
-        // [AllowAnonymous]
+        //[AllowAnonymous]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
@@ -32,7 +32,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Manager))]
+        [Authorize(Policy = "ProjectReadPolicy")]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -73,7 +73,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Manager) + nameof(Role.Mentor))]
+        [Authorize(Policy = "ProjectReadPolicy")]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {

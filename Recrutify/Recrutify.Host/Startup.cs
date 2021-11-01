@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
@@ -74,6 +75,13 @@ namespace Recrutify.Host
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy("ProjectAdminPolicy", policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy("ProjectReadPolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+            });
 
             services.AddSwaggerGen(c =>
             {
