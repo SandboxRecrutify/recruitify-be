@@ -35,6 +35,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+        // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager))]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {
