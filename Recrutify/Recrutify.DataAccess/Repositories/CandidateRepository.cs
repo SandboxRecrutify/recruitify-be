@@ -17,7 +17,7 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public async Task UpsertAsync(Guid id, Guid projectId, Feedback feedback)
+        public async Task UpsertFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);
             var updateBuilder = Builders<Candidate>.Update;

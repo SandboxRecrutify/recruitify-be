@@ -33,7 +33,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
         {
             var candidateExist = await _candidateService.ExistsAsync(id);
             if (!candidateExist)

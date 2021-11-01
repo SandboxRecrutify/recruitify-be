@@ -6,6 +6,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface ICandidateRepository : IBaseRepository<Candidate>
     {
-        Task UpsertAsync(Guid id, Guid projectId, Feedback feedback);
+        Task UpsertFeedbackAsync(Guid id, Guid projectId, Feedback feedback);
     }
 }
