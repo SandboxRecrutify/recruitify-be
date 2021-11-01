@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
+﻿using System.Linq;
+using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Routing;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers.OData
 {
-    [ApiExplorerSettings(IgnoreApi = false)]
+    [ODataRoutePrefix("Projects")]
     public class ProjectsController : ODataController
     {
         private readonly IProjectService _projectService;
@@ -19,16 +16,11 @@ namespace Recrutify.Host.Controllers.OData
             _projectService = projectService;
         }
 
-        //[EnableQuery]
-        //public async Task<ActionResult<List<ProjectDTO>>> Get()
-        //{
-        //    return Ok(await _projectService.GetAllAsync());
-        //}
-
         [EnableQuery]
-        public ActionResult<IQueryable<ProjectDTO>> Get()
+        [ODataRoute]
+        public IQueryable<ProjectDTO> Get()
         {
-            return Ok(_projectService.Get());
+            return _projectService.Get();
         }
     }
 }

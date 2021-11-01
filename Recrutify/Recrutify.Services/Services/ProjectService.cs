@@ -43,11 +43,7 @@ namespace Recrutify.Services.Services
 
         public IQueryable<ProjectDTO> Get()
         {
-            var projects = _projectRepository.Get();
-            var arr1 = projects.ToArray();
-            var dto = _mapper.ProjectTo<ProjectDTO>(projects);
-            //var arr2 = dto.ToArray();
-            return dto;
+            return _mapper.ProjectTo<ProjectDTO>(_projectRepository.Get());
         }
 
         public async Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto)
@@ -66,7 +62,5 @@ namespace Recrutify.Services.Services
         {
             return _projectRepository.ExistsAsync(id);
         }
-
-        
     }
 }

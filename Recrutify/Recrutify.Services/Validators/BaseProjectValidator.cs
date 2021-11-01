@@ -29,36 +29,36 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(p => p.PlannedApplicationsCount)
                 .NotEmpty();
-            //RuleFor(p => p.PrimarySkills)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleForEach(p => p.PrimarySkills)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleFor(p => p.Mentors)
-            //     .NotNull()
-            //     .NotEmpty();
-            //RuleForEach(p => p.Mentors)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleFor(p => p.Managers)
-            //     .NotNull()
-            //     .NotEmpty();
-            //RuleForEach(p => p.Managers)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleFor(p => p.Interviewers)
-            //     .NotNull()
-            //     .NotEmpty();
-            //RuleForEach(p => p.Interviewers)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleFor(p => p.Recruiters)
-            //    .NotNull()
-            //    .NotEmpty();
-            //RuleForEach(p => p.Recruiters)
-            //   .NotNull()
-            //   .NotEmpty();
+            RuleFor(p => p.PrimarySkills)
+                .NotNull()
+                .NotEmpty();
+            RuleForEach(p => p.PrimarySkills)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Mentors)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Mentors)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Managers)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Managers)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Interviewers)
+                 .NotNull()
+                 .NotEmpty();
+            RuleForEach(p => p.Interviewers)
+                .NotNull()
+                .NotEmpty();
+            RuleFor(p => p.Recruiters)
+                .NotNull()
+                .NotEmpty();
+            RuleForEach(p => p.Recruiters)
+               .NotNull()
+               .NotEmpty();
         }
     }
 }
