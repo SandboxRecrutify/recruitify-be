@@ -18,6 +18,31 @@ namespace Recrutify.Host.Infrastructure
                 return;
             }
 
+            if (operation.Parameters.Any(p => p.Name == "api-version"))
+            {
+                operation.Parameters.Remove(operation.Parameters.First(p => p.Name == "api-version"));
+            }
+
+            if (apiDescription.RelativePath.Contains("odata/"))
+            {
+                OpenApiParameter param;
+
+                if ((param = operation.Parameters.FirstOrDefault(p => p.Name == "$expand")) != null)
+                {
+                    operation.Parameters.Remove(param);
+                }
+
+                if ((param = operation.Parameters.FirstOrDefault(p => p.Name == "$select")) != null)
+                {
+                    operation.Parameters.Remove(param);
+                }
+
+                if ((param = operation.Parameters.FirstOrDefault(p => p.Name == "$count")) != null)
+                {
+                    operation.Parameters.Remove(param);
+                }
+            }
+
             foreach (var parameter in operation.Parameters)
             {
                 var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
@@ -31,6 +56,7 @@ namespace Recrutify.Host.Infrastructure
 
                 parameter.Required |= description.IsRequired;
             }
+            var oo = operation.Parameters;
         }
     }
 }
