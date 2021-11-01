@@ -8,7 +8,6 @@ using IdentityServer4;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using Microsoft.Extensions.Logging;
 using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host.UserServices
