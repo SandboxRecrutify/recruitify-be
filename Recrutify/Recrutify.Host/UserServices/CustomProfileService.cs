@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -25,17 +26,12 @@ namespace Recrutify.Host.UserServices
         {
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
 
-            List<string> roles = new List<string>();
             var claims = new List<Claim>()
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
             };
-
-            foreach (var role in user.Roles)
-            {
-                roles.Add(role.ToString());
-            }
+            var roles = user.Roles.Select(u => u.ToString()).ToList();
 
             claims.Add(new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(roles), IdentityServerConstants.ClaimValueTypes.Json));
             context.IssuedClaims = claims;
