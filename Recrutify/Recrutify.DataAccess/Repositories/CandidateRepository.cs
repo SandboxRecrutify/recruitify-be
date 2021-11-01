@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -16,21 +17,36 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public async Task UpserAsync(Guid id, Guid projectId, Feedback feedback)
+        public async Task UpsertAsync(Guid id, Guid projectId, Feedback feedback)
         {
-            var filter = _filterBuilder.And(
-                _filterBuilder.Eq(x => x.Id, id),
-                _filterBuilder.ElemMatch(p => p.ProjectResults, x => x.ProjectId == projectId),
-                _filterBuilder.Where(c => c.ProjectResults[-1].Feedbacks
-                          .All(f => f.UserId.Equals(feedback.UserId) && f.Type.Equals(feedback.Type))));
-            var update = Builders<Candidate>.Update
-                 .Set(c => c.ProjectResults[-1].Feedbacks[-1], feedback);
-            var result = await GetCollection().UpdateOneAsync(filter, update);
-            if (result.ModifiedCount == 0)
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            var updateBuilder = Builders<Candidate>.Update;
+
+            var updateDefinition = updateBuilder
+                 .Set("ProjectResults.$[projectResult].Feedbacks.$[feedback]", feedback);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var binaryFeedbackUserId = new BsonBinaryData(feedback.UserId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
             {
-                update = Builders<Candidate>.Update
-                    .AddToSet(x => x.ProjectResults[-1].Feedbacks, feedback);
-                await GetCollection().UpdateOneAsync(filter, update);
+               new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+               new BsonDocumentArrayFilterDefinition<Feedback>(new BsonDocument("$and", new BsonArray
+                {
+                   new BsonDocument("feedback.UserId", binaryFeedbackUserId),
+                   new BsonDocument("feedback.Type", feedback.Type),
+                })),
+            };
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+
+            var updateResult = await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
+            if (updateResult.ModifiedCount == 0)
+            {
+                arrayFilters = new List<ArrayFilterDefinition>
+            {
+               new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+            };
+                updateDefinition = updateBuilder
+                    .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+                await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
             }
         }
     }
