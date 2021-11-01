@@ -15,13 +15,11 @@ namespace Recrutify.Host.UserServices
 {
     public class CustomProfileService : IProfileService
     {
-        private readonly ILogger _logger;
         private readonly IUserRepository _userRepository;
 
-        public CustomProfileService(IUserRepository userRepository, ILogger<CustomProfileService> logger)
+        public CustomProfileService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _logger = logger;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
