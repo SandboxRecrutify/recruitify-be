@@ -39,5 +39,16 @@ namespace Recrutify.Services.Services
             var result = _mapper.Map<CandidateDTO>(candidate);
             return result;
         }
+
+        public Task UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        {
+            var feedback = _mapper.Map<Feedback>(feedbackDto);
+            return _candidateRepository.UpsertFeedbackAsync(id, projectId, feedback);
+        }
+
+        public Task<bool> ExistsAsync(Guid id)
+        {
+            return _candidateRepository.ExistsAsync(id);
+        }
     }
 }
