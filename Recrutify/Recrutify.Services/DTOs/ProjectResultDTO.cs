@@ -5,7 +5,7 @@ namespace Recrutify.Services.DTOs
 {
     public class ProjectResultDTO
     {
-        public List<CreateFeedbackDTO> Feedbacks { get; set; }
+        public List<FeedbackDTO> Feedbacks { get; set; }
 
         public Guid ProjectId { get; set; }
 
