@@ -70,7 +70,7 @@ namespace Recrutify.Host
                 options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
             });
 
-            var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins.Split(',');
+            var origins = Configuration["CorsOrigins"].Split(',');
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
