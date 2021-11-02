@@ -65,16 +65,16 @@ namespace Recrutify.Host
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy("ProjectAdminPolicy", policy => policy.RequireRole(nameof(Role.Admin)));
-                options.AddPolicy("ProjectReadPolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.CandidatePolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectAdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
             });
 
             var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
-                    "CorsForUI",
+                    Constants.Constants.Corses.CorsForUI,
                     builder =>
                     builder.WithOrigins(origins)
                     .AllowAnyHeader()
