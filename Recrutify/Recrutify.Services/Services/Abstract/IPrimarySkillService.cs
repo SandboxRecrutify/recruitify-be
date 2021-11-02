@@ -8,6 +8,5 @@ namespace Recrutify.Services.Services.Abstract
     public interface IPrimarySkillService
     {
         Task<List<PrimarySkillDTO>> GetAllAsync();
-        IQueryable<PrimarySkillDTO> Get();
     }
 }

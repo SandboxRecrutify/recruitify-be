@@ -105,7 +105,8 @@ namespace Recrutify.Host
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
-                c.OperationFilter<SwaggerDefaultValues>();
+                c.OperationFilter<DescriptionsOperationFilter>();
+                c.OperationFilter<ParametersOperationFilter>();
             });
             services.AddOdataSwaggerSupport();
         }

@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Recrutify.Host.Infrastructure
 {
-    public class SwaggerDefaultValues : IOperationFilter
+    public class ParametersOperationFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
@@ -39,24 +39,9 @@ namespace Recrutify.Host.Infrastructure
 
                 if ((param = operation.Parameters.FirstOrDefault(p => p.Name == "$count")) != null)
                 {
-                    operation.Parameters.Remove(param);
+                    param.Schema.Default = new OpenApiBoolean(default);
                 }
             }
-
-            foreach (var parameter in operation.Parameters)
-            {
-                var description = apiDescription.ParameterDescriptions.First(p => p.Name == parameter.Name);
-
-                parameter.Description ??= description.ModelMetadata?.Description;
-
-                if (parameter.Schema.Default == null && description.DefaultValue != null)
-                {
-                    parameter.Schema.Default = new OpenApiString(description.DefaultValue.ToString());
-                }
-
-                parameter.Required |= description.IsRequired;
-            }
-            var oo = operation.Parameters;
         }
     }
 }
