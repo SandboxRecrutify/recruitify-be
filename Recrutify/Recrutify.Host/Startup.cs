@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +15,10 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
 using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.Settings;
+using Recrutify.Host.UserServices;
 using Recrutify.Host.Infrastructure;
 using Recrutify.Services.Extensions;
 
@@ -47,6 +53,40 @@ namespace Recrutify.Host
 
             services.AddValidators();
 
+            services.AddIdentityServer()
+                 .AddDeveloperSigningCredential()
+                .AddInMemoryIdentityResources(IdentityServerSettings.GetIdentityResources())
+                .AddInMemoryApiResources(IdentityServerSettings.GetApiResources())
+                .AddInMemoryApiScopes(IdentityServerSettings.GetApiScopes())
+                .AddInMemoryClients(IdentityServerSettings.GetClients())
+                .AddCustomUserStore();
+
+            var authority = Configuration["Authority"];
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            .AddIdentityServerAuthentication(options =>
+            {
+                options.Authority = authority;
+                options.ApiName = "recruitify_api";
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.Constants.Policies.CandidatePolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectAdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+            });
+
+            var origins = Configuration["CorsOrigins"].Split(',');
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy(
+                    Constants.Constants.Cors.CorsForUI,
+                    builder =>
+                    builder.WithOrigins(origins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
             services.AddApiVersioning(options =>
@@ -78,11 +118,12 @@ namespace Recrutify.Host
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
 
+            app.UseCors();
+            app.UseIdentityServer();
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -93,7 +134,9 @@ namespace Recrutify.Host
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify v.1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify");
+                c.OAuthClientId("recruitify_api");
+                c.OAuthAppName("Recruitify Api");
                 c.RoutePrefix = string.Empty;
             });
         }
