@@ -20,7 +20,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
@@ -48,7 +48,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {
