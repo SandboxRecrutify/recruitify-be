@@ -40,10 +40,11 @@ namespace Recrutify.DataAccess.Repositories
             var updateResult = await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
             if (updateResult.ModifiedCount == 0)
             {
-                arrayFilters = new List<ArrayFilterDefinition>
-            {
-               new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
-            };
+                var projectResultArrayFilters = new List<ArrayFilterDefinition>
+                {
+                   new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+                };
+                updateOptions.ArrayFilters = projectResultArrayFilters;
                 updateDefinition = updateBuilder
                     .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
                 await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);

@@ -35,7 +35,6 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-
         [HttpPut]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
         {
@@ -44,9 +43,11 @@ namespace Recrutify.Host.Controllers
             {
                 return NotFound();
             }
+
             await _candidateService.UpsertAsync(id, projectId, feedbackDto);
             return NoContent();
-            
+        }
+
         // [Authorize(Roles = nameof(Role.Admin) + nameof(Role.Recruiter) + nameof(Role.Mentor) + nameof(Role.Manager))]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
