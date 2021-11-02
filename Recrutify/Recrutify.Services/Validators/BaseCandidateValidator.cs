@@ -25,12 +25,12 @@ namespace Recrutify.Services.Validators
                 .NotNull();
             RuleFor(c => c.PhoneNumber)
                 .NotNull()
-                .NotEmpty();
-            // проверка на отсутсвие букв
+                .NotEmpty()
+                .Matches(@"^\+?(\d[\d\- ]+)?(\(?[\d\- ]+\))?([\d\- ])+\d$");
             RuleFor(c => c.Email)
                .NotNull()
-               .NotEmpty();
-            // проверка на соответствие электронной почте
+               .NotEmpty()
+               .EmailAddress();
             RuleFor(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
@@ -56,17 +56,15 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.GoingToExadel)
-                .NotNull()
-                .NotEmpty();
-            RuleFor(c => c.CurrentJob)
                 .NotNull();
-            RuleFor(c => c.Certificates)
-                .NotNull();
-            RuleFor(c => c.AdditionalQuestions)
-                .NotNull()
-                .NotEmpty();
-            RuleFor(c => c.AdditionalInfo)
-                .NotNull();
+            //RuleFor(c => c.CurrentJob)
+            //    .NotNull();
+            //RuleFor(c => c.Certificates)
+            //    .NotNull();
+            //RuleFor(c => c.AdditionalQuestions)
+            //    .NotNull();
+            //RuleFor(c => c.AdditionalInfo)
+            //    .NotNull();
 
         }
     }

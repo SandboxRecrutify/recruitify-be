@@ -4,7 +4,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Host.Configuration.Profiles
-{
+{ 
     public class CandidateProfile : AutoMapper.Profile
     {
         public CandidateProfile()
