@@ -8,6 +8,7 @@ namespace Recrutify.Services.Extensions
     {
         public static void AddRepositories(this IServiceCollection services)
         {
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
             services.AddSingleton<IPrimarySkillRepository, PrimarySkillRepository>();

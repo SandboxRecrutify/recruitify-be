@@ -1,5 +1,4 @@
 ﻿using System;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -9,12 +8,17 @@ namespace Recrutify.Host.Configuration.Profiles
     {
         public CandidateProfile()
         {
-            CreateMap<CandidateCreateDTO, CandidateDTO>()
-                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
-            CreateMap<Candidate, CandidateDTO>();
+            CreateMap<Candidate, CandidateDTO>().ReverseMap();
             CreateMap<CandidateCreateDTO, Candidate>()
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
-            CreateMap<CandidatePrimarySkillDTO, CandidatePrimarySkill>().ReverseMap();
+            CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
+            CreateMap<ProjectResultDTO, ProjectResult>().ReverseMap();
+            CreateMap<FeedbackDTO, Feedback>().ReverseMap();
+            CreateMap<FeedbackTypeDTO, FeedbackType>().ReverseMap();
+            CreateMap<StatusDTO, Status>().ReverseMap();
+            CreateMap<ContactDTO, Contact>().ReverseMap();
+            CreateMap<EnglishLevelDTO, EnglishLevel>().ReverseMap();
+            CreateMap<LocationDTO, Location>().ReverseMap();
         }
     }
 }
