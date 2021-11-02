@@ -74,7 +74,7 @@ namespace Recrutify.Host
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
-                    Constants.Constants.Corses.CorsForUI,
+                    Constants.Constants.Cors.CorsForUI,
                     builder =>
                     builder.WithOrigins(origins)
                     .AllowAnyHeader()

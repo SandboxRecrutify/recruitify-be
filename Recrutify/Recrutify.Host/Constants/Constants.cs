@@ -14,7 +14,7 @@ namespace Recrutify.Host.Constants
             public const string ProjectReadPolicy = "ProjectReadPolicy";
         }
 
-        public static class Corses
+        public static class Cors
         {
             public const string CorsForUI = "CorsForUI";
         }
