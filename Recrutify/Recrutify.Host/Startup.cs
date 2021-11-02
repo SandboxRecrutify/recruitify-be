@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
@@ -62,11 +63,18 @@ namespace Recrutify.Host
                 options.ApiName = "recruitify_api";
             });
 
-            var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.Constants.Policies.CandidatePolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectAdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+            });
+
+            var origins = Configuration["CorsOrigins"].Split(',');
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
-                    "CorsForUI",
+                    Constants.Constants.Cors.CorsForUI,
                     builder =>
                     builder.WithOrigins(origins)
                     .AllowAnyHeader()
