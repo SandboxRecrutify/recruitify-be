@@ -63,6 +63,13 @@ namespace Recrutify.Host
                 options.ApiName = "recruitify_api";
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy("ProjectAdminPolicy", policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy("ProjectReadPolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+            });
+
             var origins = Configuration.GetSection(nameof(CorsOriginsSettings)).Get<CorsOriginsSettings>().Origins;
             services.AddCors(cors =>
             {
@@ -75,13 +82,6 @@ namespace Recrutify.Host
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("CandidatePolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy("ProjectAdminPolicy", policy => policy.RequireRole(nameof(Role.Admin)));
-                options.AddPolicy("ProjectReadPolicy", policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-            });
 
             services.AddSwaggerGen(c =>
             {

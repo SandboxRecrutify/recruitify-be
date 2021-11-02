@@ -24,7 +24,7 @@ namespace Recrutify.Host.Controllers
             _primarySkillService = primarySkillService;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
