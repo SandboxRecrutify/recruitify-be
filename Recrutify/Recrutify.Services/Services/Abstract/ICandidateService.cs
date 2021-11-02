@@ -7,13 +7,13 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface ICandidateService
     {
-        public Task<List<CandidateDTO>> GetAllAsync();
+        Task<List<CandidateDTO>> GetAllAsync();
 
-        public Task<CandidateDTO> GetAsync(Guid id);
+        Task<CandidateDTO> GetAsync(Guid id);
 
-        public Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO);
+        Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO);
 
-        Task UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto);
+        Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto);
 
         Task<bool> ExistsAsync(Guid id);
     }
