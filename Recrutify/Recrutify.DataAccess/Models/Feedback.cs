@@ -13,7 +13,5 @@ namespace Recrutify.DataAccess.Models
         public DateTime CreatedOn { get; set; }
 
         public FeedbackType Type { get; set; }
-
-        public bool IsRecommended { get; set; }
     }
 }

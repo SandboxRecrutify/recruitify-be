@@ -11,6 +11,7 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<Candidate, CandidateDTO>().ReverseMap();
             CreateMap<CandidateCreateDTO, Candidate>()
                 .ForMember(x => x.ProjectResults, opt => opt.Ignore())
+                .ForMember(x => x.RegistrationDate, opt => opt.Ignore())
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
             CreateMap<ProjectResultDTO, ProjectResult>().ReverseMap();

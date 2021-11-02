@@ -15,7 +15,5 @@ namespace Recrutify.Services.DTOs
         public Guid UserId { get; set; }
 
         public FeedbackTypeDTO Type { get; set; }
-
-        public bool IsRecommended { get; set; }
     }
 }

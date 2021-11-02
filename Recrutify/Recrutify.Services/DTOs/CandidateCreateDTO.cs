@@ -21,8 +21,6 @@ namespace Recrutify.Services.DTOs
 
         public List<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
-
         public List<int> BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
