@@ -48,7 +48,6 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        
         [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
