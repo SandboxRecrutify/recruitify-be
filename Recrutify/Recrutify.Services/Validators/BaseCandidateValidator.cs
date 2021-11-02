@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -28,9 +23,9 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .Matches(@"^\+?(\d[\d\- ]+)?(\(?[\d\- ]+\))?([\d\- ])+\d$");
             RuleFor(c => c.Email)
-               .NotNull()
-               .NotEmpty()
-               .EmailAddress();
+                .NotNull()
+                .NotEmpty()
+                .EmailAddress();
             RuleFor(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
@@ -57,15 +52,6 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.GoingToExadel)
                 .NotNull();
-            //RuleFor(c => c.CurrentJob)
-            //    .NotNull();
-            //RuleFor(c => c.Certificates)
-            //    .NotNull();
-            //RuleFor(c => c.AdditionalQuestions)
-            //    .NotNull();
-            //RuleFor(c => c.AdditionalInfo)
-            //    .NotNull();
-
         }
     }
 }
