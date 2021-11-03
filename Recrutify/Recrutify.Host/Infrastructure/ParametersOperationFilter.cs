@@ -18,14 +18,15 @@ namespace Recrutify.Host.Infrastructure
                 return;
             }
 
-            OpenApiParameter param;
+            OpenApiParameter param = operation.Parameters.FirstOrDefault(p => p.Name == "api-version");
 
-            if ((param = operation.Parameters.FirstOrDefault(p => p.Name == "api-version")) != null)
+            if (param != null)
             {
                 operation.Parameters.Remove(param);
             }
 
-            if (apiDescription.RelativePath.Contains("odata/") && (param = operation.Parameters.FirstOrDefault(p => p.Name == "$count")) != null)
+            param = operation.Parameters.FirstOrDefault(p => p.Name == "$count");
+            if (apiDescription.RelativePath.Contains("odata/") && param != null)
             {
                 param.Schema.Default = new OpenApiBoolean(default);
             }

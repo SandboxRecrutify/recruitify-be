@@ -17,7 +17,9 @@ namespace Recrutify.Host.Controllers.OData
             _candidateService = candidateService;
         }
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
+            | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
+            | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataRoute]
         public IQueryable<CandidateDTO> Get()
         {
