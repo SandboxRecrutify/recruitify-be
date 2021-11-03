@@ -13,6 +13,7 @@ using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.CustomExceptionMiddleware;
 using Recrutify.Host.Exceptions;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
@@ -129,7 +130,7 @@ namespace Recrutify.Host
             }
             else
             {
-                app.UseMiddleware<ExceptionMiddleware>();
+                app.ConfigureCustomExceptionMiddleware();
             }
 
             app.UseHttpsRedirection();
