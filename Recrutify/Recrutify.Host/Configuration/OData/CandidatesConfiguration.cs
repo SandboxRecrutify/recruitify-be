@@ -8,7 +8,7 @@ namespace Recrutify.Host.Configuration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string routePrefix)
         {
-            builder.EntitySet<ProjectDTO>("Candidates");
+            builder.EntitySet<CandidateDTO>("Candidates");
         }
     }
 }
