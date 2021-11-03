@@ -18,6 +18,7 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Infrastructure;
+using Recrutify.Host.Extensions;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
@@ -37,7 +38,6 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
 
@@ -71,18 +71,18 @@ namespace Recrutify.Host
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Constants.Constants.Policies.CandidatePolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Constants.Policies.ProjectAdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
-                options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.FeedbackPolicy, policy => policy.RequireRole(nameof(Role.Recruiter), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
             });
 
-            var origins = Configuration["CorsOrigins"].Split(',');
+            var corsOrigins = Configuration["CorsOrigins"].Split(',');
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
                     Constants.Constants.Cors.CorsForUI,
                     builder =>
-                    builder.WithOrigins(origins)
+                    builder.WithOrigins(corsOrigins)
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
@@ -148,6 +148,10 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHttpStatusExceptionHandler();
             }
 
             app.UseHttpsRedirection();

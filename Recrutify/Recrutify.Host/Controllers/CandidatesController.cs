@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -20,6 +19,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
+        [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
@@ -36,8 +36,9 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+        [Authorize(Policy = Constants.Constants.Policies.FeedbackPolicy)]
         [HttpPut]
-        public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
             var candidateExist = await _candidateService.ExistsAsync(id);
             if (!candidateExist)
@@ -45,11 +46,11 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
-            await _candidateService.UpsertAsync(id, projectId, feedbackDto);
+            await _candidateService.UpsertFeedbackAsync(id, projectId, feedbackDto);
             return NoContent();
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {
