@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Recrutify.Host.Exceptions;
 
-namespace Recrutify.Host.CustomExceptionMiddleware
+namespace Recrutify.Host.Exceptions
 {
-    public static class ConfigureExceptionMiddleware
+    public static class MiddlewareExtensions
     {
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {
