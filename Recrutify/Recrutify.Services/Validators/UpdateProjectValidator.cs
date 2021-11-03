@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -8,7 +9,7 @@ namespace Recrutify.Services.Validators
         public UpdateProjectValidator()
         {
             RuleFor(p => p.Id)
-                .NotEmpty();
+                .NotEqual(Guid.Empty);
         }
     }
 }
