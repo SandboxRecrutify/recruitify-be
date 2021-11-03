@@ -129,7 +129,7 @@ namespace Recrutify.Host
             }
             else
             {
-                app.ConfigureCustomExceptionMiddleware();
+                app.UseHttpStatusExceptionHandler();
             }
 
             app.UseHttpsRedirection();
