@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -9,11 +8,9 @@ namespace Recrutify.Host.Exceptions
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
+        public ExceptionMiddleware(RequestDelegate next)
         {
-            _logger = logger;
             _next = next;
         }
 
@@ -23,9 +20,8 @@ namespace Recrutify.Host.Exceptions
             {
                 await _next(httpContext);
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError($"Something went wrong: {ex}");
                 httpContext.Response.StatusCode = 500;
             }
         }
