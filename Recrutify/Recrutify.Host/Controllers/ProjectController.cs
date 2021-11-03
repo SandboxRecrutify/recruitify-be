@@ -21,7 +21,7 @@ namespace Recrutify.Host.Controllers
             _primarySkillService = primarySkillService;
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
@@ -29,7 +29,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectReadPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -37,7 +37,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
@@ -45,7 +45,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
         {
@@ -59,7 +59,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
@@ -73,7 +73,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = Constants.Constants.Policies.ProjectReadPolicy)]
+        [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {

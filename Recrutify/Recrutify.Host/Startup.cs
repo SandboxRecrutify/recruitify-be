@@ -65,10 +65,9 @@ namespace Recrutify.Host
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Constants.Constants.Policies.CandidatePolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Constants.Policies.CandidateFeedbackPolicy, policy => policy.RequireRole(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Constants.Policies.ProjectAdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
-                options.AddPolicy(Constants.Constants.Policies.ProjectReadPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.FeedbackPolicy, policy => policy.RequireRole(nameof(Role.Recruiter), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
             });
 
             var origins = Configuration["CorsOrigins"].Split(',');
