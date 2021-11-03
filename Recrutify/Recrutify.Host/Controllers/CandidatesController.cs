@@ -11,16 +11,17 @@ namespace Recrutify.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CandidateController : ControllerBase
+    public class CandidatesController : ControllerBase
     {
         private readonly ICandidateService _candidateService;
 
-        public CandidateController(ICandidateService candidateService)
+        public CandidatesController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
         }
 
         // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {

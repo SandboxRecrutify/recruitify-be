@@ -8,17 +8,25 @@ namespace Recrutify.Host.Configuration.Profiles
     {
         public CandidateProfile()
         {
-            CreateMap<Candidate, CandidateDTO>().ReverseMap();
-            CreateMap<CandidateCreateDTO, Candidate>()
-                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
-            CreateMap<ProjectResultDTO, ProjectResult>().ReverseMap();
-            CreateMap<FeedbackDTO, Feedback>().ReverseMap();
             CreateMap<FeedbackTypeDTO, FeedbackType>().ReverseMap();
             CreateMap<StatusDTO, Status>().ReverseMap();
             CreateMap<ContactDTO, Contact>().ReverseMap();
-            CreateMap<EnglishLevelDTO, EnglishLevel>().ReverseMap();
             CreateMap<LocationDTO, Location>().ReverseMap();
-        }
+            CreateMap<EnglishLevelDTO, EnglishLevel>().ReverseMap();
+
+            CreateMap<Candidate, CandidateDTO>()
+                 .ForMember(m => m.EnglishLevel, opt => opt.MapFrom(t => (EnglishLevelDTO)t.EnglishLevel));
+            CreateMap<CandidateCreateDTO, Candidate>()
+                .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()));
+
+            CreateMap<ProjectResult, ProjectResultDTO>()
+                .ForMember(m => m.Status, opt => opt.MapFrom(t => (StatusDTO)t.Status));
+            CreateMap<ProjectResultDTO, ProjectResult>();
+
+            CreateMap<Feedback, FeedbackDTO>()
+                .ForMember(m => m.Type, opt => opt.MapFrom(t => (FeedbackTypeDTO)t.Type));
+            CreateMap<FeedbackDTO, Feedback>();
+}
     }
 }
