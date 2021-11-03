@@ -40,7 +40,7 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public Task UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        public Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
             var feedback = _mapper.Map<Feedback>(feedbackDto);
             return _candidateRepository.UpsertFeedbackAsync(id, projectId, feedback);

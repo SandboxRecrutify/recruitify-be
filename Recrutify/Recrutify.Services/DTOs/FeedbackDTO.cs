@@ -2,18 +2,8 @@
 
 namespace Recrutify.Services.DTOs
 {
-    public class FeedbackDTO
+    public class FeedbackDTO : CreateFeedbackDTO
     {
-        public string TextFeedback { get; set; }
-
-        public int Rating { get; set; }
-
-        public Guid UserId { get; set; }
-
         public DateTime CreatedOn { get; set; }
-
-        public FeedbackTypeDTO Type { get; set; }
-
-        public bool IsRecommended { get; set; }
     }
 }
