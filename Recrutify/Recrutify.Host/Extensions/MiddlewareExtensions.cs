@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Recrutify.Host.CustomExceptionMiddleware;
+using Recrutify.Host.Infrastructure;
 
 namespace Recrutify.Host.Extensions
 {
