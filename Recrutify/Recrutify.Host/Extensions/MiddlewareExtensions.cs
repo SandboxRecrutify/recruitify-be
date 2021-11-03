@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Recrutify.Host.CustomExceptionMiddleware;
 
-namespace Recrutify.Host.Exceptions
+namespace Recrutify.Host.Extensions
 {
     public static class MiddlewareExtensions
     {

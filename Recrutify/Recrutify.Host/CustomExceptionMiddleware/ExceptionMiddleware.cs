@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Recrutify.Host.Exceptions
+namespace Recrutify.Host.CustomExceptionMiddleware
 {
     public class ExceptionMiddleware
     {
