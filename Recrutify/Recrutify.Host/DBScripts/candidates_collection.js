@@ -38,7 +38,6 @@
                         "Type": NumberInt(2),
                         "TextFeedback": "Weak knowledge of the database",
                         "Rating": NumberInt(2),
-                        "IsRecommended": false,
                         "CreatedOn": new Date("2021-08-15T11:45:17.000Z")
                     }
                 ],
@@ -50,7 +49,6 @@
                     {
                         "Type": NumberInt(0),
                         "Rating": NumberInt(4),
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-03-12T10:17:36.000Z")
                     },
                     {
@@ -58,7 +56,6 @@
                         "Type": NumberInt(2),
                         "Rating": NumberInt(5),
                         "TextFeedback": "Able to learn, has a good basic knowledge",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-04-18T10:25:12.000Z")
                     }
                 ],
@@ -108,13 +105,11 @@
                         "Type": NumberInt(2),
                         "Rating": NumberInt(4),
                         "TextFeedback": "It is worth considering the admission to the project",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-08-13T12:10:30.000Z")
                     },
                     {
                         "Type": NumberInt(0),
                         "Rating": NumberInt(5),
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-08-28T11:24:43.000Z")
                     },
                     {
@@ -122,7 +117,6 @@
                         "Type": NumberInt(3),
                         "Rating": NumberInt(4),
                         "TextFeedback": "Demonstrated good knowledge of async programming.",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-09-28T10:57:34.000Z")
                     }
                 ],
@@ -180,7 +174,6 @@
                         "Type": NumberInt(2),
                         "Rating": NumberInt(4),
                         "TextFeedback": "Fully suited to the project",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-08-16T10:27:18.000Z")
                     }
                 ],
@@ -228,13 +221,11 @@
                         "Type": NumberInt(2),
                         "Rating": NumberInt(3),
                         "TextFeedback": "Has basic skills and knowledge",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-03-14T10:11:14.000Z")
                     },
                     {
                         "Type": NumberInt(0),
                         "Rating": NumberInt(2),
-                        "IsRecommended": false,
                         "CreatedOn": new Date("2021-04-07T12:09:53.000Z")
                     },
                     {
@@ -242,7 +233,6 @@
                         "Type": NumberInt(3),
                         "Rating": NumberInt(4),
                         "TextFeedback": "Fully suitable for independent work",
-                        "IsRecommended": true,
                         "CreatedOn": new Date("2021-04-29T11:43:50.000Z")
                     }
                 ],
@@ -289,13 +279,11 @@
                        "Type": NumberInt(2),
                        "Rating": NumberInt(3),
                        "TextFeedback": "Has the basics of .Net 5.0",
-                       "IsRecommended": true,
                        "CreatedOn": new Date("2021-08-13T10:18:34.000Z")
                    },
                    {
                        "Type": NumberInt(0),
                        "Rating": NumberInt(3),
-                       "IsRecommended": true,
                        "CreatedOn": new Date("2021-08-26T12:14:11.000Z")
                    },
                    {
@@ -303,7 +291,6 @@
                        "Type": NumberInt(3),
                        "Rating": NumberInt(4),
                        "TextFeedback": "Fully owns the knowledge required for the project",
-                       "IsRecommended": true,
                        "CreatedOn": new Date("2021-09-22T11:12:53.000Z")
                    }
                ],
