@@ -10,6 +10,7 @@ namespace Recrutify.Host.Constants
         public static class Policies
         {
             public const string CandidatePolicy = "CandidatePolicy";
+            public const string CandidateFeedbackPolicy = "CandidateFeedbackPolicy";
             public const string ProjectAdminPolicy = "ProjectAdminPolicy";
             public const string ProjectReadPolicy = "ProjectReadPolicy";
         }
