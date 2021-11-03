@@ -10,12 +10,13 @@ namespace Recrutify.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectController : ControllerBase
+
+    public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
         private readonly IPrimarySkillService _primarySkillService;
 
-        public ProjectController(IProjectService projectService, IPrimarySkillService primarySkillService)
+        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService)
         {
             _projectService = projectService;
             _primarySkillService = primarySkillService;
@@ -30,6 +31,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {

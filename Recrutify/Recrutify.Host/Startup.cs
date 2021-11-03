@@ -2,18 +2,23 @@ using System;
 using System.Collections.Generic;
 using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNet.OData.Builder;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
+using OData.Swagger.Services;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
+using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
@@ -45,6 +50,7 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
+
             services.AddValidators();
 
             services.AddIdentityServer()
@@ -83,9 +89,24 @@ namespace Recrutify.Host
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+            });
+
+            services.AddOData().EnableApiVersioning();
+            services.AddODataApiExplorer(
+                options =>
+                {
+                    options.GroupNameFormat = "'v'VVV";
+                });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host" });
+                c.OperationFilter<DescriptionsOperationFilter>();
+                c.OperationFilter<ParametersOperationFilter>();
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
@@ -119,9 +140,10 @@ namespace Recrutify.Host
                     },
                 });
             });
+            services.AddOdataSwaggerSupport();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -142,6 +164,8 @@ namespace Recrutify.Host
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.Filter().Count().OrderBy().MaxTop(100);
+                endpoints.MapVersionedODataRoute("odata", "odata", modelBuilder.GetEdmModels());
             });
 
             app.UseSwagger();

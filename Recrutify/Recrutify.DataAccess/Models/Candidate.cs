@@ -17,19 +17,19 @@ namespace Recrutify.DataAccess.Models
 
         public string Email { get; set; }
 
-        public List<Contact> Contacts { get; set; }
+        public IEnumerable<Contact> Contacts { get; set; }
 
         public Location Location { get; set; }
 
-        public List<CandidatePrimarySkill> PrimarySkills { get; set; }
+        public IEnumerable<CandidatePrimarySkill> PrimarySkills { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 
-        public List<int> BestTimeToConnect { get; set; }
+        public IEnumerable<int> BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
 
-        public List<ProjectResult> ProjectResults { get; set; }
+        public IEnumerable<ProjectResult> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 
