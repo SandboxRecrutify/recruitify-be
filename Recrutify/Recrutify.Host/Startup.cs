@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
@@ -33,7 +34,6 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
 
@@ -127,6 +127,7 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMiddleware<ExceptionMiddleware>();
             }
             else
             {
