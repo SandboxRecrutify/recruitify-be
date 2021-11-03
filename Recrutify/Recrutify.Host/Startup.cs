@@ -13,6 +13,7 @@ using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.Extensions;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
@@ -32,7 +33,6 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
-
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
 
@@ -126,6 +126,10 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHttpStatusExceptionHandler();
             }
 
             app.UseHttpsRedirection();
