@@ -127,7 +127,6 @@ namespace Recrutify.Host
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMiddleware<ExceptionMiddleware>();
             }
             else
             {
