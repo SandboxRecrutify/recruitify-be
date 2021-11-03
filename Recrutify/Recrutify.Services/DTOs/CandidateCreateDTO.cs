@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
@@ -20,13 +21,9 @@ namespace Recrutify.Services.DTOs
 
         public IEnumerable<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
-        public DateTime RegistrationDate { get; set; }
-
         public IEnumerable<int> BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
-
-        public IEnumerable<ProjectResultDTO> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 
