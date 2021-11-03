@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
@@ -102,9 +104,24 @@ namespace Recrutify.Host
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Recrutify.Host" });
                 c.OperationFilter<DescriptionsOperationFilter>();
                 c.OperationFilter<ParametersOperationFilter>();
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Password = new OpenApiOAuthFlow
+                        {
+                            TokenUrl = new Uri($"{authority}/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "rectuitify_api", "full Access to Recruitify Api" },
+                            },
+                        },
+                    },
+                });
             });
             services.AddOdataSwaggerSupport();
         }
