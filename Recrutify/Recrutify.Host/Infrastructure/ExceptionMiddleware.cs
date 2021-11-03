@@ -25,7 +25,7 @@ namespace Recrutify.Host.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong: {ex}");
-                httpContext.Response.StatusCode = 500;
+                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
         }
     }
