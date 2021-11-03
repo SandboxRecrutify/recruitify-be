@@ -11,7 +11,6 @@ namespace Recrutify.Host.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    // [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
@@ -32,7 +31,6 @@ namespace Recrutify.Host.Controllers
         }
 
         [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
-        // [Authorize(Policy = "ProjectReadPolicy")]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
