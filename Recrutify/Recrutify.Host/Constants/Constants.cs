@@ -10,8 +10,8 @@ namespace Recrutify.Host.Constants
         public static class Policies
         {
             public const string AllAccessPolicy = "AllAccessPolicy";
-            public const string FeedbackPolicy = "CandidateFeedbackPolicy";
-            public const string AdminPolicy = "ProjectAdminPolicy";
+            public const string FeedbackPolicy = "FeedbackPolicy";
+            public const string AdminPolicy = "AdminPolicy";
         }
 
         public static class Cors
