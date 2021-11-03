@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
 using FluentValidation.AspNetCore;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
-using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +15,9 @@ using OData.Swagger.Services;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
-using Recrutify.Host.Infrastructure;
 using Recrutify.Services.Extensions;
 
 namespace Recrutify.Host
