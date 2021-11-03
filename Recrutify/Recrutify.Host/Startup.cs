@@ -70,13 +70,13 @@ namespace Recrutify.Host
                 options.AddPolicy(Constants.Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
             });
 
-            var origins = Configuration["CorsOrigins"].Split(',');
+            var corsOrigins = Configuration["CorsOrigins"].Split(',');
             services.AddCors(cors =>
             {
                 cors.AddPolicy(
                     Constants.Constants.Cors.CorsForUI,
                     builder =>
-                    builder.WithOrigins(origins)
+                    builder.WithOrigins(corsOrigins)
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
