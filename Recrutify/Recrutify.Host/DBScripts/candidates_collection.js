@@ -332,7 +332,7 @@
             }
         ],
         "RegistrationDate": new Date("2021-10-19T00:00:00.000Z"),
-        "BestTimeToConnect": [NumberInt(06), NumberInt(07), NumberInt(13), NumberInt(14), NumberInt(15), NumberInt(20), NumberInt(21), NumberInt(22)],
+        "BestTimeToConnect": [NumberInt(6), NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15), NumberInt(20), NumberInt(21), NumberInt(22)],
         "GoingToExadel": false,
         "ProjectResults": [
             {
