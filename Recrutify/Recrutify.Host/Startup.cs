@@ -117,7 +117,7 @@ namespace Recrutify.Host
                             TokenUrl = new Uri($"{authority}/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                { "rectuitify_api", "full Access to Recruitify Api" },
+                                { "recruitify_api", "Full Access to Recruitify Api" },
                             },
                         },
                     },
