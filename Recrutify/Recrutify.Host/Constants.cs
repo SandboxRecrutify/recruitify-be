@@ -11,7 +11,7 @@
 
         public static class Cors
         {
-            public const string CorsForUI = "CorsForUI";
+            public const string CorsForUI = nameof(CorsForUI);
         }
     }
 }
