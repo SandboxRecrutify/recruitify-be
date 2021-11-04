@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
@@ -14,13 +15,13 @@ namespace Recrutify.Services.DTOs
 
         public string Email { get; set; }
 
-        public List<ContactDTO> Contacts { get; set; }
+        public IEnumerable<ContactDTO> Contacts { get; set; }
 
         public LocationDTO Location { get; set; }
 
-        public List<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
+        public IEnumerable<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
-        public List<int> BestTimeToConnect { get; set; }
+        public IEnumerable<int> BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
 

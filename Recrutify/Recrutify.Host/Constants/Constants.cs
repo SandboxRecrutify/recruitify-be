@@ -4,9 +4,9 @@
     {
         public static class Policies
         {
-            public const string CandidatePolicy = "CandidatePolicy";
-            public const string ProjectAdminPolicy = "ProjectAdminPolicy";
-            public const string ProjectReadPolicy = "ProjectReadPolicy";
+            public const string AllAccessPolicy = nameof(AllAccessPolicy);
+            public const string FeedbackPolicy = nameof(FeedbackPolicy);
+            public const string AdminPolicy = nameof(AdminPolicy);
         }
 
         public static class Cors

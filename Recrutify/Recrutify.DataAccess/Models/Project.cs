@@ -20,15 +20,15 @@ namespace Recrutify.DataAccess
 
         public string Description { get; set; }
 
-        public List<ProjectPrimarySkill> PrimarySkills { get; set; }
+        public IEnumerable<ProjectPrimarySkill> PrimarySkills { get; set; }
 
-        public List<Staff> Managers { get; set; }
+        public IEnumerable<Staff> Managers { get; set; }
 
-        public List<Staff> Interviewers { get; set; }
+        public IEnumerable<Staff> Interviewers { get; set; }
 
-        public List<Staff> Recruiters { get; set; }
+        public IEnumerable<Staff> Recruiters { get; set; }
 
-        public List<Staff> Mentors { get; set; }
+        public IEnumerable<Staff> Mentors { get; set; }
 
         public bool IsActive { get; set; }
     }
