@@ -3,8 +3,7 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public abstract class CreateCandidateValidator<TDTO> : AbstractValidator<TDTO>
-        where TDTO : CandidateCreateDTO
+    public abstract class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
         public CreateCandidateValidator()
         {
