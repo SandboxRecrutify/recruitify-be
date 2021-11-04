@@ -41,17 +41,6 @@ namespace Recrutify.Host
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
 
-            var corsOrigins = Configuration["CorsOrigins"].Split(',');
-            services.AddCors(cors =>
-            {
-                cors.AddPolicy(
-                    Constants.Cors.CorsForUI,
-                    builder =>
-                    builder.WithOrigins(corsOrigins)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod());
-            });
-
             services.AddRepositories();
             services.AddServices();
 
@@ -85,6 +74,17 @@ namespace Recrutify.Host
                 options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
                 options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.RequireRole(nameof(Role.Recruiter), nameof(Role.Manager), nameof(Role.Interviewer)));
                 options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
+            });
+
+            var corsOrigins = Configuration["CorsOrigins"].Split(',');
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy(
+                    Constants.Cors.CorsForUI,
+                    builder =>
+                    builder.WithOrigins(corsOrigins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -154,11 +154,10 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
-            app.UseCors(Constants.Cors.CorsForUI);
-
             app.UseHttpsRedirection();
             app.UseRouting();
 
+            app.UseCors(Constants.Cors.CorsForUI);
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
