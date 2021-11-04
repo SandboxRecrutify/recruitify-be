@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Models;
@@ -40,10 +41,20 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
+        public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
-            var feedback = _mapper.Map<Feedback>(feedbackDto);
-            return _candidateRepository.UpsertFeedbackAsync(id, projectId, feedback);
+            var currentCundidateFeedback = await _candidateRepository.GetFeedbackAsync(id, projectId, feedbackDto.UserId, (FeedbackType)feedbackDto.Type);
+            if (currentCundidateFeedback == null)
+            {
+                var newFeedback = _mapper.Map<Feedback>(feedbackDto);
+                newFeedback.CreatedOn = DateTime.UtcNow;
+                await _candidateRepository.UpsertFeedbackAsync(id, projectId, newFeedback);
+            }
+            var currentFeedback = currentCundidateFeedback.ProjectResults.FirstOrDefault().Feedbacks.FirstOrDefault();
+            var data = currentFeedback.CreatedOn;
+            var feedbackToUpdate = _mapper.Map<Feedback>(feedbackDto);
+            feedbackToUpdate.CreatedOn = data;
+            await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdate);
         }
 
         public Task<bool> ExistsAsync(Guid id)
