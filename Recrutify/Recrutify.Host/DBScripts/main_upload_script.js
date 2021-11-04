@@ -1,5 +1,5 @@
 if (!db.User.exists()) {
-	load('./users_collection.js');
+    load('./users_collection.js');
     db.User.insertMany(users);
 }
 

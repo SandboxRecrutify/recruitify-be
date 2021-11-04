@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Models;
@@ -32,6 +33,11 @@ namespace Recrutify.Services.Services
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
+        public IQueryable<CandidateDTO> Get()
+        {
+            return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.Get());
+        }
+
         public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
@@ -40,7 +46,7 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public Task UpsertAsync(Guid id, Guid projectId, FeedbackDTO feedbackDto)
+        public Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
             var feedback = _mapper.Map<Feedback>(feedbackDto);
             return _candidateRepository.UpsertFeedbackAsync(id, projectId, feedback);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -12,19 +11,18 @@ namespace Recrutify.Host.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    // [Authorize(Policy = Constants.Constants.Policies.ProjectAdminPolicy)]
-    public class ProjectController : ControllerBase
+    public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
         private readonly IPrimarySkillService _primarySkillService;
 
-        public ProjectController(IProjectService projectService, IPrimarySkillService primarySkillService)
+        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService)
         {
             _projectService = projectService;
             _primarySkillService = primarySkillService;
         }
 
-        // [AllowAnonymous]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
         {
@@ -32,7 +30,8 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        // [Authorize(Policy = "ProjectReadPolicy")]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {
@@ -40,6 +39,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
@@ -47,6 +47,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
         {
@@ -60,6 +61,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
@@ -73,7 +75,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.ProjectReadPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
