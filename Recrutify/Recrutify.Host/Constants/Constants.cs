@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Recrutify.Host.Constants
+﻿namespace Recrutify.Host.Constants
 {
     public static class Constants
     {

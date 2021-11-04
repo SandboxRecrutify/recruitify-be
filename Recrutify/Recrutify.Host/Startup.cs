@@ -13,6 +13,7 @@ using MongoDB.Bson;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
+using Recrutify.Host.Constants;
 using Recrutify.Host.Extensions;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
@@ -135,7 +136,7 @@ namespace Recrutify.Host
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors(Constants.Constants.Cors.CorsForUI);
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
