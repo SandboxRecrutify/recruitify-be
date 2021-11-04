@@ -1,4 +1,4 @@
-﻿namespace Recrutify.Host.Constants
+﻿namespace Recrutify.Host
 {
     public static class Constants
     {
