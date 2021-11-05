@@ -51,7 +51,7 @@ namespace Recrutify.Host
                     Constants.Cors.CorsForUI,
                     builder =>
                     builder.WithOrigins(corsOrigins)
-                   .AllowAnyHeader()
+                    .AllowAnyHeader()
                     .AllowAnyMethod());
             });
 
