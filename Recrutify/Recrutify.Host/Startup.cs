@@ -50,7 +50,7 @@ namespace Recrutify.Host
                 cors.AddPolicy(
                     Constants.Cors.CorsForUI,
                     builder =>
-                    builder.AllowAnyOrigin()/* WithOrigins(corsOrigins)*/
+                    builder.WithOrigins(corsOrigins)
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
