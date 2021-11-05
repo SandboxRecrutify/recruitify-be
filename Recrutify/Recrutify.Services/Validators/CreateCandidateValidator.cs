@@ -1,9 +1,10 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public abstract class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
+    public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
         public CreateCandidateValidator()
         {
@@ -26,6 +27,9 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
+            RuleFor(t => t.Contacts.ToList()).
+                Must(t => t.Where(list => list.Type == "Skype").Count() > 0)
+                .WithMessage("Skype is required");
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
