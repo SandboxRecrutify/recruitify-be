@@ -155,8 +155,10 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
+            app.UseForwardedHeaders(HttpsSettings.Get());
+
             app.UseCors(Constants.Cors.CorsForUI);
-            app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
