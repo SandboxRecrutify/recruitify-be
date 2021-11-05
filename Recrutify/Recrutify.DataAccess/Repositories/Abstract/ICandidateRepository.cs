@@ -8,6 +8,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task UpsertFeedbackAsync(Guid id, Guid projectId, Feedback feedback);
 
-        Task<Candidate> GetFeedbackAsync(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType);
+        Task<Candidate> GetCandidateWithProjectFeedbackAsync(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType);
     }
 }

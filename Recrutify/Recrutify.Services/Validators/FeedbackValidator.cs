@@ -1,21 +1,18 @@
-﻿using FluentValidation;
+﻿using System;
+using FluentValidation;
 using Recrutify.DataAccess.Models;
-using Recrutify.Services.DTOs;
-using System;
-
 
 namespace Recrutify.Services.Validators
 {
     public class FeedbackValidator<TDTO> : AbstractValidator<TDTO>
-        where TDTO : Feedback
+        where TDTO : CandidateStatusFeedBack
     {
         public FeedbackValidator()
         {
-            RuleFor(f => f)
+            RuleFor(f => f.Feedbacks)
                 .NotNull()
                 .Must(BeAValidData)
                 .WithMessage("Time for editing is over");
-            
         }
 
         protected bool BeAValidData(Feedback date)
@@ -30,6 +27,5 @@ namespace Recrutify.Services.Validators
 
             return false;
         }
-
     }
 }
