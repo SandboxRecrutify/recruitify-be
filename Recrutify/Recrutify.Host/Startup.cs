@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
@@ -37,6 +38,8 @@ namespace Recrutify.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IdentityModelEventSource.ShowPII = true;
+
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
@@ -48,7 +51,7 @@ namespace Recrutify.Host
                     Constants.Cors.CorsForUI,
                     builder =>
                     builder.WithOrigins(corsOrigins)
-                    .AllowAnyHeader()
+                   .AllowAnyHeader()
                     .AllowAnyMethod());
             });
 
