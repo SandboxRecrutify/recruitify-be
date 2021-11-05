@@ -81,6 +81,7 @@ namespace Recrutify.Host
             {
                 options.Authority = authority;
                 options.ApiName = "recruitify_api";
+                options.RequireHttpsMetadata = false;
             });
 
             services.AddAuthorization(options =>
