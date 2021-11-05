@@ -81,7 +81,7 @@ namespace Recrutify.Host
             {
                 options.Authority = authority;
                 options.ApiName = "recruitify_api";
-                options.RequireHttpsMetadata = false;
+                //options.RequireHttpsMetadata = false;
             });
 
             services.AddAuthorization(options =>
@@ -159,7 +159,7 @@ namespace Recrutify.Host
             }
 
             app.UseCors(Constants.Cors.CorsForUI);
-
+            app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
             app.UseHttpsRedirection();
             app.UseRouting();
 
