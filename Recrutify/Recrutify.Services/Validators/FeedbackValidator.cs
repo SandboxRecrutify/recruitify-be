@@ -9,9 +9,9 @@ namespace Recrutify.Services.Validators
     {
         public FeedbackValidator()
         {
-            RuleFor(f => f.Feedbacks)
+            RuleFor(f => f.Feedback)
                 .NotNull()
-                .Must(BeAValidData)
+                //.Must(BeAValidData)
                 .WithMessage("Time for editing is over");
         }
 

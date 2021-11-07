@@ -34,6 +34,12 @@ namespace Recrutify.Services.Services
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
+        public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
+        {
+            var candidate = await _candidateRepository.GetCandidateWithProject(id, projectId);
+            return _mapper.Map<CandidateDTO>(candidate);
+        }
+
         public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
@@ -46,8 +52,7 @@ namespace Recrutify.Services.Services
         {
             var candidateWithProjectFeedback = await _candidateRepository.GetCandidateWithProjectFeedbackAsync(id, projectId,
                 feedbackDto.UserId, _mapper.Map<FeedbackType>(feedbackDto.Type));
-            var currentFeedback = candidateWithProjectFeedback?.ProjectResults?.FirstOrDefault().Feedbacks?.FirstOrDefault();
-            if (currentFeedback == null)
+            if (candidateWithProjectFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
@@ -55,8 +60,11 @@ namespace Recrutify.Services.Services
             }
             else
             {
-                var feedbackToUpdate = _mapper.Map(feedbackDto, currentFeedback.DeepCopy());
-                await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdate);
+                var copy = candidateWithProjectFeedback.DeepCopy();
+                var result = _mapper.Map<CreateFeedbackDTO>(copy);
+                var feedbackToUpdate = _mapper.Map(feedbackDto, result);
+                var feedbackToUpdatemap = _mapper.Map<Feedback>(feedbackToUpdate);
+                await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdatemap);
             }
         }
 

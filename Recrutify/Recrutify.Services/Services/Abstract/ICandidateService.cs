@@ -16,5 +16,7 @@ namespace Recrutify.Services.Services.Abstract
         Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto);
 
         Task<bool> ExistsAsync(Guid id);
+
+        Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
     }
 }
