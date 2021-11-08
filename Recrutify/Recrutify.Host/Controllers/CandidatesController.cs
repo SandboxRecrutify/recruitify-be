@@ -20,7 +20,6 @@ namespace Recrutify.Host.Controllers
         }
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
-        // [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {

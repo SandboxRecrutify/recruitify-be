@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Options;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Repositories.Abstract;
 
