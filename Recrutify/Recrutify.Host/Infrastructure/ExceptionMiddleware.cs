@@ -9,11 +9,13 @@ namespace Recrutify.Host.Infrastructure
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
+        private readonly log4net.ILog log;
 
         public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
             _logger = logger;
+            log = log4net.LogManager.GetLogger("log");
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
@@ -25,6 +27,7 @@ namespace Recrutify.Host.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError($"Something went wrong: {ex}");
+                log.Error($"Error: {ex}");
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
         }
