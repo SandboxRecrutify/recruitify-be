@@ -47,7 +47,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [HttpPut("all feedbaks")]
+        [HttpGet("all feedbaks")]
         public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
         {
             var candidateExist = await _candidateService.ExistsAsync(id);

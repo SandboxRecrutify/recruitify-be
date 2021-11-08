@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using AutoMapper;
+using FluentValidation;
 using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
+using Recrutify.Services.Validators;
 
 namespace Recrutify.Services.Services
 {
@@ -15,6 +17,7 @@ namespace Recrutify.Services.Services
     {
         private readonly ICandidateRepository _candidateRepository;
         private readonly IMapper _mapper;
+        private readonly IValidator<ProjectResult> _validator;
 
         public CandidateService(ICandidateRepository candidateRepository, IMapper mapper)
         {
@@ -60,6 +63,8 @@ namespace Recrutify.Services.Services
             }
             else
             {
+              
+
                 var copy = candidateWithProjectFeedback.DeepCopy();
                 var result = _mapper.Map<CreateFeedbackDTO>(copy);
                 var feedbackToUpdate = _mapper.Map(feedbackDto, result);

@@ -5,7 +5,7 @@ namespace Recrutify.DataAccess.Models
 {
     public class ProjectResult
     {
-        public List<Feedback> Feedbacks { get; set; }
+        public IEnumerable<Feedback> Feedbacks { get; set; }
 
         public Guid ProjectId { get; set; }
 

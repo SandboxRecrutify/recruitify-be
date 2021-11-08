@@ -18,12 +18,6 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ProjectResultDTO, ProjectResult>().ReverseMap();
             CreateMap<CreateFeedbackDTO, Feedback>()
                 .ForMember(dest => dest.CreatedOn, opt => opt.Ignore());
-            CreateMap<CandidateStatusFeedBack, CreateFeedbackDTO>()
-                .ForMember(dest => dest.Rating, opt => opt.Ignore())
-                .ForMember(dest => dest.TextFeedback, opt => opt.Ignore())
-                .ForMember(dest => dest.Type, opt => opt.Ignore())
-                .ForMember(dest => dest.UserId, opt => opt.Ignore());
-
             CreateMap<Feedback, FeedbackDTO>();
             CreateMap<FeedbackTypeDTO, FeedbackType>().ReverseMap();
             CreateMap<StatusDTO, Status>().ReverseMap();

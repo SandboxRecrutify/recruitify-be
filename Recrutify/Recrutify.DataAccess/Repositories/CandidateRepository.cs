@@ -18,28 +18,29 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<Candidate> GetCandidateWithProject(Guid id, Guid projectId)
+        public Task<ProjectResult> GetCandidateWithProject(Guid id, Guid projectId)
         {
-             var match1 = new BsonDocument("$match", new BsonDocument("_id", id));
-             var match2 = new BsonDocument("$unwind", "$ProjectResults");
-             var match3 = new BsonDocument("$match", new BsonDocument("ProjectResults.ProjectId", projectId));
-
-             var proroject = new BsonDocument("$project", new BsonDocument(
-             "ProjectResults",
-             new BsonDocument("Status", 1).Add("Feedbacks", 1).Add("ProjectId", 1).Add("Reason", 1)));
-             var aggregatorPipeline = new[] { match1, match2, match3, proroject };
-             return GetCollection().Aggregate<Candidate>(aggregatorPipeline).FirstOrDefaultAsync();
+            return GetCollection().Aggregate().Match(c => c.Id == id)
+               .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
+                .Project(p =>
+                   new ProjectResult
+                   {
+                       Status = p.Status,
+                       Feedbacks = p.Feedbacks,
+                       ProjectId = p.ProjectId,
+                       Reason = p.Reason,
+                   }).FirstOrDefaultAsync();
         }
 
-        public Task<CandidateStatusFeedBack> GetCandidateWithProjectFeedbackAsync(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
+        public Task<ProjectResult> GetCandidateWithProjectFeedbackAsync(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
         {
             return GetCollection().Aggregate().Match(c => c.Id == id)
             .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
              .Project(p =>
-                new CandidateStatusFeedBack
+                new ProjectResult
                 {
                     Status = p.Status,
-                    Feedback = p.Feedbacks.Where(f => f.UserId == feedbackUserId && f.Type == feedbackType),
+                    Feedbacks = p.Feedbacks.Where(f => f.UserId == feedbackUserId && f.Type == feedbackType),
                     ProjectId = p.ProjectId,
                     Reason = p.Reason,
                 }).FirstOrDefaultAsync();
