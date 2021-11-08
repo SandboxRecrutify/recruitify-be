@@ -36,6 +36,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
+        // [Authorize(Policy = Constants.Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
         public async Task<ActionResult<CandidateDTO>> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
@@ -58,6 +59,10 @@ namespace Recrutify.Host.Controllers
             {
                 return NotFound();
             }
+
+            await _candidateService.GetCandidateWithProjectAsync(id, projectId);
+            return NoContent();
+        }*/
 
         // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
