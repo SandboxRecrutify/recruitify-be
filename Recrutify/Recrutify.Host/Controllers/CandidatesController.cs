@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,14 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(result);
+        }
+
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("Candidates_By_Project")]
+        public async Task<ActionResult<CandidateDTO>> GetFilterByPrject(Guid projectId)
+        {
+            var result = await _candidateService.GetCandidatesByProject(projectId);
+            return Ok(result.OrderByDescending(x => x.SumRating(projectId)).ThenByDescending(x => x.TestResult(projectId)));
         }
     }
 }

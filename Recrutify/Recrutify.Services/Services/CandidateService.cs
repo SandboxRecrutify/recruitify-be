@@ -27,6 +27,12 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
+        public async Task<IEnumerable<CandidateDTO>> GetCandidatesByProject(Guid projectId)
+        {
+            var candidates = await _candidateRepository.GetCandidatesByProject(projectId);
+            return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
+
         public async Task<CandidateDTO> GetAsync(Guid id)
         {
             var candidate = await _candidateRepository.GetAsync(id);

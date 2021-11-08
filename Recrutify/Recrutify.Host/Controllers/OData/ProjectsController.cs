@@ -3,12 +3,9 @@ using System.Linq;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Recrutify.Host.Controllers.OData
 {
@@ -25,7 +22,7 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
             | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        //[Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         //[MyAuthorize]
         [ODataRoute]
@@ -39,6 +36,8 @@ namespace Recrutify.Host.Controllers.OData
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+
+
         }
     }
 }
