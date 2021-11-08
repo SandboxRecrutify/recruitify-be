@@ -152,7 +152,7 @@ namespace Recrutify.Host
             services.AddOdataSwaggerSupport();
         }
 
-        public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -164,6 +164,8 @@ namespace Recrutify.Host
             }
 
             app.UseCors(Constants.Cors.CorsForUI);
+
+            loggerFactory.AddLog4Net();
 
             app.UseHttpsRedirection();
             app.UseRouting();
