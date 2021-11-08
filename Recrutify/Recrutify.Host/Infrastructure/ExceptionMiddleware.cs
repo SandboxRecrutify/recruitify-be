@@ -8,13 +8,11 @@ namespace Recrutify.Host.Infrastructure
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
         private readonly log4net.ILog log;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+        public ExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logger = logger;
             log = log4net.LogManager.GetLogger("log");
         }
 
@@ -26,7 +24,6 @@ namespace Recrutify.Host.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
                 log.Error($"Error: {ex}");
                 httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
