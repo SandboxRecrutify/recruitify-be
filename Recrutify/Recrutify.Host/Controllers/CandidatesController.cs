@@ -31,6 +31,7 @@ namespace Recrutify.Host.Controllers
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
+            throw new Exception("Exception while fetching all the students from the storage.");
             var result = await _candidateService.CreateAsync(candidateCreateDTO);
             return Created(string.Empty, result);
         }

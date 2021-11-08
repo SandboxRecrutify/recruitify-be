@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using System.Net;
 using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Host.Extensions
 {
-    public interface ILoggerManager {
-        void LogError(string ErrorMessage);
-    }
-
     public static class ExceptionMiddlewareExtension
     {
-        public static void ConfigureexceptionHandler(this IApplicationBuilder app, ILoggerManager logger)
+        private static log4net.ILog log;
+
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
         {
+            log = log4net.LogManager.GetLogger("log");
             app.UseExceptionHandler(appError =>
             {
                 appError.Run(async context =>
@@ -27,7 +22,7 @@ namespace Recrutify.Host.Extensions
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        logger.LogError($"Error: {contextFeature.Error}");
+                        log.Error($"Error: {contextFeature.Error}");
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
