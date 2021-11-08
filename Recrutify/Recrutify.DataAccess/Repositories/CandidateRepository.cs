@@ -17,7 +17,7 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<List<Candidate>> GetCandidatesByProject(Guid projectId)
+        public Task<List<Candidate>> GetByProject(Guid projectId)
         {
             var filter = _filterBuilder.ElemMatch(x => x.ProjectResults, x => x.ProjectId == projectId);
             return GetCollection().Find(filter).ToListAsync();
