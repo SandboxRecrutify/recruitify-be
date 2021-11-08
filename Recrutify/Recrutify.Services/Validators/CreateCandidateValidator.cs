@@ -6,7 +6,7 @@ namespace Recrutify.Services.Validators
 {
     public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
-        private const string _skype = "Skype";
+        private const string Skype = "Skype";
 
         public CreateCandidateValidator()
         {
