@@ -15,5 +15,10 @@ namespace Recrutify.Host
         {
             public const string CorsForUI = nameof(CorsForUI);
         }
+
+        public static class Roles
+        {
+            public const string ProjectRoles = nameof(ProjectRoles);
+        }
     }
 }

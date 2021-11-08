@@ -26,12 +26,14 @@ namespace Recrutify.Host.UserServices
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
-            var roles = user.ProjectRoles.Select(pr => new { projectId = pr.Key, roles = pr.Value.Select(r => r.ToString()).ToList() }).ToArray();
+            var projectRoles = user.ProjectRoles.Select(pr => new { projectId = pr.Key, roles = pr.Value.Select(r => r.ToString()) }).ToArray();
+            var globalRoles = user.GlobalRoles.Select(gr => gr.ToString()).ToArray();
             var claims = new List<Claim>()
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
-                new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(roles), IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(globalRoles), IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim(Constants.Roles.ProjectRoles.ToLower(), JsonSerializer.Serialize(projectRoles), IdentityServerConstants.ClaimValueTypes.Json),
             };
 
             context.IssuedClaims = claims;
