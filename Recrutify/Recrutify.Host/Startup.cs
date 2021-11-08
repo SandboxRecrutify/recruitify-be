@@ -63,6 +63,7 @@ namespace Recrutify.Host
                 .AddFluentValidation();
 
             services.AddValidators();
+
             services.AddIdentityServer()
                  .AddDeveloperSigningCredential()
                 .AddInMemoryIdentityResources(IdentityServerSettings.GetIdentityResources())

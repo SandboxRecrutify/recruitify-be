@@ -58,9 +58,9 @@ namespace Recrutify.Services.Services
 
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
-            var candidateWithProjectFeedback = await _candidateRepository.GetProjectResultWithFeedback(id, projectId,
+            var projectResultWithFeedback = await _candidateRepository.GetProjectResultWithFeedback(id, projectId,
                 feedbackDto.UserId, _mapper.Map<FeedbackType>(feedbackDto.Type));
-            if (candidateWithProjectFeedback == null)
+            if (projectResultWithFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
@@ -68,12 +68,11 @@ namespace Recrutify.Services.Services
             }
             else
             {
-                var copy = candidateWithProjectFeedback.DeepCopy();
-                var feedbackToUpdate = _mapper.Map(feedbackDto, copy);
-                var isvalid = await _validator.ValidateAsync(feedbackToUpdate);
-                if (isvalid.IsValid)
+                var projectResultFeedback = _mapper.Map(feedbackDto, projectResultWithFeedback.DeepCopy());
+                var isValid = await _validator.ValidateAsync(projectResultFeedback);
+                if (isValid.IsValid)
                 {
-                    var feedbackToUpdatemap = _mapper.Map<Feedback>(feedbackToUpdate);
+                    var feedbackToUpdatemap = _mapper.Map<Feedback>(projectResultFeedback);
 
                     await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdatemap);
                 }

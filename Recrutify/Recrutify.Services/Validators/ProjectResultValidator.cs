@@ -11,20 +11,20 @@ namespace Recrutify.Services.Validators
         {
             RuleFor(f => f.Feedbacks.FirstOrDefault())
                 .NotNull()
-                .Must(BeAValidData)
-                .WithMessage("Time for editing is over");
+                .Must(ShouldBeNoMoreAValidTime)
+                .WithMessage("Сannot be updated from one day after creation");
             RuleFor(f => f.Status)
                 .IsInEnum()
                 .Must(s => !new[] { Status.Accepted, Status.Declined, Status.WaitingList, }.Contains(s))
-                .WithMessage("Status is not available for update");
+                .WithMessage("Cannot be updated for candidate in current status");
         }
 
-        protected bool BeAValidData(Feedback date)
+        protected bool ShouldBeNoMoreAValidTime(Feedback date)
         {
-            var currentData = DateTime.Now.Date;
-            var feedbackData = date.CreatedOn;
-            var result = DateTime.Now.Date - feedbackData;
-            return feedbackData <= currentData && feedbackData.Equals(result.Hours <= 24);
+            var currentDate = DateTime.Now.Date;
+            var feedbackCreationDate = date.CreatedOn;
+            var result = DateTime.Now.Date - feedbackCreationDate;
+            return feedbackCreationDate <= currentDate && feedbackCreationDate.Equals(result.Hours <= 24);
         }
     }
 }
