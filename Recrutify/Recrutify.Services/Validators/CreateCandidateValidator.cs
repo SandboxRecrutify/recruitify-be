@@ -6,6 +6,8 @@ namespace Recrutify.Services.Validators
 {
     public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
+        private const string _skype = "Skype";
+
         public CreateCandidateValidator()
         {
             RuleFor(c => c.Name)
@@ -28,7 +30,7 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.Contacts)
-                .Must(c => c.Any(contact => contact.Type == "Skype"))
+                .Must(c => c.Any(contact => contact.Type == _skype))
                 .WithMessage("Skype is required");
             RuleForEach(c => c.Contacts)
                 .NotNull()
