@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -9,16 +10,17 @@ namespace Recrutify.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CandidateController : ControllerBase
+    public class CandidatesController : ControllerBase
     {
         private readonly ICandidateService _candidateService;
 
-        public CandidateController(ICandidateService candidateService)
+        public CandidatesController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
@@ -26,6 +28,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
+        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
@@ -56,11 +59,7 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
-            await _candidateService.GetCandidateWithProjectAsync(id, projectId);
-            return NoContent();
-        }*/
-
-        // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
+        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {

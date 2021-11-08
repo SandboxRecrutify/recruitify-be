@@ -7,7 +7,7 @@ namespace Recrutify.Services.DTOs
     {
         public Guid Id { get; set; }
 
-        public List<ProjectResultDTO> ProjectResults { get; set; }
+        public IEnumerable<ProjectResultDTO> ProjectResults { get; set; }
 
         public DateTime RegistrationDate { get; set; }
     }
