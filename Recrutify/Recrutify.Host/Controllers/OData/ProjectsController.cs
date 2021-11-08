@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Recrutify.Host.Infrastructure.CustomsAuthorizationFilter;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -22,22 +21,11 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
             | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        //[Authorize(Policy = Constants.Policies.AllAccessPolicy)]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        //[MyAuthorize]
+        [ODataAuthorize]
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
             return _projectService.Get();
-        }
-    }
-
-    public class MyAuthorizeAttribute : Attribute, IAuthorizationFilter
-    {
-        public void OnAuthorization(AuthorizationFilterContext context)
-        {
-
-
         }
     }
 }

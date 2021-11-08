@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -15,11 +16,13 @@ namespace Recrutify.Host.Controllers
     {
         private readonly IProjectService _projectService;
         private readonly IPrimarySkillService _primarySkillService;
+        private readonly IUserService _userService;
 
-        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService)
+        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService, IUserService userService)
         {
             _projectService = projectService;
             _primarySkillService = primarySkillService;
+            _userService = userService;
         }
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
@@ -86,6 +89,20 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(project);
+        }
+
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("primary_skills_and_staff")]
+        public async Task<ActionResult<ProjectDTO>> PrimarySkillsAndStaff()
+        {
+            return Ok(new PrimarySkillAndStaffDTO()
+            {
+                 PrimarySkills = await _primarySkillService.GetAllAsync(),
+                 Managers = await _userService.GetByRoleAsync(Role.Admin),
+                 Interviewers = await _userService.GetByRoleAsync(Role.Interviewer),
+                 Recruiters = await _userService.GetByRoleAsync(Role.Recruiter),
+                 Mentors = await _userService.GetByRoleAsync(Role.Mentor),
+            });
         }
     }
 }

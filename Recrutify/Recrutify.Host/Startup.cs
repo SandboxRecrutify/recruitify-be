@@ -104,20 +104,7 @@ namespace Recrutify.Host
                 options.AssumeDefaultVersionWhenUnspecified = true;
             });
 
-            services.AddOData()
-                .EnableApiVersioning()
-                .AddAuthorization(options =>
-                {
-                    options.ScopesFinder = context =>
-                    {
-                        var userScopes = context.User.FindAll("Scope").Select(claim => claim.Value);
-                        return Task.FromResult(userScopes);
-                    };
-
-                    //options.ConfigureAuthentication("Bearer")
-                    //    .AddCookie();
-                });
-
+            services.AddOData().EnableApiVersioning();
             services.AddODataApiExplorer(
                 options =>
                 {
@@ -184,8 +171,6 @@ namespace Recrutify.Host
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
-
-            //app.UseODataAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
