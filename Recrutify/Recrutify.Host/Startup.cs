@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
@@ -143,7 +144,7 @@ namespace Recrutify.Host
             services.AddOdataSwaggerSupport();
         }
 
-        public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -155,6 +156,8 @@ namespace Recrutify.Host
             }
 
             app.UseCors(Constants.Cors.CorsForUI);
+
+            loggerFactory.AddLog4Net();
 
             app.UseHttpsRedirection();
             app.UseRouting();
