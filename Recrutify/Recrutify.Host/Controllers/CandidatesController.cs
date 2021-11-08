@@ -32,7 +32,6 @@ namespace Recrutify.Host.Controllers
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
-            throw new Exception("test");
             var result = await _candidateService.CreateAsync(candidateCreateDTO);
             return Created(string.Empty, result);
         }
