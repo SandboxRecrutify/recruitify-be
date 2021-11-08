@@ -7,15 +7,9 @@
             "GlobalRoles": [NumberInt(0)],
             "Salt": "E1F53135E559C253",
             "Surname": "Anderson",
-            "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(0)
-            ]]
-        ]
+            "ProjectRoles": [{ 'Key' : UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"), 'Value' : [NumberInt(0)] }]
         },
         {
-        
             "_id": UUID("73e05563-6c9e-4727-9ebb-b08f16cc1001"),
             "Email": "anthonyclark@gmail.com",
             "Name": "Anthony",

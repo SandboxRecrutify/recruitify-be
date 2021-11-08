@@ -17,18 +17,16 @@ namespace Recrutify.Host.UserServices
     public class CustomProfileService : IProfileService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IProjectRepository _projectRepository;
 
-        public CustomProfileService(IUserRepository userRepository, IProjectRepository projectRepository)
+        public CustomProfileService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _projectRepository = projectRepository;
         }
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
-            var roles = user.ProjectRoles.Select(u => new { u.Key, Value = u.Value.Select(u => u.ToString()).ToList() }).ToArray();
+            var roles = user.ProjectRoles.Select(pr => new { projectId = pr.Key, roles = pr.Value.Select(r => r.ToString()).ToList() }).ToArray();
             var claims = new List<Claim>()
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
