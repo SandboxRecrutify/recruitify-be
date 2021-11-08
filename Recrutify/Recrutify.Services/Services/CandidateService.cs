@@ -39,7 +39,7 @@ namespace Recrutify.Services.Services
 
         public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
-            var candidate = await _candidateRepository.GetCandidateWithProject(id, projectId);
+            var candidate = await _candidateRepository.GetCandidateWithProjectResult(id, projectId);
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
@@ -58,7 +58,7 @@ namespace Recrutify.Services.Services
 
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
-            var candidateWithProjectFeedback = await _candidateRepository.GetCandidateWithProjectFeedbackAsync(id, projectId,
+            var candidateWithProjectFeedback = await _candidateRepository.GetProjectResultWithFeedback(id, projectId,
                 feedbackDto.UserId, _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (candidateWithProjectFeedback == null)
             {

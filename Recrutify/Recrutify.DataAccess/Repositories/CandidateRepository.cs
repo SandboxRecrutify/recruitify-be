@@ -18,10 +18,11 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<ProjectResult> GetCandidateWithProject(Guid id, Guid projectId)
+        public Task<ProjectResult> GetCandidateWithProjectResult(Guid id, Guid projectId)
         {
-            return GetCollection().Aggregate().Match(c => c.Id == id)
-               .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
+            return GetCollection().Aggregate()
+                .Match(c => c.Id == id)
+                .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
                 .Project(p =>
                    new ProjectResult
                    {
@@ -32,11 +33,12 @@ namespace Recrutify.DataAccess.Repositories
                    }).FirstOrDefaultAsync();
         }
 
-        public Task<ProjectResult> GetCandidateWithProjectFeedbackAsync(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
+        public Task<ProjectResult> GetProjectResultWithFeedback(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
         {
-            return GetCollection().Aggregate().Match(c => c.Id == id)
-            .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
-             .Project(p =>
+            return GetCollection().Aggregate()
+                .Match(c => c.Id == id)
+                .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
+                .Project(p =>
                 new ProjectResult
                 {
                     Status = p.Status,
