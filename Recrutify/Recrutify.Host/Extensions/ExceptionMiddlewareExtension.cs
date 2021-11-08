@@ -26,7 +26,7 @@ namespace Recrutify.Host.Extensions
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Server Error"
+                            Message = "Server Error",
                         }.ToString());
                     }
                 });
