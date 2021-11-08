@@ -30,7 +30,7 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.Contacts)
-                .Must(c => c.Any(contact => contact.Type == _skype))
+                .Must(c => c.Any(contact => contact.Type == Skype))
                 .WithMessage("Skype is required");
             RuleForEach(c => c.Contacts)
                 .NotNull()
