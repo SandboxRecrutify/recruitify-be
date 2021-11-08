@@ -15,5 +15,4 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IValidator<ProjectResult>, ProjectResultValidator>();
         }
     }
-    }
 }

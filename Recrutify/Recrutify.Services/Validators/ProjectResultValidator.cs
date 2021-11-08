@@ -14,7 +14,8 @@ namespace Recrutify.Services.Validators
                 .Must(BeAValidData)
                 .WithMessage("Time for editing is over");
             RuleFor(f => f.Status).IsInEnum()
-                .Must(s => !new[] { Status.Accepted, Status.Declined, Status.WaitingList, }.Contains(s));
+                .Must(s => !new[] { Status.Accepted, Status.Declined, Status.WaitingList, }.Contains(s))
+                .WithMessage("Status is not available for update");
         }
 
         protected bool BeAValidData(Feedback date)

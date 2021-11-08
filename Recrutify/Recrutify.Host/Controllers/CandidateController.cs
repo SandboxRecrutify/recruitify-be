@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -47,6 +46,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
+        /*
         [HttpGet("all feedbaks")]
         public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
         {
@@ -58,7 +58,7 @@ namespace Recrutify.Host.Controllers
 
             await _candidateService.GetCandidateWithProjectAsync(id, projectId);
             return NoContent();
-        }
+        }*/
 
         // [Authorize(Policy = Constants.Constants.Policies.CandidatePolicy)]
         [HttpGet("{id:guid}")]

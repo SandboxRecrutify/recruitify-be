@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using AutoMapper;
 using FluentValidation;
 using Recrutify.DataAccess.Extensions;
@@ -9,7 +8,6 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
-using Recrutify.Services.Validators;
 
 namespace Recrutify.Services.Services
 {
@@ -19,10 +17,11 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
+            _validator = validator;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -63,13 +62,15 @@ namespace Recrutify.Services.Services
             }
             else
             {
-              
-
                 var copy = candidateWithProjectFeedback.DeepCopy();
-                var result = _mapper.Map<CreateFeedbackDTO>(copy);
-                var feedbackToUpdate = _mapper.Map(feedbackDto, result);
-                var feedbackToUpdatemap = _mapper.Map<Feedback>(feedbackToUpdate);
-                await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdatemap);
+                var feedbackToUpdate = _mapper.Map(feedbackDto, copy);
+                var isvalid = await _validator.ValidateAsync(feedbackToUpdate);
+                if (isvalid.IsValid)
+                {
+                    var feedbackToUpdatemap = _mapper.Map<Feedback>(feedbackToUpdate);
+
+                    await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdatemap);
+                }
             }
         }
 
