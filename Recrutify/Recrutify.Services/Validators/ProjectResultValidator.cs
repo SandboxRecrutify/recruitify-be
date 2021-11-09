@@ -19,7 +19,7 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Cannot be updated for candidate in current status");
         }
 
-        protected bool ShouldBeNoMoreAValidTime(Feedback date)
+        private bool ShouldBeNoMoreAValidTime(Feedback date)
         {
             var feedbackCreationDate = date.CreatedOn;
             var result = DateTime.Now - feedbackCreationDate;
