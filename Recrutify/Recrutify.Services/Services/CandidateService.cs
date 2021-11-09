@@ -8,6 +8,7 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -90,7 +91,7 @@ namespace Recrutify.Services.Services
                                                                          });
                 if (!validationResult.IsValid)
                 {
-                    throw new ValidationException(validationResult.Errors);
+                    throw new FluentValidation.ValidationException(validationResult.Errors);
                 }
 
                 await _candidateRepository.UpdateFeedbackAsync(id, projectId, feedbackToUpdate);
