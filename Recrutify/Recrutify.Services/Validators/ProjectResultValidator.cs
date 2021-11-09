@@ -22,8 +22,8 @@ namespace Recrutify.Services.Validators
         private bool ShouldBeNoMoreAValidTime(Feedback date)
         {
             var feedbackCreationDate = date.CreatedOn;
-            var result = DateTime.Now - feedbackCreationDate;
-            return result.Hours <= 24;
+            var result = DateTime.Now.Day - feedbackCreationDate.Day;
+            return result <= 1;
         }
     }
 }
