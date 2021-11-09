@@ -1,6 +1,6 @@
 ﻿namespace Recrutify.Services.DTOs
 {
-    public enum IntershipLanguageDTO
+    public enum ProjectLanguageDTO
     {
         English,
         Russian,

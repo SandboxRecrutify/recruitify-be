@@ -13,7 +13,7 @@ namespace Recrutify.DataAccess.Models
 
         public EnglishLevel EnglishLevel { get; set; }
 
-        public IntershipLanguage IntershipLanguage { get; set; }
+        public ProjectLanguage IntershipLanguage { get; set; }
 
         public string PhoneNumber { get; set; }
 

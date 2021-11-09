@@ -10,7 +10,7 @@ namespace Recrutify.Services.DTOs
 
         public EnglishLevelDTO EnglishLevel { get; set; }
 
-        public IntershipLanguageDTO IntershipLanguage { get; set; }
+        public ProjectLanguageDTO IntershipLanguage { get; set; }
 
         public string PhoneNumber { get; set; }
 

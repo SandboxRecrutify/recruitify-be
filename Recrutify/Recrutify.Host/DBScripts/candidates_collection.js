@@ -4,7 +4,7 @@
         "Name": "Christopher",
         "Surname": "Elliott",
         "EnglishLevel": NumberInt(0),
-        "IntershipLanguage" : NumberInt(0),
+        "ProjectLanguage" : NumberInt(0),
         "PhoneNumber": "+375333421342",
         "Email": "elliott@mail.ru",
         "Contacts": [
@@ -71,7 +71,7 @@
         "Name": "Robert",
         "Surname": "Bruce",
         "EnglishLevel": NumberInt(2),
-        "IntershipLanguage": NumberInt(1),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375337349087",
         "Email": "robertio@mail.ru",
         "Contacts": [
@@ -134,7 +134,7 @@
         "Name": "Byron",
         "Surname": "Jackson",
         "EnglishLevel": NumberInt(2),
-        "IntershipLanguage": NumberInt(1),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375332563489",
         "Email": "jackson@gmail.com",
         "Contacts": [
@@ -196,7 +196,7 @@
         "Name": "Brian",
         "Surname": "Gaines",
         "EnglishLevel": NumberInt(2),
-        "IntershipLanguage": NumberInt(1),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375255486325",
         "Email": "gainesss@gmail.com",
         "Location": {
@@ -255,7 +255,7 @@
        "Name": "Hugh",
        "Surname": "Harvey",
         "EnglishLevel": NumberInt(4),
-        "IntershipLanguage": NumberInt(0),
+        "ProjectLanguage": NumberInt(0),
        "PhoneNumber": "+375448536723",
        "Email": "hugharvey@gmail.com",
        "Location": {
@@ -314,7 +314,7 @@
         "Name": "Anthony",
         "Surname": "Day",
         "EnglishLevel": NumberInt(2),
-        "IntershipLanguage": NumberInt(0),
+        "ProjectLanguage": NumberInt(0),
         "PhoneNumber": "+375443468923",
         "Email": "anthonyD@mail.ru",
         "Contacts": [
