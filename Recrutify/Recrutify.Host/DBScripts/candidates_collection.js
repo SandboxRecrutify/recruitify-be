@@ -26,7 +26,7 @@
                 "PrimarySkillName": ".Net"
             }
         ],
-        "RegistrationDate": new Date("2021-02-12T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-04T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(20)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -93,7 +93,7 @@
 
             }
         ],
-        "RegistrationDate": new Date("2021-03-11T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-02T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -162,7 +162,7 @@
                 "PrimarySkillName": "Java"
             }
         ],
-        "RegistrationDate": new Date("2021-01-18T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(8), NumberInt(9), NumberInt(18), NumberInt(19), NumberInt(20)],
         "GoingToExadel": false,
         "ProjectResults": [
@@ -209,7 +209,7 @@
                 "PrimarySkillName": "ProjectManager"
             }
         ],
-        "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-03-07T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(17), NumberInt(18)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -267,7 +267,7 @@
                "PrimarySkillName": "AutomationQA",
            }
        ],
-       "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
+       "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
        "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(20), NumberInt(21)],
        "GoingToExadel": true,
        "ProjectResults": [
@@ -331,7 +331,7 @@
                 "PrimarySkillName": "BusinessAnalyst"
             }
         ],
-        "RegistrationDate": new Date("2021-10-19T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-02-09T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(6), NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15), NumberInt(20), NumberInt(21), NumberInt(22)],
         "GoingToExadel": false,
         "ProjectResults": [
