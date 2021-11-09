@@ -38,12 +38,6 @@ namespace Recrutify.Services.Services
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
-        public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
-        {
-            var candidate = await _candidateRepository.GetCandidateWithProjectResult(id, projectId);
-            return _mapper.Map<CandidateDTO>(candidate);
-        }
-
         public IQueryable<CandidateDTO> Get()
         {
             return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.Get());
@@ -57,28 +51,39 @@ namespace Recrutify.Services.Services
             return result;
         }
 
+        public async Task<FeedbackDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
+        {
+            var candidate = await _candidateRepository.GetAsync(id);
+            var currentProjectResult = candidate?.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId).Feedbacks;
+            return _mapper.Map<FeedbackDTO>(currentProjectResult);
+        }
+
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
-           
-            var projectResultWithFeedback = await _candidateRepository.GetProjectResultWithFeedback(id, projectId,
-                feedbackDto.UserId, _mapper.Map<FeedbackType>(feedbackDto.Type));
-            var currentFeedback = projectResultWithFeedback?.Feedbacks?.FirstOrDefault();
+            var projectResultWithFeedback = await _candidateRepository.GetAsync(id);
+            var currentFeedback = projectResultWithFeedback?.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId)
+                ?.Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
-                await _candidateRepository.UpsertFeedbackAsync(id, projectId, newFeedback);
+                await _candidateRepository.CreateFeedbackAsync(id, projectId, newFeedback);
             }
             else
             {
+                var projectresult = projectResultWithFeedback.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId);
                 var feedbackToUpdate = _mapper.Map(feedbackDto, currentFeedback.DeepCopy());
-                var validationResult = await _validator.ValidateAsync(projectResultWithFeedback);
+                var validationResult = await _validator.ValidateAsync(new ProjectResult
+                                                                         {
+                                                                            Status = projectresult.Status,
+                                                                            Feedbacks = new List<Feedback> { feedbackToUpdate },
+                                                                         });
                 if (!validationResult.IsValid)
                 {
                     throw new ValidationException(validationResult.Errors);
                 }
 
-                await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdate);
+                await _candidateRepository.UpdateFeedbackAsync(id, projectId, feedbackToUpdate);
             }
         }
 

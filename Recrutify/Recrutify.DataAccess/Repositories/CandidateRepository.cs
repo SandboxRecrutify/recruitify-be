@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -18,45 +17,9 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<ProjectResult> GetCandidateWithProjectResult(Guid id, Guid projectId)
+        public Task UpdateFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
         {
-            return GetCollection().Aggregate()
-                  .Match(c => c.Id == id)
-                  .Unwind<Candidate, ProjectResult>(c => c.ProjectResults)
-                  .Match(p => p.ProjectId == projectId)
-                  .Project(p =>
-                  new ProjectResult
-                  {
-                      Status = p.Status,
-                      Feedbacks = p.Feedbacks,
-                      ProjectId = p.ProjectId,
-                      Reason = p.Reason,
-                  }).FirstOrDefaultAsync();
-        }
-
-        public Task<ProjectResult> GetProjectResultWithFeedback(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
-        {
-          
-                return GetCollection().Aggregate()
-                    .Match(c => c.Id == id)
-                    .Unwind<Candidate, ProjectResult>(c => c.ProjectResults)
-                    .Match(p => p.ProjectId == projectId)
-                    .Project(p =>
-                    new ProjectResult
-                    {
-                        Status = p.Status,
-                        Feedbacks = p.Feedbacks.Where(f => f.UserId == feedbackUserId && f.Type == feedbackType),
-                        ProjectId = p.ProjectId,
-                        Reason = p.Reason,
-                    }).FirstOrDefaultAsync();
-            
-        }
-
-        public async Task UpsertFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
-        {
-            var filter = _filterBuilder.Eq(x => x.Id, id);
             var updateBuilder = Builders<Candidate>.Update;
-
             var updateDefinition = updateBuilder
                  .Set("ProjectResults.$[projectResult].Feedbacks.$[feedback]", feedback);
             var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
@@ -70,20 +33,28 @@ namespace Recrutify.DataAccess.Repositories
                    new BsonDocument("feedback.Type", feedback.Type),
                 })),
             };
-            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
 
-            var updateResult = await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
-            if (updateResult.ModifiedCount == 0)
-            {
-                var projectResultArrayFilters = new List<ArrayFilterDefinition>
+            return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
+        }
+
+        public Task CreateFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
+        {
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateDefinition = updateBuilder
+                    .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+            var arrayFilters = new List<ArrayFilterDefinition>
                 {
                    new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
                 };
-                updateOptions.ArrayFilters = projectResultArrayFilters;
-                updateDefinition = updateBuilder
-                    .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
-                await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
-            }
+            return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
+        }
+
+        private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+            await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
         }
     }
 }

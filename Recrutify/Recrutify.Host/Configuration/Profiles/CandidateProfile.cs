@@ -26,19 +26,18 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ContactDTO, Contact>().ReverseMap();
 
             CreateMap<LocationDTO, Location>().ReverseMap();
-            CreateMap<FeedbackType, FeedbackTypeDTO>().ReverseMap();
 
-             CreateMap<Status, StatusDTO>()
+            CreateMap<Status, StatusDTO>()
                  .ConvertUsing(x => (StatusDTO)((int)x));
-             CreateMap<StatusDTO, Status>();
+            CreateMap<StatusDTO, Status>();
 
-             CreateMap<FeedbackType, FeedbackTypeDTO>()
+            CreateMap<FeedbackType, FeedbackTypeDTO>()
                  .ConvertUsing(x => (FeedbackTypeDTO)((int)x));
-             CreateMap<FeedbackTypeDTO, FeedbackType>();
+            CreateMap<FeedbackTypeDTO, FeedbackType>();
 
-             CreateMap<EnglishLevel, EnglishLevelDTO>()
+            CreateMap<EnglishLevel, EnglishLevelDTO>()
                  .ConvertUsing(x => (EnglishLevelDTO)((int)x));
-             CreateMap<EnglishLevelDTO, EnglishLevel>();
+            CreateMap<EnglishLevelDTO, EnglishLevel>();
         }
     }
 }
