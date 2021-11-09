@@ -20,6 +20,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<bool> ExistsAsync(Guid id);
 
-        Task<FeedbackDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
+        Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
     }
 }

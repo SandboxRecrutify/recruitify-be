@@ -51,11 +51,12 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public async Task<FeedbackDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
+        public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
             var candidate = await _candidateRepository.GetAsync(id);
-            var currentProjectResult = candidate?.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId).Feedbacks;
-            return _mapper.Map<FeedbackDTO>(currentProjectResult);
+            var currentProjectResult = candidate.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId);
+            candidate.ProjectResults = new List<ProjectResult> { currentProjectResult };
+            return _mapper.Map<CandidateDTO>(candidate);
         }
 
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)

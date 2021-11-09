@@ -60,7 +60,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet("{id:guid}/{projectId:guid}")]
-        public async Task<ActionResult<FeedbackDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
         {
             var result = await _candidateService.GetCandidateWithProjectAsync(id, projectId);
             if (result == null)
