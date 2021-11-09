@@ -10,6 +10,7 @@ using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Recrutify.Services.Services
 {
@@ -91,7 +92,7 @@ namespace Recrutify.Services.Services
                                                                          });
                 if (!validationResult.IsValid)
                 {
-                    throw new FluentValidation.ValidationException(validationResult.Errors);
+                    throw new ValidationException(validationResult.Errors);
                 }
 
                 await _candidateRepository.UpdateFeedbackAsync(id, projectId, feedbackToUpdate);

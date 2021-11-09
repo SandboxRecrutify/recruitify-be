@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
-using ValidationException = Recrutify.Services.Exceptions.ValidationException;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Recrutify.Host.Controllers
 {
