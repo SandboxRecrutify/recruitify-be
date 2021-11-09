@@ -1,25 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Authorization;
-using Microsoft.AspNetCore.OData.Authorization.Extensions;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
@@ -165,7 +158,7 @@ namespace Recrutify.Host
 
             app.UseCors(Constants.Cors.CorsForUI);
 
-            loggerFactory.AddLog4Net();
+            //loggerFactory.AddLog4Net();
 
             app.UseHttpsRedirection();
             app.UseRouting();
