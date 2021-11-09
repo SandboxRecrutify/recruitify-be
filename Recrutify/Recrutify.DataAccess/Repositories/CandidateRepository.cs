@@ -21,31 +21,35 @@ namespace Recrutify.DataAccess.Repositories
         public Task<ProjectResult> GetCandidateWithProjectResult(Guid id, Guid projectId)
         {
             return GetCollection().Aggregate()
-                .Match(c => c.Id == id)
-                .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
-                .Project(p =>
-                   new ProjectResult
-                   {
-                       Status = p.Status,
-                       Feedbacks = p.Feedbacks,
-                       ProjectId = p.ProjectId,
-                       Reason = p.Reason,
-                   }).FirstOrDefaultAsync();
+                  .Match(c => c.Id == id)
+                  .Unwind<Candidate, ProjectResult>(c => c.ProjectResults)
+                  .Match(p => p.ProjectId == projectId)
+                  .Project(p =>
+                  new ProjectResult
+                  {
+                      Status = p.Status,
+                      Feedbacks = p.Feedbacks,
+                      ProjectId = p.ProjectId,
+                      Reason = p.Reason,
+                  }).FirstOrDefaultAsync();
         }
 
         public Task<ProjectResult> GetProjectResultWithFeedback(Guid id, Guid projectId, Guid feedbackUserId, FeedbackType feedbackType)
         {
-            return GetCollection().Aggregate()
-                .Match(c => c.Id == id)
-                .Unwind<Candidate, ProjectResult>(c => c.ProjectResults).Match(p => p.ProjectId == projectId)
-                .Project(p =>
-                new ProjectResult
-                {
-                    Status = p.Status,
-                    Feedbacks = p.Feedbacks.Where(f => f.UserId == feedbackUserId && f.Type == feedbackType),
-                    ProjectId = p.ProjectId,
-                    Reason = p.Reason,
-                }).FirstOrDefaultAsync();
+          
+                return GetCollection().Aggregate()
+                    .Match(c => c.Id == id)
+                    .Unwind<Candidate, ProjectResult>(c => c.ProjectResults)
+                    .Match(p => p.ProjectId == projectId)
+                    .Project(p =>
+                    new ProjectResult
+                    {
+                        Status = p.Status,
+                        Feedbacks = p.Feedbacks.Where(f => f.UserId == feedbackUserId && f.Type == feedbackType),
+                        ProjectId = p.ProjectId,
+                        Reason = p.Reason,
+                    }).FirstOrDefaultAsync();
+            
         }
 
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, Feedback feedback)

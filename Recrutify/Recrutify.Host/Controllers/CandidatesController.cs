@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -46,23 +47,29 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
-            await _candidateService.UpsertFeedbackAsync(id, projectId, feedbackDto);
+            try
+            {
+                await _candidateService.UpsertFeedbackAsync(id, projectId, feedbackDto);
+            }
+            catch (ValidationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
 
-        /*
-        [HttpGet("all feedbaks")]
+        [HttpGet("{id:guid}/{projectId:guid}")]
         public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
         {
-            var candidateExist = await _candidateService.ExistsAsync(id);
-            if (!candidateExist)
+            var result = await _candidateService.GetCandidateWithProjectAsync(id, projectId);
+            if (result == null)
             {
                 return NotFound();
             }
 
-            await _candidateService.GetCandidateWithProjectAsync(id, projectId);
-            return NoContent();
-        }*/
+            return Ok(result);
+        }
 
         // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]

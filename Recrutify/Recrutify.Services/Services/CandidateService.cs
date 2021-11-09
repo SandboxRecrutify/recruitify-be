@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using MongoDB.Bson.Serialization;
 using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
@@ -58,9 +59,11 @@ namespace Recrutify.Services.Services
 
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
+           
             var projectResultWithFeedback = await _candidateRepository.GetProjectResultWithFeedback(id, projectId,
                 feedbackDto.UserId, _mapper.Map<FeedbackType>(feedbackDto.Type));
-            if (projectResultWithFeedback == null)
+            var currentFeedback = projectResultWithFeedback?.Feedbacks?.FirstOrDefault();
+            if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
@@ -68,14 +71,14 @@ namespace Recrutify.Services.Services
             }
             else
             {
-                var projectResultFeedback = _mapper.Map(feedbackDto, projectResultWithFeedback.DeepCopy());
-                var isValid = await _validator.ValidateAsync(projectResultFeedback);
-                if (isValid.IsValid)
+                var feedbackToUpdate = _mapper.Map(feedbackDto, currentFeedback.DeepCopy());
+                var validationResult = await _validator.ValidateAsync(projectResultWithFeedback);
+                if (!validationResult.IsValid)
                 {
-                    var feedbackToUpdatemap = _mapper.Map<Feedback>(projectResultFeedback);
-
-                    await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdatemap);
+                    throw new ValidationException(validationResult.Errors);
                 }
+
+                await _candidateRepository.UpsertFeedbackAsync(id, projectId, feedbackToUpdate);
             }
         }
 

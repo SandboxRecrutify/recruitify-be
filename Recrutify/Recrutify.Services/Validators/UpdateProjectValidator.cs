@@ -9,7 +9,7 @@ namespace Recrutify.Services.Validators
         public UpdateProjectValidator()
         {
             RuleFor(p => p.Id)
-                .NotEqual(Guid.Empty);
+                .NotEmpty();
         }
     }
 }
