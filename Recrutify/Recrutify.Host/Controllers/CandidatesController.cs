@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
+using ValidationException = Recrutify.Services.Exceptions.ValidationException;
 
 namespace Recrutify.Host.Controllers
 {
@@ -41,15 +42,13 @@ namespace Recrutify.Host.Controllers
         [HttpPut("feedback")]
         public async Task<ActionResult<CandidateDTO>> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
-            var candidateExist = await _candidateService.ExistsAsync(id);
-            if (!candidateExist)
-            {
-                return NotFound();
-            }
-
             try
             {
                 await _candidateService.UpsertFeedbackAsync(id, projectId, feedbackDto);
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
             }
             catch (ValidationException ex)
             {
@@ -62,13 +61,15 @@ namespace Recrutify.Host.Controllers
         [HttpGet("{id:guid}/{projectId:guid}")]
         public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
         {
-            var result = await _candidateService.GetCandidateWithProjectAsync(id, projectId);
-            if (result == null)
+            try
+            {
+                var result = await _candidateService.GetCandidateWithProjectAsync(id, projectId);
+                return Ok(result);
+            }
+            catch (NotFoundException)
             {
                 return NotFound();
             }
-
-            return Ok(result);
         }
 
         // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]

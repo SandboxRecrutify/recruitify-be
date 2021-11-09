@@ -53,7 +53,12 @@ namespace Recrutify.Services.Services
         public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
             var candidate = await _candidateRepository.GetAsync(id);
-            var currentProjectResult = candidate.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId);
+            if (candidate == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var currentProjectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
             candidate.ProjectResults = new List<ProjectResult> { currentProjectResult };
             return _mapper.Map<CandidateDTO>(candidate);
         }
@@ -61,6 +66,11 @@ namespace Recrutify.Services.Services
         public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {
             var projectResultWithFeedback = await _candidateRepository.GetAsync(id);
+            if (projectResultWithFeedback == null)
+            {
+                throw new NotFoundException();
+            }
+
             var currentFeedback = projectResultWithFeedback?.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId)
                 ?.Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
