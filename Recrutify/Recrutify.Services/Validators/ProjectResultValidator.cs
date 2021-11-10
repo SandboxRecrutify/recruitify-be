@@ -11,17 +11,12 @@ namespace Recrutify.Services.Validators
         {
             RuleFor(f => f.Feedbacks.FirstOrDefault())
                 .NotNull()
-                .Must(ShouldBeNoMoreAValidTime)
+                .Must((Feedback date) => { return (DateTime.Now.Day - date.CreatedOn.Day) <= 1; })
                 .WithMessage("Сannot be updated from one day after creation");
             RuleFor(f => f.Status)
                 .IsInEnum()
                 .Must(s => !new[] { Status.Accepted, Status.Declined, Status.WaitingList, }.Contains(s))
                 .WithMessage("Cannot be updated for candidate in current status");
-        }
-
-        private bool ShouldBeNoMoreAValidTime(Feedback date)
-        {
-            return (DateTime.Now.Day - date.CreatedOn.Day) <= 1;
         }
     }
 }
