@@ -36,7 +36,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        [CustomAuthorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [ProjectAuthorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {

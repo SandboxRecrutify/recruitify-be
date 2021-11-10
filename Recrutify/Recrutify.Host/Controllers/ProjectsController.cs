@@ -31,7 +31,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [CustomAuthorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
         {

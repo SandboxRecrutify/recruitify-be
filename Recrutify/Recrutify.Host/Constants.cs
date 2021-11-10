@@ -18,7 +18,8 @@ namespace Recrutify.Host
 
         public static class Roles
         {
-            public const string ProjectRoles = nameof(ProjectRoles);
+            public const string ProjectRoles = "projectRoles";
+            public const string ProjectId = "projectId";
         }
     }
 }
