@@ -23,7 +23,6 @@ namespace Recrutify.Host.Controllers.OData
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
-            var list = _projectService.Get().ToList<ProjectDTO>();
             return _projectService.Get();
         }
     }
