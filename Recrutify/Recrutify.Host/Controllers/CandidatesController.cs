@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
-using ValidationException = FluentValidation.ValidationException;
 
 namespace Recrutify.Host.Controllers
 {
@@ -49,9 +49,9 @@ namespace Recrutify.Host.Controllers
             {
                 return NotFound();
             }
-            catch (ValidationException ex)
+            catch (FluentValidation.ValidationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Errors.FirstOrDefault()?.ErrorMessage);
             }
 
             return NoContent();
