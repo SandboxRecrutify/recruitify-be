@@ -24,6 +24,10 @@ namespace Recrutify.Host.UserServices
 
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+            };
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
             var projectRoles = user.ProjectRoles.Select(pr => new { projectId = pr.Key.ToString(), roles = pr.Value.Select(r => r.ToString()) }).ToArray();
             var globalRoles = user.GlobalRoles.Select(gr => gr.ToString()).ToArray();
@@ -32,7 +36,7 @@ namespace Recrutify.Host.UserServices
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
                 new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(globalRoles), IdentityServerConstants.ClaimValueTypes.Json),
-                new Claim(Constants.Roles.ProjectRoles, JsonSerializer.Serialize(projectRoles), IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim(Constants.Roles.ProjectRoles, JsonSerializer.Serialize(projectRoles, options), IdentityServerConstants.ClaimValueTypes.Json),
             };
 
             context.IssuedClaims = claims;
