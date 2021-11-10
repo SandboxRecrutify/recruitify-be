@@ -66,7 +66,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("all/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetFilterByPrjectAsync(Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> GetByPrjectAsync(Guid projectId)
         {
             var candidates = await _candidateService.GetByProjectAsync(projectId);
             var result = candidates.OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)

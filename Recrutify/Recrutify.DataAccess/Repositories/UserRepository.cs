@@ -21,12 +21,9 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
-        public Task<List<User>> GetByRolesAsync()
+        public Task<List<User>> GetByRolesAsync(List<Role> roles)
         {
-            var filter = _filterBuilder.Where(u => u.Roles.Contains(Role.Manager) ||
-                                                    u.Roles.Contains(Role.Interviewer) ||
-                                                    u.Roles.Contains(Role.Mentor) ||
-                                                    u.Roles.Contains(Role.Recruiter));
+            var filter = _filterBuilder.AnyIn(u => u.Roles, roles);
             return GetCollection().Find(filter).ToListAsync();
         }
     }

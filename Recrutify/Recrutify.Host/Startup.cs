@@ -63,7 +63,7 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
-
+                
             services.AddValidators();
 
             services.AddIdentityServer()
