@@ -20,14 +20,24 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Dictionary<Role, StaffDTO[]>> GetByRoleAsync()
+        public async Task<StaffGroupDTO> GetByGroupRoleAsync()
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = await _userRepository.GetByRolesAsync();
 
-            return _mapper.Map<Dictionary<Role, StaffDTO[]>>(
+            var staff = _mapper.Map<Dictionary<Role, List<StaffDTO>>>(
                         users.SelectMany(p => p.Roles, (user, role) => new { user, role })
                               .GroupBy(x => x.role)
-                              .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToArray()));
+                              .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToList()));
+
+            var result = new StaffGroupDTO()
+            {
+                Managers = staff.TryGetValue(key: Role.Manager, value: out var ma) ? ma : default,
+                Interviewers = staff.TryGetValue(key: Role.Interviewer, value: out var i) ? i : default,
+                Recruiters = staff.TryGetValue(key: Role.Recruiter, value: out var r) ? r : default,
+                Mentors = staff.TryGetValue(key: Role.Mentor, value: out var me) ? me : default,
+            };
+
+            return result;
         }
     }
 }

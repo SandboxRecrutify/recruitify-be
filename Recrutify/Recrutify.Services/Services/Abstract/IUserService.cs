@@ -7,6 +7,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface IUserService
     {
-        public Task<Dictionary<Role, StaffDTO[]>> GetByRoleAsync();
+        public Task<StaffGroupDTO> GetByGroupRoleAsync();
     }
 }

@@ -8,14 +8,8 @@ namespace Recrutify.Services.DTOs
 {
     public class PrimarySkillsAndStaffDTO
     {
-        public IEnumerable<PrimarySkillDTO> PrimarySkills { get; set; }
+        public List<PrimarySkillDTO> PrimarySkills { get; set; }
 
-        public IEnumerable<StaffDTO> Managers { get; set; }
-
-        public IEnumerable<StaffDTO> Recruiters { get; set; }
-
-        public IEnumerable<StaffDTO> Interviewers { get; set; }
-
-        public IEnumerable<StaffDTO> Mentors { get; set; }
+        public StaffGroupDTO StaffGroup { get; set; }
     }
 }

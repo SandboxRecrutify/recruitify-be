@@ -95,16 +95,13 @@ namespace Recrutify.Host.Controllers
         [HttpGet("primary_skills_and_staff")]
         public async Task<ActionResult<PrimarySkillsAndStaffDTO>> PrimarySkillsAndStaff()
         {
-            var users = await _userService.GetByRoleAsync();
-
-            return Ok(new PrimarySkillsAndStaffDTO()
+            var result = new PrimarySkillsAndStaffDTO()
             {
                 PrimarySkills = await _primarySkillService.GetAllAsync(),
-                Managers = users[Role.Manager],
-                Interviewers = users[Role.Interviewer],
-                Recruiters = users[Role.Recruiter],
-                Mentors = users[Role.Mentor],
-            });
+                StaffGroup = await _userService.GetByGroupRoleAsync(),
+            };
+
+            return Ok(result);
         }
     }
 }
