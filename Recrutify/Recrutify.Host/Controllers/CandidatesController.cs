@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.Host.CustomAttribute;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -19,8 +20,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
@@ -36,7 +36,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [CustomAuthorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
         {

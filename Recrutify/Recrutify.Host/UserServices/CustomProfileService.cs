@@ -9,7 +9,6 @@ using IdentityServer4;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host.UserServices
@@ -26,7 +25,7 @@ namespace Recrutify.Host.UserServices
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
-            var projectRoles = user.ProjectRoles.Select(pr => new { projectId = pr.Key, roles = pr.Value.Select(r => r.ToString()) }).ToArray();
+            var projectRoles = user.ProjectRoles.Select(pr => new { projectId = pr.Key.ToString(), roles = pr.Value.Select(r => r.ToString()) }).ToArray();
             var globalRoles = user.GlobalRoles.Select(gr => gr.ToString()).ToArray();
             var claims = new List<Claim>()
             {
