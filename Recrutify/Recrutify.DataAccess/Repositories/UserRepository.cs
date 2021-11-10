@@ -23,7 +23,7 @@ namespace Recrutify.DataAccess.Repositories
 
         public Task<List<User>> GetByRolesAsync(List<Role> roles)
         {
-            var filter = _filterBuilder.AnyIn(u => u.Roles, roles);
+            var filter = _filterBuilder.AnyIn(u => u.GlobalRoles, roles);
             return GetCollection().Find(filter).ToListAsync();
         }
     }

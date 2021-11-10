@@ -25,7 +25,7 @@ namespace Recrutify.Services.Services
             var users = await _userRepository.GetByRolesAsync(roles);
 
             var staff = _mapper.Map<Dictionary<Role, List<StaffDTO>>>(
-                        users.SelectMany(p => p.Roles, (user, role) => new { user, role })
+                        users.SelectMany(p => p.GlobalRoles, (user, role) => new { user, role })
                               .GroupBy(x => x.role)
                               .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToList()));
 

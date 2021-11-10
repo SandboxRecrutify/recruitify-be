@@ -18,7 +18,6 @@ namespace Recrutify.Services.Services
         private readonly IUserService _userService;
         private readonly IPrimarySkillService _primarySkillService;
 
-
         public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService)
         {
             _userService = userService;
