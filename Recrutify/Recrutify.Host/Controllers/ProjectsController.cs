@@ -93,15 +93,17 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("primary_skills_and_staff")]
-        public async Task<ActionResult<ProjectDTO>> PrimarySkillsAndStaff()
+        public async Task<ActionResult<PrimarySkillsAndStaffDTO>> PrimarySkillsAndStaff()
         {
-            return Ok(new PrimarySkillAndStaffDTO()
+            var users = await _userService.GetByRoleAsync();
+
+            return Ok(new PrimarySkillsAndStaffDTO()
             {
-                 PrimarySkills = await _primarySkillService.GetAllAsync(),
-                 Managers = await _userService.GetByRoleAsync(Role.Admin),
-                 Interviewers = await _userService.GetByRoleAsync(Role.Interviewer),
-                 Recruiters = await _userService.GetByRoleAsync(Role.Recruiter),
-                 Mentors = await _userService.GetByRoleAsync(Role.Mentor),
+                PrimarySkills = await _primarySkillService.GetAllAsync(),
+                Managers = users[Role.Manager],
+                Interviewers = users[Role.Interviewer],
+                Recruiters = users[Role.Recruiter],
+                Mentors = users[Role.Mentor],
             });
         }
     }

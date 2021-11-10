@@ -66,23 +66,13 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("all/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetFilterByPrject(Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> GetFilterByPrjectAsync(Guid projectId)
         {
-            var result = await _candidateService.GetByProject(projectId);
+            var result = await _candidateService.GetByProjectAsync(projectId);
             return Ok(result
-                .OrderByDescending(x =>
-                {
-                    int s = 0;
-                    foreach (var e in x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId).Feedbacks)
-                    {
-                        if (e.Type != FeedbackTypeDTO.Test)
-                        {
-                            s += e.Rating;
-                        }
-                    }
-
-                    return s;
-                })
+                .OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
+                                         .Feedbacks.Where(x => x.Type != FeedbackTypeDTO.Test)
+                                         .Sum(х => х.Rating))
                 .ThenByDescending(x =>
                 {
                     int s = 0;

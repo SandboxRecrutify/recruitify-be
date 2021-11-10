@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recrutify.Services.DTOs
 {
-    public class PrimarySkillAndStaffDTO
+    public class PrimarySkillsAndStaffDTO
     {
         public IEnumerable<PrimarySkillDTO> PrimarySkills { get; set; }
 

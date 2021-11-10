@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Models;
@@ -19,10 +20,14 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<List<StaffDTO>> GetByRoleAsync(Role role)
+        public async Task<Dictionary<Role, StaffDTO[]>> GetByRoleAsync()
         {
-            var users = await _userRepository.GetByRoleAsync(role);
-            return _mapper.Map<List<StaffDTO>>(users);
+            var users = await _userRepository.GetAllAsync();
+
+            return _mapper.Map<Dictionary<Role, StaffDTO[]>>(
+                        users.SelectMany(p => p.Roles, (user, role) => new { user, role })
+                              .GroupBy(x => x.role)
+                              .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToArray()));
         }
     }
 }
