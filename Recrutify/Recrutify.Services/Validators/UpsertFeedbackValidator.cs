@@ -15,9 +15,6 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(f => f.UserId)
                 .NotEmpty();
-            RuleFor(f => f.Type)
-                .NotNull()
-                .NotEmpty();
         }
     }
 }
