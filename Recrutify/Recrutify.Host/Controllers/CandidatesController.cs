@@ -22,7 +22,7 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
@@ -31,7 +31,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [AllowAnonymous]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
@@ -77,6 +77,7 @@ namespace Recrutify.Host.Controllers
         }
 
         // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {
@@ -86,6 +87,19 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
+            return Ok(result);
+        }
+
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("all/{projectId:guid}")]
+        public async Task<ActionResult<CandidateDTO>> GetByPrjectAsync(Guid projectId)
+        {
+            var candidates = await _candidateService.GetByProjectAsync(projectId);
+            var result = candidates.OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
+                                        .Feedbacks.Where(x => x.Type != FeedbackTypeDTO.Test)
+                                        .Sum(х => х.Rating))
+                                   .ThenByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
+                                        .Feedbacks.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)?.Rating);
             return Ok(result);
         }
     }

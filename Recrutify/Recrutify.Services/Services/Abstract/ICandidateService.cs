@@ -10,6 +10,8 @@ namespace Recrutify.Services.Services.Abstract
     {
         Task<List<CandidateDTO>> GetAllAsync();
 
+        Task<List<CandidateDTO>> GetByProjectAsync(Guid projectId);
+
         IQueryable<CandidateDTO> Get();
 
         public Task<CandidateDTO> GetAsync(Guid id);
