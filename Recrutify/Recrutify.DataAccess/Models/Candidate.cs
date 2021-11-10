@@ -13,6 +13,8 @@ namespace Recrutify.DataAccess.Models
 
         public EnglishLevel EnglishLevel { get; set; }
 
+        public ProjectLanguage ProjectLanguage { get; set; }
+
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }

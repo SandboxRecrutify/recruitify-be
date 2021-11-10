@@ -2,6 +2,7 @@
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
+using Microsoft.AspNetCore.Authorization;
 using Recrutify.Host.Infrastructure.CustomsAuthorizationFilter;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;

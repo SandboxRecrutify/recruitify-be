@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Validators;
 
@@ -12,6 +13,8 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
             services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
             services.AddSingleton<IValidator<CandidateCreateDTO>, CreateCandidateValidator>();
+            services.AddSingleton<IValidator<ProjectResult>, ProjectResultValidator>();
+            services.AddSingleton<IValidator<UpsertFeedbackDTO>, UpsertFeedbackValidator>();
         }
     }
 }

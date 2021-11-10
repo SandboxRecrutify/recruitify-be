@@ -158,7 +158,9 @@ namespace Recrutify.Host
 
             app.UseCors(Constants.Cors.CorsForUI);
 
-            //loggerFactory.AddLog4Net();
+            // Log4NetConfig.SetConfiguration();
+            // loggerFactory.AddLog4Net();
+
 
             app.UseHttpsRedirection();
             app.UseRouting();
