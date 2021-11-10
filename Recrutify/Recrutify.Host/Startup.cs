@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
@@ -62,7 +63,7 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
-
+                
             services.AddValidators();
 
             services.AddIdentityServer()
@@ -157,13 +158,17 @@ namespace Recrutify.Host
 
             app.UseCors(Constants.Cors.CorsForUI);
 
+            // Log4NetConfig.SetConfiguration();
             // loggerFactory.AddLog4Net();
+
+
             app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

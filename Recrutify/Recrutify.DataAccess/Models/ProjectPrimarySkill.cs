@@ -8,12 +8,12 @@ namespace Recrutify.DataAccess.Models
 {
     public class ProjectPrimarySkill
     {
-        public Guid PrimarySkillId { get; set; }
+        public Guid Id { get; set; }
 
-        public string PrimarySkillName { get; set; }
+        public string Name { get; set; }
 
-        public string PrimarySkillDescription { get; set; }
+        public string Description { get; set; }
 
-        public string PrimarySkillTestLink { get; set; }
+        public string TestLink { get; set; }
     }
 }
