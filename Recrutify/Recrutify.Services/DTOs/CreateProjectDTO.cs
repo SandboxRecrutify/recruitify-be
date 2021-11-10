@@ -11,6 +11,10 @@ namespace Recrutify.Services.DTOs
 
         public DateTime EndDate { get; set; }
 
+        public DateTime StartRegistrationDate { get; set; }
+
+        public DateTime EndRegistrationDate { get; set; }
+
         public int CurrentApplicationsCount { get; set; }
 
         public int PlannedApplicationsCount { get; set; }

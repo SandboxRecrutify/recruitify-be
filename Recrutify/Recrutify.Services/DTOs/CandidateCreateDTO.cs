@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
@@ -10,6 +9,8 @@ namespace Recrutify.Services.DTOs
         public string Surname { get; set; }
 
         public EnglishLevelDTO EnglishLevel { get; set; }
+
+        public ProjectLanguageDTO ProjectLanguage { get; set; }
 
         public string PhoneNumber { get; set; }
 
