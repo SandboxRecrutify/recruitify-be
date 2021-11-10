@@ -4,6 +4,7 @@
         "Name": "Christopher",
         "Surname": "Elliott",
         "EnglishLevel": NumberInt(0),
+        "ProjectLanguage" : NumberInt(0),
         "PhoneNumber": "+375333421342",
         "Email": "elliott@mail.ru",
         "Contacts": [
@@ -26,7 +27,7 @@
                 "PrimarySkillName": ".Net"
             }
         ],
-        "RegistrationDate": new Date("2021-02-12T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-04T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(20)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -70,6 +71,7 @@
         "Name": "Robert",
         "Surname": "Bruce",
         "EnglishLevel": NumberInt(2),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375337349087",
         "Email": "robertio@mail.ru",
         "Contacts": [
@@ -93,7 +95,7 @@
 
             }
         ],
-        "RegistrationDate": new Date("2021-03-11T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-02T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -132,6 +134,7 @@
         "Name": "Byron",
         "Surname": "Jackson",
         "EnglishLevel": NumberInt(2),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375332563489",
         "Email": "jackson@gmail.com",
         "Contacts": [
@@ -162,7 +165,7 @@
                 "PrimarySkillName": "Java"
             }
         ],
-        "RegistrationDate": new Date("2021-01-18T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(8), NumberInt(9), NumberInt(18), NumberInt(19), NumberInt(20)],
         "GoingToExadel": false,
         "ProjectResults": [
@@ -193,6 +196,7 @@
         "Name": "Brian",
         "Surname": "Gaines",
         "EnglishLevel": NumberInt(2),
+        "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375255486325",
         "Email": "gainesss@gmail.com",
         "Location": {
@@ -209,7 +213,7 @@
                 "PrimarySkillName": "ProjectManager"
             }
         ],
-        "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-03-07T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(17), NumberInt(18)],
         "GoingToExadel": true,
         "ProjectResults": [
@@ -250,7 +254,8 @@
        "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
        "Name": "Hugh",
        "Surname": "Harvey",
-       "EnglishLevel": NumberInt(4),
+        "EnglishLevel": NumberInt(4),
+        "ProjectLanguage": NumberInt(0),
        "PhoneNumber": "+375448536723",
        "Email": "hugharvey@gmail.com",
        "Location": {
@@ -267,7 +272,7 @@
                "PrimarySkillName": "AutomationQA",
            }
        ],
-       "RegistrationDate": new Date("2021-03-01T00:00:00.000Z"),
+       "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
        "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(20), NumberInt(21)],
        "GoingToExadel": true,
        "ProjectResults": [
@@ -309,6 +314,7 @@
         "Name": "Anthony",
         "Surname": "Day",
         "EnglishLevel": NumberInt(2),
+        "ProjectLanguage": NumberInt(0),
         "PhoneNumber": "+375443468923",
         "Email": "anthonyD@mail.ru",
         "Contacts": [
@@ -331,7 +337,7 @@
                 "PrimarySkillName": "BusinessAnalyst"
             }
         ],
-        "RegistrationDate": new Date("2021-10-19T00:00:00.000Z"),
+        "RegistrationDate": new Date("2021-02-09T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(6), NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15), NumberInt(20), NumberInt(21), NumberInt(22)],
         "GoingToExadel": false,
         "ProjectResults": [
