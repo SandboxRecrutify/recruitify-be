@@ -9,11 +9,11 @@ namespace Recrutify.Services.Validators
     {
         public ProjectResultValidator()
         {
-            RuleFor(f => f.Feedbacks.FirstOrDefault())
+            RuleFor(p => p.Feedbacks.FirstOrDefault())
                 .NotNull()
-                .Must((Feedback date) => { return (DateTime.Now.Day - date.CreatedOn.Day) <= 1; })
+                .Must(f => DateTime.Now.Day - f.CreatedOn.Day <= 1)
                 .WithMessage("Сannot be updated from one day after creation");
-            RuleFor(f => f.Status)
+            RuleFor(p => p.Status)
                 .IsInEnum()
                 .Must(s => !new[] { Status.Accepted, Status.Declined, Status.WaitingList, }.Contains(s))
                 .WithMessage("Cannot be updated for candidate in current status");
