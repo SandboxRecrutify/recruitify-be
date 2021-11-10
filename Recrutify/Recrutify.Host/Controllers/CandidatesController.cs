@@ -51,7 +51,7 @@ namespace Recrutify.Host.Controllers
             }
             catch (FluentValidation.ValidationException ex)
             {
-                return BadRequest(ex.Errors.FirstOrDefault()?.ErrorCode);
+                return BadRequest(ex.Errors.FirstOrDefault());
             }
 
             return NoContent();
