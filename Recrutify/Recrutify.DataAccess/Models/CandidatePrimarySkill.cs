@@ -4,8 +4,8 @@ namespace Recrutify.DataAccess.Models
 {
     public class CandidatePrimarySkill
     {
-        public Guid PrimarySkillId { get; set; }
+        public Guid Id { get; set; }
 
-        public string PrimarySkillName { get; set; }
+        public string Name { get; set; }
     }
 }
