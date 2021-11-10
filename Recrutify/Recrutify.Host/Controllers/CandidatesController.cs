@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Recrutify.Host.Controllers
 {
@@ -40,7 +41,7 @@ namespace Recrutify.Host.Controllers
 
         // [Authorize(Policy = Constants.Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
-        public async Task<ActionResult<CandidateDTO>> UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
+        public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto)
         {
             try
             {
@@ -50,16 +51,19 @@ namespace Recrutify.Host.Controllers
             {
                 return NotFound();
             }
-            catch (FluentValidation.ValidationException ex)
+            catch (ValidationException ex)
             {
-                return BadRequest(ex.Errors.FirstOrDefault());
+                return ValidationProblem(new ValidationProblemDetails(
+                      ex.Errors
+                       .GroupBy(o => o.PropertyName)
+                       .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray())));
             }
 
             return NoContent();
         }
 
         [HttpGet("{id:guid}/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> UpsertAllFeedbackAsync(Guid id, Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
             try
             {

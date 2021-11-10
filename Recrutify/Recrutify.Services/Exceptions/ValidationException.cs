@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Collections.Generic;
 
 namespace Recrutify.Services.Exceptions
 {
@@ -6,6 +8,11 @@ namespace Recrutify.Services.Exceptions
     {
         public ValidationException(string message)
         : base(message)
+        {
+        }
+
+        public ValidationException(IDictionary<string, string []> errors, ModelStateDictionary modelState)
+        : base()
         {
         }
     }

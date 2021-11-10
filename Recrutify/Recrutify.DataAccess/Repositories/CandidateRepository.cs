@@ -39,10 +39,10 @@ namespace Recrutify.DataAccess.Repositories
 
         public Task CreateFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
         {
-            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
             var updateBuilder = Builders<Candidate>.Update;
             var updateDefinition = updateBuilder
                     .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
             var arrayFilters = new List<ArrayFilterDefinition>
                 {
                    new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),

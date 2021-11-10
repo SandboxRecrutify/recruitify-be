@@ -1,13 +1,11 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public abstract class BaseFeedbackValidator<TDTO> : AbstractValidator<TDTO>
-        where TDTO : CreateFeedbackDTO
+    public class UpsertFeedbackValidator : AbstractValidator<UpsertFeedbackDTO>
     {
-        protected BaseFeedbackValidator()
+        public UpsertFeedbackValidator()
         {
             RuleFor(f => f.TextFeedback)
                 .NotNull()
@@ -16,7 +14,7 @@ namespace Recrutify.Services.Validators
             RuleFor(f => f.Rating)
                 .NotEmpty();
             RuleFor(f => f.UserId)
-                .NotEqual(Guid.Empty);
+                .NotEmpty();
             RuleFor(f => f.Type)
                 .NotNull()
                 .NotEmpty();

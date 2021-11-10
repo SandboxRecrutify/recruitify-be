@@ -65,16 +65,17 @@ namespace Recrutify.Services.Services
             return _mapper.Map<CandidateDTO>(candidate);
         }
 
-        public async Task UpsertFeedbackAsync(Guid id, Guid projectId, CreateFeedbackDTO feedbackDto)
+        public async Task UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto)
         {
-            var projectResultWithFeedback = await _candidateRepository.GetAsync(id);
-            if (projectResultWithFeedback == null)
+            var candidate = await _candidateRepository.GetAsync(id);
+            if (candidate == null)
             {
                 throw new NotFoundException();
             }
 
-            var currentFeedback = projectResultWithFeedback?.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId)
-                ?.Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
+            var projectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
+            var currentFeedback = projectResult?
+                .Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
@@ -83,11 +84,10 @@ namespace Recrutify.Services.Services
             }
             else
             {
-                var projectresult = projectResultWithFeedback.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId);
                 var feedbackToUpdate = _mapper.Map(feedbackDto, currentFeedback.DeepCopy());
                 var validationResult = await _validator.ValidateAsync(new ProjectResult
                                                                          {
-                                                                            Status = projectresult.Status,
+                                                                            Status = projectResult.Status,
                                                                             Feedbacks = new List<Feedback> { feedbackToUpdate },
                                                                          });
                 if (!validationResult.IsValid)

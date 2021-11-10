@@ -19,7 +19,7 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<ProjectResultDTO, ProjectResult>().ReverseMap();
 
-            CreateMap<CreateFeedbackDTO, Feedback>()
+            CreateMap<UpsertFeedbackDTO, Feedback>()
                 .ForMember(dest => dest.CreatedOn, opt => opt.Ignore());
             CreateMap<Feedback, FeedbackDTO>();
 
@@ -28,15 +28,15 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<LocationDTO, Location>().ReverseMap();
 
             CreateMap<Status, StatusDTO>()
-                 .ConvertUsing(x => (StatusDTO)((int)x));
+                 .ConvertUsing(x => (StatusDTO)(int)x);
             CreateMap<StatusDTO, Status>();
 
             CreateMap<FeedbackType, FeedbackTypeDTO>()
-                 .ConvertUsing(x => (FeedbackTypeDTO)((int)x));
+                 .ConvertUsing(x => (FeedbackTypeDTO)(int)x);
             CreateMap<FeedbackTypeDTO, FeedbackType>();
 
             CreateMap<EnglishLevel, EnglishLevelDTO>()
-                 .ConvertUsing(x => (EnglishLevelDTO)((int)x));
+                 .ConvertUsing(x => (EnglishLevelDTO)(int)x);
             CreateMap<EnglishLevelDTO, EnglishLevel>();
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.DTOs
 {
-    public class CreateFeedbackDTO
+    public class UpsertFeedbackDTO
     {
         public string TextFeedback { get; set; }
 
