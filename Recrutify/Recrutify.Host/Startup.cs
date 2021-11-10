@@ -159,6 +159,8 @@ namespace Recrutify.Host
 
             // Log4NetConfig.SetConfiguration();
             // loggerFactory.AddLog4Net();
+
+
             app.UseHttpsRedirection();
             app.UseRouting();
 

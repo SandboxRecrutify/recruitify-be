@@ -11,19 +11,19 @@ var projects = [
         "Description": "The Java Web Development course is an introduction to software development in the Jav programming language and related technologies. The program includes learning the basics of Java and JDK, Servlets API and JS, implementation of simple web applications.",
         "PrimarySkills": [
             {
-                "Id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                 "Name": "Java",
                 "Description": "JDBC & Hibernate, Java EE / Spring, Java Core",
                 "TestLink": "https://exadel.com/tests/java"
             },
             {
-                "Id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
                 "Name": "ProjectManager",
                 "Description": "Scrum, Agile, PMBOK",
                 "SkillTestLink": "https://exadel.com/tests/projectmanager"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst",
                 "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
                 "TestLink": "https://exadel.com/tests/businessanalyst"
@@ -79,7 +79,7 @@ var projects = [
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net",
                 "Description": "OOP, Design patterns, SQL, ASP.NET",
                 "TestLink": "https://exadel.com/tests/net"
@@ -127,7 +127,7 @@ var projects = [
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "Id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                 "Name": "Java",
                 "Description": "JDBC & Hibernate, Java EE / Spring, Java Core",
                 "TestLink": "https://exadel.com/tests/java"
@@ -179,19 +179,19 @@ var projects = [
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net",
                 "Description": "OOP, Design patterns, SQL, ASP.NET",
                 "TestLink": "https://exadel.com/tests/net"
             },
             {
-                "Id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                 "Name": "JavaScript",
                 "Description": "HTML, React, Github, Bash, Express.js",
                 "TestLink": "https://exadel.com/tests/javascript"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst",
                 "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
                 "TestLink": "https://exadel.com/tests/businessanalyst"
@@ -243,25 +243,25 @@ var projects = [
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "Id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                 "Name": ".Net",
                 "Description": "OOP, Design patterns, SQL, ASP.NET",
                 "TestLink": "https://exadel.com/tests/net"
             },
             {
-                "Id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                 "Name": "JavaScript",
                 "Description": "HTML, React, Github, Bash, Express.js",
                 "TestLink": "https://exadel.com/tests/javascript"
             },
             {
-                "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                 "Name": "BusinessAnalyst",
                 "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
                 "TestLink": "https://exadel.com/tests/businessanalyst"
             },
             {
-                "Id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
                 "Name": "ProjectManager",
                 "Description": "Scrum, Agile, PMBOK",
                 "TestLink": "https://exadel.com/tests/projectmanager"
