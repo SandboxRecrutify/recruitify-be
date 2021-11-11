@@ -15,6 +15,9 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<StaffDTO, Staff>().ReverseMap();
             CreateMap<ProjectPrimarySkill, ProjectPrimarySkillDTO>().ReverseMap();
             CreateMap<PrimarySkill, PrimarySkillDTO>();
+            CreateMap<User, StaffDTO>()
+                .ForMember(dest => dest.UserId, conf => conf.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, conf => conf.MapFrom(src => $"{src.Name} {src.Surname}"));
         }
     }
 }

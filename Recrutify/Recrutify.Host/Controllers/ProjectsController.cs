@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -14,14 +16,16 @@ namespace Recrutify.Host.Controllers
     {
         private readonly IProjectService _projectService;
         private readonly IPrimarySkillService _primarySkillService;
+        private readonly IUserService _userService;
 
-        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService)
+        public ProjectsController(IProjectService projectService, IPrimarySkillService primarySkillService, IUserService userService)
         {
             _projectService = projectService;
             _primarySkillService = primarySkillService;
+            _userService = userService;
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GeAlltPrimarySkillAsync()
         {
@@ -29,7 +33,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()
@@ -38,7 +42,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPost]
         public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
         {
@@ -46,7 +50,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPut]
         public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
         {
@@ -60,7 +64,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteAsync(Guid id)
         {
@@ -74,7 +78,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
@@ -85,6 +89,15 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(project);
+        }
+
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("primary_skills_and_staff")]
+        public async Task<ActionResult<PrimarySkillsAndStaffDTO>> PrimarySkillsAndStaff()
+        {
+            List<Role> roles = new List<Role> { Role.Interviewer, Role.Manager, Role.Mentor, Role.Recruiter };
+            var result = await _projectService.GetPrimarySkillsAndStaff(roles);
+            return Ok(result);
         }
 
         [HttpGet("{projectId:guid}/primary_skills")]

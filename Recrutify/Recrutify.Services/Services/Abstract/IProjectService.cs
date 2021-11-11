@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
@@ -23,5 +24,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id);
 
         Task<bool> ExistsAsync(Guid id);
+
+        Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles);
     }
 }
