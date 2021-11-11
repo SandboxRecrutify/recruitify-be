@@ -23,8 +23,6 @@ namespace Recrutify.DataAccess.Models
 
         public Location Location { get; set; }
 
-        public IEnumerable<CandidatePrimarySkill> PrimarySkills { get; set; }
-
         public DateTime RegistrationDate { get; set; }
 
         public IEnumerable<int> BestTimeToConnect { get; set; }
