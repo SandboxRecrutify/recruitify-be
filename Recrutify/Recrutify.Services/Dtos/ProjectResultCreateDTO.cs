@@ -6,8 +6,6 @@ namespace Recrutify.Services.DTOs
 {
     public class ProjectResultCreateDTO
     {
-        public CandidatePrimarySkillDTO PrimarySkillDTO { get; set; }
-
         public IEnumerable<FeedbackDTO> Feedbacks { get; set; }
 
         public Guid ProjectId { get; set; }
@@ -15,5 +13,7 @@ namespace Recrutify.Services.DTOs
         public StatusDTO Status { get; set; }
 
         public string Reason { get; set; }
+
+        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
     }
 }
