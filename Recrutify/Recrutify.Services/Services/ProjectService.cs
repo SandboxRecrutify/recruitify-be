@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
@@ -14,9 +15,14 @@ namespace Recrutify.Services.Services
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IPrimarySkillService _primarySkillService;
 
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper)
+
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService)
         {
+            _userService = userService;
+            _primarySkillService = primarySkillService;
             _projectRepository = projectRepository;
             _mapper = mapper;
         }
@@ -61,6 +67,17 @@ namespace Recrutify.Services.Services
         public Task<bool> ExistsAsync(Guid id)
         {
             return _projectRepository.ExistsAsync(id);
+        }
+
+        public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles)
+        {
+            var result = new PrimarySkillsAndStaffDTO()
+            {
+                PrimarySkills = await _primarySkillService.GetAllAsync(),
+                StaffGroup = await _userService.GetByGroupRoleAsync(roles),
+            };
+
+            return result;
         }
     }
 }

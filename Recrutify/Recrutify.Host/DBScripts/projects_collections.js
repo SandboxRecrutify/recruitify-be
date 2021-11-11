@@ -4,27 +4,29 @@ var projects = [
         "Name": "Java Web Development",
         "StartDate": new Date("2022-01-10T00:00:00.000Z"),
         "EndDate": new Date("2022-03-30T00:00:00.000Z"),
+        "StartRegistrationDate": new Date("2022-01-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-01-08T00:00:00.000Z"),
         "CurrentApplicationsCount": NumberInt(2),
         "PlannedApplicationsCount": NumberInt(4),
         "Description": "The Java Web Development course is an introduction to software development in the Jav programming language and related technologies. The program includes learning the basics of Java and JDK, Servlets API and JS, implementation of simple web applications.",
         "PrimarySkills": [
             {
-                "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "PrimarySkillName": "Java",
-                "PrimarySkillDescription": "JDBC & Hibernate, Java EE / Spring, Java Core",
-                "PrimarySkillTestLink": "https://exadel.com/tests/java"
+                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "Name": "Java",
+                "Description": "JDBC & Hibernate, Java EE / Spring, Java Core",
+                "TestLink": "https://exadel.com/tests/java"
             },
             {
-                "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "PrimarySkillName": "ProjectManager",
-                "PrimarySkillDescription": "Scrum, Agile, PMBOK",
-                "PrimarySkillTestLink": "https://exadel.com/tests/projectmanager"
+                "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "Name": "ProjectManager",
+                "Description": "Scrum, Agile, PMBOK",
+                "SkillTestLink": "https://exadel.com/tests/projectmanager"
             },
             {
-                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "PrimarySkillName": "BusinessAnalyst",
-                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
-                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "Name": "BusinessAnalyst",
+                "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "TestLink": "https://exadel.com/tests/businessanalyst"
             }
         ],
         "Managers": [
@@ -70,15 +72,17 @@ var projects = [
         "Name": "Big Data",
         "StartDate": new Date("2022-02-13T00:00:00.000Z"),
         "EndDate": new Date("2022-04-10T00:00:00.000Z"),
+        "StartRegistrationDate": new Date("2022-02-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-02-10T00:00:00.000Z"),
         "CurrentApplicationsCount": NumberInt(1),
         "PlannedApplicationsCount": NumberInt(3),
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "PrimarySkillName": ".Net",
-                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
-                "PrimarySkillTestLink": "https://exadel.com/tests/net"
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "Name": ".Net",
+                "Description": "OOP, Design patterns, SQL, ASP.NET",
+                "TestLink": "https://exadel.com/tests/net"
             }
         ],
         "Managers": [
@@ -116,15 +120,17 @@ var projects = [
         "Name": "Big Data",
         "StartDate": new Date("2021-03-10T00:00:00.000Z"),
         "EndDate": new Date("2021-05-01T00:00:00.000Z"),
+        "StartRegistrationDate": new Date("2022-03-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-03-08T00:00:00.000Z"),
         "CurrentApplicationsCount": NumberInt(2),
         "PlannedApplicationsCount": NumberInt(2),
         "Description": "Big Data engineers develop distributed software solutions for information processing and analysis. The technologies used Big Data guarantee constant development and demand for big data specialists in various areas of software development.",
         "PrimarySkills": [
             {
-                "PrimarySkillId": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "PrimarySkillName": "Java",
-                "PrimarySkillDescription": "JDBC & Hibernate, Java EE / Spring, Java Core",
-                "PrimarySkillTestLink": "https://exadel.com/tests/java"
+                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                "Name": "Java",
+                "Description": "JDBC & Hibernate, Java EE / Spring, Java Core",
+                "TestLink": "https://exadel.com/tests/java"
             }
         ],
         "Managers": [
@@ -165,28 +171,30 @@ var projects = [
         "_id": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
         "Name": "BA, JS, .NET Development",
         "StartDate": new Date("2022-03-15T00:00:00.000Z"),
-        "EndDate": new Date("2022-05-30T00:00:00.000Z"),
+        "EndDate": new Date("2022-05-30T00:00:00.000Z"),        
+        "StartRegistrationDate": new Date("2022-03-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-03-12T00:00:00.000Z"),
         "CurrentApplicationsCount": NumberInt(1),
         "PlannedApplicationsCount": NumberInt(4),
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "PrimarySkillName": ".Net",
-                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
-                "PrimarySkillTestLink": "https://exadel.com/tests/net"
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "Name": ".Net",
+                "Description": "OOP, Design patterns, SQL, ASP.NET",
+                "TestLink": "https://exadel.com/tests/net"
             },
             {
-                "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "PrimarySkillName": "JavaScript",
-                "PrimarySkillDescription": "HTML, React, Github, Bash, Express.js",
-                "PrimarySkillTestLink": "https://exadel.com/tests/javascript"
+                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "Name": "JavaScript",
+                "Description": "HTML, React, Github, Bash, Express.js",
+                "TestLink": "https://exadel.com/tests/javascript"
             },
             {
-                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "PrimarySkillName": "BusinessAnalyst",
-                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
-                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "Name": "BusinessAnalyst",
+                "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "TestLink": "https://exadel.com/tests/businessanalyst"
             }
         ],
         "Managers": [
@@ -228,33 +236,35 @@ var projects = [
         "Name": "BA, JS, .NET Development",
         "StartDate": new Date("2021-08-12T00:00:00.000Z"),
         "EndDate": new Date("2021-09-30T00:00:00.000Z"),
+        "StartRegistrationDate": new Date("2022-08-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-08-10T00:00:00.000Z"),
         "CurrentApplicationsCount": NumberInt(3),
         "PlannedApplicationsCount": NumberInt(3),
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
-                "PrimarySkillId": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "PrimarySkillName": ".Net",
-                "PrimarySkillDescription": "OOP, Design patterns, SQL, ASP.NET",
-                "PrimarySkillTestLink": "https://exadel.com/tests/net"
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "Name": ".Net",
+                "Description": "OOP, Design patterns, SQL, ASP.NET",
+                "TestLink": "https://exadel.com/tests/net"
             },
             {
-                "PrimarySkillId": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "PrimarySkillName": "JavaScript",
-                "PrimarySkillDescription": "HTML, React, Github, Bash, Express.js",
-                "PrimarySkillTestLink": "https://exadel.com/tests/javascript"
+                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "Name": "JavaScript",
+                "Description": "HTML, React, Github, Bash, Express.js",
+                "TestLink": "https://exadel.com/tests/javascript"
             },
             {
-                "PrimarySkillId": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "PrimarySkillName": "BusinessAnalyst",
-                "PrimarySkillDescription": "Power BI, Tableau, Miro, Google Sheet, MySQL",
-                "PrimarySkillTestLink": "https://exadel.com/tests/businessanalyst"
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "Name": "BusinessAnalyst",
+                "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "TestLink": "https://exadel.com/tests/businessanalyst"
             },
             {
-                "PrimarySkillId": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "PrimarySkillName": "ProjectManager",
-                "PrimarySkillDescription": "Scrum, Agile, PMBOK",
-                "PrimarySkillTestLink": "https://exadel.com/tests/projectmanager"
+                "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
+                "Name": "ProjectManager",
+                "Description": "Scrum, Agile, PMBOK",
+                "TestLink": "https://exadel.com/tests/projectmanager"
             }
         ],
         "Managers": [

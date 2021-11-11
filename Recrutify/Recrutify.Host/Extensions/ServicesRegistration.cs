@@ -11,6 +11,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<ICandidateService, CandidateService>();
             services.AddSingleton<IPrimarySkillService, PrimarySkillService>();
+            services.AddSingleton<IUserService, UserService>();
         }
     }
 }
