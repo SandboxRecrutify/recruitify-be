@@ -24,7 +24,7 @@ namespace Recrutify.Services.DTOs
 
         public bool GoingToExadel { get; set; }
 
-        public IEnumerable<ProjectResultCreateDTO> ProjectResults { get; set; }
+        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
 
         public string CurrentJob { get; set; }
 

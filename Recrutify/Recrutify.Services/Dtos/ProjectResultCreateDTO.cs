@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.DTOs
 {
