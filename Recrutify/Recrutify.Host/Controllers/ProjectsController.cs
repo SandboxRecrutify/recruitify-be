@@ -27,7 +27,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
-        public async Task<ActionResult<List<PrimarySkillDTO>>> GeAlltPrimarySkillAsync()
+        public async Task<ActionResult<List<PrimarySkillDTO>>> GeAllPrimarySkillsAsync()
         {
             var result = await _primarySkillService.GetAllAsync();
             return Ok(result);
