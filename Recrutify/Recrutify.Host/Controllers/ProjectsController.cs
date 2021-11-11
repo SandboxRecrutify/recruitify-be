@@ -23,7 +23,7 @@ namespace Recrutify.Host.Controllers
 
         // [Authorize(Policy = Constants.Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
-        public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
+        public async Task<ActionResult<List<PrimarySkillDTO>>> GeAlltPrimarySkillAsync()
         {
             var result = await _primarySkillService.GetAllAsync();
             return Ok(result);
@@ -88,7 +88,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet("{projectId:guid}/primary_skills")]
-        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetForProjectAsync(Guid id)
+        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetPrimarySkillsAsync(Guid id)
         {
             var primarySkills = await _projectService.GetPrimarySkills(id);
             if (primarySkills == null)
