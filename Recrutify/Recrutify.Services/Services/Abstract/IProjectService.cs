@@ -21,6 +21,8 @@ namespace Recrutify.Services.Services.Abstract
 
         Task DeleteAsync(Guid id);
 
+        Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id);
+
         Task<bool> ExistsAsync(Guid id);
 
         Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles);

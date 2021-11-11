@@ -18,7 +18,6 @@ namespace Recrutify.Services.Services
         private readonly IUserService _userService;
         private readonly IPrimarySkillService _primarySkillService;
 
-
         public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService)
         {
             _userService = userService;
@@ -45,6 +44,12 @@ namespace Recrutify.Services.Services
         {
             var projects = await _projectRepository.GetAllAsync();
             return _mapper.Map<List<ProjectDTO>>(projects);
+        }
+
+        public async Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id)
+        {
+            var primarySkills = await _projectRepository.GetPrimarySkills(id);
+            return _mapper.Map<IEnumerable<ProjectPrimarySkillDTO>>(primarySkills);
         }
 
         public IQueryable<ProjectDTO> Get()

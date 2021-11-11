@@ -27,7 +27,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills")]
-        public async Task<ActionResult<List<PrimarySkillDTO>>> GetPrimarySkillAsync()
+        public async Task<ActionResult<List<PrimarySkillDTO>>> GeAllPrimarySkillsAsync()
         {
             var result = await _primarySkillService.GetAllAsync();
             return Ok(result);
@@ -98,6 +98,18 @@ namespace Recrutify.Host.Controllers
             List<Role> roles = new List<Role> { Role.Interviewer, Role.Manager, Role.Mentor, Role.Recruiter };
             var result = await _projectService.GetPrimarySkillsAndStaff(roles);
             return Ok(result);
+        }
+
+        [HttpGet("{id:guid}/primary_skills")]
+        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetPrimarySkillsAsync(Guid id)
+        {
+            var primarySkills = await _projectService.GetPrimarySkills(id);
+            if (primarySkills == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(primarySkills);
         }
     }
 }
