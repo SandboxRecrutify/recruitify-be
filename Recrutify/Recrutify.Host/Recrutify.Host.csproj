@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="DBScripts\candidates_collection.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
