@@ -86,5 +86,17 @@ namespace Recrutify.Host.Controllers
 
             return Ok(project);
         }
+
+        [HttpGet("{projectId:guid}/primary_skills")]
+        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetForProjectAsync(Guid id)
+        {
+            var primarySkills = await _projectService.GetPrimarySkills(id);
+            if (primarySkills == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(primarySkills);
+        }
     }
 }
