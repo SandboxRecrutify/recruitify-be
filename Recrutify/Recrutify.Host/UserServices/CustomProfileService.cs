@@ -36,7 +36,7 @@ namespace Recrutify.Host.UserServices
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
                 new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(globalRoles), IdentityServerConstants.ClaimValueTypes.Json),
-                new Claim(Constants.Roles.ProjectRoles, JsonSerializer.Serialize(projectRoles, options), IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim(Constants.Roles.ProjectRoles, JsonSerializer.Serialize(projectRoles, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }), IdentityServerConstants.ClaimValueTypes.Json),
             };
 
             context.IssuedClaims = claims;
