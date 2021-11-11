@@ -63,7 +63,6 @@ namespace Recrutify.Host
 
             services.AddControllers()
                 .AddFluentValidation();
-                
             services.AddValidators();
 
             services.AddIdentityServer()
@@ -156,11 +155,8 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
+            app.UseForwardedHeaders(ForwardedHeadersSettings.Get());
             app.UseCors(Constants.Cors.CorsForUI);
-
-            // Log4NetConfig.SetConfiguration();
-            // loggerFactory.AddLog4Net();
-
 
             app.UseHttpsRedirection();
             app.UseRouting();
