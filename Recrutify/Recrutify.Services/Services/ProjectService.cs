@@ -46,6 +46,12 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ProjectDTO>>(projects);
         }
 
+        public async Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id)
+        {
+            var primarySkills = await _projectRepository.GetPrimarySkills(id);
+            return _mapper.Map<IEnumerable<ProjectPrimarySkillDTO>>(primarySkills);
+        }
+
         public IQueryable<ProjectDTO> Get()
         {
             return _mapper.ProjectTo<ProjectDTO>(_projectRepository.Get());
