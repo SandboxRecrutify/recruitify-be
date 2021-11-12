@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
-using Recrutify.Host.ProjectAuthorize;
 
 namespace Recrutify.Services.Extensions
 {
@@ -10,7 +8,6 @@ namespace Recrutify.Services.Extensions
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthorizationHandler, ProjectRolesPolicyHandler>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
