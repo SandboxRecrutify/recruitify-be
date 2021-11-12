@@ -50,23 +50,26 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.Get());
         }
 
-        public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
-            var oldCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
-            if (oldCandidate == null)
+            var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            if (currentCandidate == null)
             {
                 await _candidateRepository.CreateAsync(candidate);
                 return _mapper.Map<CandidateDTO>(candidate);
             }
 
-            var candidatePrimarySkill = candidate.ProjectResults
-                .Select(x => x.PrimarySkill).FirstOrDefault();
-            var projectResultsOld = oldCandidate.ProjectResults?.ToList();
-            projectResultsOld.Add(candidate.ProjectResults.Where(x => x.PrimarySkill == candidatePrimarySkill).FirstOrDefault());
-            var candidateToUpdate = _mapper.Map(candidate, oldCandidate.DeepCopy());
-            await _candidateRepository.ReplaceAsync(candidate);
-            return _mapper.Map<CandidateDTO>(candidateToUpdate);
+            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
+            var projectResultsCurrent = currentCandidate.ProjectResults.ToList();
+            projectResultsCurrent.Add(newProjectResult);
+
+            var candidateToUpdate = new Candidate { ProjectResults = projectResultsCurrent, Id = currentCandidate.Id };
+            var temp = _mapper.Map(candidate, candidateToUpdate);
+
+            await _candidateRepository.ReplaceAsync(temp);
+            return _mapper.Map<CandidateDTO>(temp);
         }
 
         public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
