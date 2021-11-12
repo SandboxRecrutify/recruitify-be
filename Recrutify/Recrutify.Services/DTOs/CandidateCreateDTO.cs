@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Recrutify.Services.DTOs
+﻿namespace Recrutify.Services.DTOs
 {
     public class CandidateCreateDTO : BaseCandidateDTO
     {
