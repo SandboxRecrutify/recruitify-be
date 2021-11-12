@@ -21,7 +21,6 @@ using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
 using Recrutify.Host.Infrastructure;
-using Recrutify.Host.ProjectAuthorize;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
