@@ -32,7 +32,6 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
