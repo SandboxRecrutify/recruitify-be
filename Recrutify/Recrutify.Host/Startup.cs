@@ -17,11 +17,9 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
 using Recrutify.DataAccess.Configuration;
-using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
 using Recrutify.Host.Infrastructure;
-using Recrutify.Host.ProjectAuthorize;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
@@ -56,6 +54,7 @@ namespace Recrutify.Host
             });
 
             services.AddHttpContextAccessor();
+            services.AddPolicy();
             services.AddRepositories();
             services.AddServices();
 
@@ -81,13 +80,6 @@ namespace Recrutify.Host
             {
                 options.Authority = authority;
                 options.ApiName = "recruitify_api";
-            });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.Requirements.Add(new CustomPolicyRequirement(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Interviewer))));
-                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);

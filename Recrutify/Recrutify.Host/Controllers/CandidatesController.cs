@@ -23,7 +23,8 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
         {
@@ -39,7 +40,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        [Authorize]
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto)
         {
@@ -62,6 +63,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}/{projectId:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
@@ -76,7 +78,6 @@ namespace Recrutify.Host.Controllers
             }
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)

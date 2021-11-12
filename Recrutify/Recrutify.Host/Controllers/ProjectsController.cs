@@ -33,7 +33,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<ProjectDTO>>> GetAsync()

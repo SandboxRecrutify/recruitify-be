@@ -10,7 +10,7 @@ namespace Recrutify.Services.Extensions
     {
         public static void AddRepositories(this IServiceCollection services)
         {
-            services.AddSingleton<IAuthorizationHandler, CustomPolicyHandler>();
+            services.AddSingleton<IAuthorizationHandler, ProjectRolesPolicyHandler>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
