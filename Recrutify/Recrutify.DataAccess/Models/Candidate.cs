@@ -23,7 +23,7 @@ namespace Recrutify.DataAccess.Models
 
         public Location Location { get; set; }
 
-        public IEnumerable<CandidatePrimarySkill> PrimarySkills { get; set; }
+        public CandidatePrimarySkill PrimarySkill { get; set; }
 
         public DateTime RegistrationDate { get; set; }
 

@@ -20,7 +20,7 @@ namespace Recrutify.Services.DTOs
 
         public LocationDTO Location { get; set; }
 
-        public IEnumerable<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
+        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
 
         public IEnumerable<int> BestTimeToConnect { get; set; }
 

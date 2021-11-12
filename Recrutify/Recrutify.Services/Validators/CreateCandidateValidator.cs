@@ -38,10 +38,7 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.Location)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(c => c.PrimarySkills)
-                .NotNull()
-                .NotEmpty();
-            RuleForEach(c => c.PrimarySkills)
+            RuleFor(c => c.PrimarySkill)
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.BestTimeToConnect)

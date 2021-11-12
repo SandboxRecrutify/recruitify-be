@@ -53,9 +53,19 @@ namespace Recrutify.Services.Services
         public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
-            await _candidateRepository.CreateAsync(candidate);
-            var result = _mapper.Map<CandidateDTO>(candidate);
-            return result;
+            var oldCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            if (oldCandidate == null)
+            {
+                await _candidateRepository.CreateAsync(candidate);
+                return _mapper.Map<CandidateDTO>(candidate);
+            }
+
+            var projectResults = candidate.ProjectResults.ToList();
+            var projectResultsOld = oldCandidate.PrimarySkill;
+           // projectResults.Add(projectResultsOld);
+            var candidateToUpdate = _mapper.Map(candidate, oldCandidate.DeepCopy());
+            await _candidateRepository.ReplaceAsync(candidate);
+            return _mapper.Map<CandidateDTO>(candidateToUpdate);
         }
 
         public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)
