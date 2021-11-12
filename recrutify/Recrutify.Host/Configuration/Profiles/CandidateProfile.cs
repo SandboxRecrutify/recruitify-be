@@ -1,5 +1,4 @@
 ﻿using System;
-using AutoMapper;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -17,7 +16,7 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
 
-            CreateMap<ProjectResultDTO, ProjectResult>();
+            CreateMap<ProjectResult, ProjectResultDTO>();
 
             CreateMap<UpsertFeedbackDTO, Feedback>()
                 .ForMember(dest => dest.CreatedOn, opt => opt.Ignore());
