@@ -1,5 +1,4 @@
 ﻿using System;
-using AutoMapper;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
