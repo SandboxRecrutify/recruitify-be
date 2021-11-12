@@ -60,9 +60,9 @@ namespace Recrutify.Services.Services
                 return _mapper.Map<CandidateDTO>(candidate);
             }
 
-            var candidatePrimarySkill = candidate?.ProjectResults?
+            var candidatePrimarySkill = candidate.ProjectResults
                 .Select(x => x.PrimarySkill).FirstOrDefault();
-            var projectResultsOld = oldCandidate?.ProjectResults?.ToList();
+            var projectResultsOld = oldCandidate.ProjectResults?.ToList();
             projectResultsOld.Add(candidate.ProjectResults.Where(x => x.PrimarySkill == candidatePrimarySkill).FirstOrDefault());
             var candidateToUpdate = _mapper.Map(candidate, oldCandidate.DeepCopy());
             await _candidateRepository.ReplaceAsync(candidate);
