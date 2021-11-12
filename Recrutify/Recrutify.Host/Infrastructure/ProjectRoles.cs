@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Recrutify.Host.ProjectAuthorize
+namespace Recrutify.Host.Infrastructure
 {
-    public class ProjectRolesDict
+    public class ProjectRoles
     {
         public Guid ProjectId { get; set; }
 

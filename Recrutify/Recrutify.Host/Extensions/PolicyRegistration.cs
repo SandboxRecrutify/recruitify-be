@@ -1,19 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Recrutify.DataAccess.Models;
+﻿using Microsoft.AspNetCore.Authorization;
 using Recrutify.Host.ProjectAuthorize;
 
 namespace Recrutify.Host.Extensions
 {
     public static class PolicyRegistration
     {
-        public static void AddPolicy(this IServiceCollection services)
+        public static void RequireProjectRole(this AuthorizationPolicyBuilder policy, params string[] roles)
         {
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.Requirements.Add(new ProjectRolesPolicyRequirement(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Interviewer))));
-                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
-            });
+            policy.Requirements.Add(new ProjectRolesPolicyRequirement(roles));
         }
     }
 }

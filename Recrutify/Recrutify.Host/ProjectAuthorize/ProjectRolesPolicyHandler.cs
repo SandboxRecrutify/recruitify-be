@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Recrutify.Host.Infrastructure;
 
 namespace Recrutify.Host.ProjectAuthorize
 {
@@ -21,20 +21,15 @@ namespace Recrutify.Host.ProjectAuthorize
         {
             var httpContext = _httpContextAccessor.HttpContext;
             var user = context.User;
-            var projectid = httpContext.Request.Query.FirstOrDefault(p => p.Key == Constants.Roles.ProjectId).Value;
+            var projectId = httpContext.Request.Query.FirstOrDefault(p => p.Key == Constants.Roles.ProjectId).Value;
             var projectRoles = user.Claims
                 .Where(c => c.Type == Constants.Roles.ProjectRoles)
-                .Select(c => JsonConvert.DeserializeObject<ProjectRolesDict>(c.Value))
+                .Select(c => JsonConvert.DeserializeObject<ProjectRoles>(c.Value))
                 .ToDictionary(c => c.ProjectId, c => c.Roles);
 
-            IEnumerable<string> rolesValue;
-
-            if (projectRoles.TryGetValue(Guid.Parse(projectid), out rolesValue))
+            if (projectRoles.TryGetValue(Guid.Parse(projectId), out var rolesValue) && rolesValue.Any(v => requirement.Roles.Contains(v)))
             {
-                if (rolesValue.Any(v => requirement.Policy.Contains(v)))
-                {
-                    context.Succeed(requirement);
-                }
+                context.Succeed(requirement);
             }
 
             return Task.CompletedTask;
