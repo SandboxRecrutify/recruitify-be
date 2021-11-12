@@ -62,6 +62,7 @@ namespace Recrutify.Host
                 options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
                 options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.RequireProjectRole(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Interviewer)));
                 options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Policies.HighAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Manager)));
             });
 
             services.AddHttpContextAccessor();

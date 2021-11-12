@@ -7,6 +7,7 @@
             public const string AllAccessPolicy = nameof(AllAccessPolicy);
             public const string FeedbackPolicy = nameof(FeedbackPolicy);
             public const string AdminPolicy = nameof(AdminPolicy);
+            public const string HighAccessPolicy = nameof(HighAccessPolicy);
         }
 
         public static class Cors
