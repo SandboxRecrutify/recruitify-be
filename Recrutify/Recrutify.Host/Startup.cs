@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
 using Recrutify.Host.Infrastructure;
+using Recrutify.Host.ProjectAuthorize;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
@@ -53,6 +55,8 @@ namespace Recrutify.Host
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
+
+            services.AddSingleton<IAuthorizationHandler, ProjectRolesPolicyHandler>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
