@@ -18,8 +18,6 @@ namespace Recrutify.DataAccess.Models
 
         public string Surname { get; set; }
 
-        public List<Role> GlobalRoles { get; set; }
-
         public Dictionary<Guid, List<Role>> ProjectRoles { get; set; }
     }
 }

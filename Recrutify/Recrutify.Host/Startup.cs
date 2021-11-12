@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
@@ -56,13 +57,13 @@ namespace Recrutify.Host
                     .AllowAnyMethod());
             });
 
-            services.AddSingleton<IAuthorizationHandler, ProjectRolesPolicyHandler>();
+            services.AddSingleton<IAuthorizationHandler, RolesPolicyHandler>();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
                 options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.RequireProjectRole(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
-                options.AddPolicy(Constants.Policies.HighAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Manager)));
+                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Policies.HighAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Manager)));
             });
 
             services.AddHttpContextAccessor();

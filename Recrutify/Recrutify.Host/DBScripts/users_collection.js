@@ -5,13 +5,12 @@
             "Name": "Alex",
             "Surname": "Anderson",
             "Password": "2B8358C34FFFE78D302F826F54A4E9D92BDB657F6DFE01FA3FA22FA89D3347DB",
-            "Salt": "E1F53135E559C253",
-            "GlobalRoles": [NumberInt(0)],           
+            "Salt": "E1F53135E559C253",         
             "ProjectRoles": [
             [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-                [
-                    NumberInt(0)
-                ]]
+            [
+                  NumberInt(0)
+            ]]
         ]
         },
         {
@@ -21,8 +20,11 @@
             "Surname": "Clark",
             "Password": "646DAE47260A070B28D5E9727BA0D8A6A08CB6BF627602BE4E9229C5B7DAEAE2",
             "Salt": "84B03D034B409D4E",
-            "GlobalRoles": [NumberInt(1), NumberInt(2)],
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(1), NumberInt(2)
+                ]],
                 [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
                 [
                     NumberInt(1)
@@ -48,8 +50,11 @@
             "Surname": "Harris",
             "Password": "25077B4E7F514A5FB3E04C662965AA9F0DF15D1FE0384526F608E3A6733D973F",
             "Salt": "RET4356433DFG345",
-            "GlobalRoles": [NumberInt(2)],
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(2)
+                ]],
                 [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 [
                     NumberInt(2)
@@ -77,6 +82,10 @@
             "Salt": "SDFGHJ54645756FH",
             "GlobalRoles": [NumberInt(4), NumberInt(3)],              
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(4), NumberInt(3)
+                ]],
                 [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 [
                     NumberInt(3),
@@ -107,9 +116,12 @@
             "Name": "David",
             "Surname": "Lewis",
             "Password": "C9A1CB6FB1D59764C8B12975E7B156D417141ED07832808F8F489064DDE3DBF8",
-             "Salt": "FDG4354GFD345542",
-            "GlobalRoles": [NumberInt(4), NumberInt(3)],                     
+             "Salt": "FDG4354GFD345542",                
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(4), NumberInt(3)
+                ]],
                 [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 [
                     NumberInt(3),
@@ -131,9 +143,12 @@
             "Name": "Fred",
             "Surname": "Taylor",
             "Password": "A606B0C8919A0F6EB85240460D6772AA963669688C2CBD0D4A0B329CA238D8B0",
-            "Salt": "234FGHDS234EG454",
-            "GlobalRoles": [NumberInt(3)],            
+            "Salt": "234FGHDS234EG454",    
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(3)
+                ]],
                 [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
                 [
                     NumberInt(3)
@@ -154,9 +169,12 @@
             "Name": "Justin",
             "Surname": "Walker",
             "Password": "2B8CB1313018D3FAE4A5A58E2231AF82EFB6BE435574742A728AA7851615976F",
-            "Salt": "65734FHGFG54634G",
-            "GlobalRoles": [NumberInt(3)],                     
+            "Salt": "65734FHGFG54634G",                   
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(3)
+                ]],
                 [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
                 [
                     NumberInt(3)
@@ -177,9 +195,12 @@
             "Name": "Kevin",
             "Surname": "Wils",
             "Password": "4B0BEB558891202DF7BC320DB22F8C7930BA3899D433B57A8E862CA42AF08305",
-            "Salt": "AS567TYTT4535RFH",
-            "GlobalRoles": [NumberInt(2)],                   
+            "Salt": "AS567TYTT4535RFH",               
             "ProjectRoles": [
+                [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [
+                    NumberInt(2)
+                ]],
                 [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 [
                     NumberInt(2)

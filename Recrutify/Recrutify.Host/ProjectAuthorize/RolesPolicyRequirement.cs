@@ -2,9 +2,9 @@
 
 namespace Recrutify.Host.ProjectAuthorize
 {
-    public class ProjectRolesPolicyRequirement : IAuthorizationRequirement
+    public class RolesPolicyRequirement : IAuthorizationRequirement
     {
-        public ProjectRolesPolicyRequirement(params string[] roles)
+        public RolesPolicyRequirement(params string[] roles)
         {
             Roles = roles;
         }

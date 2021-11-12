@@ -26,13 +26,12 @@ namespace Recrutify.Host.UserServices
         {
             var user = await _userRepository.GetAsync(Guid.Parse(context.Subject.GetSubjectId()));
             var projectRoles = user.ProjectRoles.Select(pr => new { projectId = pr.Key.ToString(), roles = pr.Value.Select(r => r.ToString()) }).ToArray();
-            var globalRoles = user.GlobalRoles.Select(gr => gr.ToString()).ToArray();
+
             var claims = new List<Claim>()
             {
                 new Claim(JwtClaimTypes.Name, user.Name),
                 new Claim(JwtClaimTypes.Email, user.Email),
-                new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(globalRoles), IdentityServerConstants.ClaimValueTypes.Json),
-                new Claim(Constants.Roles.ProjectRoles, JsonSerializer.Serialize(projectRoles, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }), IdentityServerConstants.ClaimValueTypes.Json),
+                new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(projectRoles, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }), IdentityServerConstants.ClaimValueTypes.Json),
             };
 
             context.IssuedClaims = claims;
