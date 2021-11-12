@@ -31,13 +31,13 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        /*[Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpPost]
-        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
         {
             var result = await _candidateService.CreateAsync(candidateCreateDTO);
             return Created(string.Empty, result);
-        }*/
+        }
 
         // [Authorize(Policy = Constants.Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
