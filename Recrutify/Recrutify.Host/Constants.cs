@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Recrutify.Host
 {
     public static class Constants
