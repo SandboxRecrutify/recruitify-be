@@ -1,35 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
-namespace Recrutify.DataAccess.Models
+namespace Recrutify.Services.DTOs
 {
-    public class Candidate : IDataModel
+    public abstract class BaseCandidateDTO
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Surname { get; set; }
 
-        public EnglishLevel EnglishLevel { get; set; }
+        public EnglishLevelDTO EnglishLevel { get; set; }
 
-        public ProjectLanguage ProjectLanguage { get; set; }
+        public ProjectLanguageDTO ProjectLanguage { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
-        public IEnumerable<Contact> Contacts { get; set; }
+        public IEnumerable<ContactDTO> Contacts { get; set; }
 
-        public Location Location { get; set; }
-
-        public DateTime RegistrationDate { get; set; }
+        public LocationDTO Location { get; set; }
 
         public IEnumerable<int> BestTimeToConnect { get; set; }
 
         public bool GoingToExadel { get; set; }
-
-        public IEnumerable<ProjectResult> ProjectResults { get; set; }
 
         public string CurrentJob { get; set; }
 

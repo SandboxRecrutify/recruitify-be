@@ -12,5 +12,7 @@ namespace Recrutify.DataAccess.Models
         public Status Status { get; set; }
 
         public string Reason { get; set; }
+
+        public CandidatePrimarySkill PrimarySkill { get; set; }
     }
 }
