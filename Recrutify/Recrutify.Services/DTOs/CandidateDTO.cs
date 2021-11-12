@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
-    public class CandidateDTO /* : CandidateCreateDTO */
+    public class CandidateDTO
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string Surname { get; set; }
@@ -32,8 +34,6 @@ namespace Recrutify.Services.DTOs
         public string AdditionalQuestions { get; set; }
 
         public string AdditionalInfo { get; set; }
-
-        public Guid Id { get; set; }
 
         public IEnumerable<ProjectResultDTO> ProjectResults { get; set; }
 
