@@ -30,7 +30,7 @@ namespace Recrutify.Host.Infrastructure
             param = operation.Parameters.FirstOrDefault(p => p.Name == ParamCount);
             if (param != null)
             {
-                param.Schema.Default = new OpenApiBoolean(default);
+                param.Schema.Default = null;
             }
         }
     }
