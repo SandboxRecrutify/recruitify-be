@@ -37,7 +37,7 @@ namespace Recrutify.Host.Controllers.OData
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         //[ODataAuthorize]
         [HttpGet]
-        public IEnumerable<CandidateDTO> ByProject(ODataQueryOptions options, [FromQuery] Guid projectId)
+        public IEnumerable<CandidateDTO> ByProject([FromBody] ODataQueryOptions options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetByProject(projectId);
             IEnumerable<CandidateDTO> candidatesFilter = (IEnumerable<CandidateDTO>)options.ApplyTo(candidates);
