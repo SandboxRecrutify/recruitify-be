@@ -57,16 +57,17 @@ namespace Recrutify.Services.Services
             if (currentCandidate == null)
             {
                 await _candidateRepository.CreateAsync(candidate);
-                return _mapper.Map<CandidateDTO>(candidate);
+                var newCanditate = _mapper.Map<CandidateDTO>(candidate);
+                newCanditate.Id = Guid.NewGuid();
+                return newCanditate;
             }
 
+            var candidateToUpdate = _mapper.Map(candidateCreateDTO, currentCandidate.DeepCopy());
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
             var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
-            var projectResultsCurrent = currentCandidate.ProjectResults.ToList();
-            projectResultsCurrent.Add(newProjectResult);
-            var candidateAllProdjectsToUpdate = new Candidate { ProjectResults = projectResultsCurrent};
-            var candidateToUpdate = _mapper.Map(candidateCreateDTO, candidateAllProdjectsToUpdate);
-            candidateToUpdate.Id = currentCandidate.Id;
+            var projectResults= currentCandidate.ProjectResults.ToList();
+            projectResults.Add(newProjectResult);
+            candidateToUpdate.ProjectResults = projectResults;
 
             await _candidateRepository.ReplaceAsync(candidateToUpdate);
             return _mapper.Map<CandidateDTO>(candidateToUpdate);
