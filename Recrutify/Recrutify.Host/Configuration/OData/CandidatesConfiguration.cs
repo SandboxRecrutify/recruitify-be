@@ -15,5 +15,4 @@ namespace Recrutify.Host.Configuration
                    .ReturnsCollectionFromEntitySet<CandidateDTO>("Candidates");
         }
     }
-    
 }

@@ -23,8 +23,7 @@ namespace Recrutify.Host.Controllers.OData
 
         [EnableQuery(
             HandleNullPropagation = HandleNullPropagationOption.False,
-            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy
-            | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
+            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize]
         [ODataRoute]
         public IQueryable<CandidateDTO> Get()
@@ -32,10 +31,10 @@ namespace Recrutify.Host.Controllers.OData
             return _candidateService.Get();
         }
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
-            | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
-            | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        //[ODataAuthorize]
+        [EnableQuery(
+            HandleNullPropagation = HandleNullPropagationOption.False,
+            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
+        [ODataAuthorize]
         [HttpGet]
         public IEnumerable<CandidateDTO> ByProject([FromBody] ODataQueryOptions options, [FromQuery] Guid projectId)
         {
