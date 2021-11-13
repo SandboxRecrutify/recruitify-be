@@ -33,10 +33,10 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
-        public async Task<List<CandidateDTO>> GetByProjectAsync(Guid projectId)
+        public IQueryable<CandidateDTO> GetByProject(Guid projectId)
         {
-            var candidates = await _candidateRepository.GetByProjectAsync(projectId);
-            return _mapper.Map<List<CandidateDTO>>(candidates);
+            var candidates = _candidateRepository.GetByProject(projectId);
+            return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
         public async Task<CandidateDTO> GetAsync(Guid id)

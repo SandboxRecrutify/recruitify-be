@@ -90,17 +90,6 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
-        [HttpGet("all/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetByPrjectAsync(Guid projectId)
-        {
-            var candidates = await _candidateService.GetByProjectAsync(projectId);
-            var result = candidates.OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.Where(x => x.Type != FeedbackTypeDTO.Test)
-                                        .Sum(х => х.Rating))
-                                   .ThenByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)?.Rating);
-            return Ok(result);
-        }
+        
     }
 }
