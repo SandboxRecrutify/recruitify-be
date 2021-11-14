@@ -16,7 +16,7 @@ namespace Recrutify.Services.Services.Abstract
 
         public Task<CandidateDTO> GetAsync(Guid id);
 
-        Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO);
+        Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId);
 
         Task UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto);
 
