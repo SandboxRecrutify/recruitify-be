@@ -7,7 +7,5 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User> GetByEmailAsync(string email);
-
-        public Task<List<User>> GetByRolesAsync(List<Role> roles);
     }
 }

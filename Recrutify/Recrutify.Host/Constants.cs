@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Recrutify.DataAccess
+namespace Recrutify.Host
 {
     public static class Constants
     {
@@ -21,7 +21,6 @@ namespace Recrutify.DataAccess
         {
             public const string Role = "role";
             public const string ProjectIdParam = "projectId";
-            public static readonly Guid GlobalProjectId = new Guid("a6cc25ba-3e12-11ec-9bbc-0242ac130002");
         }
     }
 }

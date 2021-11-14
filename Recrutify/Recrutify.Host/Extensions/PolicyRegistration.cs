@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Recrutify.Host.ProjectAuthorize;
+using Recrutify.Host.Infrastructure.Authorization;
 
 namespace Recrutify.Host.Extensions
 {

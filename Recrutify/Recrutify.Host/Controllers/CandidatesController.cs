@@ -23,7 +23,6 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        // [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
@@ -77,7 +76,7 @@ namespace Recrutify.Host.Controllers
             }
         }
 
-        [Authorize(Policy = Constants.Policies.HighAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {

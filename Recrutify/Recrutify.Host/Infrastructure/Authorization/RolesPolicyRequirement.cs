@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace Recrutify.Host.ProjectAuthorize
+namespace Recrutify.Host.Infrastructure.Authorization
 {
     public class RolesPolicyRequirement : IAuthorizationRequirement
     {

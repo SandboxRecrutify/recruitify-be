@@ -79,8 +79,7 @@
             "Name": "Christopher",
             "Surname": "Johnson",
             "Password": "31144862B60C43C5F045EAAC4D99E9F59DA3CFDAE42B372704D7C458B1E6DA8A",
-            "Salt": "SDFGHJ54645756FH",
-            "GlobalRoles": [NumberInt(4), NumberInt(3)],              
+            "Salt": "SDFGHJ54645756FH",            
             "ProjectRoles": [
                 [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
                 [

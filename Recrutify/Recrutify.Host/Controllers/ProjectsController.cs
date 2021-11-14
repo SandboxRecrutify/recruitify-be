@@ -97,7 +97,7 @@ namespace Recrutify.Host.Controllers
         [HttpGet("primary_skills_and_staff")]
         public async Task<ActionResult<PrimarySkillsAndStaffDTO>> PrimarySkillsAndStaff()
         {
-            var result = await _projectService.GetPrimarySkillsAndStaff(new List<Role> { Role.Interviewer, Role.Manager, Role.Mentor, Role.Recruiter });
+            var result = await _projectService.GetPrimarySkillsAndStaff();
             return Ok(result);
         }
 

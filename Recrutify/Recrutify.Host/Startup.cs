@@ -17,15 +17,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using OData.Swagger.Services;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
+using Recrutify.Host.Identity;
 using Recrutify.Host.Infrastructure;
-using Recrutify.Host.ProjectAuthorize;
+using Recrutify.Host.Infrastructure.Authorization;
 using Recrutify.Host.Settings;
-using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
 
 namespace Recrutify.Host
@@ -57,7 +56,6 @@ namespace Recrutify.Host
                     .AllowAnyMethod());
             });
 
-            services.AddSingleton<IAuthorizationHandler, RolesPolicyHandler>();
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
@@ -147,7 +145,9 @@ namespace Recrutify.Host
                     },
                 });
             });
+
             services.AddOdataSwaggerSupport();
+            services.AddSingleton<IAuthorizationHandler, RolesPolicyHandler>();
         }
 
         public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)

@@ -74,12 +74,12 @@ namespace Recrutify.Services.Services
             return _projectRepository.ExistsAsync(id);
         }
 
-        public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles)
+        public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff()
         {
             var result = new PrimarySkillsAndStaffDTO()
             {
                 PrimarySkills = await _primarySkillService.GetAllAsync(),
-                StaffGroup = await _userService.GetByGroupRoleAsync(roles),
+                StaffGroup = await _userService.GetByGroupRoleAsync(),
             };
 
             return result;
