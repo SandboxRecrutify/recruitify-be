@@ -23,6 +23,18 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).ToListAsync();
         }
 
+        public Task<Candidate> GetByEmailAsync(string email)
+        {
+            var filter = _filterBuilder.Eq(c => c.Email, email);
+            return GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public Task ReplaceAsync(Candidate candidate)
+        {
+            var filter = _filterBuilder.Eq(c => c.Email, candidate.Email);
+            return GetCollection().ReplaceOneAsync(filter, candidate);
+        }
+
         public Task UpdateFeedbackAsync(Guid id, Guid projectId, Feedback feedback)
         {
             var updateBuilder = Builders<Candidate>.Update;
