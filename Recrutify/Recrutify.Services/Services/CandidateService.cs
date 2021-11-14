@@ -66,7 +66,12 @@ namespace Recrutify.Services.Services
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
             var projectResults = currentCandidate?.ProjectResults?.ToList();
             var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
-            projectResults?.Add(newProjectResult);
+            if (projectResults == null)
+            {
+                projectResults = new List<ProjectResult> { newProjectResult };
+            }
+
+            projectResults.Add(newProjectResult);
             candidateToUpdate.ProjectResults = projectResults;
 
             await _candidateRepository.ReplaceAsync(candidateToUpdate);
