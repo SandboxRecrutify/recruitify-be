@@ -11,7 +11,7 @@ namespace Recrutify.Host.Configuration
         {
             builder.EntitySet<CandidateDTO>("Candidates");
             builder.EntityType<CandidateDTO>().Collection
-                   .Function("ByProject")
+                   .Function("GetByProject")
                    .ReturnsCollectionFromEntitySet<CandidateDTO>("Candidates");
         }
     }
