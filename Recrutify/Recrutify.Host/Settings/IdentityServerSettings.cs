@@ -38,6 +38,7 @@ namespace Recrutify.Host.Settings
                     {
                         "recruitify_api",
                     },
+                    AccessTokenLifetime = 86400,
                 },
             };
         }

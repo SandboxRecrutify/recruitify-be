@@ -50,12 +50,35 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.Get());
         }
 
-        public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
-            await _candidateRepository.CreateAsync(candidate);
-            var result = _mapper.Map<CandidateDTO>(candidate);
-            return result;
+            var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            if (currentCandidate == null)
+            {
+                candidate.Id = Guid.NewGuid();
+                await _candidateRepository.CreateAsync(candidate);
+                var newCanditate = _mapper.Map<CandidateDTO>(candidate);
+                return newCanditate;
+            }
+
+            var candidateToUpdate = _mapper.Map(candidateCreateDTO, currentCandidate.DeepCopy());
+            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            var projectResults = currentCandidate.ProjectResults?.ToList();
+            var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
+            if (projectResults == null)
+            {
+                projectResults = new List<ProjectResult> { newProjectResult };
+            }
+            else
+            {
+                projectResults.Add(newProjectResult);
+            }
+
+            candidateToUpdate.ProjectResults = projectResults;
+
+            await _candidateRepository.ReplaceAsync(candidateToUpdate);
+            return _mapper.Map<CandidateDTO>(candidateToUpdate);
         }
 
         public async Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId)

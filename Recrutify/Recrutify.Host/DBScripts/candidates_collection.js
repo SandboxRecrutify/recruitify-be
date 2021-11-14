@@ -21,12 +21,6 @@
             "City": "Minsk",
             "Country": "Belarus"
         },
-        "PrimarySkills": [
-            {
-                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
-            }
-        ],
         "RegistrationDate": new Date("2021-08-04T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(20)],
         "GoingToExadel": true,
@@ -42,7 +36,11 @@
                         "CreatedOn": new Date("2021-08-15T11:45:17.000Z")
                     }
                 ],
-                "Status": NumberInt(3)
+                "Status": NumberInt(3),
+                "PrimarySkill": {
+                        "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                        "Name": ".Net"
+                }
             },
             {
                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
@@ -60,7 +58,11 @@
                         "CreatedOn": new Date("2021-04-18T10:25:12.000Z")
                     }
                 ],
-                "Status": NumberInt(1)
+                "Status": NumberInt(1),
+                "PrimarySkill": {
+                    "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                    "Name": ".Net"
+                }
             }
         ],
         "CurrentJob": "LTD Bank-Alfa",
@@ -84,17 +86,6 @@
                 "City": "Moscow",
                 "Country": "Russian Federation"
             },
-        "PrimarySkills": [
-            {
-                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
-            },
-            {
-                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-                "Name": "JavaScript"
-
-            }
-        ],
         "RegistrationDate": new Date("2021-08-02T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
         "GoingToExadel": true,
@@ -122,7 +113,11 @@
                         "CreatedOn": new Date("2021-09-28T10:57:34.000Z")
                     }
                 ],
-                "Status": NumberInt(5)
+                "Status": NumberInt(5),
+                "PrimarySkill": {
+                    "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                    "Name": "BusinessAnalyst"
+                }
             }
         ],
         "CurrentJob": "Cafe Mint",
@@ -151,20 +146,6 @@
             "City": "Vitebsk",
             "Country": "Belarus"
         },
-        "PrimarySkills": [
-            {
-                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
-                "Name": ".Net"
-            },
-            {
-                "_id": UUID("afc19c2a-3775-11ec-90a5-8785abd9a90d"),
-                "Name": "DevOps"
-            },
-            {
-                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
-            }
-        ],
         "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(8), NumberInt(9), NumberInt(18), NumberInt(19), NumberInt(20)],
         "GoingToExadel": false,
@@ -180,11 +161,16 @@
                         "CreatedOn": new Date("2021-08-16T10:27:18.000Z")
                     }
                 ],
-                "Status": NumberInt(1)
+                "Status": NumberInt(1),
+                "PrimarySkill": {
+                    "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                    "Name": "BusinessAnalyst"
+                }
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-                "Status": NumberInt(0)
+                "Status": NumberInt(0),
+
             }
         ],
         "CurrentJob": "LLC Acronis",
@@ -203,16 +189,6 @@
             "City": "Kiev",
             "Country": "Ukraine"
         },
-        "PrimarySkills": [
-            {
-                "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
-                "Name": "Java"
-            },
-            {
-                "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
-                "Name": "ProjectManager"
-            }
-        ],
         "RegistrationDate": new Date("2021-03-07T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(17), NumberInt(18)],
         "GoingToExadel": true,
@@ -240,7 +216,11 @@
                         "CreatedOn": new Date("2021-04-29T11:43:50.000Z")
                     }
                 ],
-                "Status": NumberInt(5)
+                "Status": NumberInt(5),
+                "PrimarySkill": {
+                    "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+                    "Name": "Java"
+                }
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
@@ -262,16 +242,6 @@
            "City": "Grodno",
            "Country": "Belarus"
        },
-       "PrimarySkills": [
-           {
-               "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
-               "Name": "JavaScript"
-           },
-           {
-               "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
-               "Name": "AutomationQA",
-           }
-       ],
        "RegistrationDate": new Date("2021-08-08T00:00:00.000Z"),
        "BestTimeToConnect": [NumberInt(14), NumberInt(15), NumberInt(16), NumberInt(20), NumberInt(21)],
        "GoingToExadel": true,
@@ -299,11 +269,19 @@
                        "CreatedOn": new Date("2021-09-22T11:12:53.000Z")
                    }
                ],
-               "Status": NumberInt(5)
+               "Status": NumberInt(5),
+               "PrimarySkill": {
+                   "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                   "Name": "JavaScript"
+               }
            },
            {
                "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-               "Status": NumberInt(0)
+               "Status": NumberInt(0),
+               "PrimarySkill": {
+                   "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
+                   "Name": "AutomationQA",
+               }
            }
        ],
        "CurrentJob": "PLC CosmosTV",
@@ -327,23 +305,17 @@
             "City": "Moscow",
             "Country": "Russian Federation"
         },
-        "PrimarySkills": [
-            {
-                "_id": UUID("9ff9ab3e-3775-11ec-92f5-134491be8f5a"),
-                "Name": "QA"
-            },
-            {
-                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
-                "Name": "BusinessAnalyst"
-            }
-        ],
         "RegistrationDate": new Date("2021-02-09T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(6), NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15), NumberInt(20), NumberInt(21), NumberInt(22)],
         "GoingToExadel": false,
         "ProjectResults": [
             {
                 "ProjectId": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-                "Status": NumberInt(0)
+                "Status": NumberInt(0),
+                "PrimarySkill": {
+                    "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                    "Name": "BusinessAnalyst"
+               }
             }
         ],
         "CurrentJob": "LLC Huandai",

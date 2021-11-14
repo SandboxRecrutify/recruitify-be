@@ -33,9 +33,9 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpPost]
-        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO)
+        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
         {
-            var result = await _candidateService.CreateAsync(candidateCreateDTO);
+            var result = await _candidateService.CreateAsync(candidateCreateDTO, projectId);
             return Created(string.Empty, result);
         }
 
