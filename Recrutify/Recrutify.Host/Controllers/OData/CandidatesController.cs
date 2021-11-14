@@ -36,15 +36,22 @@ namespace Recrutify.Host.Controllers.OData
             AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize]
         [HttpGet]
-        public IEnumerable<CandidateDTO> ByProject([FromBody] ODataQueryOptions options, [FromQuery] Guid projectId)
+        public IEnumerable<CandidateDTO> ByProject(ODataQueryOptions options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetByProject(projectId);
             IEnumerable<CandidateDTO> candidatesFilter = (IEnumerable<CandidateDTO>)options.ApplyTo(candidates);
-            var result = candidatesFilter.OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.Where(x => x.Type != FeedbackTypeDTO.Test)
-                                        .Sum(х => х.Rating))
-                                   .ThenByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)?.Rating);
+            var result = candidatesFilter.OrderByDescending(
+                                            x => x.ProjectResults
+                                            .FirstOrDefault(x => x.ProjectId == projectId)
+                                            .Feedbacks
+                                            .Where(x => x.Type != FeedbackTypeDTO.Test)
+                                            .Sum(х => х.Rating))
+                                        .ThenByDescending(
+                                            x => x.ProjectResults
+                                            .FirstOrDefault(x => x.ProjectId == projectId)
+                                            .Feedbacks
+                                            .FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)
+                                            ?.Rating);
             return result;
         }
     }
