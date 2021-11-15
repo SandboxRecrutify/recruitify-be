@@ -24,6 +24,8 @@ using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
+using Recrutify.Services.Services;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host
 {
@@ -60,6 +62,9 @@ namespace Recrutify.Host
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
             services.AddSingleton(mapper);
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddControllers()
                 .AddFluentValidation();

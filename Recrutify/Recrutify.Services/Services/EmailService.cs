@@ -1,12 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Recrutify.DataAccess.Models;
-using Recrutify.Services.Services.Abstract;
-using Recrutify.DataAccess.Configuration;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-//using System.Net.Mail;
-using MailKit.Security;
-using MailKit.Net.Smtp;
+using Recrutify.DataAccess.Configuration;
+using Recrutify.DataAccess.Models;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
 {
