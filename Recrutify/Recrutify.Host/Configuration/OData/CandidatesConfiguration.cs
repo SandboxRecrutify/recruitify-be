@@ -10,6 +10,8 @@ namespace Recrutify.Host.Configuration
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string routePrefix)
         {
             builder.EntitySet<CandidateDTO>("Candidates");
+            builder.ComplexType<ProjectResultDTO>();
+            builder.ComplexType<CandidatePrimarySkillDTO>();
             builder.EntityType<CandidateDTO>().Collection
                    .Function("GetByProject")
                    .ReturnsCollectionFromEntitySet<CandidateDTO>("Candidates");
