@@ -74,5 +74,31 @@ namespace Recrutify.DataAccess.Repositories
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
             await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
         }
+
+        public IEnumerable<Candidate> GetManyCandidates(IEnumerable<Guid> candidatesId)
+        {
+            var filter = _filterBuilder.In(u => u.Id, candidatesId);
+            return GetCollection().Find(filter).ToList();
+        }
+
+        public Task CreateFeedbackByManyCandidatesAsync(IEnumerable<Guid> id, Guid projectId, Feedback feedback)
+        {
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateDefinition = updateBuilder
+                    .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
+                {
+                   new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+                };
+            return UpdateManyWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
+        }
+
+        private async Task UpdateManyWithArrayFiltersAsync(IEnumerable<Guid> id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)
+        {
+            var filter = _filterBuilder.In(x => x.Id, id);
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+            await GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
@@ -87,6 +88,15 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(result);
+        }
+
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("testFeedback")]
+        public async Task<ActionResult> CreateTestFeedbackAsync(CreateBullFeedbackTestDTO testResult)
+        {
+            var userId = new Guid(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
+            await _candidateService.CreateTestFeedbackAsync(testResult, userId);
+            return NoContent();
         }
     }
 }

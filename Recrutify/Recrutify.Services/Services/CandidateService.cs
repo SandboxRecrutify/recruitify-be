@@ -19,12 +19,14 @@ namespace Recrutify.Services.Services
         private readonly ICandidateRepository _candidateRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
+        private readonly IValidator<CreateBullFeedbackTestDTO> _validatorCandidatesId;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IValidator<CreateBullFeedbackTestDTO> validatorCandidatesId)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
+            _validatorCandidatesId = validatorCandidatesId;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -131,6 +133,20 @@ namespace Recrutify.Services.Services
         public Task<bool> ExistsAsync(Guid id)
         {
             return _candidateRepository.ExistsAsync(id);
+        }
+
+        public async Task CreateTestFeedbackAsync(CreateBullFeedbackTestDTO testResult, Guid userId)
+        {
+            _candidateRepository.CreateFeedbackByManyCandidatesAsync(
+                testResult.CandidatesId, 
+                testResult.ProjectId, 
+                new Feedback() 
+                { 
+                    CreatedOn = DateTime.UtcNow, 
+                    Rating = testResult.Rating, 
+                    UserId = userId, 
+                    Type = FeedbackType.Test
+                });
         }
     }
 }
