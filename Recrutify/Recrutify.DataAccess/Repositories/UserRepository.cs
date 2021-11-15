@@ -21,13 +21,13 @@ namespace Recrutify.DataAccess.Repositories
         {
             var filter = _filterBuilder.In(u => u.Id, ids);
             var users = await GetCollection().Find(filter).Project(u =>
-                new User
+                new
                 {
                     Id = u.Id,
                     Name = u.Name,
                     Surname = u.Surname,
                 }).ToListAsync();
-            return users.ToDictionary(k => k.Id, v => $"{v.Name} {v.Surname}");
+            return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname}");
         }
 
         public Task<User> GetByEmailAsync(string email)
