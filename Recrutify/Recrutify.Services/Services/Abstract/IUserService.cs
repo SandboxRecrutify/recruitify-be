@@ -10,6 +10,6 @@ namespace Recrutify.Services.Services.Abstract
     {
         public Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles);
 
-        Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids);
+        Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids);
     }
 }

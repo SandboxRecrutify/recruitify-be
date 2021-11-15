@@ -21,9 +21,9 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids)
+        public async Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
         {
-            var users = await _userRepository.GeStaff(ids);
+            var users = await _userRepository.GetNamesByIdsAsync(ids);
             return users;
         }
 

@@ -13,7 +13,7 @@ namespace Recrutify.DataAccess.Extensions
             {
                 UserId = x,
                 UserName = users.TryGetValue(x, out var id) ? id : default,
-            }).Where(x => x.UserName != null);
+            }).Where(u => u.UserName != null);
             return staff;
         }
     }

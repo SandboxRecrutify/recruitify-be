@@ -17,12 +17,11 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public async Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids)
+        public async Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
         {
             var filter = _filterBuilder.In(u => u.Id, ids);
             var users = await GetCollection().Find(filter).ToListAsync();
-            var userDictionary = users.ToDictionary(k => k.Id, v => $" {v.Name} {v.Surname}");
-            return userDictionary;
+            return users.ToDictionary(k => k.Id, v => $"{v.Name} {v.Surname}");
         }
 
         public Task<User> GetByEmailAsync(string email)

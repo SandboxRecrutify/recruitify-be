@@ -29,7 +29,7 @@ namespace Recrutify.Services.Services
 
         public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
-            var users = await _userService.GeStaff(projectDto.Interviewers
+            var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
                 .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             var project = _mapper.Map<Project>(projectDto);
             project.Interviewers = projectDto.Interviewers.GetStaff(users);
