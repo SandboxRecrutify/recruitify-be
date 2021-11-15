@@ -9,10 +9,10 @@ namespace Recrutify.DataAccess.Extensions
     {
         public static IEnumerable<Staff> GetStaff(this IEnumerable<Guid> userIds,  Dictionary<Guid, string> users)
         {
-            var staff = userIds.Select(x => new Staff()
+            var staff = userIds.Select(u => new Staff()
             {
-                UserId = x,
-                UserName = users.TryGetValue(x, out var id) ? id : default,
+                UserId = u,
+                UserName = users.TryGetValue(u, out var id) ? id : default,
             }).Where(u => u.UserName != null);
             return staff;
         }

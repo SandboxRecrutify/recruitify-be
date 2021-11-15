@@ -20,7 +20,13 @@ namespace Recrutify.DataAccess.Repositories
         public async Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
         {
             var filter = _filterBuilder.In(u => u.Id, ids);
-            var users = await GetCollection().Find(filter).ToListAsync();
+            var users = await GetCollection().Find(filter).Project(u =>
+                new User
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    Surname = u.Surname,
+                }).ToListAsync();
             return users.ToDictionary(k => k.Id, v => $"{v.Name} {v.Surname}");
         }
 
