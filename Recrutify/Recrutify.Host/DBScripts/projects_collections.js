@@ -20,7 +20,7 @@ var projects = [
                 "_id": UUID("c3307088-3775-11ec-8e04-b7d29fa6ce1f"),
                 "Name": "ProjectManager",
                 "Description": "Scrum, Agile, PMBOK",
-                "SkillTestLink": "https://exadel.com/tests/projectmanager"
+                "TestLink": "https://exadel.com/tests/projectmanager"
             },
             {
                 "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
