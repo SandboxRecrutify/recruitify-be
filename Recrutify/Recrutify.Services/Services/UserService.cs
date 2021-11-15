@@ -21,10 +21,9 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
+        public Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
         {
-            var users = await _userRepository.GetNamesByIdsAsync(ids);
-            return users;
+            return _userRepository.GetNamesByIdsAsync(ids);
         }
 
         public async Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles)

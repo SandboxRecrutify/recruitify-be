@@ -23,9 +23,9 @@ namespace Recrutify.DataAccess.Repositories
             var users = await GetCollection().Find(filter).Project(u =>
                 new
                 {
-                    Id = u.Id,
-                    Name = u.Name,
-                    Surname = u.Surname,
+                    u.Id,
+                    u.Name,
+                    u.Surname,
                 }).ToListAsync();
             return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname}");
         }
