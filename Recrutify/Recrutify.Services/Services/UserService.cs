@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -20,7 +21,12 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles)
+        public Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
+        {
+            return _userRepository.GetNamesByIdsAsync(ids);
+        }
+
+        public async Task<StaffGroupDTO> GetStaffByRolesAsync(List<Role> roles)
         {
             var users = await _userRepository.GetByRolesAsync(roles);
 
