@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
@@ -28,7 +29,13 @@ namespace Recrutify.Services.Services
 
         public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
+            var users = await _userService.GeStaff(projectDto.Interviewers
+                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             var project = _mapper.Map<Project>(projectDto);
+            project.Interviewers = projectDto.Interviewers.GetStaff(users);
+            project.Managers = projectDto.Managers.GetStaff(users);
+            project.Mentors = projectDto.Mentors.GetStaff(users);
+            project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
 
             return _mapper.Map<ProjectDTO>(project);

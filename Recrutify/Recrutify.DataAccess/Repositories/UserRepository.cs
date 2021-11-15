@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -13,6 +15,14 @@ namespace Recrutify.DataAccess.Repositories
         public UserRepository(IOptions<MongoSettings> options)
            : base(options)
         {
+        }
+
+        public async Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            var users = await GetCollection().Find(filter).ToListAsync();
+            var userDictionary = users.ToDictionary(k => k.Id, v => $" {v.Name} {v.Surname}");
+            return userDictionary;
         }
 
         public Task<User> GetByEmailAsync(string email)

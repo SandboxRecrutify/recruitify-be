@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
@@ -8,5 +9,7 @@ namespace Recrutify.Services.Services.Abstract
     public interface IUserService
     {
         public Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles);
+
+        Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids);
     }
 }

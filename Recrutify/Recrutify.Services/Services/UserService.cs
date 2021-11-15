@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,6 +19,12 @@ namespace Recrutify.Services.Services
         {
             _userRepository = userRepository;
             _mapper = mapper;
+        }
+
+        public async Task<Dictionary<Guid, string>> GeStaff(IEnumerable<Guid> ids)
+        {
+            var users = await _userRepository.GeStaff(ids);
+            return users;
         }
 
         public async Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles)
