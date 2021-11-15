@@ -26,7 +26,7 @@ namespace Recrutify.Services.Services
             return _userRepository.GetNamesByIdsAsync(ids);
         }
 
-        public async Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles)
+        public async Task<StaffGroupDTO> GetStaffByRolesAsync(List<Role> roles)
         {
             var users = await _userRepository.GetByRolesAsync(roles);
 

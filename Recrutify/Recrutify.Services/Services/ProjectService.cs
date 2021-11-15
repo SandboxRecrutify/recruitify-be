@@ -86,7 +86,7 @@ namespace Recrutify.Services.Services
             var result = new PrimarySkillsAndStaffDTO()
             {
                 PrimarySkills = await _primarySkillService.GetAllAsync(),
-                StaffGroup = await _userService.GetByGroupRoleAsync(roles),
+                StaffGroup = await _userService.GetStaffByRolesAsync(roles),
             };
 
             return result;
