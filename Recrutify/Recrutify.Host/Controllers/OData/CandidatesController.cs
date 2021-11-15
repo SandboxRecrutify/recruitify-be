@@ -33,7 +33,7 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(
             HandleNullPropagation = HandleNullPropagationOption.False,
             AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        [ODataAuthorize(Policy = Constants.Policies.AdminPolicy)]
+        [ODataAuthorize(Policy = Constants.Policies.AllAccessPolicy)]
         public IEnumerable<CandidateDTO> GetByProject(ODataQueryOptions<CandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetByProject(projectId);
