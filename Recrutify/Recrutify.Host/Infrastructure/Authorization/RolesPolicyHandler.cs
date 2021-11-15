@@ -34,7 +34,7 @@ namespace Recrutify.Host.Infrastructure.Authorization
             {
                 context.Succeed(requirement);
             }
-            else if (projectRoles.TryGetValue(GlobalID.GlobalProjectId, out var projectRolesValue)
+            else if (projectRoles.TryGetValue(DataAccess.Constants.Roles.GlobalProjectId, out var projectRolesValue)
                 && projectRolesValue.Any(r => requirement.Roles.Contains(r)))
             {
                 context.Succeed(requirement);

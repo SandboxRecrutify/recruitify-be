@@ -80,7 +80,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = Constants.Policies.HighAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
         {
