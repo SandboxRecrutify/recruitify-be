@@ -35,8 +35,6 @@ namespace Recrutify.Services.Validators
                 .WithMessage("The date must be greater than the start registration date!")
                 .LessThanOrEqualTo(p => p.StartDate)
                 .WithMessage("The date must be less than the start date!");
-            RuleFor(p => p.CurrentApplicationsCount)
-                .NotEmpty();
             RuleFor(p => p.PlannedApplicationsCount)
                 .NotEmpty();
             RuleFor(p => p.PrimarySkills)

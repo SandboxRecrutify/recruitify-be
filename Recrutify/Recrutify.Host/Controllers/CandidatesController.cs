@@ -39,7 +39,7 @@ namespace Recrutify.Host.Controllers
             return Created(string.Empty, result);
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.FeedbackPolicy)]
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
         public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto)
         {
@@ -76,7 +76,6 @@ namespace Recrutify.Host.Controllers
             }
         }
 
-        // [Authorize(Policy = Constants.Constants.Policies.AllAccessPolicy)]
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
@@ -87,19 +86,6 @@ namespace Recrutify.Host.Controllers
                 return NotFound();
             }
 
-            return Ok(result);
-        }
-
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
-        [HttpGet("all/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetByPrjectAsync(Guid projectId)
-        {
-            var candidates = await _candidateService.GetByProjectAsync(projectId);
-            var result = candidates.OrderByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.Where(x => x.Type != FeedbackTypeDTO.Test)
-                                        .Sum(х => х.Rating))
-                                   .ThenByDescending(x => x.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId)
-                                        .Feedbacks.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)?.Rating);
             return Ok(result);
         }
     }

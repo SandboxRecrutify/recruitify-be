@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -17,10 +18,9 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<List<Candidate>> GetByProjectAsync(Guid projectId)
+        public IQueryable<Candidate> GetByProject(Guid projectId)
         {
-            var filter = _filterBuilder.ElemMatch(x => x.ProjectResults, x => x.ProjectId == projectId);
-            return GetCollection().Find(filter).ToListAsync();
+            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId));
         }
 
         public Task<Candidate> GetByEmailAsync(string email)
