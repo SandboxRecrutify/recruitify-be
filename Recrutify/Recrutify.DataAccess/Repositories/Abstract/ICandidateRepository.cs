@@ -12,5 +12,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task UpdateFeedbackAsync(Guid id, Guid projectId, Feedback feedback);
 
         Task CreateFeedbackAsync(Guid id, Guid projectId, Feedback feedback);
+
+        Task<Candidate> GetByEmailAsync(string email);
+
+        Task ReplaceAsync(Candidate candidate);
     }
 }
