@@ -53,6 +53,12 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ProjectDTO>>(projects);
         }
 
+        public IQueryable<ShortProjectDTO> GetShort()
+        {
+            var projects = _projectRepository.Get();
+            return _mapper.Map<IQueryable<ShortProjectDTO>>(projects);
+        }
+
         public async Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id)
         {
             var primarySkills = await _projectRepository.GetPrimarySkills(id);
