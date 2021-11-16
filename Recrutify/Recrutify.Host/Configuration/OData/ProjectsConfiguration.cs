@@ -13,7 +13,7 @@ namespace Recrutify.Host.Configuration
             builder.EntitySet<ShortProjectDTO>("Projects");
             builder.EntityType<ShortProjectDTO>().Collection
                   .Function("GetShortProjects")
-                  .ReturnsCollectionFromEntitySet<ShortProjectDTO>("ShortProjects");
+                  .ReturnsCollectionFromEntitySet<ShortProjectDTO>("Projects");
         }
     }
 }
