@@ -24,6 +24,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
 
-        Task CreateTestFeedbackAsync(CreateBullFeedbackTestDTO testResult, Guid userId);
+        Task BulkCreateTestFeedbacksAsync(CreateBullFeedbackTestDTO bulkCreateTestFeedbackDTO, Guid userId);
     }
 }

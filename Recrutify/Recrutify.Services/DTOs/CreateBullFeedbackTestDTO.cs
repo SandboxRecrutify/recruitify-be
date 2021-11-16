@@ -10,7 +10,7 @@ namespace Recrutify.Services.DTOs
     {
         public int Rating { get; set; }
 
-        public IEnumerable<Guid> CandidatesId { get; set; }
+        public IEnumerable<Guid> CandidatesIds { get; set; }
 
         public Guid ProjectId { get; set; }
     }

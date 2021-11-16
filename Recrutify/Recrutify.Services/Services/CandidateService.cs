@@ -135,10 +135,10 @@ namespace Recrutify.Services.Services
             return _candidateRepository.ExistsAsync(id);
         }
 
-        public async Task CreateTestFeedbackAsync(CreateBullFeedbackTestDTO testResult, Guid userId)
+        public async Task BulkCreateTestFeedbacksAsync(CreateBullFeedbackTestDTO testResult, Guid userId)
         {
-            _candidateRepository.CreateFeedbackByManyCandidatesAsync(
-                testResult.CandidatesId, 
+            _candidateRepository.CreateFeedbacksByIds(
+                testResult.CandidatesIds, 
                 testResult.ProjectId, 
                 new Feedback() 
                 { 

@@ -91,11 +91,11 @@ namespace Recrutify.Host.Controllers
         }
 
         [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
-        [HttpPut("testFeedback")]
-        public async Task<ActionResult> CreateTestFeedbackAsync(CreateBullFeedbackTestDTO testResult)
+        [HttpPut("bulk/test_feedbacks")]
+        public async Task<ActionResult> BulkCreateTestFeedbacksAsync(CreateBullFeedbackTestDTO testResults)
         {
             var userId = new Guid(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
-            await _candidateService.CreateTestFeedbackAsync(testResult, userId);
+            await _candidateService.BulkCreateTestFeedbacksAsync(testResults, userId);
             return NoContent();
         }
     }
