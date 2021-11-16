@@ -19,14 +19,12 @@ namespace Recrutify.Services.Services
         private readonly ICandidateRepository _candidateRepository;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
-        private readonly IValidator<BulkCreateTestFeedbackDTO> _validatorCandidatesId;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IValidator<BulkCreateTestFeedbackDTO> validatorCandidatesId)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
-            _validatorCandidatesId = validatorCandidatesId;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
