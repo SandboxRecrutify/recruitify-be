@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recrutify.Services.DTOs
 {
-    public class CreateBullFeedbackTestDTO
+    public class BulkCreateTestFeedbackDTO
     {
         public int Rating { get; set; }
 

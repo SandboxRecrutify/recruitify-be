@@ -81,8 +81,10 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).ToListAsync();
         }
 
-        public Task CreateFeedbacksByIds(IEnumerable<Guid> ids, Guid projectId, Feedback feedback)
+        public Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback)
         {
+            var filter = _filterBuilder.In(x => x.Id, ids);
+
             var updateBuilder = Builders<Candidate>.Update;
             var updateDefinition = updateBuilder
                     .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
@@ -92,7 +94,6 @@ namespace Recrutify.DataAccess.Repositories
                    new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
                 };
 
-            var filter = _filterBuilder.In(x => x.Id, ids);
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
 
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
