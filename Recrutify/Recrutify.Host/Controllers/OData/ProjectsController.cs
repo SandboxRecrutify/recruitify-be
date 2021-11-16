@@ -34,7 +34,6 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(
             HandleNullPropagation = HandleNullPropagationOption.False,
             AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        [ODataAuthorize(Policy = Constants.Policies.AllAccessPolicy)]
         public IEnumerable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
         {
             var candidates = _projectService.GetShort();
