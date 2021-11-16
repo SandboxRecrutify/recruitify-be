@@ -24,5 +24,12 @@ namespace Recrutify.DataAccess.Repositories
              .Project(p => p.PrimarySkills)
              .FirstOrDefaultAsync();
         }
+
+        public Task IncrementCurrentApplicationsCountAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            var updateDefinition = Builders<Project>.Update.Inc(p => p.CurrentApplicationsCount, 1);
+            return GetCollection().UpdateOneAsync(filter, updateDefinition);
+        }
     }
 }
