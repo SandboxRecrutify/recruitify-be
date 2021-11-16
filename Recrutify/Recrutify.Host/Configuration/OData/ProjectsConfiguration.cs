@@ -8,12 +8,9 @@ namespace Recrutify.Host.Configuration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string routePrefix)
         {
-            builder.EntitySet<ProjectDTO>("Projects");
+            builder.EntityType<ProjectDTO>();
             builder.ComplexType<ProjectPrimarySkillDTO>();
-           /* builder.EntityType<ProjectDTO>().Collection
-                 .Function("GetAllProject")
-                 .ReturnsCollectionFromEntitySet<ProjectDTO>("Projects");*/
-            builder.EntitySet<ShortProjectDTO>("ShortProjects");
+            builder.EntitySet<ShortProjectDTO>("Projects");
             builder.EntityType<ShortProjectDTO>().Collection
                   .Function("GetShortProjects")
                   .ReturnsCollectionFromEntitySet<ShortProjectDTO>("ShortProjects");

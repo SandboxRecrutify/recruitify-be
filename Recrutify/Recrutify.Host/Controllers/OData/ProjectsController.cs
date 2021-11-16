@@ -24,14 +24,17 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
             | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        [ODataAuthorize]
+        //[ODataAuthorize]
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
             return _projectService.Get();
         }
 
-        [HttpGet]
+        [EnableQuery(
+            HandleNullPropagation = HandleNullPropagationOption.False,
+            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
+        [ODataAuthorize(Policy = Constants.Policies.AllAccessPolicy)]
         public IEnumerable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
         {
             var candidates = _projectService.GetShort();
