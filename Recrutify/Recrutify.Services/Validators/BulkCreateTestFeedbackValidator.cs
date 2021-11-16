@@ -31,9 +31,9 @@ namespace Recrutify.Services.Validators
         {
             var candidates = await _candidateRepository.GetByIdsAsync(dto.CandidatesIds);
             var filteredCandidatesIds = candidates.Where(c => c.ProjectResults
-                                                       .FirstOrDefault(p => p.ProjectId == dto.ProjectId)
-                                                       .Feedbacks
-                                                           .All(f => f.Type != FeedbackType.Test))
+                                                       .Where(p => p.ProjectId == dto.ProjectId)
+                                                       .Any(p => !p.Feedbacks
+                                                            .Any(f => f.Type == FeedbackType.Test)))
                                                    .Select(c => c.Id).ToList();
             return dto.CandidatesIds.All(id => filteredCandidatesIds.Contains(id));
         }

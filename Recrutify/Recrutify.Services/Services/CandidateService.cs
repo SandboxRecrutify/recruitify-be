@@ -20,13 +20,15 @@ namespace Recrutify.Services.Services
         private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
+        private readonly IHttpContextProvider _httpContextProvider;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IHttpContextProvider httpContextProvider)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
+            _httpContextProvider = httpContextProvider;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -136,7 +138,7 @@ namespace Recrutify.Services.Services
             return _candidateRepository.ExistsAsync(id);
         }
 
-        public async Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto, Guid userId)
+        public async Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
         {
             _candidateRepository.CreateFeedbacksByIdsAsync(
                 bulkCreateTestFeedbackDto.CandidatesIds,
@@ -144,8 +146,8 @@ namespace Recrutify.Services.Services
                 new Feedback() 
                 { 
                     CreatedOn = DateTime.UtcNow, 
-                    Rating = bulkCreateTestFeedbackDto.Rating, 
-                    UserId = userId, 
+                    Rating = bulkCreateTestFeedbackDto.Rating,
+                    UserId = _httpContextProvider.GetUserId(),
                     Type = FeedbackType.Test
                 });
         }

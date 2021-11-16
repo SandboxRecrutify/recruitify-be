@@ -17,11 +17,10 @@ namespace Recrutify.Host.Controllers
     public class CandidatesController : ControllerBase
     {
         private readonly ICandidateService _candidateService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        public CandidatesController(ICandidateService candidateService, IHttpContextAccessor httpContextAccessor)
+
+        public CandidatesController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
@@ -95,9 +94,7 @@ namespace Recrutify.Host.Controllers
         [HttpPut("bulk/test_feedbacks")]
         public async Task<ActionResult> BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO testResults)
         {
-            var userId = new Guid(HttpContext.User. .Claims.FirstOrDefault(c => c.Type == "sub")?.Value);
-            var f = _httpContextAccessor.HttpContext.
-            await _candidateService.BulkCreateTestFeedbacksAsync(testResults, userId);
+            await _candidateService.BulkCreateTestFeedbacksAsync(testResults);
             return NoContent();
         }
     }
