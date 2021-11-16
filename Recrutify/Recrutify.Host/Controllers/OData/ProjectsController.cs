@@ -24,7 +24,7 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
             | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        //[ODataAuthorize]
+        [ODataAuthorize]
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
