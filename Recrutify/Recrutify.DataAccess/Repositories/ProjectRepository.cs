@@ -28,7 +28,7 @@ namespace Recrutify.DataAccess.Repositories
         public Task IncrementCurrentApplicationsCountAsync(Guid id)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);
-            var updateBuilder = Builders<Project>.Update.Inc("CurrentApplicationsCount", 1);
+            var updateBuilder = Builders<Project>.Update.Inc(p => p.CurrentApplicationsCount, 1);
             return GetCollection().UpdateOneAsync(filter, updateBuilder);
         }
     }
