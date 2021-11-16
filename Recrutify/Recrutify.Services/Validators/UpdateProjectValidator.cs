@@ -3,7 +3,7 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public class UpdateProjectValidator : BaseProjectValidator<ProjectDTO>
+    public class UpdateProjectValidator : BaseProjectValidator<UpdateProjectDTO>
     {
         public UpdateProjectValidator()
         {

@@ -175,7 +175,7 @@ namespace Recrutify.Host
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recritify");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Exadel Recruitify");
                 c.OAuthClientId("recruitify_api");
                 c.OAuthAppName("Recruitify Api");
                 c.RoutePrefix = string.Empty;
