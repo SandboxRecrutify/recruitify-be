@@ -40,7 +40,7 @@ namespace Recrutify.Host.Controllers.OData
             var candidates = _projectService.GetShort();
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<ShortProjectDTO>;
             var result = filteredCandidates!.Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
-                                            .OrderBy(x => x.StartDate);
+                                            .OrderBy(x => x.StartRegistrationDate);
             return result;
         }
     }
