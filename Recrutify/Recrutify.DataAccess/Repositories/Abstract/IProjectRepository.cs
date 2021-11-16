@@ -8,5 +8,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     public interface IProjectRepository : IBaseRepository<Project>
     {
         Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id);
+
+        Task UpdateCurrentApplicationsCount(Guid id);
     }
 }
