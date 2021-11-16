@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -19,6 +21,23 @@ namespace Recrutify.DataAccess.Repositories
         {
             var filter = _filterBuilder.Eq(u => u.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public Task<List<User>> GetByRolesAsync(List<Role> roles)
+        {
+
+
+            var filter = _filterBuilder.ElemMatch(u => u.ProjectRoles, x => x.Key == Constants.Roles.GlobalProjectId);
+
+            //var filter = _filterBuilder.And(
+            //   _filterBuilder.ElemMatch(
+            //       x => x.ProjectRoles,
+            //       _filterBuilder.And(
+            //         _filterBuilder.Eq(x => x.ProjectRoles.Keys, Constants.Roles.GlobalProjectId),
+            //         _filterBuilder.AnyIn(x => x.ProjectRoles.Values, roles)
+            //    )));
+            var a = GetCollection().Find(filter).ToListAsync();
+            return a;
         }
     }
 }

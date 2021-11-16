@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.Options;
 
 namespace Recrutify.DataAccess.Models
 {
+    [BsonIgnoreExtraElements]
     public class User : IDataModel
     {
         public Guid Id { get; set; }
@@ -18,6 +20,7 @@ namespace Recrutify.DataAccess.Models
 
         public string Surname { get; set; }
 
+        // [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         public Dictionary<Guid, List<Role>> ProjectRoles { get; set; }
     }
 }

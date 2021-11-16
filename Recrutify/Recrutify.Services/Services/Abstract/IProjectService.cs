@@ -25,6 +25,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<bool> ExistsAsync(Guid id);
 
-        Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff();
+        Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles);
     }
 }
