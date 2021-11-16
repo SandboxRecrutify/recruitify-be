@@ -97,5 +97,10 @@ namespace Recrutify.Services.Services
 
             return result;
         }
+
+        public Task IncrementCurrentApplicationsCountAsync(Guid id)
+        {
+            return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
+        }
     }
 }
