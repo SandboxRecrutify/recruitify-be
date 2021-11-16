@@ -9,6 +9,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id);
 
-        Task UpdateCurrentApplicationsCount(Guid id);
+        Task IncrementCurrentApplicationsCountAsync(Guid id);
     }
 }

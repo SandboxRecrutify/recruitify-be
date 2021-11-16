@@ -17,16 +17,16 @@ namespace Recrutify.Services.Services
     public class CandidateService : ICandidateService
     {
         private readonly ICandidateRepository _candidateRepository;
-        private readonly IProjectRepository _projectRepository;
+        private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectRepository projectRepository)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
-            _projectRepository = projectRepository;
+            _projectService = projectService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -61,7 +61,7 @@ namespace Recrutify.Services.Services
                 candidate.Id = Guid.NewGuid();
                 await _candidateRepository.CreateAsync(candidate);
                 var newCanditate = _mapper.Map<CandidateDTO>(candidate);
-                await _projectRepository.UpdateCurrentApplicationsCount(projectId);
+                await _projectService.IncrementCurrentApplicationsCountAsync(projectId);
                 return newCanditate;
             }
 
