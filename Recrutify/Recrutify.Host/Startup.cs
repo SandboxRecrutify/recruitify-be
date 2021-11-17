@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.AspNetCore;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
@@ -63,8 +65,14 @@ namespace Recrutify.Host
                 .CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddHangfire(config =>
+            {
+                config.UseMemoryStorage();
+            });
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ISendEmailService, SendEmailService>();
+            services.AddTransient<ISendQueueEmailService, SendQueueEmailService>();
+            services.AddTransient<IFormEmailService, FormEmailService>();
 
             services.AddControllers()
                 .AddFluentValidation();
@@ -169,6 +177,9 @@ namespace Recrutify.Host
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
 
             app.UseEndpoints(endpoints =>
             {

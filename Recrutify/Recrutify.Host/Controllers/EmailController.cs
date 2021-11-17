@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
@@ -10,9 +8,9 @@ namespace Recrutify.Host.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly IEmailService _emailService;
+        private readonly ISendQueueEmailService _emailService;
 
-        public EmailController(IEmailService emailService)
+        public EmailController(ISendQueueEmailService emailService)
         {
             _emailService = emailService;
         }
@@ -20,21 +18,8 @@ namespace Recrutify.Host.Controllers
         [HttpPost]
         public async Task<ActionResult> SendEmail()
         {
-            EmailRequest emailRequest = new EmailRequest()
-            {
-                ToEmail = "danik.prokopenkov01@gmail.com",
-                Subject = "Test",
-                Body = "hello",
-            };
-            try
-            {
-                await _emailService.SendEmailAsync(emailRequest);
+                _emailService.SendEmailAsync();
                 return Ok();
-            }
-            catch
-            {
-                throw new Exception();
-            }
         }
     }
 }
