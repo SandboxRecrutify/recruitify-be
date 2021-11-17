@@ -8,6 +8,9 @@ namespace Recrutify.Services.Validators
     {
         public BulkUpdateStatusReasonCandidatsValidator()
         {
+            RuleFor(x => x.CandidatesIds)
+                .NotNull()
+                .NotEmpty();
             RuleFor(x => x.Reason)
                 .NotNull()
                 .NotEmpty()
