@@ -9,6 +9,7 @@ using IdentityServer4;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
+using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Repositories.Abstract;
 
 namespace Recrutify.Host.Identity
@@ -29,7 +30,7 @@ namespace Recrutify.Host.Identity
 
             var claims = new List<Claim>()
             {
-                new Claim(JwtClaimTypes.Name, user.Name),
+                new Claim(JwtClaimTypes.Name, user.GetFullName()),
                 new Claim(JwtClaimTypes.Email, user.Email),
                 new Claim(JwtClaimTypes.Role, JsonSerializer.Serialize(projectRoles, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }), IdentityServerConstants.ClaimValueTypes.Json),
             };

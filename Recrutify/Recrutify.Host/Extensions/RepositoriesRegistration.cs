@@ -2,7 +2,7 @@
 using Recrutify.DataAccess.Repositories;
 using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.Services.Extensions
+namespace Recrutify.Host.Extensions
 {
     public static class RepositoriesRegistration
     {

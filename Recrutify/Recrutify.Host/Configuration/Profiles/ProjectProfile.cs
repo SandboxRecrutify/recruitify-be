@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -22,7 +23,7 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<PrimarySkill, PrimarySkillDTO>();
             CreateMap<User, StaffDTO>()
                 .ForMember(dest => dest.UserId, conf => conf.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, conf => conf.MapFrom(src => $"{src.Name} {src.Surname}"));
+                .ForMember(dest => dest.UserName, conf => conf.MapFrom(src => src.GetFullName()));
             CreateMap<Project, ShortProjectDTO>();
         }
     }

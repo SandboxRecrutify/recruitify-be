@@ -108,13 +108,16 @@ namespace Recrutify.Services.Services
                 throw new NotFoundException();
             }
 
+            var userId = _userProvider.GetUserId();
             var projectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
             var currentFeedback = projectResult?
-                .Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
+                .Feedbacks?.FirstOrDefault(x => x.UserId == userId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
+                newFeedback.UserId = userId;
+                newFeedback.UserName = _userProvider.GetUserName();
                 await _candidateRepository.CreateFeedbackAsync(id, projectId, newFeedback);
             }
             else
@@ -146,6 +149,7 @@ namespace Recrutify.Services.Services
                 bulkCreateTestFeedbackDto.ProjectId,
                 new Feedback()
                 {
+                    UserName = _userProvider.GetUserName(),
                     CreatedOn = DateTime.UtcNow,
                     Rating = bulkCreateTestFeedbackDto.Rating,
                     UserId = _userProvider.GetUserId(),
