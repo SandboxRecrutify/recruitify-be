@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MongoDB.Bson.Serialization.Attributes;
 
 namespace Recrutify.DataAccess.Models
 {
@@ -18,6 +17,6 @@ namespace Recrutify.DataAccess.Models
 
         public string Surname { get; set; }
 
-        public List<Role> Roles { get; set; }
+        public Dictionary<Guid, List<Role>> ProjectRoles { get; set; }
     }
 }
