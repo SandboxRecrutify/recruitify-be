@@ -108,6 +108,7 @@ namespace Recrutify.Services.Services
                 throw new NotFoundException();
             }
 
+            feedbackDto.UserId = _userProvider.GetUserId();
             var projectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
             var currentFeedback = projectResult?
                 .Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));

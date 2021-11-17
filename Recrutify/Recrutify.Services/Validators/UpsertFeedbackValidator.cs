@@ -13,8 +13,6 @@ namespace Recrutify.Services.Validators
                 .MaximumLength(500);
             RuleFor(f => f.Rating)
                 .NotEmpty();
-            RuleFor(f => f.UserId)
-                .NotEmpty();
         }
     }
 }
