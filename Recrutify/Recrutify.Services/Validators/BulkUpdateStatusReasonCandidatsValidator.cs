@@ -20,7 +20,7 @@ namespace Recrutify.Services.Validators
                 .IsInEnum()
                 .WithMessage("Choose from existing statuses")
                 .Must(s => new[] { StatusDTO.Accepted, StatusDTO.Declined, StatusDTO.WaitingList, }.Contains(s))
-                .WithMessage("he selected status is not valid");
+                .WithMessage("Cannot change to selected status manually");
         }
     }
 }
