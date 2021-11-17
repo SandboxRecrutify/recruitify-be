@@ -29,6 +29,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
+        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            return GetCollection().Find(filter).ToListAsync();
+        }
+
         public Task ReplaceAsync(Candidate candidate)
         {
             var filter = _filterBuilder.Eq(c => c.Email, candidate.Email);
