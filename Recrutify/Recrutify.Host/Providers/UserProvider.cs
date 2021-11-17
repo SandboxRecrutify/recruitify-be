@@ -1,9 +1,10 @@
 ﻿using System;
 using IdentityServer4.Extensions;
 using Microsoft.AspNetCore.Http;
+using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 
-namespace Recrutify.Host.UserServices
+namespace Recrutify.Host.Providers
 {
     public class UserProvider : IUserProvider
     {

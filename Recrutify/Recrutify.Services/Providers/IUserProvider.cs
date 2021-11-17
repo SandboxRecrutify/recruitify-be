@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recrutify.Services.Services.Abstract
+namespace Recrutify.Services.Providers
 {
     public interface IUserProvider
     {

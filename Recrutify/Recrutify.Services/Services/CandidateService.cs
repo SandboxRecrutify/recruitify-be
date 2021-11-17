@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
+using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 using ValidationException = FluentValidation.ValidationException;
 
@@ -138,9 +139,9 @@ namespace Recrutify.Services.Services
             return _candidateRepository.ExistsAsync(id);
         }
 
-        public async Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
+        public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
         {
-            await _candidateRepository.CreateFeedbacksByIdsAsync(
+            return _candidateRepository.CreateFeedbacksByIdsAsync(
                 bulkCreateTestFeedbackDto.CandidatesIds,
                 bulkCreateTestFeedbackDto.ProjectId,
                 new Feedback()
