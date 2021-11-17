@@ -42,6 +42,8 @@ namespace Recrutify.Host
         public void ConfigureServices(IServiceCollection services)
         {
             BsonDefaults.GuidRepresentation = GuidRepresentation.Standard;
+            BsonTypeMapper.RegisterCustomTypeMapper(typeof(User), new CustomUserMapper());
+
             services.Configure<MongoSettings>(
                 Configuration.GetSection(nameof(MongoSettings)));
 

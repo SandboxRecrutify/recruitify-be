@@ -3,9 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using Recrutify.DataAccess;
 
 namespace Recrutify.Host.Infrastructure.Authorization
 {
@@ -20,22 +18,14 @@ namespace Recrutify.Host.Infrastructure.Authorization
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RolesPolicyRequirement requirement)
         {
-            var httpContext = _httpContextAccessor.HttpContext;
-            var user = context.User;
-            var projectId = httpContext.Request.Query.FirstOrDefault(p => p.Key == Constants.Roles.ProjectIdParam).Value;
-            var projectRoles = user.Claims
+            var projectId = _httpContextAccessor?.HttpContext.Request.Query[Constants.Roles.ProjectIdParam].ToString();
+            var projectRoles = context.User.Claims
                 .Where(c => c.Type == Constants.Roles.Role)
                 .Select(c => JsonConvert.DeserializeObject<ProjectRoles>(c.Value))
                 .ToDictionary(c => c.ProjectId, c => c.Roles);
 
-            if (projectId != StringValues.Empty
-                && projectRoles.TryGetValue(Guid.Parse(projectId), out var globalRolesValue)
-                && globalRolesValue.Any(r => requirement.Roles.Contains(r)))
-            {
-                context.Succeed(requirement);
-            }
-            else if (projectRoles.TryGetValue(DataAccess.Constants.Roles.GlobalProjectId, out var projectRolesValue)
-                && projectRolesValue.Any(r => requirement.Roles.Contains(r)))
+            if (projectRoles.TryGetValue(Guid.Parse(projectId ??= DataAccess.Constants.Roles.GlobalProjectId.ToString()), out var globalRolesValue)
+                    && globalRolesValue.Any(r => requirement.Roles.Contains(r)))
             {
                 context.Succeed(requirement);
             }
