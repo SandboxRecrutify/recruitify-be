@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,9 +21,10 @@ using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
 using Recrutify.Host.Configuration;
 using Recrutify.Host.Extensions;
+using Recrutify.Host.Identity;
 using Recrutify.Host.Infrastructure;
+using Recrutify.Host.Infrastructure.Authorization;
 using Recrutify.Host.Settings;
-using Recrutify.Host.UserServices;
 using Recrutify.Services.Extensions;
 
 namespace Recrutify.Host
@@ -54,6 +56,15 @@ namespace Recrutify.Host
                     .AllowAnyMethod());
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.RequireProjectRole(nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Interviewer)));
+                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin)));
+                options.AddPolicy(Constants.Policies.HighAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Manager)));
+            });
+
+            services.AddHttpContextAccessor();
             services.AddRepositories();
             services.AddServices();
 
@@ -73,19 +84,14 @@ namespace Recrutify.Host
                 .AddInMemoryClients(IdentityServerSettings.GetClients())
                 .AddCustomUserStore();
 
+            services.AddHttpContextAccessor();
+
             var authority = Configuration["Authority"];
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
             {
                 options.Authority = authority;
                 options.ApiName = "recruitify_api";
-            });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy(Constants.Policies.AllAccessPolicy, policy => policy.RequireRole(nameof(Role.Admin), nameof(Role.Recruiter), nameof(Role.Mentor), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Policies.FeedbackPolicy, policy => policy.RequireRole(nameof(Role.Recruiter), nameof(Role.Manager), nameof(Role.Interviewer)));
-                options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireRole(nameof(Role.Admin)));
             });
 
             services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
@@ -141,7 +147,9 @@ namespace Recrutify.Host
                     },
                 });
             });
+
             services.AddOdataSwaggerSupport();
+            services.AddSingleton<IAuthorizationHandler, RolesPolicyHandler>();
         }
 
         public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)

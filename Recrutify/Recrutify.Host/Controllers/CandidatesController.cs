@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
@@ -22,7 +24,6 @@ namespace Recrutify.Host.Controllers
             _candidateService = candidateService;
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public async Task<ActionResult<List<CandidateDTO>>> GetAsync()
@@ -31,7 +32,6 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpPost]
         public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
         {
@@ -62,6 +62,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}/{projectId:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync(Guid id, Guid projectId)
         {
@@ -76,7 +77,7 @@ namespace Recrutify.Host.Controllers
             }
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.HighAccessPolicy)]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
         {
@@ -87,6 +88,14 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(result);
+        }
+
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("bulk/test_feedbacks")]
+        public async Task<ActionResult> BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO)
+        {
+            await _candidateService.BulkCreateTestFeedbacksAsync(bulkCreateTestFeedbackDTO);
+            return NoContent();
         }
 
         [Authorize(Policy = Constants.Policies.FeedbackPolicy)]

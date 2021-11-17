@@ -20,6 +20,10 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task ReplaceAsync(Candidate candidate);
 
+        Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids);
+
+        Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback);
+
         Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason);
     }
 }
