@@ -26,6 +26,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO);
 
-        Task BulkUpdateStatusByIdsAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO);
+        Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO);
     }
 }

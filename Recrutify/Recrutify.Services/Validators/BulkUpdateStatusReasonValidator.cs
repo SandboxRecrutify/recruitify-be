@@ -4,9 +4,9 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
-    public class BulkUpdateStatusReasonCandidatsValidator : AbstractValidator<BulkUpdateStatusDTO>
+    public class BulkUpdateStatusReasonValidator : AbstractValidator<BulkUpdateStatusDTO>
     {
-        public BulkUpdateStatusReasonCandidatsValidator()
+        public BulkUpdateStatusReasonValidator()
         {
             RuleFor(x => x.CandidatesIds)
                 .NotNull()
@@ -18,8 +18,9 @@ namespace Recrutify.Services.Validators
                 .When(x => x.Status == StatusDTO.Declined);
             RuleFor(x => x.Status)
                 .IsInEnum()
+                .WithMessage("Choose from existing statuses")
                 .Must(s => new[] { StatusDTO.Accepted, StatusDTO.Declined, StatusDTO.WaitingList, }.Contains(s))
-                .WithMessage("Choose from existing statuses");
+                .WithMessage("The selected status is not valid");
         }
     }
 }
