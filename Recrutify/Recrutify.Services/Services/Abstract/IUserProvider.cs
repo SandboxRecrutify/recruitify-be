@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Recrutify.Services.Services.Abstract
 {
-    public interface IHttpContextProvider
+    public interface IUserProvider
     {
         Guid GetUserId();
     }

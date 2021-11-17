@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using Recrutify.Services.Services.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using IdentityServer4.Extensions;
+using Microsoft.AspNetCore.Http;
+using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.UserServices
 {
-    public class HttpContextProvider : IHttpContextProvider
+    public class UserProvider : IUserProvider
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HttpContextProvider(IHttpContextAccessor httpContextAccessor)
+        public UserProvider(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

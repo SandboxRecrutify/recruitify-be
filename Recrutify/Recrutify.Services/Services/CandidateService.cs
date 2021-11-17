@@ -20,9 +20,9 @@ namespace Recrutify.Services.Services
         private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
-        private readonly IHttpContextProvider _httpContextProvider;
+        private readonly IUserProvider _httpContextProvider;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IHttpContextProvider httpContextProvider)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider httpContextProvider)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -140,15 +140,15 @@ namespace Recrutify.Services.Services
 
         public async Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
         {
-            _candidateRepository.CreateFeedbacksByIdsAsync(
+            await _candidateRepository.CreateFeedbacksByIdsAsync(
                 bulkCreateTestFeedbackDto.CandidatesIds,
-                bulkCreateTestFeedbackDto.ProjectId, 
-                new Feedback() 
-                { 
-                    CreatedOn = DateTime.UtcNow, 
+                bulkCreateTestFeedbackDto.ProjectId,
+                new Feedback()
+                {
+                    CreatedOn = DateTime.UtcNow,
                     Rating = bulkCreateTestFeedbackDto.Rating,
                     UserId = _httpContextProvider.GetUserId(),
-                    Type = FeedbackType.Test
+                    Type = FeedbackType.Test,
                 });
         }
     }

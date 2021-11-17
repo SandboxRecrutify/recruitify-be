@@ -13,7 +13,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<ICandidateService, CandidateService>();
             services.AddSingleton<IPrimarySkillService, PrimarySkillService>();
             services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IHttpContextProvider, HttpContextProvider>();
+            services.AddSingleton<IUserProvider, UserProvider>();
         }
     }
 }

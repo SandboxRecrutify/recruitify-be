@@ -68,16 +68,9 @@ namespace Recrutify.DataAccess.Repositories
             return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
         }
 
-        private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)
+        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
         {
-            var filter = _filterBuilder.Eq(x => x.Id, id);
-            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
-            await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
-        }
-
-        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> candidatesId)
-        {
-            var filter = _filterBuilder.In(u => u.Id, candidatesId);
+            var filter = _filterBuilder.In(u => u.Id, ids);
             return GetCollection().Find(filter).ToListAsync();
         }
 
@@ -97,6 +90,13 @@ namespace Recrutify.DataAccess.Repositories
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
 
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
+        }
+
+        private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+            await GetCollection().UpdateOneAsync(filter, updateDefinition, updateOptions);
         }
     }
 }
