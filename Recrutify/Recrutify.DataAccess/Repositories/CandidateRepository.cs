@@ -74,12 +74,6 @@ namespace Recrutify.DataAccess.Repositories
             return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
         }
 
-        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
-        {
-            var filter = _filterBuilder.In(u => u.Id, ids);
-            return GetCollection().Find(filter).ToListAsync();
-        }
-
         public Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback)
         {
             var filter = _filterBuilder.In(x => x.Id, ids);
@@ -113,7 +107,6 @@ namespace Recrutify.DataAccess.Repositories
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
 
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
-
         }
 
         private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)

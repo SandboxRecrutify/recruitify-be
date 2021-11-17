@@ -16,8 +16,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<Candidate> GetByEmailAsync(string email);
 
-        Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids);
-
         Task ReplaceAsync(Candidate candidate);
 
         Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids);

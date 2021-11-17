@@ -106,6 +106,5 @@ namespace Recrutify.Host.Controllers
 
             return NoContent();
         }
-
     }
 }
