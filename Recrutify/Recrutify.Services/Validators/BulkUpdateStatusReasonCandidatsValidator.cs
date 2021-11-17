@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Recrutify.DataAccess.Repositories.Abstract;
+﻿using System.Linq;
+using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -8,17 +8,15 @@ namespace Recrutify.Services.Validators
     {
         public BulkUpdateStatusReasonCandidatsValidator()
         {
-            RuleFor(x => x)
-                .NotNull()
-                .WithMessage("One or more candidates doesn't exist");
             RuleFor(x => x.Reason)
                 .NotNull()
                 .NotEmpty()
-                .MaximumLength(128);
+                .MaximumLength(128)
+                .When(x => x.Status == StatusDTO.Declined);
             RuleFor(x => x.Status)
                 .IsInEnum()
+                .Must(s => new[] { StatusDTO.Accepted, StatusDTO.Declined, StatusDTO.WaitingList, }.Contains(s))
                 .WithMessage("Choose from existing statuses");
         }
     }
-
 }
