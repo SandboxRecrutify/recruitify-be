@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
@@ -87,6 +88,14 @@ namespace Recrutify.Host.Controllers
             }
 
             return Ok(result);
+        }
+
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("bulk/test_feedbacks")]
+        public async Task<ActionResult> BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO)
+        {
+            await _candidateService.BulkCreateTestFeedbacksAsync(bulkCreateTestFeedbackDTO);
+            return NoContent();
         }
     }
 }

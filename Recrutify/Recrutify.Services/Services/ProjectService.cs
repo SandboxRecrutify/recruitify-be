@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
@@ -28,7 +29,13 @@ namespace Recrutify.Services.Services
 
         public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
+            var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
+                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             var project = _mapper.Map<Project>(projectDto);
+            project.Interviewers = projectDto.Interviewers.GetStaff(users);
+            project.Managers = projectDto.Managers.GetStaff(users);
+            project.Mentors = projectDto.Mentors.GetStaff(users);
+            project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
 
             return _mapper.Map<ProjectDTO>(project);
@@ -44,6 +51,12 @@ namespace Recrutify.Services.Services
         {
             var projects = await _projectRepository.GetAllAsync();
             return _mapper.Map<List<ProjectDTO>>(projects);
+        }
+
+        public IQueryable<ShortProjectDTO> GetShort()
+        {
+            var projects = _projectRepository.Get();
+            return _mapper.ProjectTo<ShortProjectDTO>(projects);
         }
 
         public async Task<IEnumerable<ProjectPrimarySkillDTO>> GetPrimarySkills(Guid id)
@@ -79,10 +92,15 @@ namespace Recrutify.Services.Services
             var result = new PrimarySkillsAndStaffDTO()
             {
                 PrimarySkills = await _primarySkillService.GetAllAsync(),
-                StaffGroup = await _userService.GetByGroupRoleAsync(roles),
+                StaffGroup = await _userService.GetStaffByRolesAsync(roles),
             };
 
             return result;
+        }
+
+        public Task IncrementCurrentApplicationsCountAsync(Guid id)
+        {
+            return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
         }
     }
 }
