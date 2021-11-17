@@ -9,6 +9,8 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface IProjectService
     {
+        IQueryable<ShortProjectDTO> GetShort();
+
         Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto);
 
         Task<ProjectDTO> GetAsync(Guid id);
