@@ -142,19 +142,24 @@ namespace Recrutify.Services.Services
             return _candidateRepository.ExistsAsync(id);
         }
 
-        public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
+        public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO)
         {
             return _candidateRepository.CreateFeedbacksByIdsAsync(
-                bulkCreateTestFeedbackDto.CandidatesIds,
-                bulkCreateTestFeedbackDto.ProjectId,
+                bulkCreateTestFeedbackDTO.CandidatesIds,
+                bulkCreateTestFeedbackDTO.ProjectId,
                 new Feedback()
                 {
                     UserName = _userProvider.GetUserName(),
                     CreatedOn = DateTime.UtcNow,
-                    Rating = bulkCreateTestFeedbackDto.Rating,
+                    Rating = bulkCreateTestFeedbackDTO.Rating,
                     UserId = _userProvider.GetUserId(),
                     Type = FeedbackType.Test,
                 });
+        }
+
+        public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
+        {
+            return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, bulkUpdateStatusDTO.ProjectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
     }
 }

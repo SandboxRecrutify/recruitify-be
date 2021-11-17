@@ -97,5 +97,14 @@ namespace Recrutify.Host.Controllers
             await _candidateService.BulkCreateTestFeedbacksAsync(bulkCreateTestFeedbackDTO);
             return NoContent();
         }
+
+        [Authorize(Policy = Constants.Policies.ManagerPolicy)]
+        [HttpPut("bulk/update_status_reason")]
+        public async Task<ActionResult> BulkUpdateStatusByIdsAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
+        {
+            await _candidateService.BulkUpdateStatusReasonAsync(bulkUpdateStatusDTO);
+
+            return NoContent();
+        }
     }
 }

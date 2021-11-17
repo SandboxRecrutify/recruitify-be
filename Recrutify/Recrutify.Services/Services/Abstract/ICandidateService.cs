@@ -25,5 +25,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
 
         Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO);
+
+        Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO);
     }
 }

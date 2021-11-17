@@ -29,6 +29,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
+        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            return GetCollection().Find(filter).ToListAsync();
+        }
+
         public Task ReplaceAsync(Candidate candidate)
         {
             var filter = _filterBuilder.Eq(c => c.Email, candidate.Email);
@@ -68,12 +74,6 @@ namespace Recrutify.DataAccess.Repositories
             return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
         }
 
-        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
-        {
-            var filter = _filterBuilder.In(u => u.Id, ids);
-            return GetCollection().Find(filter).ToListAsync();
-        }
-
         public Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback)
         {
             var filter = _filterBuilder.In(x => x.Id, ids);
@@ -81,6 +81,23 @@ namespace Recrutify.DataAccess.Repositories
             var updateBuilder = Builders<Candidate>.Update;
             var updateDefinition = updateBuilder
                     .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
+                {
+                   new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+                };
+
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+
+            return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
+        }
+
+        public Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason)
+        {
+            var filter = _filterBuilder.In(x => x.Id, ids);
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateDefinition = updateBuilder
+                    .Set("ProjectResults.$[projectResult].Status", status).Set("ProjectResults.$[projectResult].Reason", reason);
             var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
             var arrayFilters = new List<ArrayFilterDefinition>
                 {
