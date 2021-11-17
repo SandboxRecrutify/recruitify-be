@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
+using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 using ValidationException = FluentValidation.ValidationException;
 
@@ -20,13 +21,15 @@ namespace Recrutify.Services.Services
         private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
+        private readonly IUserProvider _userProvider;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
+            _userProvider = userProvider;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -134,6 +137,20 @@ namespace Recrutify.Services.Services
         public Task<bool> ExistsAsync(Guid id)
         {
             return _candidateRepository.ExistsAsync(id);
+        }
+
+        public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDto)
+        {
+            return _candidateRepository.CreateFeedbacksByIdsAsync(
+                bulkCreateTestFeedbackDto.CandidatesIds,
+                bulkCreateTestFeedbackDto.ProjectId,
+                new Feedback()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    Rating = bulkCreateTestFeedbackDto.Rating,
+                    UserId = _userProvider.GetUserId(),
+                    Type = FeedbackType.Test,
+                });
         }
     }
 }
