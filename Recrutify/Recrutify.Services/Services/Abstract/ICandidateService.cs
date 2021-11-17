@@ -10,7 +10,7 @@ namespace Recrutify.Services.Services.Abstract
     {
         Task<List<CandidateDTO>> GetAllAsync();
 
-        Task<List<CandidateDTO>> GetByProjectAsync(Guid projectId);
+        IQueryable<CandidateDTO> GetByProject(Guid projectId);
 
         IQueryable<CandidateDTO> Get();
 
@@ -23,5 +23,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<bool> ExistsAsync(Guid id);
 
         Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
+
+        Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO);
     }
 }

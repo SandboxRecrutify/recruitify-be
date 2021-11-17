@@ -3,34 +3,14 @@ using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
-    public class CreateProjectDTO
+    public class CreateProjectDTO : BaseProjectDTO
     {
-        public string Name { get; set; }
+        public IEnumerable<Guid> Managers { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public IEnumerable<Guid> Interviewers { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public IEnumerable<Guid> Recruiters { get; set; }
 
-        public DateTime StartRegistrationDate { get; set; }
-
-        public DateTime EndRegistrationDate { get; set; }
-
-        public int CurrentApplicationsCount { get; set; }
-
-        public int PlannedApplicationsCount { get; set; }
-
-        public string Description { get; set; }
-
-        public IEnumerable<ProjectPrimarySkillDTO> PrimarySkills { get; set; }
-
-        public IEnumerable<StaffDTO> Managers { get; set; }
-
-        public IEnumerable<StaffDTO> Interviewers { get; set; }
-
-        public IEnumerable<StaffDTO> Recruiters { get; set; }
-
-        public IEnumerable<StaffDTO> Mentors { get; set; }
-
-        public bool IsActive { get; set; }
+        public IEnumerable<Guid> Mentors { get; set; }
     }
 }
