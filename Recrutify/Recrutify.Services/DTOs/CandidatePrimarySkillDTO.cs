@@ -4,7 +4,7 @@ namespace Recrutify.Services.DTOs
 {
     public class CandidatePrimarySkillDTO
     {
-        public Guid Id { get; set; }
+        public Guid PrimarySkillId { get; set; }
 
         public string Name { get; set; }
     }

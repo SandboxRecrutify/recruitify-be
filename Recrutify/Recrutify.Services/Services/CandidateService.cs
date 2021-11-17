@@ -108,14 +108,15 @@ namespace Recrutify.Services.Services
                 throw new NotFoundException();
             }
 
-            feedbackDto.UserId = _userProvider.GetUserId();
             var projectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
             var currentFeedback = projectResult?
-                .Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
+                .Feedbacks?.FirstOrDefault(x => x.UserId == _userProvider.GetUserId() && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
+                newFeedback.UserId = _userProvider.GetUserId();
+                newFeedback.UserName = _userProvider.GetUserName();
                 await _candidateRepository.CreateFeedbackAsync(id, projectId, newFeedback);
             }
             else
