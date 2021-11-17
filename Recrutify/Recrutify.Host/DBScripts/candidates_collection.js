@@ -29,6 +29,7 @@
                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                 "Feedbacks": [
                     {
+                        "UserName": "Christopher Johnson",
                         "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                         "Type": NumberInt(2),
                         "TextFeedback": "Weak knowledge of the database",
@@ -51,6 +52,7 @@
                         "CreatedOn": new Date("2021-03-12T10:17:36.000Z")
                     },
                     {
+                        "UserName": "Justin Walker",
                         "UserId": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
                         "Type": NumberInt(2),
                         "Rating": NumberInt(5),
@@ -94,6 +96,7 @@
                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                 "Feedbacks": [
                     {
+                        "UserName": "Fred Taylor",
                         "UserId": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
                         "Type": NumberInt(2),
                         "Rating": NumberInt(4),
@@ -106,6 +109,7 @@
                         "CreatedOn": new Date("2021-08-28T11:24:43.000Z")
                     },
                     {
+                        "UserName": "Christopher Johnson",
                         "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                         "Type": NumberInt(3),
                         "Rating": NumberInt(4),
@@ -154,6 +158,7 @@
                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                 "Feedbacks": [
                     {
+                        "UserName": "Christopher Johnson",
                         "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                         "Type": NumberInt(2),
                         "Rating": NumberInt(4),
@@ -197,6 +202,7 @@
                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
                 "Feedbacks": [
                     {
+                        "UserName": "Justin Walker",
                         "UserId": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
                         "Type": NumberInt(2),
                         "Rating": NumberInt(3),
@@ -209,6 +215,7 @@
                         "CreatedOn": new Date("2021-04-07T12:09:53.000Z")
                     },
                     {
+                        "UserName": "Christopher Johnson",
                         "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                         "Type": NumberInt(3),
                         "Rating": NumberInt(4),
@@ -250,6 +257,7 @@
                "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                "Feedbacks": [
                    {
+                       "UserName": "Christopher Johnson",
                        "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
                        "Type": NumberInt(2),
                        "Rating": NumberInt(3),
@@ -262,6 +270,7 @@
                        "CreatedOn": new Date("2021-08-26T12:14:11.000Z")
                    },
                    {
+                       "UserName": "Fred Taylor",
                        "UserId": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
                        "Type": NumberInt(3),
                        "Rating": NumberInt(4),

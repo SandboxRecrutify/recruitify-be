@@ -18,5 +18,10 @@ namespace Recrutify.Host.Providers
         {
             return new Guid(_httpContextAccessor.HttpContext.User.GetSubjectId());
         }
+
+        public string GetUserName()
+        {
+            return _httpContextAccessor.HttpContext.User.GetDisplayName();
+        }
     }
 }

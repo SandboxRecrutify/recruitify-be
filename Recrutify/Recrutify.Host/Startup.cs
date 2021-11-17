@@ -85,8 +85,6 @@ namespace Recrutify.Host
                 .AddInMemoryClients(IdentityServerSettings.GetClients())
                 .AddCustomUserStore();
 
-            services.AddHttpContextAccessor();
-
             var authority = Configuration["Authority"];
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
             .AddIdentityServerAuthentication(options =>
