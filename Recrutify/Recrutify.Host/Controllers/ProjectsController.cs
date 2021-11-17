@@ -92,7 +92,7 @@ namespace Recrutify.Host.Controllers
             return Ok(project);
         }
 
-        // [Authorize(Policy = Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("primary_skills_and_staff")]
         public async Task<ActionResult<PrimarySkillsAndStaffDTO>> PrimarySkillsAndStaff()
         {

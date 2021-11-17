@@ -35,10 +35,5 @@ namespace Recrutify.DataAccess.Repositories
             var filter = _filterBuilder.Eq(u => u.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
-
-        public Task<List<User>> GetByRolesAsync(List<Role> roles)
-        {
-            return GetAllAsync();
-        }
     }
 }
