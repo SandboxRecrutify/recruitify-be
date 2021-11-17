@@ -135,5 +135,10 @@ namespace Recrutify.Services.Services
         {
             return _candidateRepository.ExistsAsync(id);
         }
+
+        public async Task BulkUpdateStatusByIdsAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
+        {
+            await _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, bulkUpdateStatusDTO.ProjectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
+        }
     }
 }
