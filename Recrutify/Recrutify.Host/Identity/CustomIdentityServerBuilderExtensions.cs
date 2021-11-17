@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Recrutify.Host.UserServices
+namespace Recrutify.Host.Identity
 {
     public static class CustomIdentityServerBuilderExtensions
     {

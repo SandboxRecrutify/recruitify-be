@@ -6,7 +6,7 @@ using IdentityModel;
 using IdentityServer4.Validation;
 using Recrutify.DataAccess.Repositories.Abstract;
 
-namespace Recrutify.Host.UserServices
+namespace Recrutify.Host.Identity
 {
     public class CustomResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
