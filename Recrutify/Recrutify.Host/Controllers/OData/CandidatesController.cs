@@ -39,14 +39,14 @@ namespace Recrutify.Host.Controllers.OData
             var candidates = _candidateService.GetByProject(projectId);
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<CandidateDTO>;
             var result = filteredCandidates!.OrderByDescending(x => x.ProjectResults
-                                            .FirstOrDefault(x => x.ProjectId == projectId)
-                                            .Feedbacks
-                                            .Where(x => x.Type != FeedbackTypeDTO.Test)
+                                            ?.FirstOrDefault(x => x.ProjectId == projectId)
+                                            ?.Feedbacks
+                                            ?.Where(x => x.Type != FeedbackTypeDTO.Test)
                                             .Sum(х => х.Rating))
                                         .ThenByDescending(x => x.ProjectResults
-                                            .FirstOrDefault(x => x.ProjectId == projectId)
-                                            .Feedbacks
-                                            .FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)
+                                            ?.FirstOrDefault(x => x.ProjectId == projectId)
+                                            ?.Feedbacks
+                                            ?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)
                                             ?.Rating);
             return result;
         }
