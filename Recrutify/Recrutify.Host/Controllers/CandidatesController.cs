@@ -65,7 +65,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync([FromQuery, Required] Guid id, [FromQuery, Required] Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync([FromRoute] Guid id, [FromRoute] Guid projectId)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.HighAccessPolicy)]
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetByIdAsync([FromQuery, Required] Guid id)
+        public async Task<ActionResult<CandidateDTO>> GetByIdAsync([FromRoute] Guid id)
         {
             var result = await _candidateService.GetAsync(id);
             if (result == null)
