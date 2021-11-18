@@ -35,5 +35,13 @@ namespace Recrutify.DataAccess.Repositories
             var filter = _filterBuilder.Eq(u => u.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
+
+        public IQueryable<User> GetByRoles(List<Role> roles)
+        {
+            return GetCollection()
+                     .AsQueryable()?.Where(u => u.ProjectRoles
+                        .Any(x => x.Key == Constants.GlobalProject.GlobalProjectId
+                        && x.Value.Any(r => roles.Contains(r))));
+        }
     }
 }
