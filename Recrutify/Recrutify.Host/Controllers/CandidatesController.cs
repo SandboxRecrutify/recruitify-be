@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +34,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CandidateDTO>> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> CreateAsync([FromBody] CandidateCreateDTO candidateCreateDTO, [FromQuery, Required] Guid projectId)
         {
             var result = await _candidateService.CreateAsync(candidateCreateDTO, projectId);
             return Created(string.Empty, result);
@@ -41,7 +42,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut("feedback")]
-        public async Task<ActionResult> UpsertFeedbackAsync(Guid id, Guid projectId, UpsertFeedbackDTO feedbackDto)
+        public async Task<ActionResult> UpsertFeedbackAsync([FromQuery, Required] Guid id, [FromQuery, Required] Guid projectId, [FromBody] UpsertFeedbackDTO feedbackDto)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("{id:guid}/{projectId:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync(Guid id, Guid projectId)
+        public async Task<ActionResult<CandidateDTO>> GetCandidateWithProjectAsync([FromRoute] Guid id, [FromRoute] Guid projectId)
         {
             try
             {
@@ -79,7 +80,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.HighAccessPolicy)]
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<CandidateDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<CandidateDTO>> GetByIdAsync([FromRoute] Guid id)
         {
             var result = await _candidateService.GetAsync(id);
             if (result == null)
@@ -92,17 +93,17 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut("bulk/test_feedbacks")]
-        public async Task<ActionResult> BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO)
+        public async Task<ActionResult> BulkCreateTestFeedbacksAsync([FromBody] BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO, [FromQuery, Required] Guid projectId)
         {
-            await _candidateService.BulkCreateTestFeedbacksAsync(bulkCreateTestFeedbackDTO);
+            await _candidateService.BulkCreateTestFeedbacksAsync(bulkCreateTestFeedbackDTO, projectId);
             return NoContent();
         }
 
         [Authorize(Policy = Constants.Policies.ManagerPolicy)]
         [HttpPut("bulk/update_status_reason")]
-        public async Task<ActionResult> BulkUpdateStatusByIdsAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
+        public async Task<ActionResult> BulkUpdateStatusByIdsAsync([FromBody] BulkUpdateStatusDTO bulkUpdateStatusDTO, [FromQuery, Required] Guid projectId)
         {
-            await _candidateService.BulkUpdateStatusReasonAsync(bulkUpdateStatusDTO);
+            await _candidateService.BulkUpdateStatusReasonAsync(bulkUpdateStatusDTO, projectId);
 
             return NoContent();
         }
