@@ -19,8 +19,9 @@ namespace Recrutify.Host.Infrastructure.Authorization
 
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RolesPolicyRequirement requirement)
         {
-            var queryProjectId = _httpContextAccessor.HttpContext.Request.Query.TryGetValue(Constants.Roles.ProjectIdParam, out var outProjectId);
-            var projectId = queryProjectId ? Guid.Parse(outProjectId) : DataAccess.Constants.GlobalProject.GlobalProjectId;
+            var projectIdIsInQuery = _httpContextAccessor.HttpContext.Request.Query.TryGetValue(Constants.Roles.ProjectIdParam, out var queryProjectId);
+            var projectIdIsInRoute = _httpContextAccessor.HttpContext.Request.RouteValues.TryGetValue(Constants.Roles.ProjectIdParam,  out var routeProjectId);
+            var projectId = projectIdIsInQuery ? Guid.Parse(queryProjectId) : projectIdIsInRoute ? Guid.Parse(routeProjectId.ToString()) : DataAccess.Constants.GlobalProject.GlobalProjectId;
 
             var projectRoles = context.User.Claims
                 .Where(c => c.Type == JwtClaimTypes.Role)
