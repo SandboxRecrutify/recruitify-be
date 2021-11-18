@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Microsoft.Extensions.Options;
 using Mustache;
-using Recrutify.Services.Configuration;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 

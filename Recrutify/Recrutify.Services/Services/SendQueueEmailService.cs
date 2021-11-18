@@ -10,13 +10,10 @@ namespace Recrutify.Services.Services
         private readonly IFormEmailService _formEmailService;
         private readonly ISendEmailService _sendEmailService;
 
-        private readonly MailSettings _mailSettings;
-
-        public SendQueueEmailService(IFormEmailService formEmailService, ISendEmailService sendEmailService, IOptions<MailSettings> mailSettings)
+        public SendQueueEmailService(IFormEmailService formEmailService, ISendEmailService sendEmailService)
         {
             _formEmailService = formEmailService;
             _sendEmailService = sendEmailService;
-            _mailSettings = mailSettings.Value;
         }
 
         public void SendEmail()
