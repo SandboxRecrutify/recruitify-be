@@ -21,8 +21,9 @@ namespace Recrutify.Services.Validators
 
         private void ConfigureRules()
         {
-            RuleFor(x => x)
+            RuleFor(x => x.CandidatesIds)
                 .NotNull()
+                .NotEmpty()
                 .MustAsync(CandidatesAreExistingAsync)
                 .WithMessage("One or more candidates doesn't exist");
             RuleFor(x => x.Rating)
@@ -30,15 +31,13 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Rating is out of range");
         }
 
-        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, CancellationToken cancellationToken)
+        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, IEnumerable<Guid> candidatsIds, CancellationToken cancellationToken)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(dto.CandidatesIds);
-            var filteredCandidatesIds = candidates.Where(c => c.ProjectResults
-                                                       .FirstOrDefault(p => p.ProjectId == dto.ProjectId)
-                                                       ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false)
-                                                   .Select(c => c.Id)
-                                                   .ToList();
-            return dto.CandidatesIds.All(id => filteredCandidatesIds.Contains(id));
+            var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
+            var filteredCandidatesCount = candidates.Count(c => c.ProjectResults
+                                                       ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId)
+                                                       ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false);
+            return filteredCandidatesCount == candidatsIds.Count();
         }
     }
 }
