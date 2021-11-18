@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -62,6 +63,13 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             var filter = _filterBuilder.Eq(e => e.Id, id);
             var result = await GetCollection().Find(filter).CountDocumentsAsync();
             return result != 0;
+        }
+
+        public async Task<bool> ExistsByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            var foundCount = await GetCollection().Find(filter).CountDocumentsAsync();
+            return foundCount == ids.Count();
         }
 
         protected IMongoCollection<TDocument> GetCollection()

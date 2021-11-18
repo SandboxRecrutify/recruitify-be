@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Repositories.Abstract
@@ -20,5 +21,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task DeleteAsync(Guid id);
 
         Task<bool> ExistsAsync(Guid id);
+
+        Task<bool> ExistsByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }
 }
