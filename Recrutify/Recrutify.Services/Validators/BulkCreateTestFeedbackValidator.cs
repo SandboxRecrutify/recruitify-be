@@ -33,13 +33,13 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Rating is out of range");
         }
 
-        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, IEnumerable<Guid> candidatesIds, CancellationToken cancellationToken)
+        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, IEnumerable<Guid> candidatsIds, CancellationToken cancellationToken)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(candidatesIds);
+            var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
             var filteredCandidatesCount = candidates.Count(c => c.ProjectResults
                                                        ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId)
                                                        ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false);
-            return filteredCandidatesCount == candidatesIds.Count();
+            return filteredCandidatesCount == candidatsIds.Count();
         }
     }
 }
