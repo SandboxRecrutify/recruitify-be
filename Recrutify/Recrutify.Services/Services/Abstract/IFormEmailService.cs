@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Mail;
 using Recrutify.Services.EmailModels;
 
 namespace Recrutify.Services.Services.Abstract

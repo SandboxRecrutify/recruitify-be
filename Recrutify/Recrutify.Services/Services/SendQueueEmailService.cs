@@ -1,6 +1,4 @@
 ﻿using Hangfire;
-using Microsoft.Extensions.Options;
-using Recrutify.Services.Configuration;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
