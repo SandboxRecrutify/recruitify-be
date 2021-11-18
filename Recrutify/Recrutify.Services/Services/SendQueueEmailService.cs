@@ -16,7 +16,7 @@ namespace Recrutify.Services.Services
 
         public void SendEmail()
         {
-            var requests = _formEmailService.GetEmailMessage();
+            var requests = _formEmailService.GetEmailRequest();
             foreach (var emailRequest in requests)
             {
                 BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(emailRequest));

@@ -25,8 +25,8 @@ using Recrutify.Host.Extensions;
 using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
-using Recrutify.Services.Configuration;
 using Recrutify.Services.Extensions;
+using Recrutify.Services.Settings.Configuration;
 
 namespace Recrutify.Host
 {
@@ -151,6 +151,7 @@ namespace Recrutify.Host
                 });
             });
             services.AddOdataSwaggerSupport();
+            services.AddHangfireServer();
         }
 
         public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -175,7 +176,7 @@ namespace Recrutify.Host
             app.UseAuthorization();
 
             app.UseHangfireDashboard();
-            app.UseHangfireServer();
+           // app.UseHangfireServer();
 
             app.UseEndpoints(endpoints =>
             {
