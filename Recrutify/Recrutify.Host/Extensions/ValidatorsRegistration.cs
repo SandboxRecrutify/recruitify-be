@@ -11,10 +11,12 @@ namespace Recrutify.Services.Extensions
         public static void AddValidators(this IServiceCollection services)
         {
             services.AddSingleton<IValidator<CreateProjectDTO>, CreateProjectValidator>();
-            services.AddSingleton<IValidator<ProjectDTO>, UpdateProjectValidator>();
+            services.AddSingleton<IValidator<UpdateProjectDTO>, UpdateProjectValidator>();
             services.AddSingleton<IValidator<CandidateCreateDTO>, CreateCandidateValidator>();
             services.AddSingleton<IValidator<ProjectResult>, ProjectResultValidator>();
             services.AddSingleton<IValidator<UpsertFeedbackDTO>, UpsertFeedbackValidator>();
+            services.AddSingleton<IValidator<BulkCreateTestFeedbackDTO>, BulkCreateTestFeedbackValidator>();
+            services.AddSingleton<IValidator<BulkUpdateStatusDTO>, BulkUpdateStatusReasonCandidatsValidator>();
         }
     }
 }

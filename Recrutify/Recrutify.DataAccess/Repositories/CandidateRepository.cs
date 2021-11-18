@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -17,16 +18,21 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<List<Candidate>> GetByProjectAsync(Guid projectId)
+        public IQueryable<Candidate> GetByProject(Guid projectId)
         {
-            var filter = _filterBuilder.ElemMatch(x => x.ProjectResults, x => x.ProjectId == projectId);
-            return GetCollection().Find(filter).ToListAsync();
+            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId));
         }
 
         public Task<Candidate> GetByEmailAsync(string email)
         {
             var filter = _filterBuilder.Eq(c => c.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public Task<List<Candidate>> GetByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            return GetCollection().Find(filter).ToListAsync();
         }
 
         public Task ReplaceAsync(Candidate candidate)
@@ -66,6 +72,41 @@ namespace Recrutify.DataAccess.Repositories
                    new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
                 };
             return UpdateWithArrayFiltersAsync(id, updateDefinition, arrayFilters);
+        }
+
+        public Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback)
+        {
+            var filter = _filterBuilder.In(x => x.Id, ids);
+
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateDefinition = updateBuilder
+                    .AddToSet("ProjectResults.$[projectResult].Feedbacks", feedback);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
+                {
+                   new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+                };
+
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+
+            return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
+        }
+
+        public Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason)
+        {
+            var filter = _filterBuilder.In(x => x.Id, ids);
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateDefinition = updateBuilder
+                    .Set("ProjectResults.$[projectResult].Status", status).Set("ProjectResults.$[projectResult].Reason", reason);
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
+                {
+                   new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResult.ProjectId", binaryProjectId)),
+                };
+
+            var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+
+            return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 
         private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)

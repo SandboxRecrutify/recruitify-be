@@ -1,4 +1,4 @@
-﻿namespace Recrutify.Services.Settings.Configuration
+﻿namespace Recrutify.Services.Configuration
 {
     public class MailSettings
     {

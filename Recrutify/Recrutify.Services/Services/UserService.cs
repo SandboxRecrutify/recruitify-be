@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
@@ -20,12 +22,17 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<StaffGroupDTO> GetByGroupRoleAsync(List<Role> roles)
+        public Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
         {
-            var users = await _userRepository.GetByRolesAsync(roles);
+            return _userRepository.GetNamesByIdsAsync(ids);
+        }
+
+        public async Task<StaffGroupDTO> GetStaffByRolesAsync(List<Role> roles)
+        {
+            var users = await _userRepository.GetAllAsync();
 
             var staff = _mapper.Map<Dictionary<Role, List<StaffDTO>>>(
-                        users.SelectMany(p => p.Roles, (user, role) => new { user, role })
+                        users.SelectMany(p => p.ProjectRoles[Constants.GlobalProject.GlobalProjectId], (user, role) => new { user, role })
                               .GroupBy(x => x.role)
                               .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToList()));
 

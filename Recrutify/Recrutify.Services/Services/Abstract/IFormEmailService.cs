@@ -5,6 +5,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface IFormEmailService
     {
-        IEnumerable<EmailRequest> GetEmailRequest();
+        IEnumerable<EmailRequest> GetEmailRequests();
     }
 }

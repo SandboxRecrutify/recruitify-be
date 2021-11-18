@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Recrutify.Host.Providers;
+using Recrutify.Services.Providers;
 using Recrutify.Services.Services;
 using Recrutify.Services.Services.Abstract;
 
@@ -15,6 +17,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<ICandidateService, CandidateService>();
             services.AddSingleton<IPrimarySkillService, PrimarySkillService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IUserProvider, UserProvider>();
         }
     }
 }

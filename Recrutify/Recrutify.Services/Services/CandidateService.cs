@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
+using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 using ValidationException = FluentValidation.ValidationException;
 
@@ -17,14 +18,18 @@ namespace Recrutify.Services.Services
     public class CandidateService : ICandidateService
     {
         private readonly ICandidateRepository _candidateRepository;
+        private readonly IProjectService _projectService;
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
+        private readonly IUserProvider _userProvider;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
+            _projectService = projectService;
+            _userProvider = userProvider;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -33,10 +38,10 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<CandidateDTO>>(candidates);
         }
 
-        public async Task<List<CandidateDTO>> GetByProjectAsync(Guid projectId)
+        public IQueryable<CandidateDTO> GetByProject(Guid projectId)
         {
-            var candidates = await _candidateRepository.GetByProjectAsync(projectId);
-            return _mapper.Map<List<CandidateDTO>>(candidates);
+            var candidates = _candidateRepository.GetByProject(projectId);
+            return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
         public async Task<CandidateDTO> GetAsync(Guid id)
@@ -59,6 +64,7 @@ namespace Recrutify.Services.Services
                 candidate.Id = Guid.NewGuid();
                 await _candidateRepository.CreateAsync(candidate);
                 var newCanditate = _mapper.Map<CandidateDTO>(candidate);
+                await _projectService.IncrementCurrentApplicationsCountAsync(projectId);
                 return newCanditate;
             }
 
@@ -102,13 +108,16 @@ namespace Recrutify.Services.Services
                 throw new NotFoundException();
             }
 
+            var userId = _userProvider.GetUserId();
             var projectResult = candidate.ProjectResults?.FirstOrDefault(x => x.ProjectId == projectId);
             var currentFeedback = projectResult?
-                .Feedbacks?.FirstOrDefault(x => x.UserId == feedbackDto.UserId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
+                .Feedbacks?.FirstOrDefault(x => x.UserId == userId && x.Type == _mapper.Map<FeedbackType>(feedbackDto.Type));
             if (currentFeedback == null)
             {
                 var newFeedback = _mapper.Map<Feedback>(feedbackDto);
                 newFeedback.CreatedOn = DateTime.UtcNow;
+                newFeedback.UserId = userId;
+                newFeedback.UserName = _userProvider.GetUserName();
                 await _candidateRepository.CreateFeedbackAsync(id, projectId, newFeedback);
             }
             else
@@ -131,6 +140,26 @@ namespace Recrutify.Services.Services
         public Task<bool> ExistsAsync(Guid id)
         {
             return _candidateRepository.ExistsAsync(id);
+        }
+
+        public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO)
+        {
+            return _candidateRepository.CreateFeedbacksByIdsAsync(
+                bulkCreateTestFeedbackDTO.CandidatesIds,
+                bulkCreateTestFeedbackDTO.ProjectId,
+                new Feedback()
+                {
+                    UserName = _userProvider.GetUserName(),
+                    CreatedOn = DateTime.UtcNow,
+                    Rating = bulkCreateTestFeedbackDTO.Rating,
+                    UserId = _userProvider.GetUserId(),
+                    Type = FeedbackType.Test,
+                });
+        }
+
+        public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
+        {
+            return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, bulkUpdateStatusDTO.ProjectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
     }
 }
