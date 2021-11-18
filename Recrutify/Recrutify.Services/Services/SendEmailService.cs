@@ -1,8 +1,8 @@
 ﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Recrutify.DataAccess.Configuration;
-using Recrutify.DataAccess.Models;
+using Recrutify.Services.Configuration;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -10,12 +10,10 @@ namespace Recrutify.Services.Services
     public class SendEmailService : ISendEmailService
     {
         private readonly MailSettings _mailSettings;
-        private readonly IFormEmailService _formEmailService;
 
-        public SendEmailService(IOptions<MailSettings> mailSettings, IFormEmailService formEmailService)
+        public SendEmailService(IOptions<MailSettings> mailSettings)
         {
             _mailSettings = mailSettings.Value;
-            _formEmailService = formEmailService;
         }
 
         public void SendEmail(EmailRequest emailRequest)

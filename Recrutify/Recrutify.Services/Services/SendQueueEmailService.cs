@@ -1,8 +1,7 @@
 ﻿using Hangfire;
 using Microsoft.Extensions.Options;
-using Recrutify.DataAccess.Configuration;
+using Recrutify.Services.Configuration;
 using Recrutify.Services.Services.Abstract;
-using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.Services
 {

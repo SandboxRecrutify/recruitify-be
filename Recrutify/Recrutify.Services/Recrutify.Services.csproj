@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Teamplates\**" />
+    <EmbeddedResource Remove="Services\Teamplates\**" />
+    <None Remove="Services\Teamplates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
     <PackageReference Include="Hangfire" Version="1.7.27" />
@@ -22,7 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Teamplates\" />
+    <Folder Include="Configuration\" />
+    <Folder Include="EmailModels\" />
   </ItemGroup>
 
 </Project>

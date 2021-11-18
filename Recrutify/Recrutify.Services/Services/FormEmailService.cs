@@ -2,19 +2,16 @@
 using System.IO;
 using Microsoft.Extensions.Options;
 using Mustache;
-using Recrutify.DataAccess.Configuration;
-using Recrutify.DataAccess.Models;
+using Recrutify.Services.Configuration;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
 {
     public class FormEmailService : IFormEmailService
     {
-        private readonly MailSettings _mailSettings;
-
-        public FormEmailService(IOptions<MailSettings> mailSettings)
+        public FormEmailService()
         {
-            _mailSettings = mailSettings.Value;
         }
 
         public IEnumerable<EmailRequest> GetEmailMessage()

@@ -25,9 +25,8 @@ using Recrutify.Host.Extensions;
 using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Settings;
 using Recrutify.Host.UserServices;
+using Recrutify.Services.Configuration;
 using Recrutify.Services.Extensions;
-using Recrutify.Services.Services;
-using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host
 {

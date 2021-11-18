@@ -1,4 +1,4 @@
-﻿namespace Recrutify.DataAccess.Models
+﻿namespace Recrutify.Services.EmailModels
 {
     public class EmailRequest
     {
