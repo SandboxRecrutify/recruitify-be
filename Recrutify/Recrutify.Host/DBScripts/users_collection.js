@@ -31,15 +31,20 @@
             ]],
             [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
             [
-                NumberInt(2)
+                NumberInt(1)
             ]],
             [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
             [
-                NumberInt(1)
+                NumberInt(1),
+                NumberInt(2)
             ]],
             [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
             [
                 NumberInt(2)
+            ]],
+            [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+            [
+                    NumberInt(1)
             ]]
         ]
     },
@@ -51,17 +56,18 @@
         "Password": "25077B4E7F514A5FB3E04C662965AA9F0DF15D1FE0384526F608E3A6733D973F",
         "Salt": "RET4356433DFG345",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
             [
-                NumberInt(2)
-            ]],
+                UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                [NumberInt(2), NumberInt(4)]
+            ],
             [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
             [
                 NumberInt(2)
             ]],
             [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
             [
-                NumberInt(2)
+                NumberInt(2),
+                NumberInt(4)
             ]],
             [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
             [
@@ -69,7 +75,7 @@
             ]],
             [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
             [
-                NumberInt(2)
+                NumberInt(4)
             ]]
         ]
     },
@@ -132,7 +138,7 @@
             ]],
             [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
             [
-                NumberInt(4)
+                NumberInt(3)
             ]],
         ]
     },
@@ -146,15 +152,15 @@
         "ProjectRoles": [
             [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
             [
-                NumberInt(3)
+                NumberInt(3), NumberInt(1)
             ]],
             [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
             [
-                NumberInt(3)
+                NumberInt(1)
             ]],
             [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
             [
-                NumberInt(3)
+                NumberInt(3), NumberInt(1)
             ]],
             [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
             [
