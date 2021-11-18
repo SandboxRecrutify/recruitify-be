@@ -176,7 +176,6 @@ namespace Recrutify.Host
             app.UseAuthorization();
 
             app.UseHangfireDashboard();
-           // app.UseHangfireServer();
 
             app.UseEndpoints(endpoints =>
             {
