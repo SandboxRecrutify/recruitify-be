@@ -33,7 +33,7 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Rating is out of range");
         }
 
-        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, IEnumerable<Guid> candidatsIds, CancellationToken cancellationToken)
+        private async Task<bool> CandidatesAreExistingAsync(BulkCreateTestFeedbackDTO dto, IEnumerable<Guid> candidatesIds, CancellationToken cancellationToken)
         {
             var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
             var filteredCandidatesCount = candidates.Count(c => c.ProjectResults

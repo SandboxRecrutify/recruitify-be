@@ -31,7 +31,7 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Reason is mandatory if status is declined");
             RuleFor(x => x.Status)
                 .IsInEnum()
-                .WithMessage("Statud doesn't exist")
+                .WithMessage("Status doesn't exist")
                 .Must(s => new[] { StatusDTO.Accepted, StatusDTO.Declined, StatusDTO.WaitingList, }.Contains(s))
                 .WithMessage("Cannot change to selected status manually");
         }

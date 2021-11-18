@@ -98,7 +98,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        //[Authorize(Policy = Constants.Policies.HighAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.ManagerPolicy)]
         [HttpPut("bulk/update_status_reason")]
         public async Task<ActionResult> BulkUpdateStatusByIdsAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO)
         {
