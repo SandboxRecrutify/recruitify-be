@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MailKit.Net.Smtp;
-using MailKit.Security;
+﻿using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using Recrutify.DataAccess.Configuration;
@@ -21,12 +18,18 @@ namespace Recrutify.Services.Services
             _formEmailService = formEmailService;
         }
 
-        public void SendEmail(EmailSender sender, EmailRequest emailRequest)
+        public void SendEmail(EmailRequest emailRequest)
         {
-            var email = _formEmailService.CreateEmailAsync(sender, emailRequest);
-            using var smtp = new SmtpClient();
+            var email = new MimeMessage();
+
+            email.Sender = MailboxAddress.Parse(_mailSettings.Mail);
+            email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
+            email.To.Add(MailboxAddress.Parse("danik.prokopenkov01@gmail.com"));
+            email.Subject = emailRequest.Subject;
+            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(sender.Email, sender.Password);
+            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
             smtp.Send(email);
             smtp.Disconnect(true);
         }

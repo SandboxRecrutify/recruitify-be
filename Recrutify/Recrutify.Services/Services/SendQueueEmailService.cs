@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using Hangfire;
+﻿using Hangfire;
 using Microsoft.Extensions.Options;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.Services.Services.Abstract;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.Services
 {
@@ -20,13 +20,12 @@ namespace Recrutify.Services.Services
             _mailSettings = mailSettings.Value;
         }
 
-        public void SendEmailAsync()
+        public void SendEmail()
         {
-            var requests = _formEmailService.GetEmailRequestsAsync();
-            var sender = _formEmailService.GetEmailSenderAsync();
+            var requests = _formEmailService.GetEmailMessage();
             foreach (var emailRequest in requests)
             {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(sender, emailRequest));
+                BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(emailRequest));
             }
         }
     }

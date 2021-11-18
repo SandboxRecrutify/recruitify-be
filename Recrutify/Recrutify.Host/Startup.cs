@@ -70,9 +70,6 @@ namespace Recrutify.Host
                 config.UseMemoryStorage();
             });
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
-            services.AddTransient<ISendEmailService, SendEmailService>();
-            services.AddTransient<ISendQueueEmailService, SendQueueEmailService>();
-            services.AddTransient<IFormEmailService, FormEmailService>();
 
             services.AddControllers()
                 .AddFluentValidation();

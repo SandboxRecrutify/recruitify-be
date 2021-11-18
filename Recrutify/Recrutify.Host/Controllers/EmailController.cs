@@ -18,7 +18,7 @@ namespace Recrutify.Host.Controllers
         [HttpPost]
         public async Task<ActionResult> SendEmail()
         {
-                _emailService.SendEmailAsync();
+                _emailService.SendEmail();
                 return Ok();
         }
     }
