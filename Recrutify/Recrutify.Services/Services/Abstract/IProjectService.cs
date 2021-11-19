@@ -27,7 +27,7 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<bool> ExistsAsync(Guid id);
 
-        Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(List<Role> roles);
+        Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles);
 
         Task IncrementCurrentApplicationsCountAsync(Guid id);
     }

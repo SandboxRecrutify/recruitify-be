@@ -27,14 +27,14 @@ namespace Recrutify.Services.Services
             return _userRepository.GetNamesByIdsAsync(ids);
         }
 
-        public async Task<StaffGroupDTO> GetStaffByRolesAsync(List<Role> roles)
+        public async Task<StaffGroupDTO> GetStaffByRolesAsync(IEnumerable<Role> roles)
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = await _userRepository.GetByRoles(roles);
 
             var staff = _mapper.Map<Dictionary<Role, List<StaffDTO>>>(
                         users.SelectMany(p => p.ProjectRoles[Constants.GlobalProject.GlobalProjectId], (user, role) => new { user, role })
-                              .GroupBy(x => x.role)
-                              .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToList()));
+                             .GroupBy(x => x.role)
+                             .ToDictionary(k => k.Key, i => i.Select(b => b.user).ToList()));
 
             var result = new StaffGroupDTO()
             {
