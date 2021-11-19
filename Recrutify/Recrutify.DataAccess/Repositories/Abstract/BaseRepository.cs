@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -75,6 +76,11 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         protected IMongoCollection<TDocument> GetCollection()
         {
             return _database.GetCollection<TDocument>(typeof(TDocument).Name);
+        }
+
+        protected IMongoCollection<BsonDocument> GetBsonDocumentCollection()
+        {
+            return _database.GetCollection<BsonDocument>(typeof(TDocument).Name);
         }
     }
 }

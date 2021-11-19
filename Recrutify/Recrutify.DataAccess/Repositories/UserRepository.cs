@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -34,6 +37,19 @@ namespace Recrutify.DataAccess.Repositories
         {
             var filter = _filterBuilder.Eq(u => u.Email, email);
             return GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles)
+        {
+            var filterBuilder = Builders<BsonDocument>.Filter;
+            var filter = filterBuilder
+                            .ElemMatch(
+                                nameof(User.ProjectRoles),
+                                filterBuilder
+                                    .And(filterBuilder.Eq("k", Constants.GlobalProject.GlobalProjectId)) &
+                                         filterBuilder.AnyIn("v", roles));
+            var users = await GetBsonDocumentCollection().Find(filter).ToListAsync();
+            return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
     }
 }
