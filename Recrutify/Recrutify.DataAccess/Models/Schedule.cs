@@ -15,6 +15,6 @@ namespace Recrutify.DataAccess.Models
 
         public UserPrimarySkill PrimarySkill { get; set; }
 
-        public IEnumerable<AvailableTime> AvailableTimes { get; set; }
+        public IEnumerable<ScheduleSlot> ScheduleSlots { get; set; }
     }
 }
