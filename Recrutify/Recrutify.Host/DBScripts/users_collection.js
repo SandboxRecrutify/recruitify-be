@@ -7,10 +7,12 @@
         "Password": "2B8358C34FFFE78D302F826F54A4E9D92BDB657F6DFE01FA3FA22FA89D3347DB",
         "Salt": "E1F53135E559C253",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(0)
-            ]]
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [
+                    NumberInt(0)
+                ]
+            }
         ]
     },
     {
@@ -21,26 +23,30 @@
         "Password": "646DAE47260A070B28D5E9727BA0D8A6A08CB6BF627602BE4E9229C5B7DAEAE2",
         "Salt": "84B03D034B409D4E",
         "ProjectRoles": [
-            [
-                 UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-                 [NumberInt(1), NumberInt(2)]
-            ],
-            [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-            [
-                NumberInt(1)
-            ]],
-            [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(1)
-            ]],
-            [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
-            [
-                NumberInt(2)
-            ]]
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(1), NumberInt(2)]
+            },
+            {
+                "k": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
+                "v": [NumberInt(1)]
+            },
+            {
+                "k": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                "v": [NumberInt(1)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(1), NumberInt(2)]
+            },
+            {
+                "k": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+                "v": [NumberInt(2)]
+            }
         ]
     },
     {
@@ -51,26 +57,26 @@
         "Password": "25077B4E7F514A5FB3E04C662965AA9F0DF15D1FE0384526F608E3A6733D973F",
         "Salt": "RET4356433DFG345",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
-            [
-                NumberInt(2)
-            ]]
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(4), NumberInt(2)]
+            },
+            {
+                "k": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
+                "v": [NumberInt(4), NumberInt(2)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "v": [NumberInt(4)]
+            }
         ]
     },
     {
@@ -81,32 +87,30 @@
         "Password": "31144862B60C43C5F045EAAC4D99E9F59DA3CFDAE42B372704D7C458B1E6DA8A",
         "Salt": "SDFGHJ54645756FH",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(4), NumberInt(3)
-            ]],
-            [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-            [
-                NumberInt(3),
-                NumberInt(4)
-            ]],
-            [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-            [
-                NumberInt(4)
-            ]],
-            [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(4)
-            ]],
-            [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
-            [
-                NumberInt(3),
-                NumberInt(4)
-            ]]
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(4), NumberInt(3)]
+            },
+            {
+                "k": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+                "v": [NumberInt(4), NumberInt(2)]
+            },
+            {
+                "k": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
+                "v": [NumberInt(4)]
+            },
+            {
+                "k": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(4)]
+            },
+            {
+                "k": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "v": [NumberInt(4), NumberInt(3)]
+            },
         ]
     },
     {
@@ -117,23 +121,22 @@
         "Password": "C9A1CB6FB1D59764C8B12975E7B156D417141ED07832808F8F489064DDE3DBF8",
         "Salt": "FDG4354GFD345542",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(4), NumberInt(3)
-            ]],
-            [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-            [
-                NumberInt(3),
-                NumberInt(4)
-            ]],
-            [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
-            [
-                NumberInt(4)
-            ]],
-            [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
-            [
-                NumberInt(4)
-            ]],
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(4), NumberInt(3)]
+            },
+            {
+                "k": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+                "v": [NumberInt(4), NumberInt(3)]
+            },
+            {
+                "k": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                "v": [NumberInt(4)]
+            },
+            {
+                "k": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "v": [NumberInt(3)]
+            }
         ]
     },
     {
@@ -144,22 +147,22 @@
         "Password": "A606B0C8919A0F6EB85240460D6772AA963669688C2CBD0D4A0B329CA238D8B0",
         "Salt": "234FGHDS234EG454",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
-            [
-                NumberInt(3)
-            ]],
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(3), NumberInt(1)]
+            },
+            {
+                "k": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
+                "v": [NumberInt(1)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(3), NumberInt(1)]
+            },
+            {
+                "k": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "v": [NumberInt(3)]
+            }
         ]
     },
     {
@@ -170,22 +173,22 @@
         "Password": "2B8CB1313018D3FAE4A5A58E2231AF82EFB6BE435574742A728AA7851615976F",
         "Salt": "65734FHGFG54634G",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
-            [
-                NumberInt(3)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(3)
-            ]],
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
+                "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(3)]
+            }
         ]
     },
     {
@@ -196,22 +199,22 @@
         "Password": "4B0BEB558891202DF7BC320DB22F8C7930BA3899D433B57A8E862CA42AF08305",
         "Salt": "AS567TYTT4535RFH",
         "ProjectRoles": [
-            [UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
-            [
-                NumberInt(2)
-            ]],
-            [UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
-            [
-                NumberInt(2)
-            ]],
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(2)]
+            }
         ]
     }
 ]

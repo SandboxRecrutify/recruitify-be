@@ -45,7 +45,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPost]
-        public async Task<ActionResult<ProjectDTO>> AddProject(CreateProjectDTO projectDto)
+        public async Task<ActionResult<ProjectDTO>> AddProject([FromBody] CreateProjectDTO projectDto)
         {
             var result = await _projectService.CreateAsync(projectDto);
             return Created(string.Empty, result);
@@ -53,7 +53,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPut]
-        public async Task<ActionResult<ProjectDTO>> UpateProject(ProjectDTO projectDto)
+        public async Task<ActionResult<ProjectDTO>> UpateProject([FromBody] ProjectDTO projectDto)
         {
             var projectExists = await _projectService.ExistsAsync(projectDto.Id);
             if (!projectExists)
@@ -67,7 +67,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> DeleteAsync(Guid id)
+        public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
         {
             var projectExists = await _projectService.ExistsAsync(id);
             if (!projectExists)
@@ -79,9 +79,9 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<ProjectDTO>> GetByIdAsync(Guid id)
+        public async Task<ActionResult<ProjectDTO>> GetByIdAsync([FromRoute] Guid id)
         {
             var project = await _projectService.GetAsync(id);
             if (project == null)
@@ -101,7 +101,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet("{id:guid}/primary_skills")]
-        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetPrimarySkillsAsync(Guid id)
+        public async Task<ActionResult<ProjectPrimarySkillDTO>> GetPrimarySkillsAsync([FromRoute] Guid id)
         {
             var primarySkills = await _projectService.GetPrimarySkills(id);
             if (primarySkills == null)
