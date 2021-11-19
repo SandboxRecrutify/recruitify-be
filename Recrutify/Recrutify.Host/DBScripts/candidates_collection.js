@@ -41,7 +41,8 @@
                 "PrimarySkill": {
                         "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                         "Name": ".Net"
-                }
+                },
+                "IsAssigned": false
             },
             {
                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
@@ -64,13 +65,13 @@
                 "PrimarySkill": {
                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                     "Name": ".Net"
-                }
+                },
+                "IsAssigned": false
             }
         ],
         "CurrentJob": "LTD Bank-Alfa",
-        "AdditionalInfo": "I can only do an internship in the evening",
-        "IsAssign": false,
-        },
+        "AdditionalInfo": "I can only do an internship in the evening"
+    },
     {
         "_id": UUID("c89c4d88-30e7-11ec-929c-0f374fa83b31"),
         "Name": "Robert",
@@ -91,7 +92,7 @@
             },
         "RegistrationDate": new Date("2021-08-02T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
-        "GoingToExadel": true
+        "GoingToExadel": true,
         "ProjectResults": [
             {
                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
@@ -122,13 +123,13 @@
                 "PrimarySkill": {
                     "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                     "Name": "BusinessAnalyst"
-                }
+                },
+                "IsAssigned": false
             }
         ],
         "CurrentJob": "Cafe Mint",
         "Certificates": "Oracle Certified",
-        "AdditionalInfo": "Ready to start anytime",
-        "IsAssign": false
+        "AdditionalInfo": "Ready to start anytime"
     },
     {
         "_id": UUID("7d4ab133-4c7b-47c2-a7c6-827bdd010aae"),
@@ -172,18 +173,18 @@
                 "PrimarySkill": {
                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                     "Name": "BusinessAnalyst"
-                }
+                },
+                "IsAssigned": false
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 "Status": NumberInt(0),
-
+                "IsAssigned": false
             }
         ],
         "CurrentJob": "LLC Acronis",
         "Certificates": "CompTIA",
-        "AdditionalInfo": "Ready to start now",
-        "IsAssign": false
+        "AdditionalInfo": "Ready to start now"
     },
     {
         "_id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
@@ -230,17 +231,19 @@
                 "PrimarySkill": {
                     "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                     "Name": "Java"
-                }
+                },
+                "IsAssigned": false
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
-                "Status": NumberInt(0)
+                "Status": NumberInt(0),
+                "IsAssigned": false
             }
         ],
         "CurrentJob": "LLC Pilot",
         "AdditionalInfo": "I have experience in programming in js",
-        "IsAssign": false
-        },
+    },
+    
     {
        "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
        "Name": "Hugh",
@@ -286,7 +289,8 @@
                "PrimarySkill": {
                    "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                    "Name": "JavaScript"
-               }
+               },
+               "IsAssigned": false
            },
            {
                "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
@@ -294,12 +298,12 @@
                "PrimarySkill": {
                    "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
                    "Name": "AutomationQA",
-               }
+               },
+               "IsAssigned": false
            }
        ],
        "CurrentJob": "PLC CosmosTV",
-        "AdditionalInfo": "Always available for calls",
-        "IsAssign": false
+        "AdditionalInfo": "Always available for calls"
     },
     {
         "_id": UUID("cc85a012-5d25-41a0-bbb7-95a6403a6296"),
@@ -329,12 +333,82 @@
                 "PrimarySkill": {
                     "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                     "Name": "BusinessAnalyst"
-               }
+                },
+                "IsAssigned": false
             }
         ],
         "CurrentJob": "LLC Huandai",
-        "Certificates": "Oracle Certified",
-        "IsAssign": false,
-        }
+        "Certificates": "Oracle Certified"
+    },
+    {
+        "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+        "Name": "Yan",
+        "Surname": "Mey",
+        "EnglishLevel": NumberInt(1),
+        "ProjectLanguage": NumberInt(1),
+        "PhoneNumber": "+375446768923",
+        "Email": "yan@mail.ru",
+        "Contacts": [
+            {
+                "Type": "Skype",
+                "Value": "id=100002956147957"
+            }
+        ],
+        "Location": {
+            "City": "Boston",
+            "Country": "USA"
+        },
+        "RegistrationDate": new Date("2021-02-09T00:00:00.000Z"),
+        "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
+        "GoingToExadel": true,
+        "ProjectResults": [
+            {
+                "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
+                "Status": NumberInt(3),
+                "PrimarySkill": {
+                    "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                    "Name": "JavaScript"
+                },
+                "IsAssigned": false
+            }
+        ],
+        "CurrentJob": "LLC Huandai",
+        "Certificates": "Oracle Certified"
+    },
+    {
+        "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+        "Name": "Kiril",
+        "Surname": "Pupkin",
+        "EnglishLevel": NumberInt(1),
+        "ProjectLanguage": NumberInt(0),
+        "PhoneNumber": "+375446761113",
+        "Email": "pupkin@mail.ru",
+        "Contacts": [
+            {
+                "Type": "Skype",
+                "Value": "id=100002956147957"
+            }
+        ],
+        "Location": {
+            "City": "Moscow",
+            "Country": "Russian Federation"
+        },
+        "RegistrationDate": new Date("2021-02-09T00:00:00.000Z"),
+        "BestTimeToConnect": [NumberInt(7),NumberInt(15)],
+        "GoingToExadel": true,
+        "ProjectResults": [
+            {
+                "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "Status": NumberInt(4),
+                "PrimarySkill": {
+                    "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                    "Name": ".Net"
+                },
+                "IsAssigned": false
+            }
+        ],
+        "CurrentJob": "LLC Huandai",
+        "Certificates": "Oracle Certified"
+    }
 ]
 

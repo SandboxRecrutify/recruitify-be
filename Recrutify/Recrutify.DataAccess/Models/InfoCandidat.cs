@@ -15,9 +15,9 @@ namespace Recrutify.DataAccess.Models
 
         public Guid ProjectId { get; set; }
 
-        public string Email { get; set; }
+        public string CandidatEmail { get; set; }
 
-        public IEnumerable<Contact> Contacts { get; set; }
+        public string Skype { get; set; }
 
         public CandidatePrimarySkill PrimarySkill { get; set; }
     }

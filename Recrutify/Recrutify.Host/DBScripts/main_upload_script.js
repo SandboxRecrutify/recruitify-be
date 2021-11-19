@@ -17,3 +17,8 @@ if (!db.PrimarySkill.exists()) {
     load('./primary_skills_collection.js');
     db.PrimarySkill.insertMany(skills);
 }
+
+if (!db.Schedule.exists()) {
+    load('./schedule_collection.js');
+    db.Schedule.insertMany(schedule);
+}

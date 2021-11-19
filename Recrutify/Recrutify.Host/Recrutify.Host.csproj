@@ -45,6 +45,9 @@
     <None Update="DBScripts\projects_collections.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="DBScripts\schedule_collection.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="DBScripts\users_collection.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
