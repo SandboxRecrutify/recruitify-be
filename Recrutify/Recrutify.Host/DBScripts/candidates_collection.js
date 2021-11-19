@@ -68,7 +68,8 @@
             }
         ],
         "CurrentJob": "LTD Bank-Alfa",
-        "AdditionalInfo": "I can only do an internship in the evening"
+        "AdditionalInfo": "I can only do an internship in the evening",
+        "IsAssign": false,
         },
     {
         "_id": UUID("c89c4d88-30e7-11ec-929c-0f374fa83b31"),
@@ -90,7 +91,7 @@
             },
         "RegistrationDate": new Date("2021-08-02T00:00:00.000Z"),
         "BestTimeToConnect": [NumberInt(21), NumberInt(22)],
-        "GoingToExadel": true,
+        "GoingToExadel": true
         "ProjectResults": [
             {
                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
@@ -126,7 +127,8 @@
         ],
         "CurrentJob": "Cafe Mint",
         "Certificates": "Oracle Certified",
-        "AdditionalInfo": "Ready to start anytime"
+        "AdditionalInfo": "Ready to start anytime",
+        "IsAssign": false
     },
     {
         "_id": UUID("7d4ab133-4c7b-47c2-a7c6-827bdd010aae"),
@@ -180,7 +182,8 @@
         ],
         "CurrentJob": "LLC Acronis",
         "Certificates": "CompTIA",
-        "AdditionalInfo": "Ready to start now"
+        "AdditionalInfo": "Ready to start now",
+        "IsAssign": false
     },
     {
         "_id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
@@ -235,7 +238,8 @@
             }
         ],
         "CurrentJob": "LLC Pilot",
-        "AdditionalInfo": "I have experience in programming in js"
+        "AdditionalInfo": "I have experience in programming in js",
+        "IsAssign": false
         },
     {
        "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
@@ -294,7 +298,8 @@
            }
        ],
        "CurrentJob": "PLC CosmosTV",
-       "AdditionalInfo": "Always available for calls"
+        "AdditionalInfo": "Always available for calls",
+        "IsAssign": false
     },
     {
         "_id": UUID("cc85a012-5d25-41a0-bbb7-95a6403a6296"),
@@ -329,6 +334,7 @@
         ],
         "CurrentJob": "LLC Huandai",
         "Certificates": "Oracle Certified",
+        "IsAssign": false,
         }
 ]
 
