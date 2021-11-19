@@ -6,7 +6,7 @@
         "EnglishLevel": NumberInt(0),
         "ProjectLanguage" : NumberInt(0),
         "PhoneNumber": "+375333421342",
-        "Email": "elliott@mail.ru",
+        "Email": "christopherelliott558@gmail.com",
         "Contacts": [
             {
                 "Type": "VK",
@@ -77,7 +77,7 @@
         "EnglishLevel": NumberInt(2),
         "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375337349087",
-        "Email": "robertio@mail.ru",
+        "Email": "brucer295@gmail.com",
         "Contacts": [
                 {
                     "Type": "Facebook",
@@ -135,7 +135,7 @@
         "EnglishLevel": NumberInt(2),
         "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375332563489",
-        "Email": "jackson@gmail.com",
+        "Email": "byronjackson147@gmail.com",
         "Contacts": [
             {
                 "Type": "Instagram",
@@ -189,7 +189,7 @@
         "EnglishLevel": NumberInt(2),
         "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375255486325",
-        "Email": "gainesss@gmail.com",
+        "Email": "gainesbrian05@gmail.com",
         "Location": {
             "City": "Kiev",
             "Country": "Ukraine"
@@ -244,7 +244,7 @@
         "EnglishLevel": NumberInt(4),
         "ProjectLanguage": NumberInt(0),
        "PhoneNumber": "+375448536723",
-       "Email": "hugharvey@gmail.com",
+        "Email": "harvey_hugh@mail.ru",
        "Location": {
            "City": "Grodno",
            "Country": "Belarus"
@@ -303,7 +303,7 @@
         "EnglishLevel": NumberInt(2),
         "ProjectLanguage": NumberInt(0),
         "PhoneNumber": "+375443468923",
-        "Email": "anthonyD@mail.ru",
+        "Email": "anthony_day23@mail.ru",
         "Contacts": [
             {
                 "Type": "Facebook",
