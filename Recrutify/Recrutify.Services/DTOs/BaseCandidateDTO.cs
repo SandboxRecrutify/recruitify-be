@@ -31,5 +31,7 @@ namespace Recrutify.Services.DTOs
         public string AdditionalQuestions { get; set; }
 
         public string AdditionalInfo { get; set; }
+
+        public bool IsAssign { get; set; }
     }
 }

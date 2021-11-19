@@ -2,10 +2,7 @@
 
 namespace Recrutify.DataAccess.Models
 {
-    public class UserPrimarySkill
+    public class UserPrimarySkill : BasePrimarySkill
     {
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
     }
 }

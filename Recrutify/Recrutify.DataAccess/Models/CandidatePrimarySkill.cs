@@ -1,11 +1,6 @@
-﻿using System;
-
-namespace Recrutify.DataAccess.Models
+﻿namespace Recrutify.DataAccess.Models
 {
-    public class CandidatePrimarySkill
+    public class CandidatePrimarySkill : BasePrimarySkill
     {
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
     }
 }
