@@ -45,9 +45,9 @@ namespace Recrutify.DataAccess.Repositories
             var filter = filterBuilder
                             .ElemMatch(
                                 nameof(User.ProjectRoles),
-                                Builders<BsonDocument>.Filter
-                                    .And(Builders<BsonDocument>.Filter.Eq("k", Constants.GlobalProject.GlobalProjectId)) &
-                                         Builders<BsonDocument>.Filter.AnyIn("v", roles));
+                                filterBuilder
+                                    .And(filterBuilder.Eq("k", Constants.GlobalProject.GlobalProjectId)) &
+                                         filterBuilder.AnyIn("v", roles));
             var users = await GetBsonDocumentCollection().Find(filter).ToListAsync();
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
