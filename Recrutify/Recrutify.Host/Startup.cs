@@ -27,8 +27,8 @@ using Recrutify.Host.Identity;
 using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Infrastructure.Authorization;
 using Recrutify.Host.Settings;
-using Recrutify.Services.Configuration;
 using Recrutify.Services.Extensions;
+using Recrutify.Services.Settings;
 
 namespace Recrutify.Host
 {

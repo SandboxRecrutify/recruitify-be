@@ -2,9 +2,9 @@
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Recrutify.Services.Configuration;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
+using Recrutify.Services.Settings;
 
 namespace Recrutify.Services.Services
 {
