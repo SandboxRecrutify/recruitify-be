@@ -18,5 +18,7 @@ namespace Recrutify.DataAccess.Models
         public string Surname { get; set; }
 
         public Dictionary<Guid, List<Role>> ProjectRoles { get; set; }
+
+        public UserPrimarySkill PrimarySkill { get; set; }
     }
 }
