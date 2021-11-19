@@ -20,6 +20,6 @@ namespace Recrutify.DataAccess.Models
         public string Surname { get; set; }
 
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
-        public Dictionary<Guid, List<Role>> ProjectRoles { get; set; }
+        public Dictionary<Guid, IEnumerable<Role>> ProjectRoles { get; set; }
     }
 }

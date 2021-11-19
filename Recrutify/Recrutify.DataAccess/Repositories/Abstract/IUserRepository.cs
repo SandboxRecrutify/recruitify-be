@@ -12,6 +12,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids);
 
-        IQueryable<User> GetByRoles(List<Role> roles);
+        Task<IEnumerable<User>> GetByRoles(List<Role> roles);
     }
 }
