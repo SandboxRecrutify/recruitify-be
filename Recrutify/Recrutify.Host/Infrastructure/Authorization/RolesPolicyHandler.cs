@@ -5,6 +5,7 @@ using IdentityModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Host.Infrastructure.Authorization
 {
@@ -23,15 +24,16 @@ namespace Recrutify.Host.Infrastructure.Authorization
             var projectIdIsInRoute = _httpContextAccessor.HttpContext.Request.RouteValues.TryGetValue(Constants.Roles.ProjectIdParam,  out var routeProjectId);
             var projectId = projectIdIsInQuery ? Guid.Parse(queryProjectId) : projectIdIsInRoute ? Guid.Parse(routeProjectId.ToString()) : DataAccess.Constants.GlobalProject.GlobalProjectId;
 
-            var projectRoles = context.User.Claims
+            var claimsProjectRoles = context.User.Claims
                 .Where(c => c.Type == JwtClaimTypes.Role)
                 .Select(c => JsonConvert.DeserializeObject<ProjectRoles>(c.Value))
                 .ToDictionary(c => c.ProjectId, c => c.Roles);
 
-            if ((projectRoles.TryGetValue(projectId, out var globalRolesValue)
-                    && globalRolesValue.Any(r => requirement.Roles.Contains(r)))
-                    || (projectRoles.TryGetValue(DataAccess.Constants.GlobalProject.GlobalProjectId, out var role)
-                    && role.Contains(Constants.Roles.Admin)))
+            if ((claimsProjectRoles.TryGetValue(projectId, out var claimsProjectRolesValue)
+                    && claimsProjectRolesValue.Any(r => requirement.Roles.Contains(r)))
+                    || (projectId != DataAccess.Constants.GlobalProject.GlobalProjectId
+                    && claimsProjectRoles.TryGetValue(DataAccess.Constants.GlobalProject.GlobalProjectId, out var claimsGlobalRolesValue)
+                    && claimsGlobalRolesValue.Contains(nameof(Role.Admin))))
             {
                 context.Succeed(requirement);
             }
