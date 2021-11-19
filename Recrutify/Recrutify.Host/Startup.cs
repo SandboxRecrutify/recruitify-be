@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FluentValidation.AspNetCore;
+using Hangfire;
+using Hangfire.MemoryStorage;
 using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
@@ -26,6 +28,7 @@ using Recrutify.Host.Infrastructure;
 using Recrutify.Host.Infrastructure.Authorization;
 using Recrutify.Host.Settings;
 using Recrutify.Services.Extensions;
+using Recrutify.Services.Settings;
 
 namespace Recrutify.Host
 {
@@ -72,6 +75,12 @@ namespace Recrutify.Host
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
             services.AddSingleton(mapper);
+
+            services.AddHangfire(config =>
+            {
+                config.UseMemoryStorage();
+            });
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
 
             services.AddControllers()
                 .AddFluentValidation();
@@ -149,6 +158,7 @@ namespace Recrutify.Host
 
             services.AddOdataSwaggerSupport();
             services.AddSingleton<IAuthorizationHandler, RolesPolicyHandler>();
+            services.AddHangfireServer();
         }
 
         public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -171,6 +181,8 @@ namespace Recrutify.Host
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseHangfireDashboard();
 
             app.UseEndpoints(endpoints =>
             {
