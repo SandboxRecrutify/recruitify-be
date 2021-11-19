@@ -28,8 +28,10 @@ namespace Recrutify.Host.Infrastructure.Authorization
                 .Select(c => JsonConvert.DeserializeObject<ProjectRoles>(c.Value))
                 .ToDictionary(c => c.ProjectId, c => c.Roles);
 
-            if (projectRoles.TryGetValue(projectId, out var globalRolesValue)
+            if ((projectRoles.TryGetValue(projectId, out var globalRolesValue)
                     && globalRolesValue.Any(r => requirement.Roles.Contains(r)))
+                    || (projectRoles.TryGetValue(DataAccess.Constants.GlobalProject.GlobalProjectId, out var role)
+                    && role.Contains(Constants.Roles.Admin)))
             {
                 context.Succeed(requirement);
             }
