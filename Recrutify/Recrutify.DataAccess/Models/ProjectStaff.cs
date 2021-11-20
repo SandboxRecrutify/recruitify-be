@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class StaffByProject
+    public class ProjectStaff
     {
-        public Guid ProjectId { get; set; }
-
         public IEnumerable<Staff> Managers { get; set; }
 
         public IEnumerable<Staff> Interviewers { get; set; }

@@ -45,24 +45,22 @@ namespace Recrutify.DataAccess.Repositories
             var filter = filterBuilder
                             .ElemMatch(
                                 nameof(User.ProjectRoles),
-                                filterBuilder
-                                    .And(filterBuilder.Eq("k", Constants.GlobalProject.GlobalProjectId)) &
-                                         filterBuilder.AnyIn("v", roles));
+                                filterBuilder.And(filterBuilder.Eq("k", Constants.GlobalProject.GlobalProjectId)) & filterBuilder.AnyIn("v", roles));
             var users = await GetBsonDocumentCollection().Find(filter).ToListAsync();
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
 
-        public Task AddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
+        public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
         {
             var updateBuilder = Builders<User>.Update;
-            var updateManyDB = users.Select(x => new UpdateOneModel<User>(
-                                                    _filterBuilder.Eq(u => u.Id, x.Key),
+            var updateManyDB = users.Select(ur => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
                                                     updateBuilder
                                                     .AddToSet(
                                                         "ProjectRoles",
                                                         new KeyValuePair<Guid, IEnumerable<Role>>(
                                                                 projectId,
-                                                                x.Value))));
+                                                                ur.Value))));
 
             return GetCollection().BulkWriteAsync(updateManyDB);
         }
