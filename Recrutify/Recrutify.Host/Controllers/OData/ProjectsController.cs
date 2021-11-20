@@ -21,7 +21,9 @@ namespace Recrutify.Host.Controllers.OData
             _projectService = projectService;
         }
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.Filter
+        [EnableQuery(
+            HandleNullPropagation = HandleNullPropagationOption.False, 
+            AllowedQueryOptions = AllowedQueryOptions.Filter
             | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top
             | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize]
