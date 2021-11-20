@@ -37,7 +37,7 @@ namespace Recrutify.Services.Services
             project.Mentors = projectDto.Mentors.GetStaff(users);
             project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
-            await _userService.BulkAddProjectRolesAsync(project.Id, GroupingRoleByUser(project));
+            await _userService.BulkAddProjectRolesAsync(project.Id, GetStaffUsersByRoles(project));
 
             return _mapper.Map<ProjectDTO>(project);
         }
@@ -104,12 +104,12 @@ namespace Recrutify.Services.Services
             return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
         }
 
-        private IDictionary<Guid, IEnumerable<Role>> GroupingRoleByUser(Project project)
+        private IDictionary<Guid, IEnumerable<Role>> GetStaffUsersByRoles(Project project)
         {
-            var allStaff = project.Interviewers.Select(u => new { UserId = u.UserId, Role = Role.Interviewer })
-                    .Union(project.Managers.Select(u => new { UserId = u.UserId, Role = Role.Manager }))
-                    .Union(project.Recruiters.Select(u => new { UserId = u.UserId, Role = Role.Recruiter }))
-                    .Union(project.Mentors.Select(u => new { UserId = u.UserId, Role = Role.Mentor }));
+            var allStaff = project.Interviewers.Select(u => new { u.UserId, Role = Role.Interviewer })
+                    .Union(project.Managers.Select(u => new { u.UserId, Role = Role.Manager }))
+                    .Union(project.Recruiters.Select(u => new { u.UserId, Role = Role.Recruiter }))
+                    .Union(project.Mentors.Select(u => new { u.UserId, Role = Role.Mentor }));
             return allStaff.GroupBy(g => g.UserId).ToDictionary(g => g.Key, g => g.Select(r => r.Role));
         }
     }

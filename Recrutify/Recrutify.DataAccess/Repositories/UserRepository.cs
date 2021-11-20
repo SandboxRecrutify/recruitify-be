@@ -50,10 +50,10 @@ namespace Recrutify.DataAccess.Repositories
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
 
-        public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
+        public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
         {
             var updateBuilder = Builders<User>.Update;
-            var updateManyDB = users.Select(ur => new UpdateOneModel<User>(
+            var updateManyDB = usersRoles.Select(ur => new UpdateOneModel<User>(
                                                     _filterBuilder.Eq(u => u.Id, ur.Key),
                                                     updateBuilder
                                                     .AddToSet(

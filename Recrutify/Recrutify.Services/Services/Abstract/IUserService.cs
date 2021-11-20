@@ -12,6 +12,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids);
 
-        Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users);
+        Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles);
     }
 }
