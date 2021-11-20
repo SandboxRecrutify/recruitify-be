@@ -15,7 +15,7 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
             CreateMap<ProjectResult, ProjectResultDTO>()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }))
-                .ForMember(dest => dest.IsAssign, conf => conf.MapFrom(src => false));
+                .ForMember(dest => dest.IsAssigned, conf => conf.MapFrom(src => false));
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
 
             CreateMap<UpsertFeedbackDTO, Feedback>()
