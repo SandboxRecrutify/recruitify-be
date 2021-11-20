@@ -11,5 +11,7 @@ namespace Recrutify.Services.Services.Abstract
         public Task<StaffGroupDTO> GetStaffByRolesAsync(IEnumerable<Role> roles);
 
         Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids);
+
+        Task CreateStaffByProject(StaffByProject staffByProject);
     }
 }

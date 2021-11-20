@@ -51,5 +51,24 @@ namespace Recrutify.DataAccess.Repositories
             var users = await GetBsonDocumentCollection().Find(filter).ToListAsync();
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
+
+        public async Task CreateStaffByProject(StaffByProject staffByProject)
+        {
+            var usersAll = staffByProject.Interviewers.Select(x => new { UserId = x.UserId, Role = Role.Interviewer })
+                    .Union(staffByProject.Managers.Select(x => new { UserId = x.UserId, Role = Role.Manager }))
+                    .Union(staffByProject.Recruiters.Select(x => new { UserId = x.UserId, Role = Role.Recruiter }))
+                    .Union(staffByProject.Mentors.Select(x => new { UserId = x.UserId, Role = Role.Mentor }));
+            var userGroups = usersAll.GroupBy(o => o.UserId).ToDictionary(a => a.Key, a => a.Select(o => o.Role).ToList());
+            var updateManyDB = new List<WriteModel<User>>();
+            foreach (var e in userGroups)
+            {
+                var updateBuilder = Builders<User>.Update;
+                var updateDefinition = updateBuilder
+                    .AddToSet("ProjectRoles", new KeyValuePair<Guid, IEnumerable<Role>>(staffByProject.ProjectId, e.Value));
+                updateManyDB.Add(new UpdateManyModel<User>(_filterBuilder.Eq(x => x.Id, e.Key), updateDefinition));
+            }
+
+            await GetCollection().BulkWriteAsync(updateManyDB);
+        }
     }
 }

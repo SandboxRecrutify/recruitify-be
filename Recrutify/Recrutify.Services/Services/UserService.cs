@@ -46,5 +46,10 @@ namespace Recrutify.Services.Services
 
             return result;
         }
+
+        public async Task CreateStaffByProject(StaffByProject staffByProject)
+        {
+            await _userRepository.CreateStaffByProject(staffByProject);
+        }
     }
 }
