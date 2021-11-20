@@ -21,5 +21,7 @@ namespace Recrutify.DataAccess.Models
 
         [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfDocuments)]
         public Dictionary<Guid, IEnumerable<Role>> ProjectRoles { get; set; }
+
+        public UserPrimarySkill PrimarySkill { get; set; }
     }
 }

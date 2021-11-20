@@ -6,6 +6,10 @@
         "Surname": "Anderson",
         "Password": "2B8358C34FFFE78D302F826F54A4E9D92BDB657F6DFE01FA3FA22FA89D3347DB",
         "Salt": "E1F53135E559C253",
+        "PrimarySkill": {
+            "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+            "Name": ".Net"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -22,6 +26,10 @@
         "Surname": "Clark",
         "Password": "646DAE47260A070B28D5E9727BA0D8A6A08CB6BF627602BE4E9229C5B7DAEAE2",
         "Salt": "84B03D034B409D4E",
+        "PrimarySkill": {
+            "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+            "Name": ".Net"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -56,6 +64,10 @@
         "Surname": "Harris",
         "Password": "25077B4E7F514A5FB3E04C662965AA9F0DF15D1FE0384526F608E3A6733D973F",
         "Salt": "RET4356433DFG345",
+        "PrimarySkill": {
+            "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+            "Name": "BusinessAnalyst"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -86,6 +98,10 @@
         "Surname": "Johnson",
         "Password": "31144862B60C43C5F045EAAC4D99E9F59DA3CFDAE42B372704D7C458B1E6DA8A",
         "Salt": "SDFGHJ54645756FH",
+        "PrimarySkill": {
+            "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
+            "Name": "Java"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -120,6 +136,11 @@
         "Surname": "Lewis",
         "Password": "C9A1CB6FB1D59764C8B12975E7B156D417141ED07832808F8F489064DDE3DBF8",
         "Salt": "FDG4354GFD345542",
+        "Status": NumberInt(5),
+        "PrimarySkill": {
+            "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+            "Name": "JavaScript"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -146,6 +167,10 @@
         "Surname": "Taylor",
         "Password": "A606B0C8919A0F6EB85240460D6772AA963669688C2CBD0D4A0B329CA238D8B0",
         "Salt": "234FGHDS234EG454",
+        "PrimarySkill": {
+            "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
+            "Name": "AutomationQA",
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -172,6 +197,10 @@
         "Surname": "Walker",
         "Password": "2B8CB1313018D3FAE4A5A58E2231AF82EFB6BE435574742A728AA7851615976F",
         "Salt": "65734FHGFG54634G",
+        "PrimarySkill": {
+            "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+            "Name": ".Net"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
@@ -198,6 +227,10 @@
         "Surname": "Wils",
         "Password": "4B0BEB558891202DF7BC320DB22F8C7930BA3899D433B57A8E862CA42AF08305",
         "Salt": "AS567TYTT4535RFH",
+        "PrimarySkill": {
+            "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+            "Name": "JavaScript"
+        },
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),

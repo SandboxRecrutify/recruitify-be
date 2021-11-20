@@ -65,7 +65,7 @@ var projects = [
                 "UserName": "Christopher Johnson"                    
             }
         ],
-        "IsActive":true
+        "IsActive":true,
     },
     {
         "_id": UUID("7d85284c-30b5-11ec-95cb-230b32afd221"),
@@ -118,8 +118,8 @@ var projects = [
                 "UserName": "Brandon Harris"
             }
         ],
-        "IsActive": true
-        },
+        "IsActive": true,
+    },
     {
         "_id": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
         "Name": "Big Data",
@@ -170,7 +170,7 @@ var projects = [
                 "UserName": "David Lewis"
             }
         ],
-        "IsActive": false
+        "IsActive": false,
     },
     {
         "_id": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
@@ -242,7 +242,7 @@ var projects = [
                 "UserName": "Christopher Johnson"
             }
         ],
-        "IsActive": true  
+        "IsActive": true,
     },
     {
         "_id": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
@@ -317,6 +317,6 @@ var projects = [
                 "UserName": "Brandon Harris"
             }
         ],
-        "IsActive": false
+        "IsActive": false,
     }
 ]
