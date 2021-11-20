@@ -37,8 +37,8 @@ namespace Recrutify.Services.Services
             project.Mentors = projectDto.Mentors.GetStaff(users);
             project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
-            _userService.CreateStaffByProjectAsync(_mapper.Map<StaffByProject>(project));
-            
+            await _userService.AddProjectRolesAsync(project.Id, GroupingRoleByUser(project));
+
             return _mapper.Map<ProjectDTO>(project);
         }
 
@@ -102,6 +102,15 @@ namespace Recrutify.Services.Services
         public Task IncrementCurrentApplicationsCountAsync(Guid id)
         {
             return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
+        }
+
+        private IDictionary<Guid , IEnumerable<Role>> GroupingRoleByUser(Project project)
+        {
+            var usersAll = project.Interviewers.Select(u => new { UserId = u.UserId, Role = Role.Interviewer })
+                    .Union(project.Managers.Select(u => new { UserId = u.UserId, Role = Role.Manager }))
+                    .Union(project.Recruiters.Select(u => new { UserId = u.UserId, Role = Role.Recruiter }))
+                    .Union(project.Mentors.Select(u => new { UserId = u.UserId, Role = Role.Mentor }));
+            return usersAll.GroupBy(g => g.UserId).ToDictionary(g => g.Key, g => g.Select(r => r.Role));
         }
     }
 }

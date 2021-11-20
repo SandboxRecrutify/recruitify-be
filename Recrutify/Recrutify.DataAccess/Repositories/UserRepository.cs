@@ -52,11 +52,11 @@ namespace Recrutify.DataAccess.Repositories
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
 
-        public Task CreateStaffByProjectAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
+        public Task AddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
         {
             var updateBuilder = Builders<User>.Update;
             var updateManyDB = users.Select(x => new UpdateOneModel<User>(
-                                                    _filterBuilder.Eq(m => m.Id, x.Key),
+                                                    _filterBuilder.Eq(u => u.Id, x.Key),
                                                     updateBuilder
                                                     .AddToSet(
                                                         "ProjectRoles",
