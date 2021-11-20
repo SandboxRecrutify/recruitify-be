@@ -14,6 +14,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles);
 
-        Task CreateStaffByProject(StaffByProject staffByProject);
+        Task CreateStaffByProjectAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users);
     }
 }

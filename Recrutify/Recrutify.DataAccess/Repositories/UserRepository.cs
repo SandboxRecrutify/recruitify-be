@@ -52,23 +52,19 @@ namespace Recrutify.DataAccess.Repositories
             return BsonSerializer.Deserialize<IEnumerable<User>>(users.ToJson());
         }
 
-        public async Task CreateStaffByProject(StaffByProject staffByProject)
+        public Task CreateStaffByProjectAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> users)
         {
-            var usersAll = staffByProject.Interviewers.Select(x => new { UserId = x.UserId, Role = Role.Interviewer })
-                    .Union(staffByProject.Managers.Select(x => new { UserId = x.UserId, Role = Role.Manager }))
-                    .Union(staffByProject.Recruiters.Select(x => new { UserId = x.UserId, Role = Role.Recruiter }))
-                    .Union(staffByProject.Mentors.Select(x => new { UserId = x.UserId, Role = Role.Mentor }));
-            var userGroups = usersAll.GroupBy(o => o.UserId).ToDictionary(a => a.Key, a => a.Select(o => o.Role).ToList());
-            var updateManyDB = new List<WriteModel<User>>();
-            foreach (var e in userGroups)
-            {
-                var updateBuilder = Builders<User>.Update;
-                var updateDefinition = updateBuilder
-                    .AddToSet("ProjectRoles", new KeyValuePair<Guid, IEnumerable<Role>>(staffByProject.ProjectId, e.Value));
-                updateManyDB.Add(new UpdateManyModel<User>(_filterBuilder.Eq(x => x.Id, e.Key), updateDefinition));
-            }
+            var updateBuilder = Builders<User>.Update;
+            var updateManyDB = users.Select(x => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(m => m.Id, x.Key),
+                                                    updateBuilder
+                                                    .AddToSet(
+                                                        "ProjectRoles",
+                                                        new KeyValuePair<Guid, IEnumerable<Role>>(
+                                                                projectId,
+                                                                x.Value))));
 
-            await GetCollection().BulkWriteAsync(updateManyDB);
+            return GetCollection().BulkWriteAsync(updateManyDB);
         }
     }
 }

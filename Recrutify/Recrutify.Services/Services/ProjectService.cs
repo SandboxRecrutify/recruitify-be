@@ -37,7 +37,8 @@ namespace Recrutify.Services.Services
             project.Mentors = projectDto.Mentors.GetStaff(users);
             project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
-
+            _userService.CreateStaffByProjectAsync(_mapper.Map<StaffByProject>(project));
+            
             return _mapper.Map<ProjectDTO>(project);
         }
 

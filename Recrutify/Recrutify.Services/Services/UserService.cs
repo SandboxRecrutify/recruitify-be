@@ -47,9 +47,15 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public async Task CreateStaffByProject(StaffByProject staffByProject)
+        public Task CreateStaffByProjectAsync(StaffByProject staffByProject)
         {
-            await _userRepository.CreateStaffByProject(staffByProject);
+            var usersAll = staffByProject.Interviewers.Select(x => new { UserId = x.UserId, Role = Role.Interviewer })
+                    .Union(staffByProject.Managers.Select(x => new { UserId = x.UserId, Role = Role.Manager }))
+                    .Union(staffByProject.Recruiters.Select(x => new { UserId = x.UserId, Role = Role.Recruiter }))
+                    .Union(staffByProject.Mentors.Select(x => new { UserId = x.UserId, Role = Role.Mentor }));
+            var userGroups = usersAll.GroupBy(o => o.UserId).ToDictionary(a => a.Key, a => a.Select(o => o.Role));
+
+            return _userRepository.CreateStaffByProjectAsync(staffByProject.ProjectId, userGroups);
         }
     }
 }
