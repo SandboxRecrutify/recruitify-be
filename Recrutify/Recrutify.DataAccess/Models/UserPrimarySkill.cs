@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Recrutify.DataAccess.Models
+﻿namespace Recrutify.DataAccess.Models
 {
     public class UserPrimarySkill : BasePrimarySkill
     {

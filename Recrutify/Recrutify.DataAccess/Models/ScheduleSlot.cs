@@ -6,6 +6,6 @@ namespace Recrutify.DataAccess.Models
     {
         public DateTime AvailableTime { get; set; }
 
-        public ParticipantSlot ParticipantSlot { get; set; }
+        public AssignedCandidate AssignedCandidate { get; set; }
     }
 }
