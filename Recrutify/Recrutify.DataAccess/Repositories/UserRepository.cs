@@ -53,7 +53,7 @@ namespace Recrutify.DataAccess.Repositories
         public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
         {
             var updateBuilder = Builders<User>.Update;
-            var updateManyDB = usersRoles.Select(ur => new UpdateOneModel<User>(
+            var updateModels = usersRoles.Select(ur => new UpdateOneModel<User>(
                                                     _filterBuilder.Eq(u => u.Id, ur.Key),
                                                     updateBuilder
                                                     .AddToSet(
@@ -62,7 +62,7 @@ namespace Recrutify.DataAccess.Repositories
                                                                 projectId,
                                                                 ur.Value))));
 
-            return GetCollection().BulkWriteAsync(updateManyDB);
+            return GetCollection().BulkWriteAsync(updateModels);
         }
     }
 }
