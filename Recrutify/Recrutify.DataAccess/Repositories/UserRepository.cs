@@ -64,5 +64,41 @@ namespace Recrutify.DataAccess.Repositories
 
             return GetCollection().BulkWriteAsync(updateModels);
         }
+
+        public Task BulkUpdateProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
+        {
+            var binaryProjectId = new BsonBinaryData(projectId, GuidRepresentation.Standard);
+            var arrayFilters = new List<ArrayFilterDefinition>
+            {
+               new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("keyValuePair.k", binaryProjectId)),
+            };
+            var updateBuilder = Builders<User>.Update;
+            var updateModels = usersRoles.Select(ur => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
+                                                    updateBuilder
+                                                    .Set(
+                                                       "ProjectRoles.$[keyValuePair].v",
+                                                       ur.Value))
+            { ArrayFilters = arrayFilters });
+
+            return GetCollection().BulkWriteAsync(updateModels);
+        }
+
+         public Task BulkRemoveProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
+        {
+            ///переделать
+            var updateBuilder = Builders<User>.Update;
+            var updateModels = usersRoles.Select(ur => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
+                                                    updateBuilder
+                                                    .Set(
+                                                        "ProjectRoles",
+                                                        new KeyValuePair<Guid, IEnumerable<Role>>(
+                                                                projectId,
+                                                                ur.Value))));
+
+            return GetCollection().BulkWriteAsync(updateModels);
+
+        }
     }
 }

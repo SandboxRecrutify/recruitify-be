@@ -51,5 +51,34 @@ namespace Recrutify.Services.Services
         {
             return _userRepository.BulkAddProjectRolesAsync(projectId, usersRoles);
         }
+
+        public void BulkUpdateProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> currentUsersRoles, IDictionary<Guid, IEnumerable<Role>> newUsersRoles)
+        {
+            #region Helper
+            var newUsers = newUsersRoles.Where(x => !currentUsersRoles.Keys.Contains(x.Key)).ToDictionary(x=>x.Key, x=>x.Value);
+            var remoteUsers = currentUsersRoles.Where(x => !newUsersRoles.Keys.Contains(x.Key)).ToDictionary(x => x.Key, x => x.Value);
+            var updateUsers = newUsersRoles
+                                .Where(x =>
+                                    currentUsersRoles.Keys.Contains(x.Key) &&
+                                    (
+                                        x.Value.Any(m => !currentUsersRoles[x.Key].Contains(m)) |
+                                        currentUsersRoles[x.Key].Any(m => !x.Value.Contains(m)))).ToDictionary(x => x.Key, x => x.Value);
+            #endregion
+
+            //if(newUsers!=null)
+            //    _userRepository.BulkAddProjectRolesAsync(projectId, newUsers);
+
+            //if(remoteUsers!=null)
+            //    _userRepository.BulkRemoveProjectRolesAsync(projectId, remoteUsers);
+
+            if(updateUsers!=null)
+                _userRepository.BulkUpdateProjectRolesAsync(projectId, updateUsers);
+
+
+
+
+        }
+
+       
     }
 }

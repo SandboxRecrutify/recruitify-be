@@ -15,5 +15,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles);
 
         Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles);
+
+        Task BulkUpdateProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles);
     }
 }

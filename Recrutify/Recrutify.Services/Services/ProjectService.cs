@@ -75,6 +75,7 @@ namespace Recrutify.Services.Services
         {
             var project = _mapper.Map<Project>(projectDto);
             await _projectRepository.UpdateAsync(project);
+            /////////Вызвать обновление стафа из UserService
             return _mapper.Map<ProjectDTO>(project);
         }
 
