@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Recrutify.DataAccess.Models
+namespace Recrutify.Services.DTOs
 {
-    public class AssignedCandidate
+    public class AssignedCandidateDTO
     {
         public IEnumerable<int> BestTimeToConnect { get; set; }
 
@@ -15,6 +15,7 @@ namespace Recrutify.DataAccess.Models
 
         public string Skype { get; set; }
 
-        public IEnumerable<ProjectResultAssigned> ProjectResults { get; set; }
+        public IEnumerable<ProjectResultAssignedDTO> ProjectResults { get; set; }
+
     }
 }
