@@ -167,10 +167,9 @@ namespace Recrutify.Services.Services
 
         public async void UpdateStatusComplited(object sender, SaveArgs e)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(e.Ids);
-
-            _sendQueueEmailService.SendEmail(candidates);
-        }
+            var candidates = await GetCandidatesByIdsAsync(e.Ids);
+            _sendQueueEmailService.SendEmail(candidates, e.Status);
+         }
 
         public async Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
         {

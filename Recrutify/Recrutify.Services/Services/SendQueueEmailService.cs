@@ -8,18 +8,24 @@ namespace Recrutify.Services.Services
 {
     public class SendQueueEmailService : ISendQueueEmailService
     {
-        private readonly IFormEmailService _formEmailService;
+        private readonly IFormWaitingLisrEmailService _formWaitingLisrEmailService;
+        private readonly IFormDeclinationEmailService _formDeclinationEmailService;
+        private readonly IFormAcceptanceEmailService _formAcceptanceEmailService;
         private readonly ISendEmailService _sendEmailService;
 
-        public SendQueueEmailService(IFormEmailService formEmailService, ISendEmailService sendEmailService)
+        public SendQueueEmailService(IFormDeclinationEmailService formDeclinationEmailService, ISendEmailService sendEmailService, IFormWaitingLisrEmailService formWaitingLisrEmailService, IFormAcceptanceEmailService formAcceptanceEmailService)
         {
-            _formEmailService = formEmailService;
+            _formDeclinationEmailService = formDeclinationEmailService;
             _sendEmailService = sendEmailService;
+            _formWaitingLisrEmailService = formWaitingLisrEmailService;
+            _formAcceptanceEmailService = formAcceptanceEmailService;
         }
 
-        public void SendEmail(List<Candidate> candidates)
+        public void SendEmail(List<CandidateDTO> candidates, Status status)
         {
-            var requests = _formEmailService.GetEmailRequests(candidates);
+            var requests = status == Status.Declined ? _formDeclinationEmailService.GetEmailRequests(candidates)
+                : status == Status.WaitingList ? _formWaitingLisrEmailService.GetEmailRequests(candidates)
+                : _formAcceptanceEmailService.GetEmailRequests(candidates);
             foreach (var emailRequest in requests)
             {
                 BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(emailRequest));

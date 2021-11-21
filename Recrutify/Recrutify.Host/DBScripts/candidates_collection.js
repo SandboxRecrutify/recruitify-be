@@ -193,7 +193,7 @@
         "EnglishLevel": NumberInt(2),
         "ProjectLanguage": NumberInt(1),
         "PhoneNumber": "+375255486325",
-        "Email": "gainesbrian05@gmail.com",
+        "Email": "gainesbrian05@mail.com",
         "Location": {
             "City": "Kiev",
             "Country": "Ukraine"

@@ -20,9 +20,8 @@ namespace Recrutify.Services.Services
         public void SendEmail(EmailRequest emailRequest)
         {
             var email = new MimeMessage();
-
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
-            email.To.Add(MailboxAddress.Parse("danik.prokopenkov01@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(emailRequest.ToEmail));
             email.Subject = emailRequest.Subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
             using var smtp = new SmtpClient();

@@ -6,6 +6,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface ISendQueueEmailService
     {
-        void SendEmail(List<Candidate> candidates);
+        void SendEmail(List<CandidateDTO> candidates, Status status);
     }
 }

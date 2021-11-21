@@ -107,7 +107,7 @@ namespace Recrutify.DataAccess.Repositories
                 };
 
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
-            OnUpdateStatusByIdsAsyncComlited(new SaveArgs() { Ids = ids });
+            OnUpdateStatusByIdsAsyncComlited(new SaveArgs() { Ids = ids, Status = status });
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 

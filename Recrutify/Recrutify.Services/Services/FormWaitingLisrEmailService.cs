@@ -7,11 +7,11 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
 {
-    public class FormDeclinationEmailService : IFormDeclinationEmailService
+    public class FormWaitingLisrEmailService : IFormWaitingLisrEmailService
     {
         public IEnumerable<EmailRequest> GetEmailRequests(List<CandidateDTO> candidates)
         {
-            var filePath = Directory.GetCurrentDirectory() + "\\EmailTemplates\\Declination_Email.html";
+            var filePath = Directory.GetCurrentDirectory() + "\\EmailTemplates\\WaitingList_Email.html";
             var str = new StreamReader(filePath);
             var mailText = str.ReadToEnd();
             str.Close();
@@ -22,7 +22,7 @@ namespace Recrutify.Services.Services
             foreach (var candidate in candidates)
             {
                 var emailMessage = new EmailRequest();
-                emailMessage.Subject = "Declination";
+                emailMessage.Subject = "WaitingList";
                 emailMessage.Body = generator.Render(new
                 {
                     name = candidate.Name,
