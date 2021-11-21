@@ -42,7 +42,7 @@
                         "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                         "Name": ".Net"
                 },
-                "IsAssigned": false
+                "IsAssigned": true
             },
             {
                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),

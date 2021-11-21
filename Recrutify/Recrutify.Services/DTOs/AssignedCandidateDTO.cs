@@ -16,6 +16,5 @@ namespace Recrutify.Services.DTOs
         public string Skype { get; set; }
 
         public IEnumerable<ProjectResultAssignedDTO> ProjectResults { get; set; }
-
     }
 }

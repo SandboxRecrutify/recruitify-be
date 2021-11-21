@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recrutify.Services.DTOs
 {
@@ -15,7 +11,7 @@ namespace Recrutify.Services.DTOs
         public bool IsAssigned { get; set; }
 
         public string Reason { get; set; }
-        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
 
+        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
     }
 }
