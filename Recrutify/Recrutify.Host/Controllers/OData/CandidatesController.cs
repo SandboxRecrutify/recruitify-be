@@ -58,7 +58,7 @@ namespace Recrutify.Host.Controllers.OData
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;
-            var result = filteredCandidates.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId)
+            var result = filteredCandidates?.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId)
                                             .Select(x => x.Status == StatusDTO.New).FirstOrDefault());
             return result;
         }
@@ -70,7 +70,7 @@ namespace Recrutify.Host.Controllers.OData
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;
-            var result = filteredCandidates.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId && !x.IsAssigned)
+            var result = filteredCandidates?.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId && !x.IsAssigned)
                                            .Select(x => x.Status == StatusDTO.RecruiterInterview || x.Status == StatusDTO.TechInterviewOneStep || x.Status == StatusDTO.TechInterviewSecondStep).FirstOrDefault());
             return result;
         }
