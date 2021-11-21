@@ -20,5 +20,10 @@
         {
             public const string ProjectIdParam = "projectId";
         }
+
+        public static class TemlatePath
+        {
+            public const string DeclinationTemplate = "\\EmailTemplates\\Declination_Email.html";
+        }
     }
 }

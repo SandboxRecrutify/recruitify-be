@@ -1,4 +1,7 @@
-﻿using Hangfire;
+﻿using System.Collections.Generic;
+using Hangfire;
+using Recrutify.DataAccess.Models;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -14,9 +17,9 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public void SendEmail()
+        public void SendEmail(List<Candidate> candidates)
         {
-            var requests = _formEmailService.GetEmailRequests();
+            var requests = _formEmailService.GetEmailRequests(candidates);
             foreach (var emailRequest in requests)
             {
                 BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(emailRequest));

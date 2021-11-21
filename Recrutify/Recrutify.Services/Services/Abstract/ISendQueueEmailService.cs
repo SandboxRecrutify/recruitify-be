@@ -1,7 +1,11 @@
-﻿namespace Recrutify.Services.Services.Abstract
+﻿using System.Collections.Generic;
+using Recrutify.DataAccess.Models;
+using Recrutify.Services.DTOs;
+
+namespace Recrutify.Services.Services.Abstract
 {
     public interface ISendQueueEmailService
     {
-        void SendEmail();
+        void SendEmail(List<Candidate> candidates);
     }
 }

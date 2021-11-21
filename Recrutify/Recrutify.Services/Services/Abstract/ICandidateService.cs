@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
@@ -27,5 +28,7 @@ namespace Recrutify.Services.Services.Abstract
         Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO, Guid projectId);
 
         Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId);
+
+        Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
     }
 }

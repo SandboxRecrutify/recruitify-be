@@ -12,7 +12,7 @@ namespace Recrutify.Services.Extensions
         {
             services.AddTransient<ISendEmailService, SendEmailService>();
             services.AddTransient<ISendQueueEmailService, SendQueueEmailService>();
-            services.AddTransient<IFormEmailService, FormEmailService>();
+            services.AddTransient<IFormEmailService, FormDeclinationEmailService>();
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<ICandidateService, CandidateService>();
             services.AddSingleton<IPrimarySkillService, PrimarySkillService>();

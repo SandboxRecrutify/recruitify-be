@@ -22,14 +22,16 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
+        private readonly ISendQueueEmailService _sendQueueEmailService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, ISendQueueEmailService sendQueueEmailService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
             _userProvider = userProvider;
+            _sendQueueEmailService = sendQueueEmailService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -159,7 +161,21 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
+            _candidateRepository.UpdateStatusByIdsAsyncComlited += UpdateStatusComplited;
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
+        }
+
+        public async void UpdateStatusComplited(object sender, SaveArgs e)
+        {
+            var candidates = await _candidateRepository.GetByIdsAsync(e.Ids);
+
+            _sendQueueEmailService.SendEmail(candidates);
+        }
+
+        public async Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var candidates = await _candidateRepository.GetByIdsAsync(ids);
+            return _mapper.Map<List<CandidateDTO>>(candidates);
         }
     }
 }
