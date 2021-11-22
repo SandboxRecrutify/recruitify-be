@@ -25,7 +25,7 @@ namespace Recrutify.Host.Controllers.OData
           HandleNullPropagation = HandleNullPropagationOption.False,
           AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<AssignedCandidateDTO> GetNewCandidateByProject(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IEnumerable<AssignedCandidateDTO> GetNewCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;
@@ -38,7 +38,7 @@ namespace Recrutify.Host.Controllers.OData
            HandleNullPropagation = HandleNullPropagationOption.False,
            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<AssignedCandidateDTO> GetUnAssignedCandidateByProject(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IEnumerable<AssignedCandidateDTO> GetUnAssignedCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
             var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;

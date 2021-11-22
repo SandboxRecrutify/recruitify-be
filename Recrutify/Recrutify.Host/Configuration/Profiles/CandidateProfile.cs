@@ -30,8 +30,7 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<LocationDTO, Location>().ReverseMap();
 
-            CreateMap<Candidate, AssignedCandidateDTO>()
-                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => new Contact() ));
+            CreateMap<Candidate, AssignedCandidateDTO>();
         }
     }
 }

@@ -10,8 +10,6 @@ namespace Recrutify.Services.DTOs
 
         public bool IsAssigned { get; set; }
 
-        public string Reason { get; set; }
-
         public CandidatePrimarySkillDTO PrimarySkill { get; set; }
     }
 }
