@@ -106,7 +106,5 @@ namespace Recrutify.Services.Services
         {
             return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
         }
-
-
     }
 }

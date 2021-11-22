@@ -1,10 +1,10 @@
-﻿using Recrutify.DataAccess;
-using Recrutify.DataAccess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.Helpers
 {
