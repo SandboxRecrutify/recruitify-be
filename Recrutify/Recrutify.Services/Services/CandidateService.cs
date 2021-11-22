@@ -32,6 +32,7 @@ namespace Recrutify.Services.Services
             _projectService = projectService;
             _userProvider = userProvider;
             _sendQueueEmailService = sendQueueEmailService;
+            _candidateRepository.UpdateStatusByIdsAsyncComlited += UpdateStatusComplited;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -161,14 +162,13 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
-            _candidateRepository.UpdateStatusByIdsAsyncComlited += UpdateStatusComplited;
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
 
         public async void UpdateStatusComplited(object sender, SaveArgs e)
         {
             var candidates = await GetCandidatesByIdsAsync(e.Ids);
-            _sendQueueEmailService.SendEmail(candidates, e.Status);
+            await _sendQueueEmailService.SendEmail(candidates, e.Status);
          }
 
         public async Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)

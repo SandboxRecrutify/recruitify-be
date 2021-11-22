@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Hangfire;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
@@ -21,14 +22,15 @@ namespace Recrutify.Services.Services
             _formAcceptanceEmailService = formAcceptanceEmailService;
         }
 
-        public void SendEmail(List<CandidateDTO> candidates, Status status)
+        public async Task SendEmail(List<CandidateDTO> candidates, Status status)
         {
             var requests = status == Status.Declined ? _formDeclinationEmailService.GetEmailRequests(candidates)
                 : status == Status.WaitingList ? _formWaitingLisrEmailService.GetEmailRequests(candidates)
                 : _formAcceptanceEmailService.GetEmailRequests(candidates);
+
             foreach (var emailRequest in requests)
             {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmail(emailRequest));
+                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(emailRequest));
             }
         }
     }

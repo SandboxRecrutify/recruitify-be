@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -17,7 +18,7 @@ namespace Recrutify.Services.Services
             _mailSettings = mailSettings.Value;
         }
 
-        public void SendEmail(EmailRequest emailRequest)
+        public async Task SendEmailAsync(EmailRequest emailRequest)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
@@ -27,7 +28,7 @@ namespace Recrutify.Services.Services
             using var smtp = new SmtpClient();
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
             smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            smtp.Send(email);
+            await smtp.SendAsync(email);
             smtp.Disconnect(true);
         }
     }

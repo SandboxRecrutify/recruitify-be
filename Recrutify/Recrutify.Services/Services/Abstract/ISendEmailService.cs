@@ -1,9 +1,10 @@
-﻿using Recrutify.Services.EmailModels;
+﻿using System.Threading.Tasks;
+using Recrutify.Services.EmailModels;
 
 namespace Recrutify.Services.Services.Abstract
 {
     public interface ISendEmailService
     {
-        void SendEmail(EmailRequest request);
+        Task SendEmailAsync(EmailRequest request);
     }
 }
