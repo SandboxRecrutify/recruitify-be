@@ -46,5 +46,10 @@ namespace Recrutify.Services.Services
 
             return result;
         }
+
+        public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
+        {
+            return _userRepository.BulkAddProjectRolesAsync(projectId, usersRoles);
+        }
     }
 }
