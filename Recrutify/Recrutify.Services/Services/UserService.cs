@@ -8,6 +8,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers;
+using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -16,9 +17,11 @@ namespace Recrutify.Services.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IStaffHelper _staffHelper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMapper mapper, IStaffHelper staffHelper)
         {
+            _staffHelper = staffHelper;
             _userRepository = userRepository;
             _mapper = mapper;
         }
@@ -55,9 +58,9 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> currentUsersRoles, IDictionary<Guid, IEnumerable<Role>> newUsersRoles)
         {
-            var newUsers = StaffHelper.GetNewUserProject(projectId, currentUsersRoles, newUsersRoles);
-            var remoteUsers = StaffHelper.GetRemoteUserProject(projectId, currentUsersRoles, newUsersRoles);
-            var updateUsers = StaffHelper.GetUpdateUserProject(projectId, currentUsersRoles, newUsersRoles);
+            var newUsers = _staffHelper.GetAddedUsersRoles(currentUsersRoles, newUsersRoles);
+            var remoteUsers = _staffHelper.GetRemovedUsersRoles(currentUsersRoles, newUsersRoles);
+            var updateUsers = _staffHelper.GetUpdatedUsersRoles(currentUsersRoles, newUsersRoles);
             return _userRepository.BulkUpdateProjectRolesAsync(projectId, newUsers, remoteUsers, updateUsers);
         }
     }

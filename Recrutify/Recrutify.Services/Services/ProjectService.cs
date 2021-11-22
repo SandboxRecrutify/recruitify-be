@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers;
+using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -19,9 +20,11 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IPrimarySkillService _primarySkillService;
+        private readonly IStaffHelper _staffHelper;
 
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService, IStaffHelper staffHelper)
         {
+            _staffHelper = staffHelper;
             _userService = userService;
             _primarySkillService = primarySkillService;
             _projectRepository = projectRepository;
@@ -38,7 +41,7 @@ namespace Recrutify.Services.Services
             project.Mentors = projectDto.Mentors.GetStaff(users);
             project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
-            await _userService.BulkAddProjectRolesAsync(project.Id, StaffHelper.GetStaffUsersByRoles(project));
+            await _userService.BulkAddProjectRolesAsync(project.Id, _staffHelper.GetStaffUsersByRoles(project));
 
             return _mapper.Map<ProjectDTO>(project);
         }
@@ -77,7 +80,7 @@ namespace Recrutify.Services.Services
             var currentProject = await _projectRepository.GetAsync(projectDto.Id);
             var newProject = _mapper.Map<Project>(projectDto);
             await _projectRepository.UpdateAsync(newProject);
-            await _userService.BulkUpdateProjectRolesAsync(projectDto.Id, StaffHelper.GetStaffUsersByRoles(currentProject), StaffHelper.GetStaffUsersByRoles(newProject));
+            await _userService.BulkUpdateProjectRolesAsync(projectDto.Id, _staffHelper.GetStaffUsersByRoles(currentProject), _staffHelper.GetStaffUsersByRoles(newProject));
             return _mapper.Map<ProjectDTO>(newProject);
         }
 

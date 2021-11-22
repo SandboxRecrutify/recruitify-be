@@ -52,16 +52,7 @@ namespace Recrutify.DataAccess.Repositories
 
         public Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
         {
-            var updateBuilder = Builders<User>.Update;
-            var updateModels = usersRoles.Select(ur => new UpdateOneModel<User>(
-                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
-                                                    updateBuilder
-                                                    .AddToSet(
-                                                        "ProjectRoles",
-                                                        new KeyValuePair<Guid, IEnumerable<Role>>(
-                                                                projectId,
-                                                                ur.Value))));
-
+            var updateModels = GetUpdateModelByBulkAddRoles(projectId, usersRoles);
             return GetCollection().BulkWriteAsync(updateModels);
         }
 
@@ -72,32 +63,38 @@ namespace Recrutify.DataAccess.Repositories
             {
                new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("keyValuePair.k", binaryProjectId)),
             };
-
             var updateBuilder = Builders<User>.Update;
-            var updateModelsByNewUsers = newUsersRoles.Select(ur => new UpdateOneModel<User>(
+
+            var updateModelsWithNewUsers = GetUpdateModelByBulkAddRoles(projectId, newUsersRoles);
+
+            var updateModelsWithRemoteUsers = removeUsersRoles.Select(ur => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
+                                                    updateBuilder
+                                                    .Pull(
+                                                       $"{nameof(User.ProjectRoles)}.$[keyValuePair].v",
+                                                       new List<Role>())) { ArrayFilters = arrayFilters });
+
+            var updateModelsWithUpdateUsers = updateUsersRoles.Select(ur => new UpdateOneModel<User>(
+                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
+                                                    updateBuilder
+                                                    .Set(
+                                                      $"{nameof(User.ProjectRoles)}$[keyValuePair].v",
+                                                      ur.Value)) { ArrayFilters = arrayFilters });
+
+            return GetCollection().BulkWriteAsync(updateModelsWithNewUsers.Union(updateModelsWithRemoteUsers).Union(updateModelsWithUpdateUsers));
+        }
+
+        private IEnumerable<UpdateOneModel<User>> GetUpdateModelByBulkAddRoles(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
+        {
+            var updateBuilder = Builders<User>.Update;
+            return usersRoles.Select(ur => new UpdateOneModel<User>(
                                                     _filterBuilder.Eq(u => u.Id, ur.Key),
                                                     updateBuilder
                                                     .AddToSet(
-                                                        "ProjectRoles",
+                                                        nameof(User.ProjectRoles),
                                                         new KeyValuePair<Guid, IEnumerable<Role>>(
                                                                 projectId,
                                                                 ur.Value))));
-
-            var updateModelsByRemoteUsers = removeUsersRoles.Select(ur => new UpdateOneModel<User>(
-                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
-                                                    updateBuilder
-                                                    .Set(
-                                                       "ProjectRoles.$[keyValuePair].v",
-                                                       new List<Role>())) { ArrayFilters = arrayFilters });
-
-            var updateModelsByUpdateUsers = updateUsersRoles.Select(ur => new UpdateOneModel<User>(
-                                                    _filterBuilder.Eq(u => u.Id, ur.Key),
-                                                    updateBuilder
-                                                    .Set(
-                                                       "ProjectRoles.$[keyValuePair].v",
-                                                       ur.Value)) { ArrayFilters = arrayFilters });
-
-            return GetCollection().BulkWriteAsync(updateModelsByNewUsers.Union(updateModelsByRemoteUsers).Union(updateModelsByUpdateUsers));
         }
     }
 }
