@@ -9,6 +9,7 @@
             public const string AdminPolicy = nameof(AdminPolicy);
             public const string HighAccessPolicy = nameof(HighAccessPolicy);
             public const string ManagerPolicy = nameof(ManagerPolicy);
+            public const string RecruiterPolicy = nameof(RecruiterPolicy);
         }
 
         public static class Cors

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recrutify.DataAccess.Models
 {
@@ -14,7 +10,6 @@ namespace Recrutify.DataAccess.Models
 
         public bool IsAssigned { get; set; }
 
-        public string Reason { get; set; }
         public CandidatePrimarySkill PrimarySkill { get; set; }
     }
 }
