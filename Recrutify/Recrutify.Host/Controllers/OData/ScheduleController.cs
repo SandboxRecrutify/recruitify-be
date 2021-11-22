@@ -25,12 +25,10 @@ namespace Recrutify.Host.Controllers.OData
           HandleNullPropagation = HandleNullPropagationOption.False,
           AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<AssignedCandidateDTO> GetNewCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IQueryable<AssignedCandidateDTO> GetNewCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
-            var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;
-            var result = filteredCandidates?.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId)
-                                            .Select(x => x.Status == StatusDTO.New).FirstOrDefault());
+            var result = candidates!.Where(x => x.ProjectResult.Status == StatusDTO.New);
             return result;
         }
 
@@ -38,12 +36,10 @@ namespace Recrutify.Host.Controllers.OData
            HandleNullPropagation = HandleNullPropagationOption.False,
            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<AssignedCandidateDTO> GetUnAssignedCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IQueryable<AssignedCandidateDTO> GetUnassignedCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
-            var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<AssignedCandidateDTO>;
-            var result = filteredCandidates?.Where(x => x.ProjectResults.Where(x => x.ProjectId == projectId && !x.IsAssigned)
-                                           .Select(x => x.Status == StatusDTO.RecruiterInterview || x.Status == StatusDTO.TechInterviewOneStep || x.Status == StatusDTO.TechInterviewSecondStep).FirstOrDefault());
+            var result = candidates!.Where(x => !x.ProjectResult.IsAssigned && (x.ProjectResult.Status == StatusDTO.RecruiterInterview || x.ProjectResult.Status == StatusDTO.TechInterviewOneStep || x.ProjectResult.Status == StatusDTO.TechInterviewSecondStep));
             return result;
         }
     }

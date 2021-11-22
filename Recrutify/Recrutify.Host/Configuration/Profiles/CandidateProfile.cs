@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -16,7 +17,7 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ProjectResult, ProjectResultDTO>()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }))
                 .ForMember(dest => dest.IsAssigned, conf => conf.MapFrom(src => false));
-            CreateMap<ProjectResult, ProjectResultAssignedDTO>()
+            CreateMap<ProjectResult, ProjectResultAssignedDTO>().ReverseMap()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }));
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
 
@@ -30,7 +31,8 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<LocationDTO, Location>().ReverseMap();
 
-            CreateMap<Candidate, AssignedCandidateDTO>();
+            CreateMap<Candidate, AssignedCandidateDTO>()
+                .ForMember(dest => dest.ProjectResult, conf => conf.MapFrom(scr => scr.ProjectResults.FirstOrDefault()));
         }
     }
 }

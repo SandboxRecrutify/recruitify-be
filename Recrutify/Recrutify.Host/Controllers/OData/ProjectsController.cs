@@ -33,11 +33,10 @@ namespace Recrutify.Host.Controllers.OData
         [EnableQuery(
             HandleNullPropagation = HandleNullPropagationOption.False,
             AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        public IEnumerable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
+        public IQueryable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
         {
             var candidates = _projectService.GetShort();
-            var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<ShortProjectDTO>;
-            var result = filteredCandidates!.Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
+            var result = candidates!.Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
                                             .OrderBy(x => x.StartRegistrationDate);
             return result;
         }

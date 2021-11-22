@@ -12,7 +12,7 @@ namespace Recrutify.Services.DTOs
         public IEnumerable<int> BestTimeToConnect { get; set; }
 
         public string Email { get; set; }
-        
-        public IEnumerable<ProjectResultAssignedDTO> ProjectResults { get; set; }
+
+        public ProjectResultAssignedDTO ProjectResult { get; set; }
     }
 }

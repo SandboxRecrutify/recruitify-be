@@ -13,7 +13,7 @@ namespace Recrutify.Host.Configuration
                   .Function("GetNewCandidatesSlots")
                   .ReturnsCollectionFromEntitySet<AssignedCandidateDTO>("Schedule");
             builder.EntityType<AssignedCandidateDTO>().Collection
-                  .Function("GetUnAssignedCandidatesSlots")
+                  .Function("GetUnassignedCandidatesSlots")
                   .ReturnsCollectionFromEntitySet<AssignedCandidateDTO>("Schedule");
         }
     }

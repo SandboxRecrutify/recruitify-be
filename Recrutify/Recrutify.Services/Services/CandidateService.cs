@@ -46,8 +46,9 @@ namespace Recrutify.Services.Services
 
         public IQueryable<AssignedCandidateDTO> GetAssignedCandidateByProject(Guid projectId)
         {
-            var candidates = _candidateRepository.GetByProject(projectId);
-            return _mapper.ProjectTo<AssignedCandidateDTO>(candidates);
+            var candidates = _candidateRepository.GetByProject(projectId).ToList();
+            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates.AsQueryable()).ToList();
+            return result.AsQueryable();
         }
 
         public async Task<CandidateDTO> GetAsync(Guid id)
