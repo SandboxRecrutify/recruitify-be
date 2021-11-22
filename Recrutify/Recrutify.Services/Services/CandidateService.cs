@@ -22,17 +22,17 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
-        private readonly ISendQueueEmailService _sendQueueEmailService;
+        private readonly IStatusChangeEventHandler _statusChangeEventHandler;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, ISendQueueEmailService sendQueueEmailService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IStatusChangeEventHandler statusChangeEventHandler)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
             _userProvider = userProvider;
-            _sendQueueEmailService = sendQueueEmailService;
-            _candidateRepository.UpdateStatusByIdsAsyncComlited += UpdateStatusComplited;
+            _statusChangeEventHandler = statusChangeEventHandler;
+            _statusChangeEventHandler.UpdateStatusByIdsAsyncComlited += _statusChangeEventHandler.UpdateStatusComplited;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -162,14 +162,9 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
+            _statusChangeEventHandler.OnUpdateStatusByIdsAsyncComlited(new SaveArgsDTO() { Ids = bulkUpdateStatusDTO.CandidatesIds, Status = bulkUpdateStatusDTO.Status });
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
-
-        public async void UpdateStatusComplited(object sender, SaveArgs e)
-        {
-            var candidates = await GetCandidatesByIdsAsync(e.Ids);
-            await _sendQueueEmailService.SendEmail(candidates, e.Status);
-         }
 
         public async Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
         {

@@ -8,8 +8,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface ICandidateRepository : IBaseRepository<Candidate>
     {
-        event SaveDetailsHandler UpdateStatusByIdsAsyncComlited;
-
         IQueryable<Candidate> GetByProject(Guid projectId);
 
         Task UpdateFeedbackAsync(Guid id, Guid projectId, Feedback feedback);

@@ -18,8 +18,6 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public event SaveDetailsHandler UpdateStatusByIdsAsyncComlited;
-
         public IQueryable<Candidate> GetByProject(Guid projectId)
         {
             return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId));
@@ -107,13 +105,7 @@ namespace Recrutify.DataAccess.Repositories
                 };
 
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
-            OnUpdateStatusByIdsAsyncComlited(new SaveArgs() { Ids = ids, Status = status });
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
-        }
-
-        protected virtual void OnUpdateStatusByIdsAsyncComlited(SaveArgs e)
-        {
-            UpdateStatusByIdsAsyncComlited?.Invoke(this, e);
         }
 
         private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hangfire;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -9,24 +8,20 @@ namespace Recrutify.Services.Services
 {
     public class SendQueueEmailService : ISendQueueEmailService
     {
-        private readonly IFormWaitingLisrEmailService _formWaitingLisrEmailService;
-        private readonly IFormDeclinationEmailService _formDeclinationEmailService;
-        private readonly IFormAcceptanceEmailService _formAcceptanceEmailService;
+        private readonly IFormEmailService _formEmailService;
         private readonly ISendEmailService _sendEmailService;
 
-        public SendQueueEmailService(IFormDeclinationEmailService formDeclinationEmailService, ISendEmailService sendEmailService, IFormWaitingLisrEmailService formWaitingLisrEmailService, IFormAcceptanceEmailService formAcceptanceEmailService)
+        public SendQueueEmailService(ISendEmailService sendEmailService, IFormEmailService formEmailService)
         {
-            _formDeclinationEmailService = formDeclinationEmailService;
+            _formEmailService = formEmailService;
             _sendEmailService = sendEmailService;
-            _formWaitingLisrEmailService = formWaitingLisrEmailService;
-            _formAcceptanceEmailService = formAcceptanceEmailService;
         }
 
-        public async Task SendEmail(List<CandidateDTO> candidates, Status status)
+        public async Task SendEmail(List<CandidateDTO> candidates, StatusDTO status)
         {
-            var requests = status == Status.Declined ? _formDeclinationEmailService.GetEmailRequests(candidates)
-                : status == Status.WaitingList ? _formWaitingLisrEmailService.GetEmailRequests(candidates)
-                : _formAcceptanceEmailService.GetEmailRequests(candidates);
+            var requests = status == StatusDTO.Declined ? _formEmailService.FormDeclinedEmail(candidates)
+                : status == StatusDTO.WaitingList ? _formEmailService.FormWaitingListEmail(candidates)
+                : _formEmailService.FormAcceptanceEmail(candidates);
 
             foreach (var emailRequest in requests)
             {
