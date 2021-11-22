@@ -26,10 +26,10 @@ namespace Recrutify.Services.Services
             email.Subject = emailRequest.Subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
             using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+            await smtp.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+            await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
             await smtp.SendAsync(email);
-            smtp.Disconnect(true);
+            await smtp.DisconnectAsync(true);
         }
     }
 }
