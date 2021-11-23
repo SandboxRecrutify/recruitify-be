@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class AssignedCandidate
+    public class ScheduleCandidateInfo
     {
         public IEnumerable<int> BestTimeToConnect { get; set; }
 
@@ -15,6 +15,6 @@ namespace Recrutify.DataAccess.Models
 
         public string Skype { get; set; }
 
-        public ProjectResultAssigned ProjectResult { get; set; }
+        public ProjectResultScheduleCandidate ProjectResult { get; set; }
     }
 }

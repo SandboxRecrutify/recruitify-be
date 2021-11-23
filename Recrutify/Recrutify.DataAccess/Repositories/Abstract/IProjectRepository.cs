@@ -12,6 +12,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task IncrementCurrentApplicationsCountAsync(Guid id);
 
-        IQueryable<Project> GetShortProject();
+        IQueryable<Project> GetShort();
     }
 }

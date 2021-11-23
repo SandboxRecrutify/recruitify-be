@@ -2,7 +2,7 @@
 
 namespace Recrutify.DataAccess.Models
 {
-    public class ProjectResultAssigned : BaseProjectResult
+    public class ProjectResultScheduleCandidate : BaseProjectResult
     {
     }
 }
