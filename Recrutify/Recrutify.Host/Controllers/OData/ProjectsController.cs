@@ -35,10 +35,7 @@ namespace Recrutify.Host.Controllers.OData
             AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         public IQueryable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
         {
-            var candidates = _projectService.GetShort();
-            var result = candidates!.Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
-                                            .OrderBy(x => x.StartRegistrationDate);
-            return result;
+            return _projectService.GetShort();
         }
     }
 }

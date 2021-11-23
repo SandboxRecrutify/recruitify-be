@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Recrutify.DataAccess.Models;
 
@@ -10,5 +11,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id);
 
         Task IncrementCurrentApplicationsCountAsync(Guid id);
+
+        IQueryable<Project> GetShortProject();
     }
 }

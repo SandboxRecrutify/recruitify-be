@@ -56,7 +56,7 @@ namespace Recrutify.Services.Services
 
         public IQueryable<ShortProjectDTO> GetShort()
         {
-            var projects = _projectRepository.Get();
+            var projects = _projectRepository.GetShortProject();
             return _mapper.ProjectTo<ShortProjectDTO>(projects);
         }
 
