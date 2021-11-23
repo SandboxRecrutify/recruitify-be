@@ -66,11 +66,13 @@ namespace Recrutify.Host
                 options.AddPolicy(Constants.Policies.AdminPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin)));
                 options.AddPolicy(Constants.Policies.HighAccessPolicy, policy => policy.RequireProjectRole(nameof(Role.Admin), nameof(Role.Manager)));
                 options.AddPolicy(Constants.Policies.ManagerPolicy, policy => policy.RequireProjectRole(nameof(Role.Manager)));
+                options.AddPolicy(Constants.Policies.RecruiterPolicy, policy => policy.RequireProjectRole(nameof(Role.Recruiter)));
             });
 
             services.AddHttpContextAccessor();
             services.AddRepositories();
             services.AddServices();
+            services.AddHelpers();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();

@@ -136,7 +136,6 @@
         "Surname": "Lewis",
         "Password": "C9A1CB6FB1D59764C8B12975E7B156D417141ED07832808F8F489064DDE3DBF8",
         "Salt": "FDG4354GFD345542",
-        "Status": NumberInt(5),
         "PrimarySkill": {
             "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
             "Name": "JavaScript"
