@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.DTOs
 {
-    public class ProjectResultAssignedDTO
+    public class ScheduleCandidateProjectResultDTO
     {
         public Guid ProjectId { get; set; }
 

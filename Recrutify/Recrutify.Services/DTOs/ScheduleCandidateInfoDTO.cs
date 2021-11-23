@@ -13,6 +13,6 @@ namespace Recrutify.Services.DTOs
 
         public string Email { get; set; }
 
-        public ProjectResultAssignedDTO ProjectResult { get; set; }
+        public ScheduleCandidateProjectResultDTO ProjectResult { get; set; }
     }
 }
