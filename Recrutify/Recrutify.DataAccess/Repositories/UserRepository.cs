@@ -69,8 +69,8 @@ namespace Recrutify.DataAccess.Repositories
 
             var updateModelsWithRemovedUsers = removeUsersRoles.Select(ur => new UpdateOneModel<User>(
                                                     _filterBuilder.Eq(u => u.Id, ur.Key),
-                                                    updateBuilder.PullFilter(p => p.ProjectRoles, new BsonDocument() { {"k", projectId} })));
-            
+                                                    updateBuilder.PullFilter(p => p.ProjectRoles, new BsonDocument("k", binaryProjectId))));
+
             var updateModelsWithUpdateUsers = updateUsersRoles.Select(ur => new UpdateOneModel<User>(
                                                     _filterBuilder.Eq(u => u.Id, ur.Key),
                                                     updateBuilder
