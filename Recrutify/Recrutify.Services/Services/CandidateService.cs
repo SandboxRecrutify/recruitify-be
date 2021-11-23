@@ -51,7 +51,7 @@ namespace Recrutify.Services.Services
             foreach (var candidateDto in candidatesDtos)
             {
                 var candidate = candidates.FirstOrDefault(c => c.Id == candidateDto.Id);
-                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(с => с.ProjectId == projectId));
+                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
             }
 
             return candidatesDtos;
@@ -64,7 +64,7 @@ namespace Recrutify.Services.Services
             foreach (var candidateDto in candidatesDtos)
             {
                 var candidate = candidates.FirstOrDefault(c => c.Id == candidateDto.Id);
-                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(с => с.ProjectId == projectId));
+                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
             }
 
             return candidatesDtos;
