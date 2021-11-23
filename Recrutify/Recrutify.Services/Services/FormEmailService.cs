@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Mustache;
-using Recrutify.Services.DTOs;
+using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
@@ -9,7 +10,7 @@ namespace Recrutify.Services.Services
 {
     public class FormEmailService : IFormEmailService
     {
-        public IEnumerable<EmailRequest> FormEmail(List<CandidateDTO> candidates, ProjectDTO project, string templatePath)
+        public IEnumerable<EmailRequest> GetEmailRequests(List<Candidate> candidates, Project project, string templatePath)
         {
             var filePath = Directory.GetCurrentDirectory() + templatePath;
             var str = new StreamReader(filePath);

@@ -8,7 +8,7 @@ namespace Recrutify.Host.Extensions
     {
         public static void AddEvents(this IServiceCollection services)
         {
-            services.AddSingleton<IUpdateStatusEventArgs, UpdateStatusEventArgs>();
+            services.AddSingleton<IUpdateStatusEventProcessor, UpdateStatusEventProcessor>();
             services.AddSingleton<IStatusChangeEventHandler, StatusChangeEventHandler>();
         }
     }

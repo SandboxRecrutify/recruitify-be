@@ -1,6 +1,8 @@
-﻿namespace Recrutify.Services.Events.Abstract
+﻿using System;
+
+namespace Recrutify.Services.Events.Abstract
 {
-    public interface IUpdateStatusEventArgs
+    public interface IUpdateStatusEventProcessor
     {
         event SaveDetailsHandler UpdateStatusByIdsAsyncComlited;
 

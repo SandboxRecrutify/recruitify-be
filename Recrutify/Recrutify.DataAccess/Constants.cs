@@ -11,10 +11,10 @@ namespace Recrutify.DataAccess
 
         public static class TemplatePath
         {
-            public const string DeclinationTemplate = "\\EmailTemplates\\Declination_Email.html";
-            public const string AcceptanceTemplate = "\\EmailTemplates\\Acceptance_Email.html";
-            public const string WaitingListTemplate = "\\EmailTemplates\\WaitingList_Email.html";
             public const string BasePath = "\\EmailTemplates";
+            public const string DeclinationTemplate = BasePath + "\\Declination_Email.html";
+            public const string AcceptanceTemplate = BasePath + "\\Acceptance_Email.html";
+            public const string WaitingListTemplate = BasePath + "\\WaitingList_Email.html";
         }
     }
 }

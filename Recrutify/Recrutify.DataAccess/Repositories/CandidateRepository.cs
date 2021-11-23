@@ -105,6 +105,7 @@ namespace Recrutify.DataAccess.Repositories
                 };
 
             var updateOptions = new UpdateOptions { ArrayFilters = arrayFilters };
+
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
 using Hangfire;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -19,21 +19,15 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public async Task SendEmail(List<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
+        public void SendEmail(List<Candidate> candidates, StatusDTO status, Project project)
         {
-            IEnumerable<EmailRequest> requests;
-            switch (status)
+            var requests = status switch
             {
-                case StatusDTO.Accepted:
-                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.AcceptanceTemplate);
-                    break;
-                case StatusDTO.Declined:
-                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.DeclinationTemplate);
-                    break;
-                default:
-                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.WaitingListTemplate);
-                    break;
-            }
+                StatusDTO.Accepted => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.AcceptanceTemplate),
+                StatusDTO.Declined => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.DeclinationTemplate),
+                StatusDTO.WaitingList => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.WaitingListTemplate),
+                _ => throw new ArgumentException(string.Format($"Email is not sent when user is transfered in status {0}", status))
+            };
 
             foreach (var emailRequest in requests)
             {

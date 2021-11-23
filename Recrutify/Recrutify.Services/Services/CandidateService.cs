@@ -24,18 +24,16 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
-        private readonly IUpdateStatusEventArgs _updateStatusEventArgs;
-        private readonly IStatusChangeEventHandler _statusChangeEventHandler;
+        private readonly IUpdateStatusEventProcessor _updateStatusEvent;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventArgs updateStatusEventArgs, IStatusChangeEventHandler statusChangeEventHandler)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventProcessor updateStatusEvent, IStatusChangeEventHandler statusChangeEventHandler)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
             _userProvider = userProvider;
-            _updateStatusEventArgs = updateStatusEventArgs;
-            _statusChangeEventHandler = statusChangeEventHandler;
+            _updateStatusEvent = updateStatusEvent;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -165,7 +163,7 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
-            _updateStatusEventArgs.OnStatusUpdated(new UpdateStatusEventArgs() { Ids = bulkUpdateStatusDTO.CandidatesIds, Status = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
+            _updateStatusEvent.OnStatusUpdated(new UpdateStatusEventArgs() { Ids = bulkUpdateStatusDTO.CandidatesIds, Status = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
     }
