@@ -30,7 +30,7 @@ namespace Recrutify.DataAccess.Repositories
 
         public IQueryable<Candidate> GetUnassignedCandidatesByProject(Guid projectId)
         {
-            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(p => p.ProjectId == projectId && !p.IsAssigned && (p.Status == Status.RecruiterInterview || p.Status == Status.TechInterviewOneStep || p.Status == Status.TechInterviewSecondStep)));
+            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(p => p.ProjectId == projectId && !p.IsAssignedOnInterview && (p.Status == Status.RecruiterInterview || p.Status == Status.TechInterviewOneStep || p.Status == Status.TechInterviewSecondStep)));
         }
 
         public Task<Candidate> GetByEmailAsync(string email)
