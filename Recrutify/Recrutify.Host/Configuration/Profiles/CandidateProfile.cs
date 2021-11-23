@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
