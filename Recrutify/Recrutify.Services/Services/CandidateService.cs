@@ -48,6 +48,32 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
+        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId)
+        {
+            var candidates = _candidateRepository.GetCandidatesPassedTestByProject(projectId);
+            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
+            foreach (var candidateDto in candidatesDtos)
+            {
+                var candidate = candidates.FirstOrDefault(c => c.Id == candidateDto.Id);
+                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
+            }
+
+            return candidatesDtos;
+        }
+
+        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId)
+        {
+            var candidates = _candidateRepository.GetUnassignedCandidatesByProject(projectId);
+            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
+            foreach (var candidateDto in candidatesDtos)
+            {
+                var candidate = candidates.FirstOrDefault(c => c.Id == candidateDto.Id);
+                candidateDto.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
+            }
+
+            return candidatesDtos;
+        }
+
         public async Task<CandidateDTO> GetAsync(Guid id)
         {
             var candidate = await _candidateRepository.GetAsync(id);

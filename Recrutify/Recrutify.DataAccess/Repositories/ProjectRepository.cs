@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -14,6 +15,12 @@ namespace Recrutify.DataAccess.Repositories
         public ProjectRepository(IOptions<MongoSettings> options)
             : base(options)
         {
+        }
+
+        public IQueryable<Project> GetShort()
+        {
+            return GetCollection().AsQueryable().Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
+                                            .OrderBy(x => x.StartRegistrationDate);
         }
 
         public Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id)
