@@ -46,12 +46,12 @@ namespace Recrutify.Services.Services
 
         public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId)
         {
-            var candidate = _candidateRepository.GetCandidatesPassedTestByProject(projectId);
-            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidate).ToList();
+            var candidates = _candidateRepository.GetCandidatesPassedTestByProject(projectId);
+            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
             foreach (var c in candidatesDtos)
             {
-                var candidateDtos = candidate.FirstOrDefault(x => x.Id == c.Id);
-                c.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidateDtos.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
+                var candidate = candidates.FirstOrDefault(x => x.Id == c.Id);
+                c.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
             }
 
             return candidatesDtos;
@@ -59,12 +59,12 @@ namespace Recrutify.Services.Services
 
         public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId)
         {
-            var candidate = _candidateRepository.GetUnassignedCandidatesByProject(projectId);
-            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidate).ToList();
+            var candidates = _candidateRepository.GetUnassignedCandidatesByProject(projectId);
+            var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
             foreach (var c in candidatesDtos)
             {
-                var candidateDtos = candidate.FirstOrDefault(x => x.Id == c.Id);
-                c.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidateDtos.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
+                var candidate = candidates.FirstOrDefault(x => x.Id == c.Id);
+                c.ProjectResult = _mapper.Map<ScheduleCandidateProjectResultDTO>(candidate.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
             }
 
             return candidatesDtos;
