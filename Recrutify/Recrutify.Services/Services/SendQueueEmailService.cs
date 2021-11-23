@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Hangfire;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -17,11 +18,21 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public async Task SendEmail(List<CandidateDTO> candidates, StatusDTO status)
+        public async Task SendEmail(List<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
         {
-            var requests = status == StatusDTO.Declined ? _formEmailService.FormDeclinedEmail(candidates)
-                : status == StatusDTO.WaitingList ? _formEmailService.FormWaitingListEmail(candidates)
-                : _formEmailService.FormAcceptanceEmail(candidates);
+            IEnumerable<EmailRequest> requests;
+            switch (status)
+            {
+                case StatusDTO.Accepted:
+                    requests = _formEmailService.FormAcceptanceEmail(candidates, project);
+                    break;
+                case StatusDTO.Declined:
+                    requests = _formEmailService.FormDeclinedEmail(candidates, project);
+                    break;
+                default:
+                    requests = _formEmailService.FormWaitingListEmail(candidates, project);
+                    break;
+            }
 
             foreach (var emailRequest in requests)
             {

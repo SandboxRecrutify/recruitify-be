@@ -14,7 +14,6 @@ namespace Recrutify.Services.Extensions
             services.AddTransient<ISendQueueEmailService, SendQueueEmailService>();
             services.AddTransient<IFormEmailService, FormEmailService>();
             services.AddSingleton<IProjectService, ProjectService>();
-            services.AddTransient<IStatusChangeEventHandler, StatusChangeEventHandler>();
             services.AddSingleton<ICandidateService, CandidateService>();
             services.AddSingleton<IPrimarySkillService, PrimarySkillService>();
             services.AddSingleton<IUserService, UserService>();

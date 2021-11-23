@@ -6,6 +6,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface ISendQueueEmailService
     {
-        Task SendEmail(List<CandidateDTO> candidates, StatusDTO status);
+        Task SendEmail(List<CandidateDTO> candidates, StatusDTO status, ProjectDTO project);
     }
 }
