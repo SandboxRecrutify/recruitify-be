@@ -71,6 +71,7 @@ namespace Recrutify.Host
             services.AddHttpContextAccessor();
             services.AddRepositories();
             services.AddServices();
+            services.AddHelpers();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
