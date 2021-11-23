@@ -17,7 +17,16 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))
                 .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => new Staff() { UserId = r })));
-            CreateMap<Project, ProjectDTO>().ReverseMap();
+            CreateMap<ProjectDTO, Project>()
+                .ForMember(dest => dest.Managers, conf => conf.MapFrom(src => src.Managers.Select(m => new Staff() { UserId = m })))
+                .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
+                .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))
+                .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => new Staff() { UserId = r })));
+            CreateMap<Project, ProjectDTO>()
+                .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => i.UserId)))
+                .ForMember(dest => dest.Managers, conf => conf.MapFrom(src => src.Managers.Select(m => m.UserId)))
+                .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => m.UserId)))
+                .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => r.UserId)));
             CreateMap<StaffDTO, Staff>().ReverseMap();
             CreateMap<ProjectPrimarySkill, ProjectPrimarySkillDTO>().ReverseMap();
             CreateMap<PrimarySkill, PrimarySkillDTO>();
