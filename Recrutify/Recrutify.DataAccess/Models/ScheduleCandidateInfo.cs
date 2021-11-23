@@ -15,6 +15,6 @@ namespace Recrutify.DataAccess.Models
 
         public string Skype { get; set; }
 
-        public ProjectResultScheduleCandidate ProjectResult { get; set; }
+        public ScheduleCandidateProjectResult ProjectResult { get; set; }
     }
 }
