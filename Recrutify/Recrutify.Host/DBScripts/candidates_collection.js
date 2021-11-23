@@ -42,7 +42,7 @@
                         "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                         "Name": ".Net"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": true
             },
             {
                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
@@ -66,7 +66,7 @@
                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                     "Name": ".Net"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LTD Bank-Alfa",
@@ -124,7 +124,7 @@
                     "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                     "Name": "BusinessAnalyst"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "Cafe Mint",
@@ -174,12 +174,12 @@
                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                     "Name": "BusinessAnalyst"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 "Status": NumberInt(0),
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LLC Acronis",
@@ -232,12 +232,12 @@
                     "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
                     "Name": "Java"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             },
             {
                 "ProjectId": UUID("2beed73a-30b5-11ec-808a-fb45776a1ed3"),
                 "Status": NumberInt(0),
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LLC Pilot",
@@ -290,7 +290,7 @@
                    "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                    "Name": "JavaScript"
                },
-               "IsAssigned": false
+               "IsAssignedOnInterview": false
            },
            {
                "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
@@ -299,7 +299,7 @@
                    "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
                    "Name": "AutomationQA",
                },
-               "IsAssigned": false
+               "IsAssignedOnInterview": false
            }
        ],
        "CurrentJob": "PLC CosmosTV",
@@ -334,7 +334,7 @@
                     "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                     "Name": "BusinessAnalyst"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LLC Huandai",
@@ -369,7 +369,7 @@
                     "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                     "Name": "JavaScript"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LLC Huandai",
@@ -404,7 +404,7 @@
                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                     "Name": ".Net"
                 },
-                "IsAssigned": false
+                "IsAssignedOnInterview": false
             }
         ],
         "CurrentJob": "LLC Huandai",

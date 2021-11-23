@@ -7,6 +7,7 @@ namespace Recrutify.Host.Infrastructure.CustomsAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
+            // Method intentionally left empty.
         }
     }
 }

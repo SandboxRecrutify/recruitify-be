@@ -4,6 +4,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface ISendEmailService
     {
-        void SendEmail(EmailRequest request);
+        void SendEmail(EmailRequest emailRequest);
     }
 }
