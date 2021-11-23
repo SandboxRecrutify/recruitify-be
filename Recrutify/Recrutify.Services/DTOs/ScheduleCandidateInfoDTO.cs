@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
-    public class AssignedCandidateDTO
+    public class ScheduleCandidateInfoDTO
     {
         public Guid Id { get; set; }
 

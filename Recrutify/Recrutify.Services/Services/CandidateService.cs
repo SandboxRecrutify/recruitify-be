@@ -44,10 +44,10 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
-        public IEnumerable<AssignedCandidateDTO> GetNewCandidateByProject(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetNewCandidateByProject(Guid projectId)
         {
             var candidates = _candidateRepository.GetNewCandidateByProject(projectId);
-            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates).ToList();
+            var result = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
             foreach (var r in result)
             {
                 var candidat = candidates.FirstOrDefault(x => x.Id == r.Id);
@@ -57,10 +57,10 @@ namespace Recrutify.Services.Services
             return result;
         }
 
-        public IEnumerable<AssignedCandidateDTO> GetUnassignedCandidateByProject(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidateByProject(Guid projectId)
         {
             var candidates = _candidateRepository.GetUnassignedCandidateByProject(projectId);
-            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates).ToList();
+            var result = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
             foreach (var r in result)
             {
                 var candidat = candidates.FirstOrDefault(x => x.Id == r.Id);
