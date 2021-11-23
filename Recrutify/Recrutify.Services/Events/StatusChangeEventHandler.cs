@@ -8,11 +8,11 @@ namespace Recrutify.Services.Events
     public class StatusChangeEventHandler : IStatusChangeEventHandler
     {
         private readonly ICandidateRepository _candidateRepository;
-        private readonly ISendQueueEmailService _sendQueueEmailService;
+        private readonly ISendEmailQueueService _sendQueueEmailService;
         private readonly IProjectRepository _projectRepository;
         private readonly IUpdateStatusEventProcessor _updateStatusEvent;
 
-        public StatusChangeEventHandler(IProjectRepository projectRepository, ISendQueueEmailService sendQueueEmailService, ICandidateRepository candidateRepository, IUpdateStatusEventProcessor updateStatusEvent)
+        public StatusChangeEventHandler(IProjectRepository projectRepository, ISendEmailQueueService sendQueueEmailService, ICandidateRepository candidateRepository, IUpdateStatusEventProcessor updateStatusEvent)
         {
             _projectRepository = projectRepository;
             _sendQueueEmailService = sendQueueEmailService;
@@ -25,7 +25,7 @@ namespace Recrutify.Services.Events
         {
             var candidates = await _candidateRepository.GetByIdsAsync(e.Ids);
             var project = await _projectRepository.GetAsync(e.ProjectId);
-            _sendQueueEmailService.SendEmail(candidates, e.Status, project);
+            _sendQueueEmailService.SendEmailQueue(candidates, e.Status, project);
         }
     }
 }

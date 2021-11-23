@@ -8,7 +8,7 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
 {
-    public class SendQueueEmailService : ISendQueueEmailService
+    public class SendQueueEmailService : ISendEmailQueueService
     {
         private readonly IFormEmailService _formEmailService;
         private readonly ISendEmailService _sendEmailService;
@@ -19,7 +19,7 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public void SendEmail(List<Candidate> candidates, StatusDTO status, Project project)
+        public void SendEmailQueue(List<Candidate> candidates, StatusDTO status, Project project)
         {
             var requests = status switch
             {

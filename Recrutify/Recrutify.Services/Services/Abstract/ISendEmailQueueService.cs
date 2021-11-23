@@ -5,8 +5,8 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
 {
-    public interface ISendQueueEmailService
+    public interface ISendEmailQueueService
     {
-        void SendEmail(List<Candidate> candidates, StatusDTO status, Project project);
+        void SendEmailQueue(List<Candidate> candidates, StatusDTO status, Project project);
     }
 }
