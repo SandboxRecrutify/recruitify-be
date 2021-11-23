@@ -23,12 +23,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId));
         }
 
-        public IQueryable<Candidate> GetNewCandidateByProject(Guid projectId)
+        public IQueryable<Candidate> GetCandidatesPassedTestByProject(Guid projectId)
         {
-            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId && y.Status == Status.New));
+            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(y => y.ProjectId == projectId && y.Status == Status.Test));
         }
 
-        public IQueryable<Candidate> GetUnassignedCandidateByProject(Guid projectId)
+        public IQueryable<Candidate> GetUnassignedCandidatesByProject(Guid projectId)
         {
             return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(p => p.ProjectId == projectId && !p.IsAssigned && (p.Status == Status.RecruiterInterview || p.Status == Status.TechInterviewOneStep || p.Status == Status.TechInterviewSecondStep)));
         }

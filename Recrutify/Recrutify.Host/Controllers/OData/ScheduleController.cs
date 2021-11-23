@@ -24,9 +24,9 @@ namespace Recrutify.Host.Controllers.OData
           HandleNullPropagation = HandleNullPropagationOption.False,
           AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<ScheduleCandidateInfoDTO> GetNewCandidatesSlots([FromQuery] Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots([FromQuery] Guid projectId)
         {
-            return _candidateService.GetNewCandidateByProject(projectId);
+            return _candidateService.GetCandidatesPassedTestSlots(projectId);
         }
 
         [EnableQuery(
@@ -35,7 +35,7 @@ namespace Recrutify.Host.Controllers.OData
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
         public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots([FromQuery] Guid projectId)
         {
-            return _candidateService.GetUnassignedCandidateByProject(projectId);
+            return _candidateService.GetUnassignedCandidatesSlots(projectId);
         }
     }
 }

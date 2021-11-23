@@ -44,9 +44,9 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
-        public IEnumerable<ScheduleCandidateInfoDTO> GetNewCandidateByProject(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId)
         {
-            var candidate = _candidateRepository.GetNewCandidateByProject(projectId);
+            var candidate = _candidateRepository.GetCandidatesPassedTestByProject(projectId);
             var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidate).ToList();
             foreach (var c in candidatesDtos)
             {
@@ -57,9 +57,9 @@ namespace Recrutify.Services.Services
             return candidatesDtos;
         }
 
-        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidateByProject(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId)
         {
-            var candidate = _candidateRepository.GetUnassignedCandidateByProject(projectId);
+            var candidate = _candidateRepository.GetUnassignedCandidatesByProject(projectId);
             var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidate).ToList();
             foreach (var c in candidatesDtos)
             {

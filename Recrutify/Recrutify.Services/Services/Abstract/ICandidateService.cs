@@ -28,8 +28,8 @@ namespace Recrutify.Services.Services.Abstract
 
         Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId);
 
-        IEnumerable<ScheduleCandidateInfoDTO> GetNewCandidateByProject(Guid projectId);
+        IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId);
 
-        IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidateByProject(Guid projectId);
+        IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId);
     }
 }

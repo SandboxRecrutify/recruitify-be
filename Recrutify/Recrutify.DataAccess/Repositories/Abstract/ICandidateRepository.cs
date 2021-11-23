@@ -10,9 +10,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         IQueryable<Candidate> GetByProject(Guid projectId);
 
-        IQueryable<Candidate> GetNewCandidateByProject(Guid projectId);
+        IQueryable<Candidate> GetCandidatesPassedTestByProject(Guid projectId);
 
-        IQueryable<Candidate> GetUnassignedCandidateByProject(Guid projectId);
+        IQueryable<Candidate> GetUnassignedCandidatesByProject(Guid projectId);
 
         Task UpdateFeedbackAsync(Guid id, Guid projectId, Feedback feedback);
 
