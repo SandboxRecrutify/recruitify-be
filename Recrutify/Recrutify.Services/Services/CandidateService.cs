@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Events;
+using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
@@ -23,19 +24,18 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
-        private readonly ISendQueueEmailService _sendQueueEmailService;
-        private readonly Events.Abstract.IStatusChangeEventHandler _statusChangeEventHandler;
+        private readonly IUpdateStatusEventArgs _updateStatusEventArgs;
+        private readonly IStatusChangeEventHandler _statusChangeEventHandler;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, ISendQueueEmailService sendQueueEmailService, IUserProvider userProvider, Events.Abstract.IStatusChangeEventHandler statusChangeEventHandler)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventArgs updateStatusEventArgs, IStatusChangeEventHandler statusChangeEventHandler)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
             _userProvider = userProvider;
-            _sendQueueEmailService = sendQueueEmailService;
+            _updateStatusEventArgs = updateStatusEventArgs;
             _statusChangeEventHandler = statusChangeEventHandler;
-            _statusChangeEventHandler.UpdateStatusByIdsAsyncComlited += async (e) => await UpdateCandidatesStatusesAsync(e);
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -165,21 +165,8 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
-            _statusChangeEventHandler.OnStatusUpdated(new UpdateStatusEventArgs() { Ids = bulkUpdateStatusDTO.CandidatesIds, Status = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
+            _updateStatusEventArgs.OnStatusUpdated(new UpdateStatusEventArgs() { Ids = bulkUpdateStatusDTO.CandidatesIds, Status = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
-        }
-
-        public async Task<List<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
-        {
-            var candidates = await _candidateRepository.GetByIdsAsync(ids);
-            return _mapper.Map<List<CandidateDTO>>(candidates);
-        }
-
-        public async Task UpdateCandidatesStatusesAsync(UpdateStatusEventArgs e)
-        {
-            var candidates = await GetCandidatesByIdsAsync(e.Ids);
-            var project = await _projectService.GetAsync(e.ProjectId);
-            await _sendQueueEmailService.SendEmail(candidates, e.Status, project);
         }
     }
 }

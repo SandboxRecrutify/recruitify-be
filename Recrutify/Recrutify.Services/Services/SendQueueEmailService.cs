@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hangfire;
+using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
@@ -24,13 +25,13 @@ namespace Recrutify.Services.Services
             switch (status)
             {
                 case StatusDTO.Accepted:
-                    requests = _formEmailService.FormAcceptanceEmail(candidates, project);
+                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.AcceptanceTemplate);
                     break;
                 case StatusDTO.Declined:
-                    requests = _formEmailService.FormDeclinedEmail(candidates, project);
+                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.DeclinationTemplate);
                     break;
                 default:
-                    requests = _formEmailService.FormWaitingListEmail(candidates, project);
+                    requests = _formEmailService.FormEmail(candidates, project, Constants.TemplatePath.WaitingListTemplate);
                     break;
             }
 
