@@ -25,22 +25,20 @@ namespace Recrutify.Host.Controllers.OData
           HandleNullPropagation = HandleNullPropagationOption.False,
           AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IQueryable<AssignedCandidateDTO> GetNewCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IEnumerable<AssignedCandidateDTO> GetNewCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
-            var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
-            var result = candidates!.Where(x => x.ProjectResult.Status == StatusDTO.New);
-            return result;
+            var candidates = _candidateService.GetNewCandidateByProject(projectId);
+            return candidates;
         }
 
         [EnableQuery(
            HandleNullPropagation = HandleNullPropagationOption.False,
            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IQueryable<AssignedCandidateDTO> GetUnassignedCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
+        public IEnumerable<AssignedCandidateDTO> GetUnassignedCandidatesSlots(ODataQueryOptions<AssignedCandidateDTO> options, [FromQuery] Guid projectId)
         {
-            var candidates = _candidateService.GetAssignedCandidateByProject(projectId);
-            var result = candidates!.Where(x => !x.ProjectResult.IsAssigned && (x.ProjectResult.Status == StatusDTO.RecruiterInterview || x.ProjectResult.Status == StatusDTO.TechInterviewOneStep || x.ProjectResult.Status == StatusDTO.TechInterviewSecondStep));
-            return result;
+            var candidates = _candidateService.GetUnassignedCandidateByProject(projectId);
+            return candidates;
         }
     }
 }

@@ -44,11 +44,30 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
-        public IQueryable<AssignedCandidateDTO> GetAssignedCandidateByProject(Guid projectId)
+        public IEnumerable<AssignedCandidateDTO> GetNewCandidateByProject(Guid projectId)
         {
-            var candidates = _candidateRepository.GetByProject(projectId).ToList();
-            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates.AsQueryable()).ToList();
-            return result.AsQueryable();
+            var candidates = _candidateRepository.GetNewCandidateByProject(projectId);
+            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates).ToList();
+            foreach (var r in result)
+            {
+                var candidat = candidates.FirstOrDefault(x => x.Id == r.Id);
+                r.ProjectResult = _mapper.Map<ProjectResultAssignedDTO>(candidat.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
+            }
+
+            return result;
+        }
+
+        public IEnumerable<AssignedCandidateDTO> GetUnassignedCandidateByProject(Guid projectId)
+        {
+            var candidates = _candidateRepository.GetUnassignedCandidateByProject(projectId);
+            var result = _mapper.ProjectTo<AssignedCandidateDTO>(candidates).ToList();
+            foreach (var r in result)
+            {
+                var candidat = candidates.FirstOrDefault(x => x.Id == r.Id);
+                r.ProjectResult = _mapper.Map<ProjectResultAssignedDTO>(candidat.ProjectResults.FirstOrDefault(x => x.ProjectId == projectId));
+            }
+
+            return result;
         }
 
         public async Task<CandidateDTO> GetAsync(Guid id)
