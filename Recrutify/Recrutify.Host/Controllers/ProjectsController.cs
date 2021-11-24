@@ -53,7 +53,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPut]
-        public async Task<ActionResult<ProjectDTO>> UpateProject([FromBody] ProjectDTO projectDto)
+        public async Task<ActionResult<ProjectDTO>> UpateProject([FromBody] UpdateProjectDTO projectDto)
         {
             var projectExists = await _projectService.ExistsAsync(projectDto.Id);
             if (!projectExists)

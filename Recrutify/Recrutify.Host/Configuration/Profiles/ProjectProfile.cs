@@ -17,7 +17,12 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))
                 .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => new Staff() { UserId = r })));
-            CreateMap<Project, ProjectDTO>().ReverseMap();
+            CreateMap<Project, ProjectDTO>();
+            CreateMap<UpdateProjectDTO, Project>()
+                .ForMember(dest => dest.Managers, conf => conf.MapFrom(src => src.Managers.Select(m => new Staff() { UserId = m })))
+                .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
+                .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))
+                .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => new Staff() { UserId = r })));
             CreateMap<StaffDTO, Staff>().ReverseMap();
             CreateMap<ProjectPrimarySkill, ProjectPrimarySkillDTO>().ReverseMap();
             CreateMap<PrimarySkill, PrimarySkillDTO>();

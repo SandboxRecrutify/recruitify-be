@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Schedule
+    public class UserSchedule : IDataModel
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
-        public string UserSurname { get; set; }
+        public string Surname { get; set; }
 
-        public string UserEmail { get; set; }
+        public string Email { get; set; }
 
         public UserPrimarySkill PrimarySkill { get; set; }
 
