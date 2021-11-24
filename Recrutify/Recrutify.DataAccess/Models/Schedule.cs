@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class Schedule
+    public class Schedule : IDataModel
     {
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
 
         public string UserName { get; set; }
 

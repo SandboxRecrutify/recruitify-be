@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Linq;
+using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -13,6 +14,11 @@ namespace Recrutify.Services.Validators
                 .MaximumLength(500);
             RuleFor(f => f.Rating)
                 .NotEmpty();
+            RuleFor(f => f.Type)
+                .IsInEnum()
+                .WithMessage("Type doesn't exist")
+                 .Must(f => !new[] { FeedbackTypeDTO.Test }.Contains(f))
+                .WithMessage("Cannot change to selected type manually");
         }
     }
 }

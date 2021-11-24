@@ -8,7 +8,6 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Helpers;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
