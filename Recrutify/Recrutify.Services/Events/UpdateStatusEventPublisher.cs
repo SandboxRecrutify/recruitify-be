@@ -4,7 +4,7 @@ using Recrutify.Services.Events.Abstract;
 
 namespace Recrutify.Services.Events
 {
-    public class UpdateStatusEvent : IUpdateStatusEvent
+    public class UpdateStatusEventPublisher : IUpdateStatusEventPublisher
     {
         public event Func<UpdateStatusEventArgs, Task> StatusCompleted;
 
