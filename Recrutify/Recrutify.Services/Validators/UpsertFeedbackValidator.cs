@@ -17,7 +17,7 @@ namespace Recrutify.Services.Validators
             RuleFor(f => f.Type)
                 .IsInEnum()
                 .WithMessage("Type doesn't exist")
-                 .Must(f => !new[] { FeedbackTypeDTO.Test }.Contains(f))
+                .Must(f => !new[] { FeedbackTypeDTO.Test }.Contains(f))
                 .WithMessage("Cannot change to selected type manually");
         }
     }
