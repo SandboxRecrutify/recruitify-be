@@ -18,7 +18,7 @@ namespace Recrutify.Services.Validators
                 .IsInEnum()
                 .WithMessage("Type doesn't exist")
                 .Must(t => t != FeedbackTypeDTO.Test)
-                .WithMessage("Cannot change to selected type manually");
+                .WithMessage("Cannot create/update test feedback");
         }
     }
 }
