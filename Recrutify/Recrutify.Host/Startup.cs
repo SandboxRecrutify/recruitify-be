@@ -73,7 +73,7 @@ namespace Recrutify.Host
             services.AddRepositories();
             services.AddServices();
             services.AddHelpers();
-            services.AddEvents();
+            services.AddEventHandlers();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
@@ -175,6 +175,7 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
+            app.RegistrationStatusEvent();
             app.UseForwardedHeaders(ForwardedHeadersSettings.Get());
             app.UseCors(Constants.Cors.CorsForUI);
 

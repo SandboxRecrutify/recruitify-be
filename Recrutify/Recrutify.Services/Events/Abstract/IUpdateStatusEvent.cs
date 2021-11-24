@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Recrutify.Services.Events.Abstract
 {
-    public interface IUpdateStatusEventProcessor
+    public interface IUpdateStatusEvent
     {
-        event SaveDetailsHandler UpdateStatusByIdsAsyncComlited;
+        event Func<UpdateStatusEventArgs, Task> StatusCompleted;
 
         public void OnStatusUpdated(UpdateStatusEventArgs e);
     }

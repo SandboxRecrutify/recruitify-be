@@ -6,9 +6,9 @@ namespace Recrutify.Services.Events
 {
     public class UpdateStatusEventArgs : EventArgs
     {
-        public IEnumerable<Guid> Ids { get; set; }
+        public IEnumerable<Guid> CandidatesIds { get; set; }
 
-        public StatusDTO Status { get; set; }
+        public StatusDTO CandidateStatus { get; set; }
 
         public Guid ProjectId { get; set; }
     }
