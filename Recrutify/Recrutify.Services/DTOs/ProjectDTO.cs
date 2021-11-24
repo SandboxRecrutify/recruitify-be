@@ -8,12 +8,12 @@ namespace Recrutify.Services.DTOs
     {
         public Guid Id { get; set; }
 
-        public IEnumerable<Staff> Managers { get; set; }
+        public IEnumerable<StaffDTO> Managers { get; set; }
 
-        public IEnumerable<Staff> Interviewers { get; set; }
+        public IEnumerable<StaffDTO> Interviewers { get; set; }
 
-        public IEnumerable<Staff> Recruiters { get; set; }
+        public IEnumerable<StaffDTO> Recruiters { get; set; }
 
-        public IEnumerable<Staff> Mentors { get; set; }
+        public IEnumerable<StaffDTO> Mentors { get; set; }
     }
 }
