@@ -73,6 +73,7 @@ namespace Recrutify.Host
             services.AddRepositories();
             services.AddServices();
             services.AddHelpers();
+            services.AddEventHandlers();
 
             var mapper = MapperConfig.GetConfiguration()
                 .CreateMapper();
@@ -201,6 +202,8 @@ namespace Recrutify.Host
                 c.OAuthAppName("Recruitify Api");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseStatusChangeEventProcessor();
         }
     }
 }
