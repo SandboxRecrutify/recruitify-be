@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Hangfire;
 using Recrutify.DataAccess;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -19,7 +18,7 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public void SendEmailQueue(IEnumerable<Candidate> candidates, StatusDTO status, ProjectDTO project)
+        public void SendEmailQueue(IEnumerable<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
         {
             var requests = status switch
             {

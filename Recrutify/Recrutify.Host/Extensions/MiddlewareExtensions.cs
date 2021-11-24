@@ -12,7 +12,7 @@ namespace Recrutify.Host.Extensions
             app.UseMiddleware<ExceptionMiddleware>();
         }
 
-        public static void RegistrationStatusEvent(this IApplicationBuilder app)
+        public static void UseStatusChangeEventProcessor(this IApplicationBuilder app)
         {
             var serviceProvider = app.ApplicationServices;
             var statusChangeEventProcessor = serviceProvider.GetService<StatusChangeEventProcessor>();

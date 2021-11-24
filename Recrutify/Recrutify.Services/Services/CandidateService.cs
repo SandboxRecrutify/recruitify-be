@@ -192,5 +192,11 @@ namespace Recrutify.Services.Services
             _updateStatusEventPublisher.OnStatusUpdated(new UpdateStatusEventArgs() { CandidatesIds = bulkUpdateStatusDTO.CandidatesIds, CandidateStatus = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
+
+        public async Task<IEnumerable<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var candidates = await _candidateRepository.GetByIdsAsync(ids);
+            return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
     }
 }

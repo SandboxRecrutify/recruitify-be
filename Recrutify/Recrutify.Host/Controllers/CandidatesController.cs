@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
@@ -99,7 +97,7 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        // [Authorize(Policy = Constants.Policies.ManagerPolicy)]
+        [Authorize(Policy = Constants.Policies.ManagerPolicy)]
         [HttpPut("bulk/update_status_reason")]
         public async Task<ActionResult> BulkUpdateStatusByIdsAsync([FromBody] BulkUpdateStatusDTO bulkUpdateStatusDTO, [FromQuery, Required] Guid projectId)
         {

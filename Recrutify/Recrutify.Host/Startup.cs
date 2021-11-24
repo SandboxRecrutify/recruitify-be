@@ -175,7 +175,6 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
-            app.RegistrationStatusEvent();
             app.UseForwardedHeaders(ForwardedHeadersSettings.Get());
             app.UseCors(Constants.Cors.CorsForUI);
 
@@ -203,6 +202,8 @@ namespace Recrutify.Host
                 c.OAuthAppName("Recruitify Api");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseStatusChangeEventProcessor();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Services.Abstract;
 
@@ -7,16 +6,16 @@ namespace Recrutify.Services.Events
 {
     public class StatusChangeEventProcessor
     {
-        private readonly ICandidateRepository _candidateRepository;
+        private readonly ICandidateService _candidateService;
         private readonly ISendEmailQueueService _sendQueueEmailService;
         private readonly IProjectService _projectService;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
 
-        public StatusChangeEventProcessor(IProjectService projectService, ISendEmailQueueService sendQueueEmailService, ICandidateRepository candidateRepository, IUpdateStatusEventPublisher updateStatusEventPublisher)
+        public StatusChangeEventProcessor(IProjectService projectService, ISendEmailQueueService sendQueueEmailService, ICandidateService candidateService, IUpdateStatusEventPublisher updateStatusEventPublisher)
         {
             _projectService = projectService;
             _sendQueueEmailService = sendQueueEmailService;
-            _candidateRepository = candidateRepository;
+            _candidateService = candidateService;
             _updateStatusEventPublisher = updateStatusEventPublisher;
         }
 
@@ -27,7 +26,7 @@ namespace Recrutify.Services.Events
 
         public async Task UpdateCandidatesStatusesAsync(UpdateStatusEventArgs e)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(e.CandidatesIds);
+            var candidates = await _candidateService.GetCandidatesByIdsAsync(e.CandidatesIds);
             var project = await _projectService.GetAsync(e.ProjectId);
             _sendQueueEmailService.SendEmailQueue(candidates, e.CandidateStatus, project);
         }
