@@ -1,9 +1,9 @@
-﻿var schedule = [
+﻿var userSchedule = [
     {
         "_id": UUID("ce33e6c4-30ac-11ec-8d3d-0242ac130003"),
-        "UserName": "Alex",
-        "UserSurname": "Anderson",
-        "UserEmail": "alexanderson@gmail.com",
+        "Name": "Alex",
+        "Surname": "Anderson",
+        "Email": "alexanderson@gmail.com",
         "PrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
@@ -38,9 +38,9 @@
     },
     {
         "_id": UUID("73e05563-6c9e-4727-9ebb-b08f16cc1001"),
-        "UserName": "Anthony",
-        "UserSurname": "Clark",
-        "UserEmail": "anthonyclark@gmail.com",
+        "Name": "Anthony",
+        "Surname": "Clark",
+        "Email": "anthonyclark@gmail.com",
         "PrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
@@ -75,9 +75,9 @@
     },
     {
         "_id": UUID("6f885f2c-b60d-4743-b381-4e841d48a956"),
-        "UserName": "Brandon",
-        "UserSurname": "Harris",
-        "UserEmail": "brandonharris@gmail.com",
+        "Name": "Brandon",
+        "Surname": "Harris",
+        "Email": "brandonharris@gmail.com",
         "PrimarySkill": {
             "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
             "Name": "BusinessAnalyst"
@@ -112,9 +112,9 @@
     },
     {
         "_id": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
-        "UserName": "Christopher",
-        "UserSurname": "Johnson",
-        "UserEmail": "christopherjohnson@gmail.com",
+        "Name": "Christopher",
+        "Surname": "Johnson",
+        "Email": "christopherjohnson@gmail.com",
         "PrimarySkill": {
             "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
             "Name": "Java"
@@ -149,9 +149,9 @@
     },
     {
         "_id": UUID("4f04e857-50ec-42d7-8fe4-0e3d3d8d34b3"),
-        "UserName": "David",
-        "UserSurname": "Lewis",
-        "UserEmail": "davidlewis@gmail.com",
+        "Name": "David",
+        "Surname": "Lewis",
+        "Email": "davidlewis@gmail.com",
         "PrimarySkill": {
             "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
             "Name": "JavaScript"
@@ -186,9 +186,9 @@
     },
     {
         "_id": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
-        "UserName": "Fred",
-        "UserSurname": "Taylor",
-        "UserEmail": "fredtaylor@gmail.com",
+        "Name": "Fred",
+        "Surname": "Taylor",
+        "Email": "fredtaylor@gmail.com",
         "PrimarySkill": {
             "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
             "Name": "AutomationQA"
@@ -223,9 +223,9 @@
     },
     {
         "_id": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
-        "UserName": "Justin",
-        "UserSurname": "Walker",
-        "UserEmail": "justinwalker@gmail.com",
+        "Name": "Justin",
+        "Surname": "Walker",
+        "Email": "justinwalker@gmail.com",
         "PrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
@@ -260,9 +260,9 @@
     },
     {
         "_id": UUID("03699464-c0a6-412f-8c83-eca85b359e91"),
-        "UserName": "Kevin",
-        "UserSurname": "Wils",
-        "UserEmail": "kevingarcia@gmail.com",
+        "Name": "Kevin",
+        "Surname": "Wils",
+        "Email": "kevingarcia@gmail.com",
         "PrimarySkill": {
             "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
             "Name": "JavaScript"
