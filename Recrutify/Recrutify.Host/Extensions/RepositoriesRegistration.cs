@@ -12,6 +12,7 @@ namespace Recrutify.Host.Extensions
             services.AddSingleton<IProjectRepository, ProjectRepository>();
             services.AddSingleton<ICandidateRepository, CandidateRepository>();
             services.AddSingleton<IPrimarySkillRepository, PrimarySkillRepository>();
+            services.AddSingleton<IScheduleRepository, ScheduleRepository>();
         }
     }
 }
