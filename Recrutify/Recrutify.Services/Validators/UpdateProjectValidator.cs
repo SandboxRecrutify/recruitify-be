@@ -15,7 +15,10 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
                 .WithMessage("Date must be in the today or future!");
-            
+            RuleFor(p => p.Name)
+                .Null()
+                //.Equal(n => n.Name)
+                .WithMessage("Name cannot be changed!");
         }
     }
 }
