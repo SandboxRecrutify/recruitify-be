@@ -22,41 +22,33 @@ namespace Recrutify.Services.Validators
 
         private void ConfigureRules()
         {
+            RuleFor(p => p)
+                .CustomAsync(async (dto, context, cancellationToken) =>
+                {
+                    var project = await _projectRepository.GetAsync(dto.Id);
+                    var currentPrimarySkills = project.PrimarySkills.Select(x => x.Id).ToList();
+                    var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
+                    if (!dto.Name.Equals(project.Name))
+                    {
+                        context.AddFailure("Name cannot be changed!");
+                    }
+
+                    if (!dto.StartDate.Equals(project.StartDate))
+                    {
+                        context.AddFailure("StartDate cannot be changed!");
+                    }
+
+                    if (!primarySkillIds.SequenceEqual(currentPrimarySkills))
+                    {
+                        context.AddFailure("PrimarySkills cannot be changed!");
+                    }
+                });
             RuleFor(p => p.Id)
                 .NotEmpty();
             RuleFor(p => p.EndDate)
                 .NotNull()
                 .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
                 .WithMessage("Date must be in the today or future!");
-            RuleFor(p => p.Name)
-                .MustAsync(ProjectNameAreExistingAsync)
-                .WithMessage("Name cannot be changed!");
-            RuleFor(p => p.StartDate)
-                .MustAsync(ProjectStartDateAreExistingAsync)
-                .WithMessage("StartDate cannot be changed!");
-            RuleFor(p => p.PrimarySkills)
-                .MustAsync(ProjectPrimarySkillsAreExistingAsync)
-                .WithMessage("PrimarySkills cannot be changed!");
-        }
-
-        private async Task<bool> ProjectNameAreExistingAsync(UpdateProjectDTO dto, string name, CancellationToken cancellationToken)
-        {
-            var project = await _projectRepository.GetAsync(dto.Id);
-            return project.Name.Equals(name);
-        }
-
-        private async Task<bool> ProjectStartDateAreExistingAsync(UpdateProjectDTO dto, DateTime dateTime, CancellationToken cancellationToken)
-        {
-            var project = await _projectRepository.GetAsync(dto.Id);
-            return project.StartDate.Equals(dateTime);
-        }
-
-        private async Task<bool> ProjectPrimarySkillsAreExistingAsync(UpdateProjectDTO dto, IEnumerable<ProjectPrimarySkillDTO> primariSkills, CancellationToken cancellationToken)
-        {
-            var project = await _projectRepository.GetAsync(dto.Id);
-            var primariSkillIds = project.PrimarySkills.Select(p => p.Id).ToList();
-            var primariSkillIdsDto = primariSkills.Select(p => p.Id);
-            return primariSkillIds.SequenceEqual(primariSkillIdsDto);
         }
     }
 }
