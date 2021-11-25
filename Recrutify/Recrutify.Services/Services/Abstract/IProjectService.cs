@@ -30,5 +30,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles);
 
         Task IncrementCurrentApplicationsCountAsync(Guid id);
+
+        Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id);
     }
 }
