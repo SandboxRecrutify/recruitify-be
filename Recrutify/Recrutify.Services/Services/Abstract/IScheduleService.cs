@@ -10,6 +10,6 @@ namespace Recrutify.Services.Services.Abstract
 {
     public interface IScheduleService
     {
-        Task<IEnumerable<ScheduleDTO>> GetUsersSchedulesByPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId);
+        Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId);
     }
 }

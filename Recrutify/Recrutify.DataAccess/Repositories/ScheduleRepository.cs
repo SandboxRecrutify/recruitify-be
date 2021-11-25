@@ -17,9 +17,9 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public Task<List<Schedule>> GetUsersSchedulesByPrimarySkillAsync(IEnumerable<Guid> interviewersIds, DateTime date, Guid primarySkillId)
+        public Task<List<Schedule>> GetByUserPrimarySkillAsync(IEnumerable<Guid> userIds, DateTime date, Guid primarySkillId)
         {
-            var filter = _filterBuilder.In(u => u.UserId, interviewersIds) & _filterBuilder.Eq(u => u.UserPrimarySkill.Id, primarySkillId);
+            var filter = _filterBuilder.In(u => u.UserId, userIds) & _filterBuilder.Eq(u => u.UserPrimarySkill.Id, primarySkillId);
             return GetCollection()
                 .Find(filter)
                 .Project(x => new Schedule

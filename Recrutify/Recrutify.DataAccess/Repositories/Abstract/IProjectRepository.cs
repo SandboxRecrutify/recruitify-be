@@ -14,6 +14,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         IQueryable<Project> GetShort();
 
-        Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid projectid);
+        Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id);
     }
 }

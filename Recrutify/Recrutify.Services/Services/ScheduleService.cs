@@ -24,10 +24,10 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ScheduleDTO>> GetUsersSchedulesByPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId)
+        public async Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId)
         {
             var usersIds = await _projectService.GetInterviewersIdsAsync(projectId);
-            var schedules = await _scheduleRepository.GetUsersSchedulesByPrimarySkillAsync(usersIds, date, primarySkillId);
+            var schedules = await _scheduleRepository.GetByUserPrimarySkillAsync(usersIds, date, primarySkillId);
             return _mapper.Map<List<ScheduleDTO>>(schedules);
         }
     }

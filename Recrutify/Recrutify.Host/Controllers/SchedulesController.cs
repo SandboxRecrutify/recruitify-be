@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +21,10 @@ namespace Recrutify.Host.Controllers
             _scheduleService = scheduleService;
         }
 
-        [HttpGet("users_schedules/{projectId:guid}/{primarySkillId:guid}")]
-        public Task<IEnumerable<ScheduleDTO>> GetUsersSchedulesByPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId)
+        [HttpGet("users_schedules")]
+        public Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync([FromQuery, Required] Guid projectId, [FromQuery, Required] DateTime date, [FromQuery, Required] Guid primarySkillId)
         {
-            return _scheduleService.GetUsersSchedulesByPrimarySkillAsync(projectId, date, primarySkillId);
+            return _scheduleService.GetByUserPrimarySkillAsync(projectId, date, primarySkillId);
         }
     }
 }

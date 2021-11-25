@@ -39,13 +39,13 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().UpdateOneAsync(filter, updateDefinition);
         }
 
-        public Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid projectid)
+        public Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id)
         {
-            var filter = _filterBuilder.Eq(x => x.Id, projectid);
+            var filter = _filterBuilder.Eq(x => x.Id, id);
             return GetCollection()
-             .Find(filter)
-             .Project(p => p.Interviewers.Select(x => x.UserId))
-             .FirstOrDefaultAsync();
+                     .Find(filter)
+                     .Project(p => p.Interviewers.Select(x => x.UserId))
+                     .FirstOrDefaultAsync();
         }
     }
 }

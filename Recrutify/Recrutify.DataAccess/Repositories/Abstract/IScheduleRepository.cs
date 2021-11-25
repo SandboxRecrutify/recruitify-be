@@ -7,6 +7,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 {
     public interface IScheduleRepository
     {
-        Task<List<Schedule>> GetUsersSchedulesByPrimarySkillAsync(IEnumerable<Guid> interviewersIds,  DateTime date, Guid primarySkillId);
+        Task<List<Schedule>> GetByUserPrimarySkillAsync(IEnumerable<Guid> userIds,  DateTime date, Guid primarySkillId);
     }
 }
