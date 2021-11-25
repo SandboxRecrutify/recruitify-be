@@ -18,7 +18,7 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public void SendEmailQueueForChangeStatus(IEnumerable<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
+        public void SendEmailQueueForStatusChange(IEnumerable<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
         {
             var requests = status switch
             {

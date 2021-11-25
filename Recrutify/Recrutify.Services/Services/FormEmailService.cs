@@ -31,7 +31,7 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewerRole)
+        public IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewType)
         {
             var emailRequests = new List<EmailRequest>();
             var generator = CreateGenerator(templatePath);
@@ -43,7 +43,7 @@ namespace Recrutify.Services.Services
                 {
                     name = candidate.Name,
                     dateTime = interviewTime.ToString("MM/dd/yyyy HH:mm tt"),
-                    interviewerRole = interviewerRole,
+                    interviewerRole = interviewType,
                 });
                 emailMessage.ToEmail = candidate.Email;
                 emailRequests.Add(emailMessage);

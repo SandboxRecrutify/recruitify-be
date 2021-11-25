@@ -9,7 +9,6 @@ namespace Recrutify.Services.Services.Abstract
     {
         IEnumerable<EmailRequest> GetEmailRequestsForChangeStatus(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath);
 
-        IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewerRole);
-
+        IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewerRole);
     }
 }
