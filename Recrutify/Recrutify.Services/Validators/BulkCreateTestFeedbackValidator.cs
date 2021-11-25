@@ -37,7 +37,7 @@ namespace Recrutify.Services.Validators
         {
             var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
             var filteredCandidatesCount = candidates.Count(c => c.ProjectResults
-                                                       ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId)
+                                                       ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId && p.Status == Status.Test)
                                                        ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false);
             return filteredCandidatesCount == candidatsIds.Count();
         }

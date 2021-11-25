@@ -11,7 +11,7 @@ namespace Recrutify.Services.Extensions
         public static void AddServices(this IServiceCollection services)
         {
             services.AddTransient<ISendEmailService, SendEmailService>();
-            services.AddTransient<ISendQueueEmailService, SendQueueEmailService>();
+            services.AddTransient<ISendEmailQueueService, SendQueueEmailService>();
             services.AddTransient<IFormEmailService, FormEmailService>();
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<ICandidateService, CandidateService>();

@@ -8,6 +8,8 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Events;
+using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
@@ -22,14 +24,16 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
+        private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
             _validator = validator;
             _projectService = projectService;
             _userProvider = userProvider;
+            _updateStatusEventPublisher = updateStatusEventPublisher;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -185,7 +189,14 @@ namespace Recrutify.Services.Services
 
         public Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId)
         {
+            _updateStatusEventPublisher.OnStatusUpdated(new UpdateStatusEventArgs() { CandidatesIds = bulkUpdateStatusDTO.CandidatesIds, CandidateStatus = bulkUpdateStatusDTO.Status, ProjectId = bulkUpdateStatusDTO.ProjectId });
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
+        }
+
+        public async Task<IEnumerable<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var candidates = await _candidateRepository.GetByIdsAsync(ids);
+            return _mapper.Map<List<CandidateDTO>>(candidates);
         }
     }
 }
