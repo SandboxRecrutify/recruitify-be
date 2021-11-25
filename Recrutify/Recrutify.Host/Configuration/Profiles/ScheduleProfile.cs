@@ -1,8 +1,4 @@
 ﻿using Recrutify.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Host.Configuration.Profiles
