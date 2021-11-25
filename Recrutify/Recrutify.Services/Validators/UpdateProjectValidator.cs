@@ -22,7 +22,7 @@ namespace Recrutify.Services.Validators
         private void ConfigureRules()
         {
             RuleFor(p => p)
-                .CustomAsync(ProjectAreExistingAsync);
+                .CustomAsync(UmmutableFieldsAreKeepingUnchanged);
             RuleFor(p => p.Id)
                 .NotEmpty();
             RuleFor(p => p.EndDate)
@@ -31,7 +31,7 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Date must be in the today or future!");
         }
 
-        private async Task ProjectAreExistingAsync(UpdateProjectDTO dto, ValidationContext<UpdateProjectDTO> context, CancellationToken cancellationToken)
+        private async Task UmmutableFieldsAreKeepingUnchanged(UpdateProjectDTO dto, ValidationContext<UpdateProjectDTO> context, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetAsync(dto.Id);
             var currentPrimarySkills = project.PrimarySkills.Select(x => x.Id).ToList();
