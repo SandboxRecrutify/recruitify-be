@@ -7,5 +7,7 @@ namespace Recrutify.Services.Services.Abstract
     public interface IFormEmailService
     {
         IEnumerable<EmailRequest> GetEmailRequests(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath);
+
+        IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project);
     }
 }
