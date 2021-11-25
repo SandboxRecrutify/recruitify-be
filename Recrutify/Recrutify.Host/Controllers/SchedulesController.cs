@@ -11,11 +11,11 @@ namespace Recrutify.Host.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScheduleController : ControllerBase
+    public class SchedulesController : ControllerBase
     {
         private readonly IScheduleService _scheduleService;
 
-        public ScheduleController(IScheduleService scheduleService)
+        public SchedulesController(IScheduleService scheduleService)
         {
             _scheduleService = scheduleService;
         }
