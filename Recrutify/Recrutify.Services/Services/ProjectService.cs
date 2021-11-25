@@ -109,5 +109,10 @@ namespace Recrutify.Services.Services
         {
             return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
         }
+
+        public async Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid projectId)
+        {
+            return await _projectRepository.GetInterviewersIdsAsync(projectId);
+        }
     }
 }

@@ -38,5 +38,14 @@ namespace Recrutify.DataAccess.Repositories
             var updateDefinition = Builders<Project>.Update.Inc(p => p.CurrentApplicationsCount, 1);
             return GetCollection().UpdateOneAsync(filter, updateDefinition);
         }
+
+        public Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid projectid)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, projectid);
+            return GetCollection()
+             .Find(filter)
+             .Project(p => p.Interviewers.Select(x => x.UserId))
+             .FirstOrDefaultAsync();
+        }
     }
 }
