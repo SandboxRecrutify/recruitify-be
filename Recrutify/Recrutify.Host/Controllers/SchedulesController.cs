@@ -21,7 +21,7 @@ namespace Recrutify.Host.Controllers
             _scheduleService = scheduleService;
         }
 
-        [HttpGet("users_schedules")]
+        [HttpGet]
         public Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync([FromQuery, Required] Guid projectId, [FromQuery, Required] DateTime date, [FromQuery, Required] Guid primarySkillId)
         {
             return _scheduleService.GetByUserPrimarySkillAsync(projectId, date, primarySkillId);
