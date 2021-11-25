@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,32 +22,34 @@ namespace Recrutify.Services.Validators
         private void ConfigureRules()
         {
             RuleFor(p => p)
-                .CustomAsync(async (dto, context, cancellationToken) =>
-                {
-                    var project = await _projectRepository.GetAsync(dto.Id);
-                    var currentPrimarySkills = project.PrimarySkills.Select(x => x.Id).ToList();
-                    var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
-                    if (!dto.Name.Equals(project.Name))
-                    {
-                        context.AddFailure("Name cannot be changed!");
-                    }
-
-                    if (!dto.StartDate.Equals(project.StartDate))
-                    {
-                        context.AddFailure("StartDate cannot be changed!");
-                    }
-
-                    if (!primarySkillIds.SequenceEqual(currentPrimarySkills))
-                    {
-                        context.AddFailure("PrimarySkills cannot be changed!");
-                    }
-                });
+                .CustomAsync(ProjectAreExistingAsync);
             RuleFor(p => p.Id)
                 .NotEmpty();
             RuleFor(p => p.EndDate)
                 .NotNull()
                 .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
                 .WithMessage("Date must be in the today or future!");
+        }
+
+        private async Task ProjectAreExistingAsync(UpdateProjectDTO dto, ValidationContext<UpdateProjectDTO> context, CancellationToken cancellationToken)
+        {
+            var project = await _projectRepository.GetAsync(dto.Id);
+            var currentPrimarySkills = project.PrimarySkills.Select(x => x.Id).ToList();
+            var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
+            if (dto.Name != project.Name)
+            {
+                context.AddFailure("Name cannot be changed!");
+            }
+
+            if (dto.StartDate != project.StartDate)
+            {
+                context.AddFailure("StartDate cannot be changed!");
+            }
+
+            if (!primarySkillIds.SequenceEqual(currentPrimarySkills))
+            {
+                context.AddFailure("PrimarySkills cannot be changed!");
+            }
         }
     }
 }
