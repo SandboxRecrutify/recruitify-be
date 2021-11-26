@@ -36,7 +36,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return GetCollection().Find(filter).ToListAsync();
         }
 
-        public IQueryable<TDocument> GetSorted()
+        public IQueryable<TDocument> Get()
         {
             return GetCollection().AsQueryable<TDocument>();
         }
