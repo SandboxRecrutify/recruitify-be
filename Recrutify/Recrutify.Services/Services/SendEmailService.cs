@@ -1,4 +1,5 @@
-﻿using MailKit.Net.Smtp;
+﻿using System;
+using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
@@ -26,7 +27,7 @@ namespace Recrutify.Services.Services
             email.Subject = emailRequest.Subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
             using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Connect(_mailSettings.Host, Convert.ToInt32(_mailSettings.Port), SecureSocketOptions.StartTls);
             smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
             smtp.Send(email);
             smtp.Disconnect(true);

@@ -14,7 +14,7 @@ namespace Recrutify.Services.Services
 
         public IEnumerable<EmailRequest> GetEmailRequests()
         {
-            var filePath = Directory.GetCurrentDirectory() + "\\EmailTemplates\\Test_Email.html";
+            var filePath = Directory.GetCurrentDirectory() + "/EmailTemplates/Test_Email.html";
             var str = new StreamReader(filePath);
             var mailText = str.ReadToEnd();
             str.Close();
