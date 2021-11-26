@@ -105,5 +105,14 @@ namespace Recrutify.Host.Controllers
 
             return NoContent();
         }
+
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("bulk/send_test_emails")]
+        public async Task<ActionResult> BulkSendEmailsWithTestAsync([FromBody] BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, [FromQuery, Required] Guid projectId)
+        {
+            await _candidateService.BulkSendEmailsWithTestAsync(bulkSendEmailWithTestDTO, projectId);
+
+            return NoContent();
+        }
     }
 }

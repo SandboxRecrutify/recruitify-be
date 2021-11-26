@@ -25,8 +25,9 @@ namespace Recrutify.Services.Services
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
+        private readonly ISendEmailQueueService _sendQueueEmailService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -34,6 +35,7 @@ namespace Recrutify.Services.Services
             _projectService = projectService;
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
+            _sendQueueEmailService = sendEmailQueueService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -200,6 +202,13 @@ namespace Recrutify.Services.Services
         {
             var candidates = await _candidateRepository.GetByIdsAsync(ids);
             return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
+
+        public async Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId)
+        {
+            var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
+            var project = await _projectService.GetAsync(projectId);
+            _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
     }
 }
