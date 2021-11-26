@@ -14,8 +14,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<List<TDocument>> GetAllAsync();
 
-        IQueryable<TDocument> GetSorted();
-
         Task UpdateAsync(TDocument item);
 
         Task DeleteAsync(Guid id);
