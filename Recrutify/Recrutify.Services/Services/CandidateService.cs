@@ -82,7 +82,7 @@ namespace Recrutify.Services.Services
 
         public IQueryable<CandidateDTO> Get()
         {
-            return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.Get());
+            return _mapper.ProjectTo<CandidateDTO>(_candidateRepository.GetSorted());
         }
 
         public async Task<CandidateDTO> CreateAsync(CandidateCreateDTO candidateCreateDTO, Guid projectId)

@@ -25,7 +25,7 @@ namespace Recrutify.Host.Controllers.OData
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
-            return _projectService.GetSorted();
+            return _projectService.Get();
         }
 
         [EnableQuery(

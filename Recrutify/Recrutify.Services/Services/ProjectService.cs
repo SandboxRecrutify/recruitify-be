@@ -57,12 +57,6 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ProjectDTO>>(projects);
         }
 
-        public IQueryable<ProjectDTO> GetSorted()
-        {
-            var projects = _projectRepository.GetSorted();
-            return _mapper.ProjectTo<ProjectDTO>(projects);
-        }
-
         public IQueryable<ShortProjectDTO> GetShort()
         {
             var projects = _projectRepository.GetShort();
@@ -77,7 +71,8 @@ namespace Recrutify.Services.Services
 
         public IQueryable<ProjectDTO> Get()
         {
-            return _mapper.ProjectTo<ProjectDTO>(_projectRepository.Get());
+            var projects = _projectRepository.GetSorted().OrderByDescending(p => p.IsActive);
+            return _mapper.ProjectTo<ProjectDTO>(projects);
         }
 
         public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
