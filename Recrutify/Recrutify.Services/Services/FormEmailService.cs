@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Mustache;
@@ -11,7 +12,7 @@ namespace Recrutify.Services.Services
 {
     public class FormEmailService : IFormEmailService
     {
-        public IEnumerable<EmailRequest> GetEmailRequests(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath)
+        public IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath)
         {
             var emailRequests = new List<EmailRequest>();
             var generator = CreateGenerator(templatePath);
@@ -51,6 +52,27 @@ namespace Recrutify.Services.Services
                     name = candidate.Name,
                     projectName = $"\"{project.Name}\"",
                     testLink = testLink,
+                });
+                emailMessage.ToEmail = candidate.Email;
+                emailRequests.Add(emailMessage);
+            }
+
+            return emailRequests;
+        }
+
+        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewType)
+        {
+            var emailRequests = new List<EmailRequest>();
+            var generator = CreateGenerator(templatePath);
+            foreach (var candidate in candidates)
+            {
+                var emailMessage = new EmailRequest();
+                emailMessage.Subject = "Interview";
+                emailMessage.Body = generator.Render(new
+                {
+                    name = candidate.Name,
+                    dateTime = interviewTime.ToString("MM/dd/yyyy HH:mm tt"),
+                    interviewerType = interviewType,
                 });
                 emailMessage.ToEmail = candidate.Email;
                 emailRequests.Add(emailMessage);

@@ -16,6 +16,7 @@ namespace Recrutify.DataAccess
             public const string AcceptanceTemplate = BasePath + "\\Acceptance_Email.html";
             public const string WaitingListTemplate = BasePath + "\\WaitingList_Email.html";
             public const string TestTemplate = BasePath + "\\Test_Email.html";
+            public const string InterviewTemplate = BasePath + "\\Interview_Email.html";
         }
     }
 }
