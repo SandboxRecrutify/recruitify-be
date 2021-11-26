@@ -57,6 +57,12 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ProjectDTO>>(projects);
         }
 
+        public IQueryable<ProjectDTO> GetSorted()
+        {
+            var projects = _projectRepository.GetSorted();
+            return _mapper.ProjectTo<ProjectDTO>(projects);
+        }
+
         public IQueryable<ShortProjectDTO> GetShort()
         {
             var projects = _projectRepository.GetShort();

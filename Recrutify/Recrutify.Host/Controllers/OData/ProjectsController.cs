@@ -37,5 +37,13 @@ namespace Recrutify.Host.Controllers.OData
         {
             return _projectService.GetShort();
         }
+
+        [EnableQuery(
+            HandleNullPropagation = HandleNullPropagationOption.False,
+            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
+        public IQueryable<ProjectDTO> GetSortedProjects(ODataQueryOptions<ProjectDTO> options)
+        {
+            return _projectService.GetSorted();
+        }
     }
 }

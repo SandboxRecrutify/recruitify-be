@@ -19,7 +19,7 @@
                         "Email": "elliott@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult": 
                         {
                                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                                 "Status": NumberInt(3),
@@ -28,12 +28,9 @@
                                     "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
                                     "Name": ".Net"
                                 },
-                            },
-                        ],
+                        },
                     },
-
             }
-                
         ],
     },
     {
@@ -56,7 +53,7 @@
                         "Email": "elliott@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult":
                             {
                                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
                                 "Status": NumberInt(1),
@@ -66,11 +63,8 @@
                                     "Name": ".Net"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -93,7 +87,7 @@
                         "Email": "robertio@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult": 
                             {
                                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                                 "Status": NumberInt(5),
@@ -103,11 +97,8 @@
                                     "Name": "BusinessAnalyst"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -130,7 +121,7 @@
                         "Email": "gainesss@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult": 
                             {
                                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
                                 "Status": NumberInt(5),
@@ -140,11 +131,8 @@
                                     "Name": "Java"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -167,7 +155,7 @@
                         "Email": "hugharvey@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult": 
                             {
                                 "ProjectId": UUID("dd49fe8f-d697-41a5-be23-7066563b85a6"),
                                 "Status": NumberInt(5),
@@ -177,11 +165,8 @@
                                     "Name": "JavaScript"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -204,7 +189,7 @@
                         "Email": "hugharvey@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult": 
                             {
                                 "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
                                 "Status": NumberInt(0),
@@ -214,11 +199,8 @@
                                     "Name": "AutomationQA"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -241,7 +223,7 @@
                         "Email": "pupkin@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult":
                             {
                                 "ProjectId": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
                                 "Status": NumberInt(4),
@@ -251,11 +233,8 @@
                                     "Name": ".Net"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     },
     {
@@ -278,7 +257,7 @@
                         "Email": "yan@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
-                        "ProjectResult": [
+                        "ProjectResult":
                             {
                                 "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
                                 "Status": NumberInt(3),
@@ -288,11 +267,8 @@
                                     "Name": "JavaScript"
                                 },
                             },
-                        ],
                     },
-
             }
-
         ],
     }
 ]

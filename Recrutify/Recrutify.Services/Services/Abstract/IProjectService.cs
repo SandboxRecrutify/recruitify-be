@@ -11,6 +11,8 @@ namespace Recrutify.Services.Services.Abstract
     {
         IQueryable<ShortProjectDTO> GetShort();
 
+        IQueryable<ProjectDTO> GetSorted();
+
         Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto);
 
         Task<ProjectDTO> GetAsync(Guid id);

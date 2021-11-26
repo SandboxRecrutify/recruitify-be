@@ -23,6 +23,11 @@ namespace Recrutify.DataAccess.Repositories
                                             .OrderBy(x => x.StartRegistrationDate);
         }
 
+        public IQueryable<Project> GetSorted()
+        {
+            return GetCollection().AsQueryable().OrderByDescending(x => x.IsActive);
+        }
+
         public Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);
