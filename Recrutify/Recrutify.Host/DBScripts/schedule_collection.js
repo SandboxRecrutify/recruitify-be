@@ -1,20 +1,21 @@
-﻿var userSchedule = [
+﻿var schedule = [
     {
         "_id": UUID("ce33e6c4-30ac-11ec-8d3d-0242ac130003"),
-        "Name": "Alex",
-        "Surname": "Anderson",
-        "Email": "alexanderson@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("ce33e6c4-30ac-11ec-8d3d-0242ac130003"),
+        "UserName": "Alex",
+        "UserSurname": "Anderson",
+        "UserEmail": "alexanderson@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-11-22T000:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Christopher",
-                        "Id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
+                        "_id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
                         "Email": "elliott@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -31,27 +32,27 @@
                         ],
                     },
 
-                ],
             }
                 
         ],
     },
     {
         "_id": UUID("73e05563-6c9e-4727-9ebb-b08f16cc1001"),
-        "Name": "Anthony",
-        "Surname": "Clark",
-        "Email": "anthonyclark@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("73e05563-6c9e-4727-9ebb-b08f16cc1001"),
+        "UserName": "Anthony",
+        "UserSurname": "Clark",
+        "UserEmail": "anthonyclark@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-08-02T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Christopher",
-                        "Id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
+                        "_id": UUID("c07e12be-30bd-11ec-853c-0392a821ec1f"),
                         "Email": "elliott@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -68,27 +69,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("6f885f2c-b60d-4743-b381-4e841d48a956"),
-        "Name": "Brandon",
-        "Surname": "Harris",
-        "Email": "brandonharris@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("6f885f2c-b60d-4743-b381-4e841d48a956"),
+        "UserName": "Brandon",
+        "UserSurname": "Harris",
+        "UserEmail": "brandonharris@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
             "Name": "BusinessAnalyst"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-12-02T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Robert",
-                        "CandidateId": UUID("c89c4d88-30e7-11ec-929c-0f374fa83b31"),
+                        "_id": UUID("c89c4d88-30e7-11ec-929c-0f374fa83b31"),
                         "Email": "robertio@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -105,27 +106,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
-        "Name": "Christopher",
-        "Surname": "Johnson",
-        "Email": "christopherjohnson@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
+        "UserName": "Christopher",
+        "UserSurname": "Johnson",
+        "UserEmail": "christopherjohnson@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("b7d88aa4-3775-11ec-93ad-f7d63f513914"),
             "Name": "Java"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-11-27T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Brian",
-                        "Id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
+                        "_id": UUID("1e6a306e-30ec-11ec-a7bb-37cfa4f75a73"),
                         "Email": "gainesss@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -142,27 +143,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("4f04e857-50ec-42d7-8fe4-0e3d3d8d34b3"),
-        "Name": "David",
-        "Surname": "Lewis",
-        "Email": "davidlewis@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("4f04e857-50ec-42d7-8fe4-0e3d3d8d34b3"),
+        "UserName": "David",
+        "UserSurname": "Lewis",
+        "UserEmail": "davidlewis@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
             "Name": "JavaScript"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-12-02T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Hugh",
-                        "Id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
+                        "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
                         "Email": "hugharvey@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -179,27 +180,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
-        "Name": "Fred",
-        "Surname": "Taylor",
-        "Email": "fredtaylor@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("cb40d31e-7447-4ec0-bc53-ab566f3a7b2e"),
+        "UserName": "Fred",
+        "UserSurname": "Taylor",
+        "UserEmail": "fredtaylor@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("a9962438-3775-11ec-8787-6b8ecd0a876a"),
             "Name": "AutomationQA"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-12-03T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Hugh",
-                        "Id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
+                        "_id": UUID("37982a0e-30ed-11ec-a640-0f587540e9a4"),
                         "Email": "hugharvey@gmail.com",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -216,27 +217,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
-        "Name": "Justin",
-        "Surname": "Walker",
-        "Email": "justinwalker@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
+        "UserName": "Justin",
+        "UserSurname": "Walker",
+        "UserEmail": "justinwalker@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
             "Name": ".Net"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-08-02T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Kiril",
-                        "Id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                        "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
                         "Email": "pupkin@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -253,27 +254,27 @@
                         ],
                     },
 
-                ],
             }
 
         ],
     },
     {
         "_id": UUID("03699464-c0a6-412f-8c83-eca85b359e91"),
-        "Name": "Kevin",
-        "Surname": "Wils",
-        "Email": "kevingarcia@gmail.com",
-        "PrimarySkill": {
+        "UserId": UUID("03699464-c0a6-412f-8c83-eca85b359e91"),
+        "UserName": "Kevin",
+        "UserSurname": "Wils",
+        "UserEmail": "kevingarcia@gmail.com",
+        "UserPrimarySkill": {
             "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
             "Name": "JavaScript"
         },
         "ScheduleSlots": [
             {
                 "AvailableTime": new Date("2021-12-02T00:00:00.000Z"),
-                "ScheduleCandidateInfo": [
+                "ScheduleCandidateInfo": 
                     {
                         "Name": "Yan",
-                        "Id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                        "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                         "Email": "yan@mail.ru",
                         "Skype": "id=100002956147957",
                         "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
@@ -290,7 +291,6 @@
                         ],
                     },
 
-                ],
             }
 
         ],
