@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNet.OData.Routing;
@@ -27,7 +25,7 @@ namespace Recrutify.Host.Controllers.OData
         [ODataRoute]
         public IQueryable<ProjectDTO> Get()
         {
-            return _projectService.Get();
+            return _projectService.GetSorted();
         }
 
         [EnableQuery(
@@ -36,14 +34,6 @@ namespace Recrutify.Host.Controllers.OData
         public IQueryable<ShortProjectDTO> GetShortProjects(ODataQueryOptions<ShortProjectDTO> options)
         {
             return _projectService.GetShort();
-        }
-
-        [EnableQuery(
-            HandleNullPropagation = HandleNullPropagationOption.False,
-            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
-        public IQueryable<ProjectDTO> GetSortedProjects(ODataQueryOptions<ProjectDTO> options)
-        {
-            return _projectService.GetSorted();
         }
     }
 }
