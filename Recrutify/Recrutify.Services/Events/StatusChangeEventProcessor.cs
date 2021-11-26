@@ -28,7 +28,7 @@ namespace Recrutify.Services.Events
         {
             var candidates = await _candidateService.GetCandidatesByIdsAsync(e.CandidatesIds);
             var project = await _projectService.GetAsync(e.ProjectId);
-            _sendQueueEmailService.SendEmailQueue(candidates, e.CandidateStatus, project);
+            _sendQueueEmailService.SendEmailQueueForStatusChange(candidates, e.CandidateStatus, project);
         }
     }
 }

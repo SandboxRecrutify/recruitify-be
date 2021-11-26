@@ -18,13 +18,13 @@ namespace Recrutify.Services.Services
             _sendEmailService = sendEmailService;
         }
 
-        public void SendEmailQueue(IEnumerable<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
+        public void SendEmailQueueForStatusChange(IEnumerable<CandidateDTO> candidates, StatusDTO status, ProjectDTO project)
         {
             var requests = status switch
             {
-                StatusDTO.Accepted => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.AcceptanceTemplate),
-                StatusDTO.Declined => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.DeclinationTemplate),
-                StatusDTO.WaitingList => _formEmailService.GetEmailRequests(candidates, project, Constants.TemplatePath.WaitingListTemplate),
+                StatusDTO.Accepted => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.AcceptanceTemplate),
+                StatusDTO.Declined => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.DeclinationTemplate),
+                StatusDTO.WaitingList => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.WaitingListTemplate),
                 _ => throw new ArgumentException($"Email is not sent when user is transferred in status {status}")
             };
 
