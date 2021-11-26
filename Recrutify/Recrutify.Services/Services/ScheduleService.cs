@@ -32,7 +32,7 @@ namespace Recrutify.Services.Services
         {
             if (!date.HasValue)
             {
-                date = DateTime.UtcNow;
+                date = DateTime.UtcNow.Date;
             }
 
             var usersIds = await _projectService.GetInterviewersIdsAsync(projectId);
@@ -44,7 +44,7 @@ namespace Recrutify.Services.Services
         {
             if (!date.HasValue)
             {
-                date = DateTime.UtcNow;
+                date = DateTime.UtcNow.Date;
             }
 
             var userId = _userProvider.GetUserId();
