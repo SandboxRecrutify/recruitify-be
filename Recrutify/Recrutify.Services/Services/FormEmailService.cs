@@ -10,7 +10,7 @@ namespace Recrutify.Services.Services
 {
     public class FormEmailService : IFormEmailService
     {
-        public IEnumerable<EmailRequest> GetEmailRequestsForChangeStatus(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath)
+        public IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath)
         {
             var emailRequests = new List<EmailRequest>();
             var generator = CreateGenerator(templatePath);
@@ -31,7 +31,7 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewType)
+        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewType)
         {
             var emailRequests = new List<EmailRequest>();
             var generator = CreateGenerator(templatePath);
@@ -43,7 +43,7 @@ namespace Recrutify.Services.Services
                 {
                     name = candidate.Name,
                     dateTime = interviewTime.ToString("MM/dd/yyyy HH:mm tt"),
-                    interviewerRole = interviewType,
+                    interviewerType = interviewType,
                 });
                 emailMessage.ToEmail = candidate.Email;
                 emailRequests.Add(emailMessage);

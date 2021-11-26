@@ -22,9 +22,9 @@ namespace Recrutify.Services.Services
         {
             var requests = status switch
             {
-                StatusDTO.Accepted => _formEmailService.GetEmailRequestsForChangeStatus(candidates, project, Constants.TemplatePath.AcceptanceTemplate),
-                StatusDTO.Declined => _formEmailService.GetEmailRequestsForChangeStatus(candidates, project, Constants.TemplatePath.DeclinationTemplate),
-                StatusDTO.WaitingList => _formEmailService.GetEmailRequestsForChangeStatus(candidates, project, Constants.TemplatePath.WaitingListTemplate),
+                StatusDTO.Accepted => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.AcceptanceTemplate),
+                StatusDTO.Declined => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.DeclinationTemplate),
+                StatusDTO.WaitingList => _formEmailService.GetEmailRequestsForStatusChange(candidates, project, Constants.TemplatePath.WaitingListTemplate),
                 _ => throw new ArgumentException($"Email is not sent when user is transferred in status {status}")
             };
 
