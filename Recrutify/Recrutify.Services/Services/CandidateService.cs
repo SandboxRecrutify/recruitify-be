@@ -91,9 +91,13 @@ namespace Recrutify.Services.Services
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
             var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
+
             if (currentCandidate == null)
             {
                 candidate.Id = Guid.NewGuid();
+                candidate.ProjectResults = projectResults;
                 await _candidateRepository.CreateAsync(candidate);
                 var newCanditate = _mapper.Map<CandidateDTO>(candidate);
                 await _projectService.IncrementCurrentApplicationsCountAsync(projectId);
@@ -101,19 +105,18 @@ namespace Recrutify.Services.Services
             }
 
             var candidateToUpdate = _mapper.Map(candidateCreateDTO, currentCandidate.DeepCopy());
-            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
-            var projectResults = currentCandidate.ProjectResults?.ToList();
+            var currentProjectResults = currentCandidate.ProjectResults?.ToList();
             var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
-            if (projectResults == null)
+            if (currentProjectResults == null)
             {
-                projectResults = new List<ProjectResult> { newProjectResult };
+                currentProjectResults = new List<ProjectResult> { newProjectResult };
             }
             else
             {
-                projectResults.Add(newProjectResult);
+                currentProjectResults.Add(newProjectResult);
             }
 
-            candidateToUpdate.ProjectResults = projectResults;
+            candidateToUpdate.ProjectResults = currentProjectResults;
 
             await _candidateRepository.ReplaceAsync(candidateToUpdate);
             return _mapper.Map<CandidateDTO>(candidateToUpdate);
