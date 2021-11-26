@@ -1,4 +1,5 @@
 ﻿using System;
+﻿using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;
@@ -18,19 +19,18 @@ namespace Recrutify.Services.Services
             _mailSettings = mailSettings.Value;
         }
 
-        public void SendEmail(EmailRequest emailRequest)
+        public async Task SendEmailAsync(EmailRequest emailRequest)
         {
             var email = new MimeMessage();
-
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
-            email.To.Add(MailboxAddress.Parse("danik.prokopenkov01@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(emailRequest.ToEmail));
             email.Subject = emailRequest.Subject;
             email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
             using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, Convert.ToInt32(_mailSettings.Port), SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            await smtp.ConnectAsync(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+            await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
+            await smtp.SendAsync(email);
+            await smtp.DisconnectAsync(true);
         }
     }
 }

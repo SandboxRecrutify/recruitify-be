@@ -22,10 +22,18 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<bool> ExistsAsync(Guid id);
 
+        Task<IEnumerable<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
+
         Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
 
         Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO, Guid projectId);
 
         Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId);
+
+        IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId);
+
+        IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId);
+
+        Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
     }
 }

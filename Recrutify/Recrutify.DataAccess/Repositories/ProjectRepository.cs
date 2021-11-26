@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -16,6 +17,12 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
+        public IQueryable<Project> GetShort()
+        {
+            return GetCollection().AsQueryable().Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
+                                            .OrderBy(x => x.StartRegistrationDate);
+        }
+
         public Task<IEnumerable<ProjectPrimarySkill>> GetPrimarySkills(Guid id)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);
@@ -30,6 +37,15 @@ namespace Recrutify.DataAccess.Repositories
             var filter = _filterBuilder.Eq(x => x.Id, id);
             var updateDefinition = Builders<Project>.Update.Inc(p => p.CurrentApplicationsCount, 1);
             return GetCollection().UpdateOneAsync(filter, updateDefinition);
+        }
+
+        public Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            return GetCollection()
+                     .Find(filter)
+                     .Project(p => p.Interviewers.Select(x => x.UserId))
+                     .FirstOrDefaultAsync();
         }
     }
 }

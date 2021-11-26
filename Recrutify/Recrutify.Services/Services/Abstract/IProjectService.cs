@@ -19,7 +19,7 @@ namespace Recrutify.Services.Services.Abstract
 
         IQueryable<ProjectDTO> Get();
 
-        Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto);
+        Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto);
 
         Task DeleteAsync(Guid id);
 
@@ -30,5 +30,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles);
 
         Task IncrementCurrentApplicationsCountAsync(Guid id);
+
+        Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id);
     }
 }

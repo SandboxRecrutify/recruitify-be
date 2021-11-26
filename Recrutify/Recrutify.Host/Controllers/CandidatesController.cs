@@ -4,9 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
@@ -104,6 +102,15 @@ namespace Recrutify.Host.Controllers
         public async Task<ActionResult> BulkUpdateStatusByIdsAsync([FromBody] BulkUpdateStatusDTO bulkUpdateStatusDTO, [FromQuery, Required] Guid projectId)
         {
             await _candidateService.BulkUpdateStatusReasonAsync(bulkUpdateStatusDTO, projectId);
+
+            return NoContent();
+        }
+
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("bulk/send_test_emails")]
+        public async Task<ActionResult> BulkSendEmailsWithTestAsync([FromBody] BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, [FromQuery, Required] Guid projectId)
+        {
+            await _candidateService.BulkSendEmailsWithTestAsync(bulkSendEmailWithTestDTO, projectId);
 
             return NoContent();
         }

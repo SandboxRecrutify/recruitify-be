@@ -8,6 +8,7 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -18,9 +19,11 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly IPrimarySkillService _primarySkillService;
+        private readonly IStaffHelper _staffHelper;
 
-        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService)
+        public ProjectService(IProjectRepository projectRepository, IMapper mapper, IUserService userService, IPrimarySkillService primarySkillService, IStaffHelper staffHelper)
         {
+            _staffHelper = staffHelper;
             _userService = userService;
             _primarySkillService = primarySkillService;
             _projectRepository = projectRepository;
@@ -37,7 +40,7 @@ namespace Recrutify.Services.Services
             project.Mentors = projectDto.Mentors.GetStaff(users);
             project.Recruiters = projectDto.Recruiters.GetStaff(users);
             await _projectRepository.CreateAsync(project);
-            await _userService.BulkAddProjectRolesAsync(project.Id, GetStaffUsersByRoles(project));
+            await _userService.BulkAddProjectRolesAsync(project.Id, _staffHelper.GetStaffUsersByRoles(project));
 
             return _mapper.Map<ProjectDTO>(project);
         }
@@ -56,7 +59,7 @@ namespace Recrutify.Services.Services
 
         public IQueryable<ShortProjectDTO> GetShort()
         {
-            var projects = _projectRepository.Get();
+            var projects = _projectRepository.GetShort();
             return _mapper.ProjectTo<ShortProjectDTO>(projects);
         }
 
@@ -71,11 +74,19 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<ProjectDTO>(_projectRepository.Get());
         }
 
-        public async Task<ProjectDTO> UpdateAsync(ProjectDTO projectDto)
+        public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
         {
-            var project = _mapper.Map<Project>(projectDto);
-            await _projectRepository.UpdateAsync(project);
-            return _mapper.Map<ProjectDTO>(project);
+            var currentProject = await _projectRepository.GetAsync(projectDto.Id);
+            var newProject = _mapper.Map<Project>(projectDto);
+            var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
+               .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
+            newProject.Interviewers = projectDto.Interviewers.GetStaff(users);
+            newProject.Managers = projectDto.Managers.GetStaff(users);
+            newProject.Mentors = projectDto.Mentors.GetStaff(users);
+            newProject.Recruiters = projectDto.Recruiters.GetStaff(users);
+            await _projectRepository.UpdateAsync(newProject);
+            await _userService.BulkUpdateProjectRolesAsync(projectDto.Id, _staffHelper.GetStaffUsersByRoles(currentProject), _staffHelper.GetStaffUsersByRoles(newProject));
+            return _mapper.Map<ProjectDTO>(newProject);
         }
 
         public async Task DeleteAsync(Guid id)
@@ -104,13 +115,9 @@ namespace Recrutify.Services.Services
             return _projectRepository.IncrementCurrentApplicationsCountAsync(id);
         }
 
-        private IDictionary<Guid, IEnumerable<Role>> GetStaffUsersByRoles(Project project)
+        public Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id)
         {
-            var allStaff = project.Interviewers.Select(u => new { u.UserId, Role = Role.Interviewer })
-                    .Union(project.Managers.Select(u => new { u.UserId, Role = Role.Manager }))
-                    .Union(project.Recruiters.Select(u => new { u.UserId, Role = Role.Recruiter }))
-                    .Union(project.Mentors.Select(u => new { u.UserId, Role = Role.Mentor }));
-            return allStaff.GroupBy(g => g.UserId).ToDictionary(g => g.Key, g => g.Select(r => r.Role));
+            return _projectRepository.GetInterviewersIdsAsync(id);
         }
     }
 }

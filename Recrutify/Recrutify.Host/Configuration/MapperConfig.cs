@@ -12,6 +12,7 @@ namespace Recrutify.Host.Configuration
 
             configExpression.AddProfile<ProjectProfile>();
             configExpression.AddProfile<CandidateProfile>();
+            configExpression.AddProfile<ScheduleProfile>();
 
             var config = new MapperConfiguration(configExpression);
             config.AssertConfigurationIsValid();

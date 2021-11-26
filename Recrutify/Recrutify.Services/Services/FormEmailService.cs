@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Mustache;
+using Recrutify.DataAccess;
+using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
@@ -8,33 +11,62 @@ namespace Recrutify.Services.Services
 {
     public class FormEmailService : IFormEmailService
     {
-        public FormEmailService()
+        public IEnumerable<EmailRequest> GetEmailRequests(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath)
         {
-        }
-
-        public IEnumerable<EmailRequest> GetEmailRequests()
-        {
-            var filePath = Directory.GetCurrentDirectory() + "/EmailTemplates/Test_Email.html";
-            var str = new StreamReader(filePath);
-            var mailText = str.ReadToEnd();
-            str.Close();
             var emailRequests = new List<EmailRequest>();
-            var compiler = new HtmlFormatCompiler();
-            var generator = compiler.Compile(mailText);
-            var email = generator.Render(new
-            {
-                name = "Даниил",
-            });
-            for (int i = 1; i < 10; i++)
+            var generator = CreateGenerator(templatePath);
+            foreach (var candidate in candidates)
             {
                 var emailMessage = new EmailRequest();
-                emailMessage.Subject = "test" + i.ToString();
-                emailMessage.Body = email;
-                emailMessage.ToEmail = "danik.prokopenkov01@gmail.com";
+                emailMessage.Subject = $"\"{project.Name}\"";
+                emailMessage.Body = generator.Render(new
+                {
+                    name = candidate.Name,
+                    startDate = project.StartDate.ToString("dd.MM.yyyy"),
+                    projectName = $"\"{project.Name}\"",
+                });
+                emailMessage.ToEmail = candidate.Email;
                 emailRequests.Add(emailMessage);
             }
 
             return emailRequests;
+        }
+
+        public IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project)
+        {
+            var emailRequests = new List<EmailRequest>();
+            var generator = CreateGenerator(Constants.TemplatePath.TestTemplate);
+            foreach (var candidate in candidates)
+            {
+                var primarySkillId = candidate.ProjectResults.Where(pr => pr.ProjectId == project.Id)
+                    .Select(prskill => prskill.PrimarySkill.Id)
+                    .FirstOrDefault();
+                var testLink = project.PrimarySkills.Where(prskill => prskill.Id == primarySkillId)
+                    .Select(prskill => prskill.TestLink)
+                    .FirstOrDefault();
+                var emailMessage = new EmailRequest();
+                emailMessage.Subject = $"\"{project.Name}\"";
+                emailMessage.Body = generator.Render(new
+                {
+                    name = candidate.Name,
+                    projectName = $"\"{project.Name}\"",
+                    testLink = testLink,
+                });
+                emailMessage.ToEmail = candidate.Email;
+                emailRequests.Add(emailMessage);
+            }
+
+            return emailRequests;
+        }
+
+        private Generator CreateGenerator(string templatePath)
+        {
+            var filePath = Directory.GetCurrentDirectory() + templatePath;
+            var str = new StreamReader(filePath);
+            var mailText = str.ReadToEnd();
+            str.Close();
+            var compiler = new HtmlFormatCompiler();
+            return compiler.Compile(mailText);
         }
     }
 }
