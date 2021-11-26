@@ -25,8 +25,9 @@ namespace Recrutify.Services.Services
         private readonly IValidator<ProjectResult> _validator;
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
+        private readonly ISendEmailQueueService _sendQueueEmailService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -34,6 +35,7 @@ namespace Recrutify.Services.Services
             _projectService = projectService;
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
+            _sendQueueEmailService = sendEmailQueueService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -89,9 +91,13 @@ namespace Recrutify.Services.Services
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
             var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
+
             if (currentCandidate == null)
             {
                 candidate.Id = Guid.NewGuid();
+                candidate.ProjectResults = projectResults;
                 await _candidateRepository.CreateAsync(candidate);
                 var newCanditate = _mapper.Map<CandidateDTO>(candidate);
                 await _projectService.IncrementCurrentApplicationsCountAsync(projectId);
@@ -99,19 +105,18 @@ namespace Recrutify.Services.Services
             }
 
             var candidateToUpdate = _mapper.Map(candidateCreateDTO, currentCandidate.DeepCopy());
-            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
-            var projectResults = currentCandidate.ProjectResults?.ToList();
+            var currentProjectResults = currentCandidate.ProjectResults?.ToList();
             var newProjectResult = new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill };
-            if (projectResults == null)
+            if (currentProjectResults == null)
             {
-                projectResults = new List<ProjectResult> { newProjectResult };
+                currentProjectResults = new List<ProjectResult> { newProjectResult };
             }
             else
             {
-                projectResults.Add(newProjectResult);
+                currentProjectResults.Add(newProjectResult);
             }
 
-            candidateToUpdate.ProjectResults = projectResults;
+            candidateToUpdate.ProjectResults = currentProjectResults;
 
             await _candidateRepository.ReplaceAsync(candidateToUpdate);
             return _mapper.Map<CandidateDTO>(candidateToUpdate);
@@ -197,6 +202,13 @@ namespace Recrutify.Services.Services
         {
             var candidates = await _candidateRepository.GetByIdsAsync(ids);
             return _mapper.Map<List<CandidateDTO>>(candidates);
+        }
+
+        public async Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId)
+        {
+            var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
+            var project = await _projectService.GetAsync(projectId);
+            _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
     }
 }
