@@ -20,6 +20,17 @@ namespace Recrutify.DataAccess.Repositories
         public Task<List<Schedule>> GetByUserPrimarySkillAsync(IEnumerable<Guid> userIds, DateTime date, Guid primarySkillId)
         {
             var filter = _filterBuilder.In(u => u.UserId, userIds) & _filterBuilder.Eq(u => u.UserPrimarySkill.Id, primarySkillId);
+            return GetCollectionByDatePeriod(filter, date, 1);
+        }
+
+        public Task<List<Schedule>> GetByDateAsync(Guid userId, DateTime date)
+        {
+            var filter = _filterBuilder.Eq(u => u.UserId, userId);
+            return GetCollectionByDatePeriod(filter, date, 1);
+        }
+
+        private Task<List<Schedule>> GetCollectionByDatePeriod(FilterDefinition<Schedule> filter, DateTime date, int countDay)
+        {
             return GetCollection()
                 .Find(filter)
                 .Project(x => new Schedule
@@ -30,7 +41,7 @@ namespace Recrutify.DataAccess.Repositories
                     ScheduleSlots = x.ScheduleSlots
                                         .Where(
                                             y => y.AvailableTime >= date.Date &&
-                                            y.AvailableTime < date.Date.AddDays(1)),
+                                            y.AvailableTime < date.Date.AddDays(countDay)),
                 })
                 .ToListAsync();
         }
