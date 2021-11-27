@@ -10,11 +10,11 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task CreateAsync(TDocument item);
 
+        IQueryable<TDocument> Get();
+
         Task<TDocument> GetAsync(Guid id);
 
         Task<List<TDocument>> GetAllAsync();
-
-        IQueryable<TDocument> Get();
 
         Task UpdateAsync(TDocument item);
 
