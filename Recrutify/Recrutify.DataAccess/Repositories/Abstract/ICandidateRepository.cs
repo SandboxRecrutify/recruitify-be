@@ -28,8 +28,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason);
 
-        Task<List<Location>> Getlocation(Guid? projectId = null);
+        Task<List<Location>> GetlocationAsync(Guid? projectId = null);
 
-        Task<List<CandidatePrimarySkill>> GetPrimarySkill(Guid? projectId = null);
+        Task<List<CandidatePrimarySkill>> GetPrimarySkillAsync(Guid? projectId = null);
     }
 }

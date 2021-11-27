@@ -26,9 +26,8 @@ namespace Recrutify.Services.Services
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
         private readonly ISendEmailQueueService _sendQueueEmailService;
-        private readonly IPrimarySkillService _primarySkillService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService, IPrimarySkillService primarySkillService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -37,7 +36,6 @@ namespace Recrutify.Services.Services
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
             _sendQueueEmailService = sendEmailQueueService;
-            _primarySkillService = primarySkillService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -213,15 +211,14 @@ namespace Recrutify.Services.Services
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
 
-        public async Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocation(Guid? projectId = null)
+        public async Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocationsAsync(Guid? projectId = null)
         {
-            var location = await _candidateRepository.Getlocation(projectId);
-            var primarySkilll = await _candidateRepository.GetPrimarySkill(projectId);
+            var locations = await _candidateRepository.GetlocationAsync(projectId);
+            var primarySkills = await _candidateRepository.GetPrimarySkillAsync(projectId);
             var result = new CandidatesPrimarySkillsAndLocationDTO()
             {
-                //PrimarySkill = await _primarySkillService.GetAllAsync(),
-                PrimarySkill = _mapper.Map<List<CandidatePrimarySkillDTO>>(primarySkilll),
-                Location = _mapper.Map<List<LocationDTO>>(location),
+                PrimarySkill = _mapper.Map<List<CandidatePrimarySkillDTO>>(primarySkills),
+                Location = _mapper.Map<List<LocationDTO>>(locations),
             };
 
             return result;

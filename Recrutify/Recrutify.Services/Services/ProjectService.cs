@@ -99,6 +99,7 @@ namespace Recrutify.Services.Services
         {
             return _projectRepository.ExistsAsync(id);
         }
+
         public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles)
         {
             var result = new PrimarySkillsAndStaffDTO()
