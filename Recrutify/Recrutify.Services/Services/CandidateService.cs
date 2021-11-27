@@ -26,8 +26,9 @@ namespace Recrutify.Services.Services
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
         private readonly ISendEmailQueueService _sendQueueEmailService;
+        private readonly IPrimarySkillService _primarySkillService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService, IPrimarySkillService primarySkillService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -36,6 +37,7 @@ namespace Recrutify.Services.Services
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
             _sendQueueEmailService = sendEmailQueueService;
+            _primarySkillService = primarySkillService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -209,6 +211,20 @@ namespace Recrutify.Services.Services
             var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
             var project = await _projectService.GetAsync(projectId);
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
+        }
+
+        public async Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocation(Guid? projectId = null)
+        {
+            var location = await _candidateRepository.Getlocation(projectId);
+            var primarySkilll = await _candidateRepository.GetPrimarySkill(projectId);
+            var result = new CandidatesPrimarySkillsAndLocationDTO()
+            {
+                //PrimarySkill = await _primarySkillService.GetAllAsync(),
+                PrimarySkill = _mapper.Map<List<CandidatePrimarySkillDTO>>(primarySkilll),
+                Location = _mapper.Map<List<LocationDTO>>(location),
+            };
+
+            return result;
         }
     }
 }

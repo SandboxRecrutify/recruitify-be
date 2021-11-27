@@ -35,5 +35,7 @@ namespace Recrutify.Services.Services.Abstract
         IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId);
 
         Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
+
+        Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocation(Guid? projectId = null);
     }
 }

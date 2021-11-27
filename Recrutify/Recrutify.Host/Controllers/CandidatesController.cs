@@ -114,5 +114,13 @@ namespace Recrutify.Host.Controllers
 
             return NoContent();
         }
+        
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("primary_skills_and_location")]
+        public async Task<ActionResult<CandidateDTO>> GetPrimarySkillsAndlocation([FromQuery] Guid? projectId = null)
+        {
+                var result = await _candidateService.GetPrimarySkillsAndlocation(projectId);
+                return Ok(result);
+        }
     }
 }

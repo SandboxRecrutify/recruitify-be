@@ -37,6 +37,29 @@ namespace Recrutify.DataAccess.Repositories
                                                                                  || p.Status == Status.TechInterviewSecondStep)));
         }
 
+        public Task<List<Location>> Getlocation(Guid? projectId = null)
+        {
+            if (projectId != null)
+            {
+                var filter = _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId));
+                return GetCollection().Find(filter).Project(x => x.Location).ToListAsync();
+            }
+
+            var filterAll = _filterBuilder.Empty;
+            return GetCollection().Find(filterAll).Project(x => x.Location).ToListAsync();
+        }
+
+        public Task<List<CandidatePrimarySkill>> GetPrimarySkill(Guid? projectId = null)
+        {
+            if (projectId != null)
+            {
+                var filter = _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId));
+                return GetCollection().Find(filter).Project(x => x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault()).ToListAsync();
+            }
+            var filterAll = _filterBuilder.Empty;
+            return GetCollection().Find(filterAll).Project(x => x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault()).ToListAsync();
+        }
+
         public Task<Candidate> GetByEmailAsync(string email)
         {
             var filter = _filterBuilder.Eq(c => c.Email, email);

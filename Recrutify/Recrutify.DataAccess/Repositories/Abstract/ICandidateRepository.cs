@@ -27,5 +27,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task CreateFeedbacksByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Feedback feedback);
 
         Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason);
+
+        Task<List<Location>> Getlocation(Guid? projectId = null);
+
+        Task<List<CandidatePrimarySkill>> GetPrimarySkill(Guid? projectId = null);
     }
 }
