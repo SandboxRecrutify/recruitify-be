@@ -23,10 +23,10 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollectionByDatePeriod(filter, date, 1).ToListAsync();
         }
 
-        public Task<List<Schedule>> GetByDateAsync(Guid userId, DateTime date)
+        public Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum)
         {
             var filter = _filterBuilder.Eq(u => u.UserId, userId);
-            return GetCollectionByDatePeriod(filter, date, 1).ToListAsync();
+            return GetCollectionByDatePeriod(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
         private IFindFluent<Schedule, Schedule> GetCollectionByDatePeriod(FilterDefinition<Schedule> filter, DateTime date, int daysNum)
