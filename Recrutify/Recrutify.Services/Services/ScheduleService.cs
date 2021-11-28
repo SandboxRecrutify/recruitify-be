@@ -40,7 +40,7 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ScheduleDTO>>(schedules);
         }
 
-        public async Task<IEnumerable<ScheduleDTO>> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
+        public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
         {
             if (!date.HasValue)
             {
@@ -49,7 +49,7 @@ namespace Recrutify.Services.Services
 
             var userId = _userProvider.GetUserId();
             var schedules = await _scheduleRepository.GetByDatePeriodAsync(userId, date.Value, daysNum);
-            return _mapper.Map<List<ScheduleDTO>>(schedules);
+            return _mapper.Map<ScheduleDTO>(schedules);
         }
     }
 }

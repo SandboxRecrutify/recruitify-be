@@ -28,7 +28,7 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet("current_user")]
-        public Task<IEnumerable<ScheduleDTO>> GetByDatePeriodForCurrentUserAsync([FromQuery] DateTime? date, [FromQuery] int daysNum = 1)
+        public Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync([FromQuery] DateTime? date, [FromQuery] int daysNum = 1)
         {
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
         }
