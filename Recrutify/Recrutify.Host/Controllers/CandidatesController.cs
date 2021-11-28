@@ -117,7 +117,7 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [HttpGet("primary_skills_and_locations")]
-        public async Task<ActionResult<CandidateDTO>> GetPrimarySkillsAndlocationsAsync([FromQuery] Guid? projectId = null)
+        public async Task<ActionResult<CandidateDTO>> GetPrimarySkillsAndlocationsAsync([FromQuery] Guid? projectId)
         {
             var result = await _candidateService.GetPrimarySkillsAndlocationsAsync(projectId);
             return Ok(result);

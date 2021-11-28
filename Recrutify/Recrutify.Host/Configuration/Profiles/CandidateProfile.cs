@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -32,6 +33,11 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<Candidate, ScheduleCandidateInfoDTO>()
                 .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
+
+            CreateMap<CandidatesPrimarySkillsAndLocation, CandidatesPrimarySkillsAndLocationDTO>();
+               // .ForMember(dest => dest.Locations, conf => conf.MapFrom(src => src.Locations))
+               // .ForMember(dest => dest.PrimarySkills, conf => conf.MapFrom(src => src.PrimarySkills));
+            
         }
     }
 }

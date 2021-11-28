@@ -211,17 +211,10 @@ namespace Recrutify.Services.Services
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
 
-        public async Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocationsAsync(Guid? projectId = null)
+        public async Task<IEnumerable<CandidatesPrimarySkillsAndLocationDTO>> GetPrimarySkillsAndlocationsAsync(Guid? projectId)
         {
-            var locations = await _candidateRepository.GetlocationAsync(projectId);
-            var primarySkills = await _candidateRepository.GetPrimarySkillAsync(projectId);
-            var result = new CandidatesPrimarySkillsAndLocationDTO()
-            {
-                PrimarySkill = _mapper.Map<List<CandidatePrimarySkillDTO>>(primarySkills),
-                Location = _mapper.Map<List<LocationDTO>>(locations),
-            };
-
-            return result;
+           var primarySkillsAddLocations = await _candidateRepository.GetPrimarySkillAndLocationsAsync(projectId);
+           return _mapper.Map<List<CandidatesPrimarySkillsAndLocationDTO>>(primarySkillsAddLocations);
         }
     }
 }

@@ -37,28 +37,15 @@ namespace Recrutify.DataAccess.Repositories
                                                                                  || p.Status == Status.TechInterviewSecondStep)));
         }
 
-        public Task<List<Location>> GetlocationAsync(Guid? projectId = null)
+        public Task<List<CandidatesPrimarySkillsAndLocation>> GetPrimarySkillAndLocationsAsync(Guid? projectId)
         {
-            if (projectId != null)
+            var filter = projectId.HasValue ? _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId))
+                                            : _filterBuilder.Empty;
+            return GetCollection().Find(filter).Project(x => new CandidatesPrimarySkillsAndLocation
             {
-                var filter = _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId));
-                return GetCollection().Find(filter).Project(x => x.Location).ToListAsync();
-            }
-
-            var filterAll = _filterBuilder.Empty;
-            return GetCollection().Find(filterAll).Project(x => x.Location).ToListAsync();
-        }
-
-        public Task<List<CandidatePrimarySkill>> GetPrimarySkillAsync(Guid? projectId = null)
-        {
-            if (projectId != null)
-            {
-                var filter = _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId));
-                return GetCollection().Find(filter).Project(x => x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault()).ToListAsync();
-            }
-
-            var filterAll = _filterBuilder.Empty;
-            return GetCollection().Find(filterAll).Project(x => x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault()).ToListAsync();
+                Locations = new List<Location> { x.Location },
+                PrimarySkills = new List<CandidatePrimarySkill> { x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault() },
+            }).ToListAsync();
         }
 
         public Task<Candidate> GetByEmailAsync(string email)
