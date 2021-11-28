@@ -35,9 +35,6 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
 
             CreateMap<CandidatesPrimarySkillsAndLocation, CandidatesPrimarySkillsAndLocationDTO>();
-               // .ForMember(dest => dest.Locations, conf => conf.MapFrom(src => src.Locations))
-               // .ForMember(dest => dest.PrimarySkills, conf => conf.MapFrom(src => src.PrimarySkills));
-            
         }
     }
 }
