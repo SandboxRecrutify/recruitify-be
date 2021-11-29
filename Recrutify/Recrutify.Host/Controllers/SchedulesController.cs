@@ -22,9 +22,15 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync([FromQuery, Required] Guid projectId, [FromQuery, Required] DateTime date, [FromQuery, Required] Guid primarySkillId)
+        public Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync([FromQuery, Required] Guid projectId, [FromQuery] DateTime? date, [FromQuery, Required] Guid primarySkillId)
         {
             return _scheduleService.GetByUserPrimarySkillAsync(projectId, date, primarySkillId);
+        }
+
+        [HttpGet("current_user")]
+        public Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync([FromQuery] DateTime? date, [FromQuery] int daysNum = 1)
+        {
+            return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
         }
     }
 }

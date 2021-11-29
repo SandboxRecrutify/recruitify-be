@@ -71,7 +71,8 @@ namespace Recrutify.Services.Services
 
         public IQueryable<ProjectDTO> Get()
         {
-            return _mapper.ProjectTo<ProjectDTO>(_projectRepository.Get());
+            var projects = _projectRepository.Get().OrderByDescending(p => p.IsActive);
+            return _mapper.ProjectTo<ProjectDTO>(projects);
         }
 
         public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
