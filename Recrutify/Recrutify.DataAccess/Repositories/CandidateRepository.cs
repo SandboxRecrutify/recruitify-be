@@ -43,8 +43,8 @@ namespace Recrutify.DataAccess.Repositories
                                             : _filterBuilder.Empty;
             return GetCollection().Find(filter).Project(x => new CandidatesPrimarySkillsAndLocation
             {
-                Locations = new List<Location> { x.Location },
-                PrimarySkills = new List<CandidatePrimarySkill> { x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault() },
+                Locations = x.Location,
+                PrimarySkills = x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault(),
             }).ToListAsync();
         }
 

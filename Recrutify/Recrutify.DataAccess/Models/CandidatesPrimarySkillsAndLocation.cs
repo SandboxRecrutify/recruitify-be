@@ -4,8 +4,8 @@ namespace Recrutify.DataAccess.Models
 {
     public class CandidatesPrimarySkillsAndLocation
     {
-        public List<CandidatePrimarySkill> PrimarySkills { get; set; }
+        public CandidatePrimarySkill PrimarySkills { get; set; }
 
-        public List<Location> Locations { get; set; }
+        public Location Locations { get; set; }
     }
 }
