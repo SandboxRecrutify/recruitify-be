@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using FluentValidation;
-using Recrutify.DataAccess.Models;
+﻿using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -11,7 +8,6 @@ namespace Recrutify.Services.Validators
         public CandidatePrimarySkillValidator()
         {
             RuleFor(c => c.Id)
-                .NotNull()
                 .NotEmpty();
             RuleFor(c => c.Name)
                 .NotNull()
