@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
+using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -7,6 +10,8 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
+        protected IUserRepository _userRepository;
+
         protected BaseProjectValidator()
         {
             RuleFor(p => p.Name)
@@ -48,25 +53,37 @@ namespace Recrutify.Services.Validators
                  .NotEmpty();
             RuleForEach(p => p.Mentors)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .CustomAsync(CheckStuffAsync);
             RuleFor(p => p.Managers)
                  .NotNull()
                  .NotEmpty();
             RuleForEach(p => p.Managers)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .CustomAsync(CheckStuffAsync);
             RuleFor(p => p.Interviewers)
                  .NotNull()
                  .NotEmpty();
             RuleForEach(p => p.Interviewers)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .CustomAsync(CheckStuffAsync);
             RuleFor(p => p.Recruiters)
                 .NotNull()
                 .NotEmpty();
             RuleForEach(p => p.Recruiters)
                .NotNull()
-               .NotEmpty();
+               .NotEmpty()
+                .CustomAsync(CheckStuffAsync);
+        }
+
+        protected async Task CheckStuffAsync(Guid userId, ValidationContext<TDTO> context, CancellationToken cancellation)
+        {
+            if (!await _userRepository.ExistsAsync(userId))
+            {
+                context.AddFailure("User doesn't exist");
+            }
         }
     }
 }
