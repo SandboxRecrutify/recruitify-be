@@ -96,7 +96,7 @@ namespace Recrutify.Services.Services
             var currentPrimarySkill = await _primarySkillService.GetAsync(candidateCreateDTO.PrimarySkillId);
             if (currentPrimarySkill == null)
             {
-                throw new ValidationException("Primary skill can't be empty!");
+                throw new ValidationException("Primary skill does't exist!");
             }
 
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(new CandidatePrimarySkillDTO { Id = candidateCreateDTO.PrimarySkillId, Name = currentPrimarySkill.Name });
