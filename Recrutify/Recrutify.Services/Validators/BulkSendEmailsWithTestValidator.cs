@@ -1,4 +1,10 @@
-﻿using FluentValidation;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using FluentValidation;
+using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
@@ -20,9 +26,17 @@ namespace Recrutify.Services.Validators
             RuleFor(x => x.CandidatesIds)
                 .NotNull()
                 .NotEmpty()
-                .MustAsync(_candidateRepository.ExistsByIdsAsync)
+                .MustAsync(CandidatesAreExistingAsync)
                 .WithMessage("One or more candidates doesn't exist");
         }
 
+        private async Task<bool> CandidatesAreExistingAsync(BulkSendEmailWithTestDTO dto, IEnumerable<Guid> candidatsIds, CancellationToken cancellationToken)
+        {
+            var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
+            int filteredCandidatesCount = candidates.Count(c => c.ProjectResults
+                                                       ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId)
+                                                       ?.Status.Equals(Status.Test) ?? false);
+            return filteredCandidatesCount == candidatsIds.Count();
+        }
     }
 }
