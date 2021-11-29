@@ -44,5 +44,10 @@ namespace Recrutify.DataAccess.Repositories
                                                     y.AvailableTime < date.Date.AddDays(daysNum)),
                         });
         }
+
+        public async Task UpdateScheduleAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

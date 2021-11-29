@@ -51,5 +51,10 @@ namespace Recrutify.Services.Services
             var schedules = await _scheduleRepository.GetByDatePeriodAsync(userId, date.Value, daysNum);
             return _mapper.Map<ScheduleDTO>(schedules);
         }
+
+        public async Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

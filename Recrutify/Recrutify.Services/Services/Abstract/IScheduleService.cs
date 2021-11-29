@@ -13,5 +13,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime? date, Guid primarySkillId);
 
         Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum);
+
+        Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots);
     }
 }
