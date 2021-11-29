@@ -46,8 +46,12 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
                 .NotEmpty();
-            RuleFor(c => c.PrimarySkill)
-                 .SetValidator(new CandidatePrimarySkillValidator());
+            RuleFor(c => c.PrimarySkill.Id)
+                .NotEmpty();
+            RuleFor(c => c.PrimarySkill.Name)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
         }
     }
 }
