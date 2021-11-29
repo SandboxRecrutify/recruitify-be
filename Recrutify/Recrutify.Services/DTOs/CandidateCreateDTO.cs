@@ -2,6 +2,6 @@
 {
     public class CandidateCreateDTO : BaseCandidateDTO
     {
-        public CandidatePrimarySkillDTO PrimarySkill { get; set; }
+        public CreateCandidatePrimarySkillDTO PrimarySkill { get; set; }
     }
 }

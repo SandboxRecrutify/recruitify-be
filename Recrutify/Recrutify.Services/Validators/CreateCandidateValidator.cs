@@ -48,10 +48,7 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.PrimarySkill.Id)
                 .NotEmpty();
-            RuleFor(c => c.PrimarySkill.Name)
-                .NotNull()
-                .NotEmpty()
-                .MaximumLength(50);
+           
         }
     }
 }

@@ -26,8 +26,9 @@ namespace Recrutify.Services.Services
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
         private readonly ISendEmailQueueService _sendQueueEmailService;
+        private readonly IPrimarySkillService _primarySkillService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService, IPrimarySkillService primarySkillService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -36,6 +37,7 @@ namespace Recrutify.Services.Services
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
             _sendQueueEmailService = sendEmailQueueService;
+            _primarySkillService = primarySkillService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -91,7 +93,10 @@ namespace Recrutify.Services.Services
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
             var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
+            var currentPrimarySkill = await _primarySkillService.GetAsync(candidateCreateDTO.PrimarySkill.Id);
+            var primarySkillName = currentPrimarySkill.Name;
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            primarySkill.Name = primarySkillName;
             var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
 
             if (currentCandidate == null)

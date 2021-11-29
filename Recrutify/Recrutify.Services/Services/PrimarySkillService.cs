@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Repositories.Abstract;
@@ -22,6 +23,12 @@ namespace Recrutify.Services.Services
         {
             var skills = await _primarySkillRepository.GetAllAsync();
             return _mapper.Map<List<PrimarySkillDTO>>(skills);
+        }
+
+        public async Task<PrimarySkillDTO> GetAsync(Guid id)
+        {
+            var skills = await _primarySkillRepository.GetAsync(id);
+            return _mapper.Map<PrimarySkillDTO>(skills);
         }
     }
 }

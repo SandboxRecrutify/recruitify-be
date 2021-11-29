@@ -10,7 +10,7 @@ namespace Recrutify.Host.Configuration
         {
             builder.EntitySet<CandidateDTO>("Candidates");
             builder.ComplexType<ProjectResultDTO>();
-            builder.ComplexType<CandidatePrimarySkillDTO>();
+            builder.ComplexType<CreateCandidatePrimarySkillDTO>();
             builder.EntityType<CandidateDTO>().Collection
                    .Function("GetByProject")
                    .ReturnsCollectionFromEntitySet<CandidateDTO>("Candidates");
