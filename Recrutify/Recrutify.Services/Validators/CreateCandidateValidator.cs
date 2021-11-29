@@ -43,6 +43,8 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
                 .NotEmpty();
+            RuleFor(c => c.PrimarySkill)
+                 .SetValidator(new CandidatePrimarySkillValidator());
         }
     }
 }

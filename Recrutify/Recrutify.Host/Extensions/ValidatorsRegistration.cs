@@ -18,6 +18,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IValidator<BulkCreateTestFeedbackDTO>, BulkCreateTestFeedbackValidator>();
             services.AddSingleton<IValidator<BulkUpdateStatusDTO>, BulkUpdateStatusReasonCandidatsValidator>();
             services.AddSingleton<IValidator<BulkSendEmailWithTestDTO>, BulkSendEmailsWithTestValidator>();
+            services.AddSingleton<IValidator<CandidatePrimarySkillDTO>, CandidatePrimarySkillValidator>();
         }
     }
 }
