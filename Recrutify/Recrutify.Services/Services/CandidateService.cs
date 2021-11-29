@@ -94,6 +94,11 @@ namespace Recrutify.Services.Services
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
             var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
             var currentPrimarySkill = await _primarySkillService.GetAsync(candidateCreateDTO.PrimarySkillId);
+            if (currentPrimarySkill == null)
+            {
+                throw new NotFoundException();
+            }
+
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(new CandidatePrimarySkillDTO { Id = candidateCreateDTO.PrimarySkillId, Name = currentPrimarySkill.Name });
             var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
 
