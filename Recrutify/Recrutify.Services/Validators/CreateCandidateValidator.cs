@@ -48,7 +48,6 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.PrimarySkill.Id)
                 .NotEmpty();
-           
         }
     }
 }
