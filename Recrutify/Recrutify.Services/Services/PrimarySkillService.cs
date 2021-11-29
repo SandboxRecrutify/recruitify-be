@@ -27,8 +27,8 @@ namespace Recrutify.Services.Services
 
         public async Task<PrimarySkillDTO> GetAsync(Guid id)
         {
-            var skills = await _primarySkillRepository.GetAsync(id);
-            return _mapper.Map<PrimarySkillDTO>(skills);
+            var skill = await _primarySkillRepository.GetAsync(id);
+            return _mapper.Map<PrimarySkillDTO>(skill);
         }
     }
 }

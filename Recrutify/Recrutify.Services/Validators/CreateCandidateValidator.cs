@@ -37,16 +37,18 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.Location.City)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
             RuleFor(c => c.Location.Country)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
             RuleFor(c => c.BestTimeToConnect)
                 .NotNull()
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
                 .NotEmpty();
-            RuleFor(c => c.PrimarySkill.Id)
+            RuleFor(c => c.PrimarySkillId)
                 .NotEmpty();
         }
     }
