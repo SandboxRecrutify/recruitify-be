@@ -33,9 +33,9 @@ namespace Recrutify.Host.Controllers
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
         }
 
-        public async Task UpdateSlotsForCurrentUserAsync(IEnumerable<DateTime> timeSlots)
+        public async Task UpdateSlotsForCurrentUserAsync(IEnumerable<DateTime> timeSlots, DateTime mondayDate)
         {
-            await _scheduleService.UpdateSlotsForCurrentUser(timeSlots);
+            await _scheduleService.UpdateSlotsForCurrentUser(timeSlots, mondayDate);
         }
     }
 }

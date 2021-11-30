@@ -14,6 +14,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum);
 
-        Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots);
+        Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots, DateTime mondayDate);
     }
 }

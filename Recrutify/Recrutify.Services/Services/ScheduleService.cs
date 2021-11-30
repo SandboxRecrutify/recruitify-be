@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess.Models;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
@@ -52,8 +53,11 @@ namespace Recrutify.Services.Services
             return _mapper.Map<ScheduleDTO>(schedules);
         }
 
-        public async Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots)
+        public async Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots, DateTime mondayDate)
         {
+            var userId = _userProvider.GetUserId();
+            var currentScheduleForUser = _scheduleRepository.GetByDatePeriodAsync(userId, mondayDate, Constants.Week.NumberOfDays);
+            _scheduleRepository.UpdateScheduleAsync();
             throw new NotImplementedException();
         }
     }
