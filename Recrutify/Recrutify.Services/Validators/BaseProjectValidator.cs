@@ -13,7 +13,7 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected BaseProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository)
+        protected BaseProjectValidator(IUserRepository userRepository)
         {
             UserRepository = userRepository;
             RuleFor(p => p)
