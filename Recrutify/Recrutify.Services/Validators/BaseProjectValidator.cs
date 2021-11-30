@@ -86,7 +86,7 @@ namespace Recrutify.Services.Validators
                .NotEmpty();
         }
 
-        protected async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
+        private async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
         {
             var userIds = GetStuffIds(projectDTO);
             return await UserRepository.ExistsByIdsAsync(userIds, cancellation);
