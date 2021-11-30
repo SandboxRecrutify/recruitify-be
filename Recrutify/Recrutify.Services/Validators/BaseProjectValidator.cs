@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
+using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
@@ -10,10 +13,10 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected IUserRepository _userRepository;
-
         protected BaseProjectValidator()
         {
+            RuleFor(p => p)
+                .CustomAsync(CheckStuffAsync);
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -53,37 +56,73 @@ namespace Recrutify.Services.Validators
                  .NotEmpty();
             RuleForEach(p => p.Mentors)
                 .NotNull()
-                .NotEmpty()
-                .CustomAsync(CheckStuffAsync);
+                .NotEmpty();
             RuleFor(p => p.Managers)
                  .NotNull()
                  .NotEmpty();
             RuleForEach(p => p.Managers)
                 .NotNull()
-                .NotEmpty()
-                .CustomAsync(CheckStuffAsync);
+                .NotEmpty();
             RuleFor(p => p.Interviewers)
                  .NotNull()
                  .NotEmpty();
             RuleForEach(p => p.Interviewers)
                 .NotNull()
-                .NotEmpty()
-                .CustomAsync(CheckStuffAsync);
+                .NotEmpty();
             RuleFor(p => p.Recruiters)
                 .NotNull()
                 .NotEmpty();
             RuleForEach(p => p.Recruiters)
                .NotNull()
-               .NotEmpty()
-                .CustomAsync(CheckStuffAsync);
+               .NotEmpty();
         }
 
-        protected async Task CheckStuffAsync(Guid userId, ValidationContext<TDTO> context, CancellationToken cancellation)
+        protected IUserRepository UserRepository { get; set; }
+
+        protected IEnumerable<User> Users { get; set; }
+
+        protected async Task CheckStuffAsync(TDTO projectDTO, ValidationContext<TDTO> context, CancellationToken cancellation)
         {
-            if (!await _userRepository.ExistsAsync(userId))
+            var userIds = GetStuffIds(projectDTO);
+            var userIdsWithoutDublicates = DeleteDublicates(userIds);
+            if (!await UserRepository.ExistsByIdsAsync(userIdsWithoutDublicates, cancellation))
             {
                 context.AddFailure("User doesn't exist");
             }
+        }
+
+        private IEnumerable<Guid> DeleteDublicates(IEnumerable<Guid> userIds)
+        {
+            return userIds
+                .GroupBy(userId => userId)
+                .Where(group => group.Count() > 1)
+                .Select(id => id.Key);
+        }
+
+        private IEnumerable<Guid> GetStuffIds(TDTO projectDTO)
+        {
+            var stuffIds = new List<Guid>();
+            foreach (var userId in projectDTO.Managers)
+            {
+                stuffIds.Add(userId);
+            }
+
+            foreach (var userId in projectDTO.Mentors)
+            {
+                stuffIds.Add(userId);
+            }
+
+            foreach (var userId in projectDTO.Recruiters)
+            {
+                stuffIds.Add(userId);
+            }
+
+            foreach (var userId in projectDTO.Interviewers)
+            {
+                stuffIds.Add(userId);
+            }
+
+            return stuffIds;
         }
     }
 }

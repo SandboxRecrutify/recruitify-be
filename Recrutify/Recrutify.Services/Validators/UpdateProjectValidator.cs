@@ -15,7 +15,7 @@ namespace Recrutify.Services.Validators
         public UpdateProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository)
         {
             _projectRepository = projectRepository;
-            _userRepository = userRepository;
+            UserRepository = userRepository;
 
             ConfigureRules();
         }

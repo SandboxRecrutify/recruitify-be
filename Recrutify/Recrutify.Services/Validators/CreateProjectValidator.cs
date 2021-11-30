@@ -7,7 +7,7 @@ namespace Recrutify.Services.Validators
     {
         public CreateProjectValidator(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            UserRepository = userRepository;
         }
     }
 }
