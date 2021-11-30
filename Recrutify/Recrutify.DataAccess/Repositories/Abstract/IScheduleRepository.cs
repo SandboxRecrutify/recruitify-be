@@ -14,5 +14,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task<bool> FreeOrExistByDictAsync(Dictionary<Guid, DateTime> userIdAnddateTime);
 
         IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<Candidate> candidates);
+
+        Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum);
     }
 }

@@ -83,7 +83,7 @@ namespace Recrutify.Host
             {
                 config.UseMemoryStorage();
             });
-            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.Configure<MailSettings>(Configuration.GetSection(nameof(MailSettings)));
 
             services.AddControllers()
                 .AddFluentValidation();

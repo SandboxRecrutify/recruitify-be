@@ -21,19 +21,13 @@ namespace Recrutify.DataAccess.Repositories
         public Task<List<Schedule>> GetByUserPrimarySkillAsync(IEnumerable<Guid> userIds, DateTime date, Guid primarySkillId)
         {
             var filter = _filterBuilder.In(u => u.UserId, userIds) & _filterBuilder.Eq(u => u.UserPrimarySkill.Id, primarySkillId);
-            return GetCollection()
-                .Find(filter)
-                .Project(x => new Schedule
-                {
-                    UserId = x.UserId,
-                    UserName = x.UserName,
-                    UserPrimarySkill = x.UserPrimarySkill,
-                    ScheduleSlots = x.ScheduleSlots
-                                        .Where(
-                                            y => y.AvailableTime >= date.Date &&
-                                            y.AvailableTime < date.Date.AddDays(1)),
-                })
-                .ToListAsync();
+            return GetFindFluentByDate(filter, date).ToListAsync();
+        }
+
+        public Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum)
+        {
+            var filter = _filterBuilder.Eq(u => u.UserId, userId);
+            return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
         public Task UpdateOrCancelScheduleCandidateInfosByDictionaryAsync(Dictionary<Guid, ScheduleSlot> scheduleSlots, bool updateFlag)
@@ -91,6 +85,22 @@ namespace Recrutify.DataAccess.Repositories
             }
 
             return scheduleCandidateInfos;
+        }
+
+        private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)
+        {
+            return GetCollection()
+                        .Find(filter)
+                        .Project(x => new Schedule
+                        {
+                            UserId = x.UserId,
+                            UserName = x.UserName,
+                            UserPrimarySkill = x.UserPrimarySkill,
+                            ScheduleSlots = x.ScheduleSlots
+                                                .Where(
+                                                    y => y.AvailableTime >= date.Date &&
+                                                    y.AvailableTime < date.Date.AddDays(daysNum)),
+                        });
         }
     }
 }
