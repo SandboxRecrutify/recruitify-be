@@ -42,15 +42,16 @@ namespace Recrutify.DataAccess.Repositories
         {
             var unwind = new BsonDocument("$unwind", "$ProjectResults");
             var match = projectId.HasValue ? new BsonDocument("$match", new BsonDocument("ProjectResults.ProjectId", new BsonBinaryData(projectId.Value, GuidRepresentation.Standard)))
-                : new BsonDocument();
+                : new BsonDocument("$match", new BsonDocument());
             var group = new BsonDocument
             {
-               { "$group",  new BsonDocument
-                 {
+               {
+                    "$group",  new BsonDocument
+               {
                    { "_id", BsonNull.Value },
                    { "Locations", new BsonDocument("$addToSet", "$Location") },
                    { "PrimarySkills", new BsonDocument("$addToSet", "$ProjectResults.PrimarySkill") },
-                 }
+               }
                },
             };
             var pipeline = new[] { unwind, match, group };
