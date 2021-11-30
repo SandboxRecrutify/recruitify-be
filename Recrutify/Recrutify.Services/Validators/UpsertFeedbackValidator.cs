@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using FluentValidation;
+﻿using FluentValidation;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
