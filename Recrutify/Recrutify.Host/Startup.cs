@@ -166,7 +166,7 @@ namespace Recrutify.Host
 
         public void Configure(IApplicationBuilder app, VersionedODataModelBuilder modelBuilder, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            if (!env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

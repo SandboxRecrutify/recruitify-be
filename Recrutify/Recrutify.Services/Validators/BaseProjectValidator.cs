@@ -13,10 +13,12 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected BaseProjectValidator()
+        protected BaseProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository)
         {
+            UserRepository = userRepository;
             RuleFor(p => p)
-                .CustomAsync(CheckStuffAsync);
+                .MustAsync(CheckStuffAsync)
+                .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -77,51 +79,20 @@ namespace Recrutify.Services.Validators
                .NotEmpty();
         }
 
-        protected IUserRepository UserRepository { get; set; }
+        private IUserRepository UserRepository { get; set; }
 
-        protected IEnumerable<User> Users { get; set; }
-
-        protected async Task CheckStuffAsync(TDTO projectDTO, ValidationContext<TDTO> context, CancellationToken cancellation)
+        protected async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
         {
             var userIds = GetStuffIds(projectDTO);
-            var userIdsWithoutDublicates = DeleteDublicates(userIds);
-            if (!await UserRepository.ExistsByIdsAsync(userIdsWithoutDublicates, cancellation))
-            {
-                context.AddFailure("User doesn't exist");
-            }
-        }
-
-        private IEnumerable<Guid> DeleteDublicates(IEnumerable<Guid> userIds)
-        {
-            return userIds
-                .GroupBy(userId => userId)
-                .Where(group => group.Count() > 1)
-                .Select(id => id.Key);
+            return await UserRepository.ExistsByIdsAsync(userIds, cancellation);
         }
 
         private IEnumerable<Guid> GetStuffIds(TDTO projectDTO)
         {
-            var stuffIds = new List<Guid>();
-            foreach (var userId in projectDTO.Managers)
-            {
-                stuffIds.Add(userId);
-            }
-
-            foreach (var userId in projectDTO.Mentors)
-            {
-                stuffIds.Add(userId);
-            }
-
-            foreach (var userId in projectDTO.Recruiters)
-            {
-                stuffIds.Add(userId);
-            }
-
-            foreach (var userId in projectDTO.Interviewers)
-            {
-                stuffIds.Add(userId);
-            }
-
+            var stuffIds = projectDTO.Interviewers
+                .Union(projectDTO.Mentors
+                .Union(projectDTO.Managers
+                .Union(projectDTO.Recruiters))).ToList();
             return stuffIds;
         }
     }
