@@ -11,5 +11,7 @@ namespace Recrutify.Services.Services.Abstract
     public interface IScheduleService
     {
         Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime date, Guid primarySkillId);
+
+        Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<BulkAppointInterviewsDTO> bulkAppointInterviewsDTO, bool isUpdate);
     }
 }

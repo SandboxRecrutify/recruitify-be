@@ -26,5 +26,13 @@ namespace Recrutify.Host.Controllers
         {
             return _scheduleService.GetByUserPrimarySkillAsync(projectId, date, primarySkillId);
         }
+
+        [HttpPut]
+        public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] IEnumerable<BulkAppointInterviewsDTO> bulkAppointInterviewsDTO, bool isUpdate)
+        {
+            await _scheduleService.BulkAppoinOrCanceltInterviewsAsync(bulkAppointInterviewsDTO, isUpdate);
+
+            return NoContent();
+        }
     }
 }
