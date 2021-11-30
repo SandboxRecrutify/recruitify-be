@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
     public class CandidatesPrimarySkillsAndLocation
     {
-        public CandidatePrimarySkill PrimarySkills { get; set; }
+        public Guid? Id { get; set; }
 
-        public Location Locations { get; set; }
+        public IEnumerable<CandidatePrimarySkill> PrimarySkills { get; set; }
+
+        public IEnumerable<Location> Locations { get; set; }
     }
 }

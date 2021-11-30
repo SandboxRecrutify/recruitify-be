@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -37,15 +38,24 @@ namespace Recrutify.DataAccess.Repositories
                                                                                  || p.Status == Status.TechInterviewSecondStep)));
         }
 
-        public Task<List<CandidatesPrimarySkillsAndLocation>> GetPrimarySkillAndLocationsAsync(Guid? projectId)
+        public Task<CandidatesPrimarySkillsAndLocation> GetPrimarySkillAndLocationsAsync(Guid? projectId)
         {
-            var filter = projectId.HasValue ? _filterBuilder.Where(c => c.ProjectResults.Any(c => c.ProjectId == projectId))
-                                            : _filterBuilder.Empty;
-            return GetCollection().Find(filter).Project(x => new CandidatesPrimarySkillsAndLocation
+            var unwind = new BsonDocument("$unwind", "$ProjectResults");
+            var match = projectId.HasValue ? new BsonDocument("$match", new BsonDocument("ProjectResults.ProjectId", new BsonBinaryData(projectId.Value, GuidRepresentation.Standard)))
+                : new BsonDocument();
+            var group = new BsonDocument
             {
-                Locations = x.Location,
-                PrimarySkills = x.ProjectResults.Select(p => p.PrimarySkill).FirstOrDefault(),
-            }).ToListAsync();
+               { "$group",  new BsonDocument
+                 {
+                   { "_id", BsonNull.Value },
+                   { "Locations", new BsonDocument("$addToSet", "$Location") },
+                   { "PrimarySkills", new BsonDocument("$addToSet", "$ProjectResults.PrimarySkill") },
+                 }
+               },
+            };
+            var pipeline = new[] { unwind, match, group };
+            var result = GetCollection().Aggregate<CandidatesPrimarySkillsAndLocation>(pipeline).FirstOrDefaultAsync();
+            return result;
         }
 
         public Task<Candidate> GetByEmailAsync(string email)

@@ -1,9 +1,13 @@
-﻿namespace Recrutify.Services.DTOs
+﻿using System;
+using System.Collections.Generic;
+
+namespace Recrutify.Services.DTOs
 {
     public class CandidatesPrimarySkillsAndLocationDTO
     {
-        public CandidatePrimarySkillDTO PrimarySkills { get; set; }
+        public Guid? Id { get; set; }
+        public IEnumerable<CandidatePrimarySkillDTO> PrimarySkills { get; set; }
 
-        public LocationDTO Locations { get; set; }
+        public IEnumerable<LocationDTO> Locations { get; set; }
     }
 }

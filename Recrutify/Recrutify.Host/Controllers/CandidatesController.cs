@@ -120,6 +120,7 @@ namespace Recrutify.Host.Controllers
         public async Task<ActionResult<CandidateDTO>> GetPrimarySkillsAndlocationsAsync([FromQuery] Guid? projectId)
         {
             var result = await _candidateService.GetPrimarySkillsAndlocationsAsync(projectId);
+            var temp = result;
             return Ok(result);
         }
     }
