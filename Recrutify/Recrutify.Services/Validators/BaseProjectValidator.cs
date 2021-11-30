@@ -97,7 +97,7 @@ namespace Recrutify.Services.Validators
             var stuffIds = projectDTO.Interviewers
                 .Union(projectDTO.Mentors
                 .Union(projectDTO.Managers
-                .Union(projectDTO.Recruiters))).ToList();
+                .Union(projectDTO.Recruiters)));
             return stuffIds;
         }
     }
