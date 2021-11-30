@@ -55,8 +55,7 @@ namespace Recrutify.DataAccess.Repositories
                },
             };
             var pipeline = new[] { unwind, match, group };
-            var result = GetCollection().Aggregate<CandidatesPrimarySkillsAndLocation>(pipeline).FirstOrDefaultAsync();
-            return result;
+            return GetCollection().Aggregate<CandidatesPrimarySkillsAndLocation>(pipeline).FirstOrDefaultAsync();
         }
 
         public Task<Candidate> GetByEmailAsync(string email)
