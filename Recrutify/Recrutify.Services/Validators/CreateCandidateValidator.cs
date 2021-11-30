@@ -35,13 +35,20 @@ namespace Recrutify.Services.Validators
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(c => c.Location)
+            RuleFor(c => c.Location.City)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
+            RuleFor(c => c.Location.Country)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
             RuleFor(c => c.BestTimeToConnect)
                 .NotNull()
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
+                .NotEmpty();
+            RuleFor(c => c.PrimarySkillId)
                 .NotEmpty();
         }
     }
