@@ -30,61 +30,15 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
-        public Task UpdateOrCancelScheduleCandidateInfosByDictionaryAsync(Dictionary<Guid, ScheduleSlot> scheduleSlots, bool updateFlag)
+        public Task UpdateOrCancelScheduleCandidateInfosAsync(IEnumerable<AppointInterviewHelper> appointInterviews)
         {
             var updateBuilder = Builders<Schedule>.Update;
-            var updateModels = updateFlag == true ? scheduleSlots.Select(sl => new UpdateOneModel<Schedule>(
-                _filterBuilder.Eq(s => s.Id, sl.Key),
+            var updateModels = appointInterviews.Select(sl => new UpdateOneModel<Schedule>(
+                _filterBuilder.Eq(s => s.Id, sl.UserId),
                 updateBuilder
-                .Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", sl.Value.ScheduleCandidateInfo))
-            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", sl.Value.AvailableTime)) } })
-                : scheduleSlots.Select(sl => new UpdateOneModel<Schedule>(
-                _filterBuilder.Eq(s => s.Id, sl.Key),
-                updateBuilder
-                .Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo",  BsonNull.Value))
-                  { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", sl.Value.AvailableTime)) } });
-
+                .Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", sl.ScheduleSlot.ScheduleCandidateInfo))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", sl.ScheduleSlot.AvailableTime)) } });
             return GetCollection().BulkWriteAsync(updateModels);
-        }
-
-        public async Task<bool> FreeOrExistByDictAsync(Dictionary<Guid, DateTime> userIdAndDateTime)
-        {
-            var filterBuilder = Builders<BsonDocument>.Filter;
-            var filter = filterBuilder
-                .ElemMatch(
-                    nameof(Schedule.ScheduleSlots),
-                    filterBuilder.And(
-                        filterBuilder.Eq(nameof(Schedule), userIdAndDateTime.Select(x => x.Key))
-                        & filterBuilder.AnyIn("ScheduleSlots.$[scheduleSlots].AvailableTime", userIdAndDateTime.Select(x => x.Value.ToString()))
-                        & filterBuilder.Type("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", BsonType.Null)));
-            var slots = await GetBsonDocumentCollection().Find(filter).FirstOrDefaultAsync();
-            return slots == null ? false : true;
-        }
-
-        public IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<Candidate> candidates)
-        {
-            var scheduleCandidateInfos = new List<ScheduleCandidateInfo>();
-            foreach (var candidate in candidates)
-            {
-                var projectResult = candidate.ProjectResults.Where(x => x.Status <= Status.TechInterviewOneStep).FirstOrDefault();
-                scheduleCandidateInfos.Add(new ScheduleCandidateInfo()
-                {
-                    BestTimeToConnect = candidate.BestTimeToConnect,
-                    Email = candidate.Email,
-                    Id = candidate.Id,
-                    Name = candidate.Name,
-                    ProjectResult = new ScheduleCandidateProjectResult()
-                    {
-                        IsAssignedOnInterview = true,
-                        PrimarySkill = projectResult.PrimarySkill,
-                        ProjectId = projectResult.ProjectId,
-                        Status = projectResult.Status,
-                    },
-                    Skype = candidate.Contacts.Where(s => s.Type == "Skype").Select(s => s.Value).FirstOrDefault(),
-                });
-            }
-
-            return scheduleCandidateInfos;
         }
 
         private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)

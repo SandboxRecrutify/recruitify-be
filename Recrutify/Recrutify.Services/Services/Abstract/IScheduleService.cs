@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
@@ -14,6 +11,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum);
 
-        Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<BulkAppointInterviewsDTO> bulkAppointInterviewsDTO, bool isUpdate);
+        Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<AppointInterviewDTO> appointInterviewDTOs);
     }
 }

@@ -6,7 +6,6 @@ using AutoMapper;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 
@@ -41,17 +40,22 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ScheduleDTO>>(schedules);
         }
 
-        public async Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<BulkAppointInterviewsDTO> bulkAppointInterviewsDTO, bool isUpdate)
+        public async Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<AppointInterviewDTO> appointInterviewDTOs)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(bulkAppointInterviewsDTO.Select(c => c.CandidateId));
-            var scheduleCandidateInfos = _scheduleRepository.GetScheduleCandidateInfos(candidates);
-            var scheduleDict = bulkAppointInterviewsDTO.Select(s => s).ToDictionary(u => u.UserId, u => new ScheduleSlot()
+            var candidates = await _candidateRepository.GetByIdsAsync(appointInterviewDTOs.Where(c => c.CandidateId != null).ToList().Select(c => (Guid)c.CandidateId));
+            var scheduleCandidateInfos = GetScheduleCandidateInfos(candidates);
+            var scheduleDict = appointInterviewDTOs.Select(grp => new AppointInterviewHelper()
             {
-                AvailableTime = u.AppointDateTime,
-                ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == u.CandidateId).FirstOrDefault(),
-            });
+                ScheduleSlot = new ScheduleSlot()
+            {
+                AvailableTime = grp.AppointDateTime,
+                ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == grp.CandidateId).FirstOrDefault(),
+            },
+                Candidate = candidates.Where(c => c.Id == grp.CandidateId).FirstOrDefault(),
+                UserId = grp.UserId,
+            }).ToList();
 
-            await _scheduleRepository.UpdateOrCancelScheduleCandidateInfosByDictionaryAsync(scheduleDict, isUpdate);
+            await _scheduleRepository.UpdateOrCancelScheduleCandidateInfosAsync(scheduleDict);
         }
 
         public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
@@ -64,6 +68,33 @@ namespace Recrutify.Services.Services
             var userId = _userProvider.GetUserId();
             var schedules = await _scheduleRepository.GetByDatePeriodAsync(userId, date.Value, daysNum);
             return _mapper.Map<ScheduleDTO>(schedules);
+        }
+
+        private IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<Candidate> candidates)
+        {
+            var scheduleCandidateInfos = new List<ScheduleCandidateInfo>();
+            foreach (var candidate in candidates)
+            {
+                // ProjectResult may be several, how can i choose which i need?
+                var projectResult = candidate.ProjectResults.Where(x => x.Status <= Status.TechInterviewOneStep).FirstOrDefault();
+                scheduleCandidateInfos.Add(new ScheduleCandidateInfo()
+                {
+                    BestTimeToConnect = candidate.BestTimeToConnect,
+                    Email = candidate.Email,
+                    Id = candidate.Id,
+                    Name = candidate.Name,
+                    ProjectResult = new ScheduleCandidateProjectResult()
+                    {
+                        IsAssignedOnInterview = true,
+                        PrimarySkill = projectResult.PrimarySkill,
+                        ProjectId = projectResult.ProjectId,
+                        Status = projectResult.Status,
+                    },
+                    Skype = candidate.Contacts.Where(s => s.Type == "Skype").Select(s => s.Value).FirstOrDefault(),
+                });
+            }
+
+            return scheduleCandidateInfos;
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Services.Abstract;
 
@@ -34,9 +32,9 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] IEnumerable<BulkAppointInterviewsDTO> bulkAppointInterviewsDTO, bool isUpdate)
+        public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] BulkAppointInterviewsDTO bulkAppointInterviewsDTO)
         {
-            await _scheduleService.BulkAppoinOrCanceltInterviewsAsync(bulkAppointInterviewsDTO, isUpdate);
+            await _scheduleService.BulkAppoinOrCanceltInterviewsAsync(bulkAppointInterviewsDTO.AppointInterviewDTOs);
 
             return NoContent();
         }

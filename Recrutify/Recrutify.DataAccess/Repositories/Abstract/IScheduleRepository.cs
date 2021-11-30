@@ -9,11 +9,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task<List<Schedule>> GetByUserPrimarySkillAsync(IEnumerable<Guid> userIds,  DateTime date, Guid primarySkillId);
 
-        Task UpdateOrCancelScheduleCandidateInfosByDictionaryAsync(Dictionary<Guid, ScheduleSlot> scheduleSlots, bool isUpdate);
-
-        Task<bool> FreeOrExistByDictAsync(Dictionary<Guid, DateTime> userIdAnddateTime);
-
-        IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<Candidate> candidates);
+        Task UpdateOrCancelScheduleCandidateInfosAsync(IEnumerable<AppointInterviewHelper> appointInterviews);
 
         Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum);
     }

@@ -1,13 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
     public class BulkAppointInterviewsDTO
     {
-        public Guid UserId { get; set; }
-
-        public Guid CandidateId { get; set; }
-
-        public DateTime AppointDateTime { get; set; }
+        public IEnumerable<AppointInterviewDTO> AppointInterviewDTOs { get; set; }
     }
 }
