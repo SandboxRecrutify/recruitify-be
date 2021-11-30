@@ -13,7 +13,7 @@ namespace Recrutify.Services.Validators
         private readonly IProjectRepository _projectRepository;
 
         public UpdateProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository)
-            : base(projectRepository, userRepository)
+            : base(userRepository)
         {
             _projectRepository = projectRepository;
 

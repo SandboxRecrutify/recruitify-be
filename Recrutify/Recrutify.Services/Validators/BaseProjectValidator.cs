@@ -16,9 +16,16 @@ namespace Recrutify.Services.Validators
         protected BaseProjectValidator(IUserRepository userRepository)
         {
             UserRepository = userRepository;
+            ConfigureRules();
+        }
+
+        private IUserRepository UserRepository { get; set; }
+
+        private void ConfigureRules()
+        {
             RuleFor(p => p)
-                .MustAsync(CheckStuffAsync)
-                .WithMessage("User isn't found");
+                 .MustAsync(CheckStuffAsync)
+                 .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -78,8 +85,6 @@ namespace Recrutify.Services.Validators
                .NotNull()
                .NotEmpty();
         }
-
-        private IUserRepository UserRepository { get; set; }
 
         protected async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
         {
