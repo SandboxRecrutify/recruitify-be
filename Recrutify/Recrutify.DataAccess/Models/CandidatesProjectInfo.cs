@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recrutify.DataAccess.Models
 {
-    public class CandidatesPrimarySkillsLocationAndProjectName
+    public class CandidatesProjectInfo
     {
         public Guid? Id { get; set; }
 

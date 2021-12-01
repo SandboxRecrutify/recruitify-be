@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
-    public class CandidatesPrimarySkillsLocationAndProjectNameDTO
+    public class CandidatesProjectInfoDTO
     {
         public Guid? Id { get; set; }
 

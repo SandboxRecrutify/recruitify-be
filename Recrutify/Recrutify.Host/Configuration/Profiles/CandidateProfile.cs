@@ -32,7 +32,7 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<Candidate, ScheduleCandidateInfoDTO>()
                 .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
 
-            CreateMap<CandidatesPrimarySkillsLocationAndProjectName, CandidatesPrimarySkillsLocationAndProjectNameDTO>();
+            CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
         }
     }
 }
