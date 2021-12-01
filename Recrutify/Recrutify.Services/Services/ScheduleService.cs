@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 

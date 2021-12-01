@@ -1,5 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
+using Recrutify.DataAccess.Models;
+using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -7,8 +13,19 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected BaseProjectValidator()
+        protected BaseProjectValidator(IUserRepository userRepository)
         {
+            UserRepository = userRepository;
+            ConfigureRules();
+        }
+
+        private IUserRepository UserRepository { get; set; }
+
+        private void ConfigureRules()
+        {
+            RuleFor(p => p)
+                 .MustAsync(CheckStuffAsync)
+                 .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -67,6 +84,21 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.Recruiters)
                .NotNull()
                .NotEmpty();
+        }
+
+        private async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
+        {
+            var userIds = GetStuffIds(projectDTO);
+            return await UserRepository.ExistsByIdsAsync(userIds, cancellation);
+        }
+
+        private IEnumerable<Guid> GetStuffIds(TDTO projectDTO)
+        {
+            var stuffIds = projectDTO.Interviewers
+                .Union(projectDTO.Mentors
+                .Union(projectDTO.Managers
+                .Union(projectDTO.Recruiters)));
+            return stuffIds;
         }
     }
 }

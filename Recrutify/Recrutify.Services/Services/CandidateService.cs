@@ -26,8 +26,9 @@ namespace Recrutify.Services.Services
         private readonly IUserProvider _userProvider;
         private readonly IUpdateStatusEventPublisher _updateStatusEventPublisher;
         private readonly ISendEmailQueueService _sendQueueEmailService;
+        private readonly IPrimarySkillService _primarySkillService;
 
-        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService)
+        public CandidateService(ICandidateRepository candidateRepository, IMapper mapper, IValidator<ProjectResult> validator, IProjectService projectService, IUserProvider userProvider, IUpdateStatusEventPublisher updateStatusEventPublisher, ISendEmailQueueService sendEmailQueueService, IPrimarySkillService primarySkillService)
         {
             _candidateRepository = candidateRepository;
             _mapper = mapper;
@@ -36,6 +37,7 @@ namespace Recrutify.Services.Services
             _userProvider = userProvider;
             _updateStatusEventPublisher = updateStatusEventPublisher;
             _sendQueueEmailService = sendEmailQueueService;
+            _primarySkillService = primarySkillService;
         }
 
         public async Task<List<CandidateDTO>> GetAllAsync()
@@ -91,7 +93,13 @@ namespace Recrutify.Services.Services
         {
             var candidate = _mapper.Map<Candidate>(candidateCreateDTO);
             var currentCandidate = await _candidateRepository.GetByEmailAsync(candidate.Email);
-            var primarySkill = _mapper.Map<CandidatePrimarySkill>(candidateCreateDTO.PrimarySkill);
+            var currentPrimarySkill = await _primarySkillService.GetAsync(candidateCreateDTO.PrimarySkillId);
+            if (currentPrimarySkill == null)
+            {
+                throw new ValidationException("Primary skill does't exist!");
+            }
+
+            var primarySkill = _mapper.Map<CandidatePrimarySkill>(new CandidatePrimarySkillDTO { Id = candidateCreateDTO.PrimarySkillId, Name = currentPrimarySkill.Name });
             var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
 
             if (currentCandidate == null)
@@ -209,6 +217,15 @@ namespace Recrutify.Services.Services
             var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
             var project = await _projectService.GetAsync(projectId);
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
+        }
+
+        public async Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId)
+        {
+           var primarySkillsAddLocations = await _candidateRepository.CandidatesProjectInfoAsync(projectId);
+           var candidatesProjectInfo = _mapper.Map<CandidatesProjectInfoDTO>(primarySkillsAddLocations);
+           var projectName = projectId.HasValue ? await _projectService.GetProjectName(projectId.Value) : null;
+           candidatesProjectInfo.ProjectName = projectName;
+           return candidatesProjectInfo;
         }
     }
 }
