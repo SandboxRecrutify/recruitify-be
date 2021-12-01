@@ -10,10 +10,10 @@ namespace Recrutify.Host.Configuration
         {
             builder.EntitySet<ScheduleCandidateInfoDTO>("Schedule");
             builder.EntityType<ScheduleCandidateInfoDTO>().Collection
-                  .Function("GetCandidatesPassedTestSlots")
+                  .Function("GetCandidatesPassedTest")
                   .ReturnsCollectionFromEntitySet<ScheduleCandidateInfoDTO>("Schedule");
             builder.EntityType<ScheduleCandidateInfoDTO>().Collection
-                  .Function("GetUnassignedCandidatesSlots")
+                  .Function("GetUnassignedCandidates")
                   .ReturnsCollectionFromEntitySet<ScheduleCandidateInfoDTO>("Schedule");
         }
     }
