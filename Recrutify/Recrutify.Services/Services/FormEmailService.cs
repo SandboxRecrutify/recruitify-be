@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Mustache;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
@@ -60,25 +61,39 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewType)
+        public IEnumerable<EmailRequestForInvite> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews)
         {
-            var emailRequests = new List<EmailRequest>();
-            var generator = CreateGenerator(templatePath);
-            foreach (var candidate in candidates)
-            {
-                var emailMessage = new EmailRequest();
-                emailMessage.Subject = "Interview";
-                emailMessage.Body = generator.Render(new
+            var mailMessages = new List<EmailRequestForInvite>();
+            var generatorForCandidate = CreateGenerator(Constants.TemplatePath.InterviewTemplate);
+            return interviews.Select(x => new EmailRequestForInvite()
                 {
-                    name = candidate.Name,
-                    dateTime = interviewTime.ToString("MM/dd/yyyy HH:mm tt"),
-                    interviewerType = interviewType,
-                });
-                emailMessage.ToEmail = candidate.Email;
-                emailRequests.Add(emailMessage);
-            }
-
-            return emailRequests;
+                    ToEmail = x.Candidate.Email,
+                    Subject = "Interview",
+                    DateTimeInterview = x.AppointDateTime,
+                    InterviewType = x.InterviewType,
+                    Body = generatorForCandidate
+                           .Render(new
+                           {
+                                name =x.Candidate.Name,
+                                interviewerType = "Interview",
+                                dateTime = x.AppointDateTime.ToString(),
+                           }),
+                })
+                .Union(
+                interviews.Select(x => new EmailRequestForInvite()
+                {
+                    ToEmail = x.User.Email,
+                    Subject = "Interview",
+                    DateTimeInterview = x.AppointDateTime,
+                    InterviewType = x.InterviewType,
+                    Body = generatorForCandidate // изменить на юзера
+                           .Render(new
+                           {
+                               name = x.Candidate.Name,
+                               interviewerType = "Interview",
+                               dateTime = x.AppointDateTime.ToString(),
+                           }),
+                }));
         }
 
         private Generator CreateGenerator(string templatePath)

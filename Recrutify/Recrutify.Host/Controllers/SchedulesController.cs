@@ -15,10 +15,12 @@ namespace Recrutify.Host.Controllers
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleService _scheduleService;
+        private readonly ISendEmailQueueService _sendEmailQueueService;
 
-        public SchedulesController(IScheduleService scheduleService)
+        public SchedulesController(IScheduleService scheduleService, ISendEmailQueueService sendEmailQueueService)
         {
             _scheduleService = scheduleService;
+            _sendEmailQueueService = sendEmailQueueService;
         }
 
         [HttpGet]
@@ -31,6 +33,19 @@ namespace Recrutify.Host.Controllers
         public Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync([FromQuery] DateTime? date, [FromQuery] int daysNum = 1)
         {
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
+        }
+
+        [HttpGet("test")]
+        public void Test()
+        {
+            List<Interview> interviews = new List<Interview>();
+            interviews.Add(new Interview()
+            {
+                AppointDateTime = DateTime.Now.AddDays(10),
+                Candidate = new CandidateByEmail() { Email = "mosikevgenii@gmail.com", Name = "Евген" },
+                User = new UserByEmail() { Email = "evgentik@mail.ru", Name = "Евген М" },
+            });
+            _sendEmailQueueService.SendEmailQueueForInvite(interviews);
         }
     }
 }

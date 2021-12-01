@@ -22,6 +22,7 @@ namespace Recrutify.Services.Events
         public void Subscribe()
         {
             _updateStatusEventPublisher.StatusCompleted += UpdateCandidatesStatusesAsync;
+            _updateStatusEventPublisher.AssignedInterview += MailingInviteAsync;
         }
 
         public async Task UpdateCandidatesStatusesAsync(UpdateStatusEventArgs e)
@@ -29,6 +30,11 @@ namespace Recrutify.Services.Events
             var candidates = await _candidateService.GetCandidatesByIdsAsync(e.CandidatesIds);
             var project = await _projectService.GetAsync(e.ProjectId);
             _sendQueueEmailService.SendEmailQueueForStatusChange(candidates, e.CandidateStatus, project);
+        }
+
+        public void MailingInviteAsync(AssignedInterviewEventArgs e)
+        {
+            _sendQueueEmailService.SendEmailQueueForInvite(e.Interviews);
         }
     }
 }

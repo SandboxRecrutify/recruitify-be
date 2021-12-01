@@ -8,9 +8,16 @@ namespace Recrutify.Services.Events
     {
         public event Func<UpdateStatusEventArgs, Task> StatusCompleted;
 
+        public event Action<AssignedInterviewEventArgs> AssignedInterview;
+
         public void OnStatusUpdated(UpdateStatusEventArgs e)
         {
              StatusCompleted?.Invoke(e);
+        }
+
+        public void OnAssignedInterview(AssignedInterviewEventArgs e)
+        {
+            AssignedInterview?.Invoke(e);
         }
     }
 }

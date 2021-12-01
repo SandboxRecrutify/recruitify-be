@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
 
@@ -9,8 +9,8 @@ namespace Recrutify.Services.Services.Abstract
     {
         IEnumerable<EmailRequest> GetEmailRequestsForStatusChange(IEnumerable<CandidateDTO> candidates, ProjectDTO project, string templatePath);
 
-        IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<CandidateDTO> candidates, DateTime interviewTime, string templatePath, string interviewerRole);
-
         IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project);
+
+        IEnumerable<EmailRequestForInvite> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews);
     }
 }
