@@ -6,7 +6,5 @@ namespace Recrutify.Services.Services.Abstract
     public interface ISendEmailService
     {
         Task SendEmailAsync(EmailRequest request);
-
-        Task SendEmailToInviteAsync(EmailRequest request);
     }
 }

@@ -27,34 +27,23 @@ namespace Recrutify.Services.Services
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
             email.To.Add(MailboxAddress.Parse(emailRequest.ToEmail));
             email.Subject = emailRequest.Subject;
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.HtmlBody };
-            using var smtp = new SmtpClient();
-            await smtp.ConnectAsync(_mailSettings.Host, Convert.ToInt32(_mailSettings.Port), SecureSocketOptions.StartTls);
-            await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);
-            await smtp.SendAsync(email);
-            await smtp.DisconnectAsync(true);
-        }
-
-        public async Task SendEmailToInviteAsync(EmailRequest emailRequest)
-        {
-            var email = new MimeMessage();
-            email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
-            email.To.Add(MailboxAddress.Parse(emailRequest.ToEmail));
-            email.Subject = emailRequest.Subject;
 
             var emailBody = new BodyBuilder();
             emailBody.HtmlBody = emailRequest.HtmlBody;
 
-            using (var stream = new MemoryStream())
+            if (emailRequest.FileBody != null)
             {
-                using (var writer = new StreamWriter(stream))
+                using (var stream = new MemoryStream())
                 {
-                    writer.Write(emailRequest.FileBody.ToString());
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        writer.Write(emailRequest.FileBody.ToString());
 
-                    writer.Flush();
-                    stream.Position = 0;
+                        writer.Flush();
+                        stream.Position = 0;
 
-                    emailBody.Attachments.Add("invite.ics", stream);
+                        emailBody.Attachments.Add("invite.ics", stream);
+                    }
                 }
             }
 

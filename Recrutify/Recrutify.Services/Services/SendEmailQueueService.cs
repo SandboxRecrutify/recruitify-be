@@ -51,7 +51,7 @@ namespace Recrutify.Services.Services
 
             foreach (var emailRequest in requests)
             {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailToInviteAsync(emailRequest));
+                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(emailRequest));
             }
         }
     }
