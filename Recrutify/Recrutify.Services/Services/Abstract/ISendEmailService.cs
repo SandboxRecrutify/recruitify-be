@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Recrutify.Services.EmailModels;
 
 namespace Recrutify.Services.Services.Abstract
@@ -8,6 +7,6 @@ namespace Recrutify.Services.Services.Abstract
     {
         Task SendEmailAsync(EmailRequest request);
 
-        Task SendEmailToInviteAsync(EmailRequestForInvite request);
+        Task SendEmailToInviteAsync(EmailRequest request);
     }
 }

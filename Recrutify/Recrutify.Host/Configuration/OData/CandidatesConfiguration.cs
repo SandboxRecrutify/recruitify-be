@@ -8,16 +8,8 @@ namespace Recrutify.Host.Configuration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string routePrefix)
         {
-           
-            builder.EntitySet<CandidateDTO>("Candidates").HasManyBinding(x => x.ProjectResults, "ProjectResults");
-            
-            //builder.ComplexType<ProjectResultDTO>();
-
-            //builder.ComplexType<CandidateDTO>().HasMany(a=>a.ProjectResults);
-
-            //builder.EntitySet<CandidateDTO>("Candidates").EntityType.HasKey(t => t.Id);
-            builder.EntityType<ProjectResultDTO>().HasKey(e => e.ProjectId);
-
+            builder.EntitySet<CandidateDTO>("Candidates");
+            builder.ComplexType<ProjectResultDTO>();
             builder.ComplexType<CandidatePrimarySkillDTO>();
             builder.EntityType<CandidateDTO>().Collection
                    .Function("GetByProject")

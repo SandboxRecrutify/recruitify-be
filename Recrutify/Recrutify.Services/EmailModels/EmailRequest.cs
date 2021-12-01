@@ -1,4 +1,6 @@
-﻿namespace Recrutify.Services.EmailModels
+﻿using System.Text;
+
+namespace Recrutify.Services.EmailModels
 {
     public class EmailRequest
     {
@@ -6,6 +8,8 @@
 
         public string Subject { get; set; }
 
-        public string Body { get; set; }
+        public string HtmlBody { get; set; }
+
+        public StringBuilder FileBody { get; set; }
     }
 }

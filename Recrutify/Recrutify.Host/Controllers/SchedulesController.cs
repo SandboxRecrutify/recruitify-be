@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
@@ -33,19 +32,6 @@ namespace Recrutify.Host.Controllers
         public Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync([FromQuery] DateTime? date, [FromQuery] int daysNum = 1)
         {
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
-        }
-
-        [HttpGet("test")]
-        public void Test()
-        {
-            List<Interview> interviews = new List<Interview>();
-            interviews.Add(new Interview()
-            {
-                AppointDateTime = DateTime.Now.AddDays(10),
-                Candidate = new CandidateByEmail() { Email = "mosikevgenii@gmail.com", Name = "Евген" },
-                User = new UserByEmail() { Email = "evgentik@mail.ru", Name = "Евген М" },
-            });
-            _sendEmailQueueService.SendEmailQueueForInvite(interviews);
         }
     }
 }

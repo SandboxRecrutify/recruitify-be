@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Mustache;
 using Recrutify.DataAccess;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
+using Recrutify.Services.Extensions;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -21,7 +22,7 @@ namespace Recrutify.Services.Services
             {
                 var emailMessage = new EmailRequest();
                 emailMessage.Subject = $"\"{project.Name}\"";
-                emailMessage.Body = generator.Render(new
+                emailMessage.HtmlBody = generator.Render(new
                 {
                     name = candidate.Name,
                     startDate = project.StartDate.ToString("dd.MM.yyyy"),
@@ -48,7 +49,7 @@ namespace Recrutify.Services.Services
                     .FirstOrDefault();
                 var emailMessage = new EmailRequest();
                 emailMessage.Subject = $"\"{project.Name}\"";
-                emailMessage.Body = generator.Render(new
+                emailMessage.HtmlBody = generator.Render(new
                 {
                     name = candidate.Name,
                     projectName = $"\"{project.Name}\"",
@@ -61,39 +62,52 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequestForInvite> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews)
+        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews)
         {
-            var mailMessages = new List<EmailRequestForInvite>();
+            var mailMessages = new List<EmailRequest>();
             var generatorForCandidate = CreateGenerator(Constants.TemplatePath.InterviewTemplate);
-            return interviews.Select(x => new EmailRequestForInvite()
-                {
-                    ToEmail = x.Candidate.Email,
-                    Subject = "Interview",
-                    DateTimeInterview = x.AppointDateTime,
-                    InterviewType = x.InterviewType,
-                    Body = generatorForCandidate
-                           .Render(new
-                           {
-                                name =x.Candidate.Name,
-                                interviewerType = "Interview",
-                                dateTime = x.AppointDateTime.ToString(),
-                           }),
-                })
+            var generatorForUser = CreateGenerator(Constants.TemplatePath.InterviewerTemplate);
+
+            return interviews.Select(x => CreateEmailRequest(
+                                                x.Candidate.Email,
+                                                CreateInviteFile(x.AppointDateTimeUtc, "Exadel: Invitation for an interview"),
+                                                generatorForCandidate
+                                                .Render(
+                                                    new
+                                                    {
+                                                        name = x.Candidate.Name,
+                                                        interviewerType = x.InterviewType.GetDescription(),
+                                                        dateTime = x.AppointDateTimeUtc.AddHours(3).ToString(),
+                                                    })))
                 .Union(
-                interviews.Select(x => new EmailRequestForInvite()
-                {
-                    ToEmail = x.User.Email,
-                    Subject = "Interview",
-                    DateTimeInterview = x.AppointDateTime,
-                    InterviewType = x.InterviewType,
-                    Body = generatorForCandidate // изменить на юзера
-                           .Render(new
-                           {
-                               name = x.Candidate.Name,
-                               interviewerType = "Interview",
-                               dateTime = x.AppointDateTime.ToString(),
-                           }),
-                }));
+                interviews.Select(x => CreateEmailRequest(
+                                                x.User.Email,
+                                                CreateInviteFile(
+                                                    x.AppointDateTimeUtc,
+                                                    $"Candidate: {x.Candidate.Name}" +
+                                                    $"\\nSkype: {x.Candidate.Skype}" +
+                                                    $"\\nPhone: {x.Candidate.PhoneNumber}" +
+                                                    $"\\nEmail: {x.Candidate.Email}" +
+                                                    $"\\nIterview type: {x.InterviewType.GetDescription()}"),
+                                                generatorForUser
+                                                .Render(
+                                                    new
+                                                    {
+                                                        name = x.User.Name,
+                                                        candidateName = x.Candidate.Name,
+                                                        dateTime = x.AppointDateTimeUtc.AddHours(3).ToString(),
+                                                    }))));
+        }
+
+        private EmailRequest CreateEmailRequest(string toEmail, StringBuilder fileBody, string htmlBody)
+        {
+            return new EmailRequest()
+            {
+                ToEmail = toEmail,
+                Subject = "Interview",
+                FileBody = fileBody,
+                HtmlBody = htmlBody,
+            };
         }
 
         private Generator CreateGenerator(string templatePath)
@@ -104,6 +118,38 @@ namespace Recrutify.Services.Services
             str.Close();
             var compiler = new HtmlFormatCompiler();
             return compiler.Compile(mailText);
+        }
+
+        private StringBuilder CreateInviteFile(DateTime dateTimeInterview, string description)
+        {
+            StringBuilder str = new StringBuilder();
+            str.AppendLine("BEGIN:VCALENDAR");
+
+            str.AppendLine($"PRODID: {Constants.Company.Name}");
+            str.AppendLine("VERSION:2.0");
+            str.AppendLine("METHOD:REQUEST");
+            str.AppendLine("TZOFFSETTO:+0300");
+            str.AppendLine("TZOFFSETFROM:+0300");
+            str.AppendLine("BEGIN:VEVENT");
+
+            str.AppendLine($"DTSTART;TZID=Europe/Minsk:{dateTimeInterview.AddHours(3):yyyyMMddTHHmmss}");
+            str.AppendLine($"DTEND;TZID=Europe/Minsk:{dateTimeInterview.AddHours(3).AddMinutes(30):yyyyMMddTHHmmss}");
+            str.AppendLine("LOCATION:Online");
+            str.AppendLine($"ORGANIZER;CN={Constants.Company.Name}:mailto:{Constants.Company.Email}");
+            str.AppendLine($"UID:{Guid.NewGuid()}");
+            str.AppendLine($"DESCRIPTION:{description}");
+            str.AppendLine("SUMMARY:Interview");
+
+            str.AppendLine("STATUS:CONFIRMED");
+            str.AppendLine("BEGIN:VALARM");
+            str.AppendLine("TRIGGER:-PT15M");
+            str.AppendLine("ACTION:Accept");
+            str.AppendLine("DESCRIPTION:Reminder");
+            str.AppendLine("X-MICROSOFT-CDO-BUSYSTATUS:BUSY");
+            str.AppendLine("END:VALARM");
+            str.AppendLine("END:VEVENT");
+            str.AppendLine("END:VCALENDAR");
+            return str;
         }
     }
 }

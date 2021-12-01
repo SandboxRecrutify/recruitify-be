@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Hangfire;
 using Recrutify.DataAccess;
-using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
