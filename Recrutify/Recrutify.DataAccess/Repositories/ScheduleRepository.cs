@@ -47,7 +47,8 @@ namespace Recrutify.DataAccess.Repositories
 
         public async Task<Schedule> GetByUserId(Guid userId)
         {
-            throw new NotImplementedException();
+            var filter = _filterBuilder.Eq(u => u.UserId, userId);
+            return await GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
         public async Task UpdateScheduleAsync()
