@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Recrutify.Services.DTOs
 {
@@ -17,6 +18,8 @@ namespace Recrutify.Services.DTOs
         public DateTime EndRegistrationDate { get; set; }
 
         public string Description { get; set; }
+
+        public IEnumerable<ShortProjectPrimarySkillDTO> PrimarySkills { get; set; }
 
         public bool IsActive { get; set; }
     }

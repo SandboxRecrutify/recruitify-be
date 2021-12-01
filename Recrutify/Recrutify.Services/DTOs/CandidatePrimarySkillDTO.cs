@@ -1,11 +1,6 @@
-﻿using System;
-
-namespace Recrutify.Services.DTOs
+﻿namespace Recrutify.Services.DTOs
 {
-    public class CandidatePrimarySkillDTO
+    public class CandidatePrimarySkillDTO : BaseProjectPrimarySkillDTO
     {
-        public Guid Id { get; set; }
-
-        public string Name { get; set; }
     }
 }
