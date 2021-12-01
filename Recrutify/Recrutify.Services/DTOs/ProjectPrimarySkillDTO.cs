@@ -1,6 +1,6 @@
 ﻿namespace Recrutify.Services.DTOs
 {
-    public class ProjectPrimarySkillDTO : BaseProjectPrimarySkillDTO
+    public class ProjectPrimarySkillDTO : BasePrimarySkillDTO
     {
         public string Description { get; set; }
 

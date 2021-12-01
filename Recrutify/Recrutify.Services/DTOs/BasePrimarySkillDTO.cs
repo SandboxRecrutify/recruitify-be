@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.DTOs
 {
-    public abstract class BaseProjectPrimarySkillDTO
+    public abstract class BasePrimarySkillDTO
     {
         public Guid Id { get; set; }
 
