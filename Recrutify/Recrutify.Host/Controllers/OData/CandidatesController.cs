@@ -23,7 +23,7 @@ namespace Recrutify.Host.Controllers.OData
 
         [EnableQuery(
             HandleNullPropagation = HandleNullPropagationOption.False,
-            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count | AllowedQueryOptions.Expand)]
+            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.AdminPolicy)]
         public IQueryable<CandidateDTO> Get()
         {
