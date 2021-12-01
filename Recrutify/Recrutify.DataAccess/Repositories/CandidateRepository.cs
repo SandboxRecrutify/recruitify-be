@@ -123,6 +123,17 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 
+        public Task UpdateIsAssignedAsync(IEnumerable<AppointInterview> appointInterviews)
+        {
+            var updateBuilder = Builders<Candidate>.Update;
+            var updateModels = appointInterviews.Select(c => new UpdateOneModel<Candidate>(
+               _filterBuilder.Eq(s => s.Id, c.ScheduleSlot.ScheduleCandidateInfo.Id),
+               updateBuilder
+               .Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.True).Set("ProjectResults.$[projectResults].Status", (BsonInt32)3))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResults.ProjectId", BsonBinaryData.Create(c.ProjectId))) } });
+            return GetCollection().BulkWriteAsync(updateModels);
+        }
+
         private async Task UpdateWithArrayFiltersAsync(Guid id, UpdateDefinition<Candidate> updateDefinition, List<ArrayFilterDefinition> arrayFilters)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);

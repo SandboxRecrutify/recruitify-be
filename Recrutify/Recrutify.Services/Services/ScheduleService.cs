@@ -53,9 +53,11 @@ namespace Recrutify.Services.Services
                     ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == grp.CandidateId).FirstOrDefault(),
                 },
                 UserId = grp.UserId,
+                ProjectId = grp.ProjectId,
             }).ToList();
 
             await _scheduleRepository.UpdateOrCancelScheduleCandidateInfosAsync(appointInterviews);
+            await _candidateRepository.UpdateIsAssignedAsync(appointInterviews);
         }
 
         public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
@@ -88,7 +90,7 @@ namespace Recrutify.Services.Services
                         IsAssignedOnInterview = true,
                         PrimarySkill = projectResult.PrimarySkill,
                         ProjectId = projectResult.ProjectId,
-                        Status = projectResult.Status,
+                        Status = Status.TechInterviewOneStep,
                     },
                     Skype = candidate.Contacts.Where(s => s.Type == Constants.Candidate.Skype).Select(s => s.Value).FirstOrDefault(),
                 });
