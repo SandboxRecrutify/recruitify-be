@@ -17,5 +17,10 @@ namespace Recrutify.DataAccess
             public const string WaitingListTemplate = BasePath + "/WaitingList_Email.html";
             public const string TestTemplate = BasePath + "/Test_Email.html";
         }
+
+        public static class Candidate
+        {
+            public const string Skype = "Skype";
+        }
     }
 }

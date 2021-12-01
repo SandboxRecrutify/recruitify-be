@@ -2,12 +2,12 @@
 
 namespace Recrutify.DataAccess.Models
 {
-    public class AppointInterviewHelper
+    public class AppointInterview
     {
         public ScheduleSlot ScheduleSlot { get; set; }
 
-        public Candidate Candidate { get; set; }
-
         public Guid UserId { get; set; }
+
+        public Guid ProjectId { get; set; }
     }
 }

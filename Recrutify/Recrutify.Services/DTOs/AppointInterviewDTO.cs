@@ -6,6 +6,8 @@ namespace Recrutify.Services.DTOs
     {
         public Guid UserId { get; set; }
 
+        public Guid ProjectId { get; set; }
+
         public Guid? CandidateId { get; set; }
 
         public DateTime AppointDateTime { get; set; }
