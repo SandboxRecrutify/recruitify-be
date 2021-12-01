@@ -222,10 +222,10 @@ namespace Recrutify.Services.Services
         public async Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId)
         {
            var primarySkillsAddLocations = await _candidateRepository.CandidatesProjectInfoAsync(projectId);
-           var candidatesPrimarySkillsAndLocationAndProjectName = _mapper.Map<CandidatesProjectInfoDTO>(primarySkillsAddLocations);
+           var candidatesProjectInfo = _mapper.Map<CandidatesProjectInfoDTO>(primarySkillsAddLocations);
            var projectName = projectId.HasValue ? await _projectService.GetProjectName(projectId.Value) : null;
-           candidatesPrimarySkillsAndLocationAndProjectName.ProjectName = projectName;
-           return candidatesPrimarySkillsAndLocationAndProjectName;
+           candidatesProjectInfo.ProjectName = projectName;
+           return candidatesProjectInfo;
         }
     }
 }
