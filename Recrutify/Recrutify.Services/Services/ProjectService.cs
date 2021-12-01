@@ -51,6 +51,11 @@ namespace Recrutify.Services.Services
             return _mapper.Map<ProjectDTO>(project);
         }
 
+        public Task<string> GetProjectName(Guid id)
+        {
+            return _projectRepository.GetProjectName(id);
+        }
+
         public async Task<List<ProjectDTO>> GetAllAsync()
         {
             var projects = await _projectRepository.GetAllAsync();

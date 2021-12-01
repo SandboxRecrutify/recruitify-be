@@ -32,5 +32,7 @@ namespace Recrutify.Services.Services.Abstract
         Task IncrementCurrentApplicationsCountAsync(Guid id);
 
         Task<IEnumerable<Guid>> GetInterviewersIdsAsync(Guid id);
+
+        Task<string> GetProjectName(Guid id);
     }
 }

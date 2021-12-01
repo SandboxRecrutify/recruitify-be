@@ -37,7 +37,7 @@ namespace Recrutify.DataAccess.Repositories
                                                                                  || p.Status == Status.TechInterviewSecondStep)));
         }
 
-        public Task<CandidatesPrimarySkillsAndLocation> GetPrimarySkillAndLocationsAsync(Guid? projectId)
+        public Task<CandidatesProjectInfo> CandidatesProjectInfoAsync(Guid? projectId)
         {
             var unwind = new BsonDocument("$unwind", "$ProjectResults");
             var match = projectId.HasValue ? new BsonDocument("$match", new BsonDocument("ProjectResults.ProjectId", new BsonBinaryData(projectId.Value, GuidRepresentation.Standard)))
@@ -54,7 +54,7 @@ namespace Recrutify.DataAccess.Repositories
                },
             };
             var pipeline = new[] { unwind, match, group };
-            return GetCollection().Aggregate<CandidatesPrimarySkillsAndLocation>(pipeline).FirstOrDefaultAsync();
+            return GetCollection().Aggregate<CandidatesProjectInfo>(pipeline).FirstOrDefaultAsync();
         }
 
         public Task<Candidate> GetByEmailAsync(string email)

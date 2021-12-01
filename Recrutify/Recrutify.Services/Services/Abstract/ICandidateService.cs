@@ -36,6 +36,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
 
-        Task<CandidatesPrimarySkillsAndLocationDTO> GetPrimarySkillsAndlocationsAsync(Guid? projectId);
+        Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId);
     }
 }
