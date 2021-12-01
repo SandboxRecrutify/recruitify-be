@@ -56,7 +56,7 @@ namespace Recrutify.Services.Services
         public async Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots, DateTime mondayDate)
         {
             var userId = _userProvider.GetUserId();
-            var currentScheduleForUser = _scheduleRepository.GetByDatePeriodAsync(userId, mondayDate, Constants.Week.NumberOfDays);
+            var currentScheduleForUser = _scheduleRepository.GetByUserId(userId);
             _scheduleRepository.UpdateScheduleAsync();
             throw new NotImplementedException();
         }

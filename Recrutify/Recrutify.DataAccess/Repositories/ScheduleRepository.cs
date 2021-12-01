@@ -45,6 +45,11 @@ namespace Recrutify.DataAccess.Repositories
                         });
         }
 
+        public async Task<Schedule> GetByUserId(Guid userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task UpdateScheduleAsync()
         {
             throw new NotImplementedException();

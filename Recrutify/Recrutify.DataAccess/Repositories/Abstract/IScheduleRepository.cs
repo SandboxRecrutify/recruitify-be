@@ -11,6 +11,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum);
 
+        Task<Schedule> GetByUserId(Guid userId);
+
         Task UpdateScheduleAsync();
     }
 }
