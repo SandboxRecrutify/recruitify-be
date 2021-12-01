@@ -37,7 +37,7 @@ namespace Recrutify.DataAccess.Repositories
                                                                                  || p.Status == Status.TechInterviewSecondStep)));
         }
 
-        public Task<CandidatesProjectInfo> GetPrimarySkillsAndlocationsAndProjectNameAsync(Guid? projectId)
+        public Task<CandidatesProjectInfo> CandidatesProjectInfoAsync(Guid? projectId)
         {
             var unwind = new BsonDocument("$unwind", "$ProjectResults");
             var match = projectId.HasValue ? new BsonDocument("$match", new BsonDocument("ProjectResults.ProjectId", new BsonBinaryData(projectId.Value, GuidRepresentation.Standard)))

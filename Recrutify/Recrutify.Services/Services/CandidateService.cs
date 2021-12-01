@@ -219,9 +219,9 @@ namespace Recrutify.Services.Services
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
 
-        public async Task<CandidatesProjectInfoDTO> GetPrimarySkillsAndlocationsAndProjectNameAsync(Guid? projectId)
+        public async Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId)
         {
-           var primarySkillsAddLocations = await _candidateRepository.GetPrimarySkillsAndlocationsAndProjectNameAsync(projectId);
+           var primarySkillsAddLocations = await _candidateRepository.CandidatesProjectInfoAsync(projectId);
            var candidatesPrimarySkillsAndLocationAndProjectName = _mapper.Map<CandidatesProjectInfoDTO>(primarySkillsAddLocations);
            var projectName = projectId.HasValue ? await _projectService.GetProjectName(projectId.Value) : null;
            candidatesPrimarySkillsAndLocationAndProjectName.ProjectName = projectName;
