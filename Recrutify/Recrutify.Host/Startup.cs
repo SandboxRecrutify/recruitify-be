@@ -204,6 +204,7 @@ namespace Recrutify.Host
             });
 
             app.UseStatusChangeEventProcessor();
+            app.UseInviteEventProcessor();
         }
     }
 }

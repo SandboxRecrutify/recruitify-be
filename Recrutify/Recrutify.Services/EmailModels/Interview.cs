@@ -4,9 +4,9 @@ namespace Recrutify.Services.EmailModels
 {
     public class Interview
     {
-        public UserByEmail User { get; set; }
+        public UserEmailInfo User { get; set; }
 
-        public CandidateByEmail Candidate { get; set; }
+        public CandidateEmailInfo Candidate { get; set; }
 
         public DateTime AppointDateTimeUtc { get; set; }
 

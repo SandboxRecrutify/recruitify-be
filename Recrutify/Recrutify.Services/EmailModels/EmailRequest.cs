@@ -10,6 +10,6 @@ namespace Recrutify.Services.EmailModels
 
         public string HtmlBody { get; set; }
 
-        public StringBuilder FileBody { get; set; }
+        public string AttachmentBody { get; set; }
     }
 }

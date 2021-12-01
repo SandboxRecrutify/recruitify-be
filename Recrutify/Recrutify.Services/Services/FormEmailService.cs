@@ -84,11 +84,9 @@ namespace Recrutify.Services.Services
                                                 x.User.Email,
                                                 CreateInviteFile(
                                                     x.AppointDateTimeUtc,
-                                                    $"Candidate: {x.Candidate.Name}" +
-                                                    $"\\nSkype: {x.Candidate.Skype}" +
-                                                    $"\\nPhone: {x.Candidate.PhoneNumber}" +
-                                                    $"\\nEmail: {x.Candidate.Email}" +
-                                                    $"\\nIterview type: {x.InterviewType.GetDescription()}"),
+                                                    CreateInviteDescriptionForInterviewer(
+                                                        x.Candidate,
+                                                        x.InterviewType.GetDescription())),
                                                 generatorForUser
                                                 .Render(
                                                     new
@@ -99,20 +97,27 @@ namespace Recrutify.Services.Services
                                                     }))));
         }
 
+        private string CreateInviteDescriptionForInterviewer(CandidateEmailInfo candidate, string interviewTypeDescription)
+        {
+            return $"Candidate: {candidate.Name}" +
+                   $"\\nSkype: {candidate.Skype}" +
+                   $"\\nPhone: {candidate.PhoneNumber}" +
+                   $"\\nEmail: {candidate.Email}" +
+                   $"\\nIterview type: {interviewTypeDescription}";
+        }
+
         private EmailRequest CreateEmailRequest(string toEmail, StringBuilder fileBody, string htmlBody)
         {
             return new EmailRequest()
             {
                 ToEmail = toEmail,
-                Subject = "Interview",
-                FileBody = fileBody,
+                Subject = Constants.InviteMessage.Subject,
+                AttachmentBody = fileBody.ToString(),
                 HtmlBody = htmlBody,
             };
         }
 
-        private Generator CreateGenerator(string templatePath) ////////////////////////////////////////////////
-
-
+        private Generator CreateGenerator(string templatePath)
         {
             var filePath = Directory.GetCurrentDirectory() + templatePath;
             string mailText = string.Empty;
@@ -128,23 +133,23 @@ namespace Recrutify.Services.Services
 
         private StringBuilder CreateInviteFile(DateTime dateTimeInterview, string description)
         {
-            StringBuilder str = new StringBuilder();
+            var str = new StringBuilder();
             str.AppendLine("BEGIN:VCALENDAR");
 
             str.AppendLine($"PRODID: {Constants.Company.Name}");
             str.AppendLine("VERSION:2.0");
             str.AppendLine("METHOD:REQUEST");
-            str.AppendLine("TZOFFSETTO:+0300");
-            str.AppendLine("TZOFFSETFROM:+0300");
+            str.AppendLine($"TZOFFSETTO:+{Constants.InviteMessage.TimeZone:d2}00");
+            str.AppendLine($"TZOFFSETFROM:+{Constants.InviteMessage.TimeZone:d2}00");
             str.AppendLine("BEGIN:VEVENT");
 
-            str.AppendLine($"DTSTART;TZID=Europe/Minsk:{dateTimeInterview.AddHours(3):yyyyMMddTHHmmss}");
-            str.AppendLine($"DTEND;TZID=Europe/Minsk:{dateTimeInterview.AddHours(3).AddMinutes(30):yyyyMMddTHHmmss}");
+            str.AppendLine($"DTSTART;TZID=Europe/Minsk:{dateTimeInterview.AddHours(Constants.InviteMessage.TimeZone):yyyyMMddTHHmmss}");
+            str.AppendLine($"DTEND;TZID=Europe/Minsk:{dateTimeInterview.AddHours(Constants.InviteMessage.TimeZone).AddMinutes(30):yyyyMMddTHHmmss}");
             str.AppendLine("LOCATION:Online");
             str.AppendLine($"ORGANIZER;CN={Constants.Company.Name}:mailto:{Constants.Company.Email}");
             str.AppendLine($"UID:{Guid.NewGuid()}");
             str.AppendLine($"DESCRIPTION:{description}");
-            str.AppendLine("SUMMARY:Interview");
+            str.AppendLine($"SUMMARY:{Constants.InviteMessage.Subject}");
 
             str.AppendLine("STATUS:CONFIRMED");
             str.AppendLine("BEGIN:VALARM");

@@ -1,6 +1,6 @@
 ﻿namespace Recrutify.Services.EmailModels
 {
-    public class UserByEmail : BasePersonByEmail
+    public class UserEmailInfo : BasePersonEmailInfo
     {
     }
 }

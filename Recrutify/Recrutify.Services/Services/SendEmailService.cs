@@ -31,13 +31,13 @@ namespace Recrutify.Services.Services
             var emailBody = new BodyBuilder();
             emailBody.HtmlBody = emailRequest.HtmlBody;
 
-            if (emailRequest.FileBody != null)
+            if (emailRequest.AttachmentBody != null)
             {
                 using (var stream = new MemoryStream())
                 {
                     using (var writer = new StreamWriter(stream))
                     {
-                        writer.Write(emailRequest.FileBody.ToString());
+                        writer.Write(emailRequest.AttachmentBody);
 
                         writer.Flush();
                         stream.Position = 0;

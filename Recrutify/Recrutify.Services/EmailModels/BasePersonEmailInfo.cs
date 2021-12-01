@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.EmailModels
 {
-    public class BasePersonByEmail
+    public class BasePersonEmailInfo
     {
         public Guid Id { get; set; }
 

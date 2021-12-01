@@ -38,20 +38,20 @@ namespace Recrutify.Services.Services
         public void SendEmailQueueForTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project)
         {
             var requests = _formEmailService.GetEmailRequestsForSendTest(candidates, project);
-
-            foreach (var emailRequest in requests)
-            {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(emailRequest));
-            }
+            SendEmailInBackgroundJob(requests);
         }
 
         public void SendEmailQueueForInvite(IEnumerable<Interview> interviews)
         {
             var requests = _formEmailService.GetEmailRequestsForInterviewInvite(interviews);
+            SendEmailInBackgroundJob(requests);
+        }
 
-            foreach (var emailRequest in requests)
+        private void SendEmailInBackgroundJob(IEnumerable<EmailRequest> emailRequests)
+        {
+            foreach (var e in emailRequests)
             {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(emailRequest));
+                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(e));
             }
         }
     }
