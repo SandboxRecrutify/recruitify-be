@@ -223,8 +223,7 @@ namespace Recrutify.Services.Services
         {
            var primarySkillsAddLocations = await _candidateRepository.GetPrimarySkillsAndlocationsAndProjectNameAsync(projectId);
            var candidatesPrimarySkillsAndLocationAndProjectName = _mapper.Map<CandidatesPrimarySkillsLocationAndProjectNameDTO>(primarySkillsAddLocations);
-           var prodject = projectId.HasValue ? await _projectService.GetAsync(projectId.Value) : null;
-           var projectName = projectId.HasValue ? prodject.Name : null;
+           var projectName = projectId.HasValue ? await _projectService.GetProjectName(projectId.Value) : null;
            candidatesPrimarySkillsAndLocationAndProjectName.ProjectName = projectName;
            return candidatesPrimarySkillsAndLocationAndProjectName;
         }
