@@ -110,12 +110,18 @@ namespace Recrutify.Services.Services
             };
         }
 
-        private Generator CreateGenerator(string templatePath)
+        private Generator CreateGenerator(string templatePath) ////////////////////////////////////////////////
+
+
         {
             var filePath = Directory.GetCurrentDirectory() + templatePath;
-            var str = new StreamReader(filePath);
-            var mailText = str.ReadToEnd();
-            str.Close();
+            string mailText = string.Empty;
+
+            using (var str = new StreamReader(filePath))
+            {
+                mailText = str.ReadToEnd();
+            }
+
             var compiler = new HtmlFormatCompiler();
             return compiler.Compile(mailText);
         }

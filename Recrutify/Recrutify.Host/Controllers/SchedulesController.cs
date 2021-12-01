@@ -14,12 +14,10 @@ namespace Recrutify.Host.Controllers
     public class SchedulesController : ControllerBase
     {
         private readonly IScheduleService _scheduleService;
-        private readonly ISendEmailQueueService _sendEmailQueueService;
 
-        public SchedulesController(IScheduleService scheduleService, ISendEmailQueueService sendEmailQueueService)
+        public SchedulesController(IScheduleService scheduleService)
         {
             _scheduleService = scheduleService;
-            _sendEmailQueueService = sendEmailQueueService;
         }
 
         [HttpGet]
