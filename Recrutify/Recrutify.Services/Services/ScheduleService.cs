@@ -17,15 +17,17 @@ namespace Recrutify.Services.Services
         private readonly IProjectService _projectService;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ICandidateRepository _candidateRepository;
+        private readonly ICandidateService _candidateService;
         private readonly IMapper _mapper;
         private readonly IUserProvider _userProvider;
 
-        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IMapper mapper, IUserProvider userProvider, ICandidateRepository candidateRepository)
+        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IMapper mapper, IUserProvider userProvider, ICandidateRepository candidateRepository, ICandidateService candidateService)
         {
             _projectService = projectService;
             _scheduleRepository = scheduleRepository;
             _mapper = mapper;
             _candidateRepository = candidateRepository;
+            _candidateService = candidateService;
             _userProvider = userProvider;
         }
 
@@ -41,23 +43,23 @@ namespace Recrutify.Services.Services
             return _mapper.Map<List<ScheduleDTO>>(schedules);
         }
 
-        public async Task BulkAppoinOrCanceltInterviewsAsync(IEnumerable<AppointInterviewDTO> appointInterviewDTOs)
+        public async Task BulkAppointOrCancelInterviewsAsync(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
         {
-            var candidates = await _candidateRepository.GetByIdsAsync(appointInterviewDTOs.Where(c => c.CandidateId.HasValue).Select(c => c.CandidateId.Value));
-            var scheduleCandidateInfos = GetScheduleCandidateInfos(candidates, appointInterviewDTOs);
-            var appointInterviews = appointInterviewDTOs.Select(grp => new AppointInterview()
+            var candidates = await _candidateService.GetCandidatesByIdsAsync(interviewAppointmentDTOs.Select(c => c.CandidateId));
+            var scheduleCandidateInfos = GetScheduleCandidateInfos(candidates, interviewAppointmentDTOs, projectId);
+            var appointInterviews = interviewAppointmentDTOs.Select(a => new InterviewAppointment()
             {
                 ScheduleSlot = new ScheduleSlot()
                 {
-                    AvailableTime = grp.AppointDateTime,
-                    ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == grp.CandidateId).FirstOrDefault(),
+                    AvailableTime = a.AppointDateTime,
+                    ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == a.CandidateId).FirstOrDefault(),
                 },
-                UserId = grp.UserId,
-                ProjectId = grp.ProjectId,
+                UserId = a.UserId,
+                IsApponint = a.IsAppoint,
             }).ToList();
 
             await _scheduleRepository.UpdateOrCancelScheduleCandidateInfosAsync(appointInterviews);
-            await _candidateRepository.UpdateIsAssignedAsync(appointInterviews);
+            await _candidateRepository.UpdateIsAssignedAsync(appointInterviews, projectId);
         }
 
         public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
@@ -72,27 +74,27 @@ namespace Recrutify.Services.Services
             return _mapper.Map<ScheduleDTO>(schedules);
         }
 
-        private IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<Candidate> candidates, IEnumerable<AppointInterviewDTO> appointInterviewDTOs)
+        private IEnumerable<ScheduleCandidateInfo> GetScheduleCandidateInfos(IEnumerable<CandidateDTO> candidates, IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
         {
             var scheduleCandidateInfos = new List<ScheduleCandidateInfo>();
             foreach (var candidate in candidates)
             {
-                var projectId = appointInterviewDTOs.Where(a => a.CandidateId == candidate.Id).Select(u => u.ProjectId).FirstOrDefault();
                 var projectResult = candidate.ProjectResults.Where(x => x.ProjectId == projectId).FirstOrDefault();
-                scheduleCandidateInfos.Add(new ScheduleCandidateInfo()
+                scheduleCandidateInfos.Add(new ScheduleCandidateInfoDTO()
                 {
                     BestTimeToConnect = candidate.BestTimeToConnect,
                     Email = candidate.Email,
                     Id = candidate.Id,
                     Name = candidate.Name,
-                    ProjectResult = new ScheduleCandidateProjectResult()
+                    ProjectResult = interviewAppointmentDTOs.Where(a => a.CandidateId == candidate.Id && a.IsAppoint == true).Any() ? new ScheduleCandidateProjectResult()
                     {
                         IsAssignedOnInterview = true,
                         PrimarySkill = projectResult.PrimarySkill,
-                        ProjectId = projectResult.ProjectId,
+                        ProjectId = projectId,
                         Status = Status.TechInterviewOneStep,
-                    },
-                    Skype = candidate.Contacts.Where(s => s.Type == Constants.Candidate.Skype).Select(s => s.Value).FirstOrDefault(),
+                    }
+                    : new ScheduleCandidateProjectResult(),
+                    Skype = candidate.Contacts.Where(s => s.Type == Constants.Contacts.Skype).Select(s => s.Value).FirstOrDefault(),
                 });
             }
 

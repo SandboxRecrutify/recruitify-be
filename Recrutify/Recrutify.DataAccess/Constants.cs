@@ -18,7 +18,7 @@ namespace Recrutify.DataAccess
             public const string TestTemplate = BasePath + "/Test_Email.html";
         }
 
-        public static class Candidate
+        public static class Contacts
         {
             public const string Skype = "Skype";
         }

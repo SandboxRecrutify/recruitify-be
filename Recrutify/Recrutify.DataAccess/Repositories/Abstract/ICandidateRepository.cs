@@ -28,6 +28,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task UpdateStatusByIdsAsync(IEnumerable<Guid> ids, Guid projectId, Status status, string reason);
 
-        Task UpdateIsAssignedAsync(IEnumerable<AppointInterview> appointInterviews);
+        Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointment> appointInterviews, Guid projectId);
     }
 }

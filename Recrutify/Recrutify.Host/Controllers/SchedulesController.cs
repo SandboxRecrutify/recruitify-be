@@ -32,9 +32,9 @@ namespace Recrutify.Host.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] BulkAppointInterviewsDTO bulkAppointInterviewsDTO)
+        public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] BulkAppointInterviewsDTO bulkAppointInterviewsDTO, [FromQuery, Required] Guid projectId)
         {
-            await _scheduleService.BulkAppoinOrCanceltInterviewsAsync(bulkAppointInterviewsDTO.AppointInterviewDTOs);
+            await _scheduleService.BulkAppointOrCancelInterviewsAsync(bulkAppointInterviewsDTO.InterviewAppointments, projectId);
 
             return NoContent();
         }
