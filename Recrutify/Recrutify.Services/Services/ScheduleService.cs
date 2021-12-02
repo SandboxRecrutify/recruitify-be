@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
+
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Providers;

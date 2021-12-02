@@ -10,12 +10,12 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers.OData
 {
-    [ODataRoutePrefix("Schedule")]
-    public class ScheduleController : ODataController
+    [ODataRoutePrefix("Schedules")]
+    public class SchedulesController : ODataController
     {
         private readonly ICandidateService _candidateService;
 
-        public ScheduleController(ICandidateService candidateService)
+        public SchedulesController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
         }
@@ -24,7 +24,7 @@ namespace Recrutify.Host.Controllers.OData
           HandleNullPropagation = HandleNullPropagationOption.False,
           AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots([FromQuery] Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTest([FromQuery] Guid projectId)
         {
             return _candidateService.GetCandidatesPassedTestSlots(projectId);
         }
@@ -33,7 +33,7 @@ namespace Recrutify.Host.Controllers.OData
            HandleNullPropagation = HandleNullPropagationOption.False,
            AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy | AllowedQueryOptions.Top | AllowedQueryOptions.Skip | AllowedQueryOptions.Count)]
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
-        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots([FromQuery] Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidates([FromQuery] Guid projectId)
         {
             return _candidateService.GetUnassignedCandidatesSlots(projectId);
         }
