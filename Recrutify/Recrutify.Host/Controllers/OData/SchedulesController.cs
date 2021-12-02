@@ -10,12 +10,12 @@ using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers.OData
 {
-    [ODataRoutePrefix("Schedule")]
-    public class ScheduleController : ODataController
+    [ODataRoutePrefix("Schedules")]
+    public class SchedulesController : ODataController
     {
         private readonly ICandidateService _candidateService;
 
-        public ScheduleController(ICandidateService candidateService)
+        public SchedulesController(ICandidateService candidateService)
         {
             _candidateService = candidateService;
         }
