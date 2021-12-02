@@ -7,6 +7,6 @@ namespace Recrutify.Services.Events.Abstract
     {
         event Func<UpdateStatusEventArgs, Task> StatusCompleted;
 
-        public void OnStatusUpdated(UpdateStatusEventArgs e);
+        void OnStatusUpdated(UpdateStatusEventArgs e);
     }
 }

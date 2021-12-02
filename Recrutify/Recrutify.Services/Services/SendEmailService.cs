@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -25,7 +27,28 @@ namespace Recrutify.Services.Services
             email.From.Add(MailboxAddress.Parse(_mailSettings.Mail));
             email.To.Add(MailboxAddress.Parse(emailRequest.ToEmail));
             email.Subject = emailRequest.Subject;
-            email.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = emailRequest.Body };
+
+            var emailBody = new BodyBuilder();
+            emailBody.HtmlBody = emailRequest.HtmlBody;
+
+            if (emailRequest.AttachmentBody != null)
+            {
+                using (var stream = new MemoryStream())
+                {
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        writer.Write(emailRequest.AttachmentBody);
+
+                        writer.Flush();
+                        stream.Position = 0;
+
+                        emailBody.Attachments.Add("invite.ics", stream);
+                    }
+                }
+            }
+
+            email.Body = emailBody.ToMessageBody();
+
             using var smtp = new SmtpClient();
             await smtp.ConnectAsync(_mailSettings.Host, Convert.ToInt32(_mailSettings.Port), SecureSocketOptions.StartTls);
             await smtp.AuthenticateAsync(_mailSettings.Mail, _mailSettings.Password);

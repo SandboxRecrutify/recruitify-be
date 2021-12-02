@@ -16,6 +16,20 @@ namespace Recrutify.DataAccess
             public const string AcceptanceTemplate = BasePath + "/Acceptance_Email.html";
             public const string WaitingListTemplate = BasePath + "/WaitingList_Email.html";
             public const string TestTemplate = BasePath + "/Test_Email.html";
+            public const string InterviewTemplate = BasePath + "/Candidate_Interview_Email.html";
+            public const string InterviewerTemplate = BasePath + "/Interviewer_Email.html";
+        }
+
+        public static class Company
+        {
+            public const string Name = "Exadel";
+            public const string Email = "exadel.recruitify@gmail.com";
+        }
+
+        public static class InviteMessage
+        {
+            public const string Subject = "Interview";
+            public const int TimeZone = 3;
         }
     }
 }

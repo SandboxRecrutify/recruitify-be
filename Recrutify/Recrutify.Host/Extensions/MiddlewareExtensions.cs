@@ -18,5 +18,12 @@ namespace Recrutify.Host.Extensions
             var statusChangeEventProcessor = serviceProvider.GetService<StatusChangeEventProcessor>();
             statusChangeEventProcessor.Subscribe();
         }
+
+        public static void UseInviteEventProcessor(this IApplicationBuilder app)
+        {
+            var serviceProvider = app.ApplicationServices;
+            var inviteEventProcessor = serviceProvider.GetService<InviteEventProcessor>();
+            inviteEventProcessor.Subscribe();
+        }
     }
 }

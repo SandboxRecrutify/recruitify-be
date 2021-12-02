@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Hangfire;
 using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Services.Services
@@ -37,10 +38,20 @@ namespace Recrutify.Services.Services
         public void SendEmailQueueForTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project)
         {
             var requests = _formEmailService.GetEmailRequestsForSendTest(candidates, project);
+            SendEmailInBackgroundJob(requests);
+        }
 
-            foreach (var emailRequest in requests)
+        public void SendEmailQueueForInvite(IEnumerable<Interview> interviews)
+        {
+            var requests = _formEmailService.GetEmailRequestsForInterviewInvite(interviews);
+            SendEmailInBackgroundJob(requests);
+        }
+
+        private void SendEmailInBackgroundJob(IEnumerable<EmailRequest> emailRequests)
+        {
+            foreach (var e in emailRequests)
             {
-                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(emailRequest));
+                BackgroundJob.Enqueue(() => _sendEmailService.SendEmailAsync(e));
             }
         }
     }
