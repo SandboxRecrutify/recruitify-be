@@ -24,7 +24,7 @@ namespace Recrutify.Services.Validators
         private void ConfigureRules()
         {
             RuleFor(p => p)
-                 .MustAsync(CheckStuffAsync)
+                 .MustAsync(CheckStaffAsync)
                  .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
@@ -86,13 +86,13 @@ namespace Recrutify.Services.Validators
                .NotEmpty();
         }
 
-        private async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
+        private async Task<bool> CheckStaffAsync(TDTO projectDTO, CancellationToken cancellation)
         {
-            var userIds = GetStuffIds(projectDTO);
+            var userIds = GetStaffIds(projectDTO);
             return await UserRepository.ExistsByIdsAsync(userIds, cancellation);
         }
 
-        private IEnumerable<Guid> GetStuffIds(TDTO projectDTO)
+        private IEnumerable<Guid> GetStaffIds(TDTO projectDTO)
         {
             var stuffIds = projectDTO.Interviewers
                 .Union(projectDTO.Mentors
