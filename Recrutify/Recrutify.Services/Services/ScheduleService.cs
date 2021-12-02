@@ -55,7 +55,7 @@ namespace Recrutify.Services.Services
                     ScheduleCandidateInfo = scheduleCandidateInfos.Where(c => c.Id == a.CandidateId).FirstOrDefault(),
                 },
                 UserId = a.UserId,
-                IsApponint = a.IsAppoint,
+                IsAppoint = a.IsAppoint,
             }).ToList();
 
             await _scheduleRepository.UpdateOrCancelScheduleCandidateInfosAsync(_mapper.Map<IEnumerable<InterviewAppointmentSlot>>(appointInterviewSlots));

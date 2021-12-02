@@ -31,7 +31,8 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<LocationDTO, Location>().ReverseMap();
 
             CreateMap<Candidate, ScheduleCandidateInfoDTO>()
-                .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
+                .ForMember(dest => dest.ProjectResult, opt => opt.Ignore())
+                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts));
 
             CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
         }

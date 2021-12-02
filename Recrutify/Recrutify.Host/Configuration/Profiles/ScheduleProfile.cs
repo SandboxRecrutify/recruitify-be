@@ -9,10 +9,10 @@ namespace Recrutify.Host.Configuration.Profiles
         {
             CreateMap<Schedule, ScheduleDTO>();
             CreateMap<UserPrimarySkill, UserPrimarySkillDTO>();
-            CreateMap<ScheduleSlot, ScheduleSlotDTO>();
-            CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>();
-            CreateMap<ScheduleCandidateProjectResult, ScheduleCandidateProjectResultDTO>();
-            CreateMap<InterviewAppointmentSlot, InterviewAppointmentSlotDTO>();
+            CreateMap<ScheduleSlot, ScheduleSlotDTO>().ReverseMap();
+            CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>().ReverseMap();
+            CreateMap<ScheduleCandidateProjectResult, ScheduleCandidateProjectResultDTO>().ReverseMap();
+            CreateMap<InterviewAppointmentSlot, InterviewAppointmentSlotDTO>().ReverseMap();
         }
     }
 }
