@@ -76,7 +76,7 @@ namespace Recrutify.Services.Services
                                                     new
                                                     {
                                                         name = x.Candidate.Name,
-                                                        interviewerType = x.InterviewType.GetDescription(),
+                                                        interviewerType = x.InterviewType.GetDisplayName(),
                                                         dateTime = x.AppointDateTimeUtc.AddHours(3).ToString(),
                                                     })))
                 .Union(
@@ -86,7 +86,7 @@ namespace Recrutify.Services.Services
                                                     x.AppointDateTimeUtc,
                                                     CreateInviteDescriptionForInterviewer(
                                                         x.Candidate,
-                                                        x.InterviewType.GetDescription())),
+                                                        x.InterviewType.GetDisplayName())),
                                                 generatorForUser
                                                 .Render(
                                                     new

@@ -1,15 +1,14 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Recrutify.Services.EmailModels
 {
     public enum InterviewType
     {
-        [Description("recruity interview")]
+        [Display(Name ="recruity interview")]
         RecruityInterview,
-        [Description("first technical interview")]
+        [Display(Name = "first technical interview")]
         TerchicalInterviewOne,
-        [Description("second technical interview")]
+        [Display(Name = "second technical interview")]
         TerchicalInterviewSecond,
     }
 }

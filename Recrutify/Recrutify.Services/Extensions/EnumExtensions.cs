@@ -1,26 +1,27 @@
 ﻿using System;
-using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reflection;
 
 namespace Recrutify.Services.Extensions
 {
     public static class EnumExtensions
     {
-        public static string GetDescription(this Enum enumElement)
+        public static string GetDisplayName(this Enum enumValue)
         {
-            Type type = enumElement.GetType();
+            string displayName;
+            displayName = enumValue.GetType()
+                    .GetMember(enumValue.ToString())
+                    .FirstOrDefault()
+                    .GetCustomAttribute<DisplayAttribute>()?
+                    .GetName();
 
-            MemberInfo[] memInfo = type.GetMember(enumElement.ToString());
-            if (memInfo != null && memInfo.Length > 0)
+            if (string.IsNullOrEmpty(displayName))
             {
-                object[] attrs = memInfo[0].GetCustomAttributes(typeof(DescriptionAttribute), false);
-                if (attrs != null && attrs.Length > 0)
-                {
-                    return ((DescriptionAttribute)attrs[0]).Description;
-                }
+                displayName = enumValue.ToString();
             }
 
-            return enumElement.ToString();
+            return displayName;
         }
     }
 }
