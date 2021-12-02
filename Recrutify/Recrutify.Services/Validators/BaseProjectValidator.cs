@@ -13,19 +13,19 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected BaseProjectValidator(IUserRepository userRepository)
+        protected BaseProjectValidator(IUserRepository userRepository, IPrimarySkillRepository primarySkillRepository)
         {
+            PrimarySkillRepository = primarySkillRepository;
             UserRepository = userRepository;
             ConfigureRules();
         }
 
         private IUserRepository UserRepository { get; set; }
 
+        private IPrimarySkillRepository PrimarySkillRepository { get; set; }
+
         private void ConfigureRules()
         {
-            RuleFor(p => p)
-                 .MustAsync(CheckStaffAsync)
-                 .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -56,7 +56,8 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MustAsync(CheckPrimarySkillsAsync);
             RuleForEach(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
@@ -84,6 +85,9 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.Recruiters)
                .NotNull()
                .NotEmpty();
+            RuleFor(p => p)
+                 .MustAsync(CheckStaffAsync)
+                 .WithMessage("User isn't found");
         }
 
         private async Task<bool> CheckStaffAsync(TDTO projectDTO, CancellationToken cancellation)
@@ -99,6 +103,12 @@ namespace Recrutify.Services.Validators
                 .Union(projectDTO.Managers
                 .Union(projectDTO.Recruiters)));
             return stuffIds;
+        }
+
+        private async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
+        {
+            var ids = primarySkillDTOs.Select(x => x.Id).ToList();
+            return await PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
         }
     }
 }
