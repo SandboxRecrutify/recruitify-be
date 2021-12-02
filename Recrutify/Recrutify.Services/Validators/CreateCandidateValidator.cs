@@ -31,17 +31,26 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.Contacts)
                 .Must(c => c.Any(contact => contact.Type == Skype))
-                .WithMessage("Skype is required");
+                .WithMessage("Skype is required")
+                .Must(c => c.Count() <= 5)
+                .WithMessage("Maximum contacts reached");
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
-            RuleFor(c => c.Location)
+            RuleFor(c => c.Location.City)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
+            RuleFor(c => c.Location.Country)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
             RuleFor(c => c.BestTimeToConnect)
                 .NotNull()
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
+                .NotEmpty();
+            RuleFor(c => c.PrimarySkillId)
                 .NotEmpty();
         }
     }

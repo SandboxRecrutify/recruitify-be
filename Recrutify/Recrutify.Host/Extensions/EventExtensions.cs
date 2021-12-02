@@ -10,6 +10,8 @@ namespace Recrutify.Host.Extensions
         {
             services.AddSingleton<IUpdateStatusEventPublisher, UpdateStatusEventPublisher>();
             services.AddSingleton<StatusChangeEventProcessor>();
+            services.AddSingleton<IInviteEventPublisher, InviteEventPublisher>();
+            services.AddSingleton<InviteEventProcessor>();
         }
     }
 }

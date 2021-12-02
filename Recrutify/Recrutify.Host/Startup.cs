@@ -83,7 +83,7 @@ namespace Recrutify.Host
             {
                 config.UseMemoryStorage();
             });
-            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.Configure<MailSettings>(Configuration.GetSection(nameof(MailSettings)));
 
             services.AddControllers()
                 .AddFluentValidation();
@@ -190,7 +190,7 @@ namespace Recrutify.Host
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.Filter().Count().OrderBy().MaxTop(100);
+                endpoints.Filter().Count().OrderBy().Expand().Select().MaxTop(100);
                 endpoints.MapVersionedODataRoute("odata", "odata", modelBuilder.GetEdmModels());
             });
 
@@ -204,6 +204,7 @@ namespace Recrutify.Host
             });
 
             app.UseStatusChangeEventProcessor();
+            app.UseInviteEventProcessor();
         }
     }
 }
