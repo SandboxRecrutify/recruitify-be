@@ -4,7 +4,7 @@ using Recrutify.Services.DTOs;
 
 namespace Recrutify.Host.Configuration
 {
-    public class ScheduleConfiguration : IModelConfiguration
+    public class SchedulesConfiguration : IModelConfiguration
     {
         public void Apply(ODataModelBuilder builder, ApiVersion apiVersion, string routePrefix)
         {
