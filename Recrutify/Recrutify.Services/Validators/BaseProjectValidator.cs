@@ -41,7 +41,7 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.EndDate)
                 .NotNull()
                 .GreaterThan(p => p.StartDate)
-                .WithMessage("The date must be greater than the start date!");
+                .WithMessage("The date must be greater than the start date, must be in the today or future!");
             RuleFor(p => p.StartRegistrationDate)
                .NotNull()
                .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
@@ -105,7 +105,7 @@ namespace Recrutify.Services.Validators
             return stuffIds;
         }
 
-        private async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
+        protected async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
         {
             var ids = primarySkillDTOs.Select(x => x.Id).ToList();
             return await PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
