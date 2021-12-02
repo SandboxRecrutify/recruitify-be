@@ -143,13 +143,13 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 
-        public Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointment> appointInterviews, Guid projectId)
+        public Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlots, Guid projectId)
         {
             var updateBuilder = Builders<Candidate>.Update;
-            var updateModels = appointInterviews.Select(a => new UpdateOneModel<Candidate>(
-               _filterBuilder.Eq(s => s.Id, a.ScheduleSlot.ScheduleCandidateInfo.Id),
-               updateBuilder
-               .Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.True).Set("ProjectResults.$[projectResults].Status", (BsonInt32)3))
+            var updateModels = interviewAppointmentSlots.Select(i => new UpdateOneModel<Candidate>(
+               _filterBuilder.Eq(c => c.Id, i.ScheduleSlot.ScheduleCandidateInfo.Id),
+               i.IsApponint ? updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.True).Set("ProjectResults.$[projectResults].Status", (BsonInt32)3)
+               : updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.False).Set("ProjectResults.$[projectResults].Status", (BsonInt32)2))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResults.ProjectId", BsonBinaryData.Create(projectId))) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
@@ -37,5 +38,7 @@ namespace Recrutify.Services.Services.Abstract
         Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
 
         Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId);
+
+        Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlots, Guid projectId);
     }
 }

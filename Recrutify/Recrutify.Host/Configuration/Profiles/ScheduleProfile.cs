@@ -12,6 +12,7 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ScheduleSlot, ScheduleSlotDTO>();
             CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>();
             CreateMap<ScheduleCandidateProjectResult, ScheduleCandidateProjectResultDTO>();
+            CreateMap<InterviewAppointmentSlot, InterviewAppointmentSlotDTO>();
         }
     }
 }

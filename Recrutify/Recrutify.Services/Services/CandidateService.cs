@@ -227,5 +227,10 @@ namespace Recrutify.Services.Services
            candidatesProjectInfo.ProjectName = projectName;
            return candidatesProjectInfo;
         }
+
+        public async Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlots, Guid projectId)
+        {
+            await _candidateRepository.UpdateIsAssignedAsync(interviewAppointmentSlots, projectId);
+        }
     }
 }

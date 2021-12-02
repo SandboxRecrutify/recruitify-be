@@ -13,6 +13,8 @@ namespace Recrutify.Services.DTOs
 
         public string Email { get; set; }
 
+        public string Skype { get; set; }
+
         public ScheduleCandidateProjectResultDTO ProjectResult { get; set; }
     }
 }
