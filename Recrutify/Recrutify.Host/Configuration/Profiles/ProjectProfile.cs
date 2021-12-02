@@ -30,6 +30,7 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.UserId, conf => conf.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, conf => conf.MapFrom(src => src.GetFullName()));
             CreateMap<Project, ShortProjectDTO>();
+            CreateMap<ProjectPrimarySkill, ShortProjectPrimarySkillDTO>();
         }
     }
 }
