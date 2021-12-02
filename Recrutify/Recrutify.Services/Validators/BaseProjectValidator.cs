@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
@@ -105,7 +104,7 @@ namespace Recrutify.Services.Validators
             return stuffIds;
         }
 
-        protected async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
+        private async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
         {
             var ids = primarySkillDTOs.Select(x => x.Id).ToList();
             return await PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
