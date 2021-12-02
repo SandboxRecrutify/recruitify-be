@@ -32,6 +32,15 @@ namespace Recrutify.DataAccess.Repositories
              .FirstOrDefaultAsync();
         }
 
+        public Task<string> GetProjectName(Guid id)
+        {
+            var filter = _filterBuilder.Eq(x => x.Id, id);
+            return GetCollection()
+             .Find(filter)
+             .Project(p => p.Name)
+             .FirstOrDefaultAsync();
+        }
+
         public Task IncrementCurrentApplicationsCountAsync(Guid id)
         {
             var filter = _filterBuilder.Eq(x => x.Id, id);

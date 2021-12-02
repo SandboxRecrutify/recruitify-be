@@ -31,7 +31,9 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(c => c.Contacts)
                 .Must(c => c.Any(contact => contact.Type == Skype))
-                .WithMessage("Skype is required");
+                .WithMessage("Skype is required")
+                .Must(c => c.Count() <= 5)
+                .WithMessage("Maximum contacts reached");
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();

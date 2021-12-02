@@ -89,7 +89,7 @@ namespace Recrutify.Host.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [Authorize(Policy = Constants.Policies.RecruiterPolicy)]
         [HttpPut("bulk/test_feedbacks")]
         public async Task<ActionResult> BulkCreateTestFeedbacksAsync([FromBody] BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO, [FromQuery, Required] Guid projectId)
         {
@@ -106,13 +106,21 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [Authorize(Policy = Constants.Policies.RecruiterPolicy)]
         [HttpPut("bulk/send_test_emails")]
         public async Task<ActionResult> BulkSendEmailsWithTestAsync([FromBody] BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, [FromQuery, Required] Guid projectId)
         {
             await _candidateService.BulkSendEmailsWithTestAsync(bulkSendEmailWithTestDTO, projectId);
 
             return NoContent();
+        }
+
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [HttpGet("candidates_project_info")]
+        public async Task<ActionResult<CandidateDTO>> CandidatesProjectInfoAsync([FromQuery] Guid? projectId)
+        {
+            var result = await _candidateService.CandidatesProjectInfoAsync(projectId);
+            return Ok(result);
         }
     }
 }
