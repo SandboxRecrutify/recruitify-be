@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.Services.DTOs;
-
-using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
