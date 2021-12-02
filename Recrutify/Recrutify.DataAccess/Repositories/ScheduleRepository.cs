@@ -29,6 +29,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
+        public async Task<Schedule> GetByUserIdAsync(Guid userId)
+        {
+            var filter = _filterBuilder.Eq(u => u.UserId, userId);
+            return await GetCollection().Find(filter).FirstOrDefaultAsync();
+        }
+
         private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)
         {
             return GetCollection()
@@ -43,17 +49,6 @@ namespace Recrutify.DataAccess.Repositories
                                                     y => y.AvailableTime >= date.Date &&
                                                     y.AvailableTime < date.Date.AddDays(daysNum)),
                         });
-        }
-
-        public async Task<Schedule> GetByUserId(Guid userId)
-        {
-            var filter = _filterBuilder.Eq(u => u.UserId, userId);
-            return await GetCollection().Find(filter).FirstOrDefaultAsync();
-        }
-
-        public async Task UpdateScheduleAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }

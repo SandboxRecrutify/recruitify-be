@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
 
@@ -56,9 +54,45 @@ namespace Recrutify.Services.Services
         public async Task UpdateSlotsForCurrentUser(IEnumerable<DateTime> timeSlots, DateTime mondayDate)
         {
             var userId = _userProvider.GetUserId();
-            var currentScheduleForUser = _scheduleRepository.GetByUserId(userId);
-            _scheduleRepository.UpdateScheduleAsync();
-            throw new NotImplementedException();
+            var timeSlotsForUser = new TimeSlotsForUserDTO()
+            {
+                UserId = userId,
+                TimeSlots = timeSlots,
+                MondayDate = mondayDate,
+            };
+            var currentSchedule = await _scheduleRepository.GetByUserIdAsync(userId);
+            var updatedSchedule = UpdateTimeSlotsForTimePeriod(currentSchedule, timeSlots, mondayDate);
+            await _scheduleRepository.UpdateAsync(updatedSchedule);
+        }
+
+        private Schedule UpdateTimeSlotsForTimePeriod(Schedule currentSchedule, IEnumerable<DateTime> newTimeSlots, DateTime mondayDate)
+        {
+            var updatedScheduleForUser = currentSchedule;
+            var newScheduleSlots = newTimeSlots
+                .Select(s =>
+                    new ScheduleSlot
+                    {
+                        AvailableTime = s,
+                        ScheduleCandidateInfo = null,
+                    }).ToList();
+            var assaignedScheduleSlots = currentSchedule.ScheduleSlots
+                           .Select(s => s)
+                           .Where(s => s.ScheduleCandidateInfo != null);
+            var currentScheduleSlotsForTimePeriod = currentSchedule.ScheduleSlots
+                           .Select(s => s)
+                           .Where(s => s != null
+                           && s.AvailableTime >= mondayDate
+                           && s.AvailableTime <= mondayDate.AddDays(Constants.Week.NumberOfDays));
+            var newSlotsWithoutAssigned = newScheduleSlots;
+            newSlotsWithoutAssigned
+                .RemoveAll(s => assaignedScheduleSlots
+                                .Any(a => a.AvailableTime == s.AvailableTime));
+            updatedScheduleForUser.ScheduleSlots = updatedScheduleForUser.ScheduleSlots
+                .Union(newSlotsWithoutAssigned)
+                .Except(currentScheduleSlotsForTimePeriod
+                        .Except(newScheduleSlots)
+                        .Except(assaignedScheduleSlots));
+            return updatedScheduleForUser;
         }
     }
 }
