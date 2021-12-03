@@ -33,26 +33,25 @@ namespace Recrutify.Services.Validators
             var project = await _projectRepository.GetAsync(dto.Id);
             if (project == null)
             {
-                context.AddFailure("Project doesn't exist");
+               context.AddFailure("Project doesn't exist");
+               return;
             }
-            else
+
+            var currentPrimarySkillsIds = project.PrimarySkills.Select(x => x.Id).ToList();
+            var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
+            if (dto.Name != project.Name)
             {
-                var currentPrimarySkillsIds = project.PrimarySkills.Select(x => x.Id).ToList();
-                var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
-                if (dto.Name != project.Name)
-                {
-                    context.AddFailure("Name cannot be changed!");
-                }
+                context.AddFailure("Name cannot be changed!");
+            }
 
-                if (dto.StartDate != project.StartDate)
-                {
-                    context.AddFailure("StartDate cannot be changed!");
-                }
+            if (dto.StartDate != project.StartDate)
+            {
+                context.AddFailure("StartDate cannot be changed!");
+            }
 
-                if (!primarySkillIds.SequenceEqual(currentPrimarySkillsIds))
-                {
-                    context.AddFailure("PrimarySkills cannot be changed!");
-                }
+            if (!primarySkillIds.SequenceEqual(currentPrimarySkillsIds))
+            {
+                context.AddFailure("PrimarySkills cannot be changed!");
             }
         }
     }
