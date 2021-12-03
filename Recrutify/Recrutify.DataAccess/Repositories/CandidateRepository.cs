@@ -148,7 +148,7 @@ namespace Recrutify.DataAccess.Repositories
             var updateBuilder = Builders<Candidate>.Update;
             var updateModels = interviewAppointmentSlots.Select(i => new UpdateOneModel<Candidate>(
                _filterBuilder.Eq(c => c.Id, i.ScheduleSlot.ScheduleCandidateInfo.Id),
-               i.IsApponint ? updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.True).Set("ProjectResults.$[projectResults].Status", (BsonInt32)3) : updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.False).Set("ProjectResults.$[projectResults].Status", (BsonInt32)2))
+               i.IsAppointment ? updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.True).Set("ProjectResults.$[projectResults].Status", (BsonInt32)Status.TechInterviewOneStep) : updateBuilder.Set("ProjectResults.$[projectResults].IsAssignedOnInterview", BsonBoolean.False).Set("ProjectResults.$[projectResults].Status", (BsonInt32)Status.RecruiterInterview))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ProjectResult>(new BsonDocument("projectResults.ProjectId", BsonBinaryData.Create(projectId))) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }

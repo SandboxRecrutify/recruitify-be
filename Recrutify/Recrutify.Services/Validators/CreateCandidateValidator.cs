@@ -1,13 +1,12 @@
 ﻿using System.Linq;
 using FluentValidation;
+using Recrutify.DataAccess;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
     public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
-        private const string Skype = "Skype";
-
         public CreateCandidateValidator()
         {
             RuleFor(c => c.Name)
@@ -30,7 +29,7 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleFor(c => c.Contacts)
-                .Must(c => c.Any(contact => contact.Type == Skype))
+                .Must(c => c.Any(contact => contact.Type == Constants.Contacts.Skype))
                 .WithMessage("Skype is required")
                 .Must(c => c.Count() <= 5)
                 .WithMessage("Maximum contacts reached");

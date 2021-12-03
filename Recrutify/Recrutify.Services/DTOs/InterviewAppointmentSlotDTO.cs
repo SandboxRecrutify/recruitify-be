@@ -8,6 +8,6 @@ namespace Recrutify.Services.DTOs
 
         public Guid UserId { get; set; }
 
-        public bool IsAppoint { get; set; }
+        public bool IsAppointment { get; set; }
     }
 }

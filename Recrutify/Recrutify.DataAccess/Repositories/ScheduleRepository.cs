@@ -35,7 +35,7 @@ namespace Recrutify.DataAccess.Repositories
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = interviewAppointmentSlot.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
-                i.IsApponint ? updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", i.ScheduleSlot.ScheduleCandidateInfo) : updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", BsonNull.Value))
+                i.IsAppointment ? updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", i.ScheduleSlot.ScheduleCandidateInfo) : updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", BsonNull.Value))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.ScheduleSlot.AvailableTime)) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }

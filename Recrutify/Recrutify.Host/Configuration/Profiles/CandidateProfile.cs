@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
@@ -32,7 +33,7 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<Candidate, ScheduleCandidateInfoDTO>()
                 .ForMember(dest => dest.ProjectResult, opt => opt.Ignore())
-                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts));
+                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts.Where(c => c.Type == Constants.Contacts.Skype).Select(c => c.Value).FirstOrDefault()));
 
             CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
         }

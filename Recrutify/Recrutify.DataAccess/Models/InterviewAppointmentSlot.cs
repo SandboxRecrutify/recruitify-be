@@ -8,6 +8,6 @@ namespace Recrutify.DataAccess.Models
 
         public Guid UserId { get; set; }
 
-        public bool IsApponint { get; set; }
+        public bool IsAppointment { get; set; }
     }
 }
