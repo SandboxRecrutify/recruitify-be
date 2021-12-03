@@ -12,8 +12,8 @@ namespace Recrutify.Services.Validators
     {
         private readonly IProjectRepository _projectRepository;
 
-        public UpdateProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository)
-            : base(userRepository)
+        public UpdateProjectValidator(IProjectRepository projectRepository, IUserRepository userRepository, IPrimarySkillRepository primarySkillRepository)
+            : base(userRepository, primarySkillRepository)
         {
             _projectRepository = projectRepository;
 
@@ -26,16 +26,12 @@ namespace Recrutify.Services.Validators
                 .CustomAsync(UmmutableFieldsAreKeepingUnchanged);
             RuleFor(p => p.Id)
                 .NotEmpty();
-            RuleFor(p => p.EndDate)
-                .NotNull()
-                .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
-                .WithMessage("Date must be in the today or future!");
         }
 
         private async Task UmmutableFieldsAreKeepingUnchanged(UpdateProjectDTO dto, ValidationContext<UpdateProjectDTO> context, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetAsync(dto.Id);
-            var currentPrimarySkills = project.PrimarySkills.Select(x => x.Id).ToList();
+            var currentPrimarySkillsIds = project.PrimarySkills.Select(x => x.Id).ToList();
             var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
             if (dto.Name != project.Name)
             {
@@ -47,7 +43,7 @@ namespace Recrutify.Services.Validators
                 context.AddFailure("StartDate cannot be changed!");
             }
 
-            if (!primarySkillIds.SequenceEqual(currentPrimarySkills))
+            if (!primarySkillIds.SequenceEqual(currentPrimarySkillsIds))
             {
                 context.AddFailure("PrimarySkills cannot be changed!");
             }

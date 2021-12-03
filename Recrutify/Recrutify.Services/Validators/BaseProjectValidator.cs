@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
@@ -13,19 +12,19 @@ namespace Recrutify.Services.Validators
     public abstract class BaseProjectValidator<TDTO> : AbstractValidator<TDTO>
         where TDTO : CreateProjectDTO
     {
-        protected BaseProjectValidator(IUserRepository userRepository)
+        protected BaseProjectValidator(IUserRepository userRepository, IPrimarySkillRepository primarySkillRepository)
         {
+            PrimarySkillRepository = primarySkillRepository;
             UserRepository = userRepository;
             ConfigureRules();
         }
 
         private IUserRepository UserRepository { get; set; }
 
+        private IPrimarySkillRepository PrimarySkillRepository { get; set; }
+
         private void ConfigureRules()
         {
-            RuleFor(p => p)
-                 .MustAsync(CheckStuffAsync)
-                 .WithMessage("User isn't found");
             RuleFor(p => p.Name)
                 .NotNull()
                 .NotEmpty()
@@ -41,7 +40,7 @@ namespace Recrutify.Services.Validators
             RuleFor(p => p.EndDate)
                 .NotNull()
                 .GreaterThan(p => p.StartDate)
-                .WithMessage("The date must be greater than the start date!");
+                .WithMessage("The date must be greater than the start date, must be in the today or future!");
             RuleFor(p => p.StartRegistrationDate)
                .NotNull()
                .GreaterThanOrEqualTo(DateTime.UtcNow.Date)
@@ -56,7 +55,8 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleFor(p => p.PrimarySkills)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .MustAsync(CheckPrimarySkillsAsync);
             RuleForEach(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty();
@@ -84,21 +84,30 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.Recruiters)
                .NotNull()
                .NotEmpty();
+            RuleFor(p => p)
+                 .MustAsync(CheckStaffAsync)
+                 .WithMessage("User isn't found");
         }
 
-        private async Task<bool> CheckStuffAsync(TDTO projectDTO, CancellationToken cancellation)
+        private async Task<bool> CheckStaffAsync(TDTO projectDTO, CancellationToken cancellation)
         {
-            var userIds = GetStuffIds(projectDTO);
+            var userIds = GetStaffIds(projectDTO);
             return await UserRepository.ExistsByIdsAsync(userIds, cancellation);
         }
 
-        private IEnumerable<Guid> GetStuffIds(TDTO projectDTO)
+        private IEnumerable<Guid> GetStaffIds(TDTO projectDTO)
         {
             var stuffIds = projectDTO.Interviewers
                 .Union(projectDTO.Mentors
                 .Union(projectDTO.Managers
                 .Union(projectDTO.Recruiters)));
             return stuffIds;
+        }
+
+        private Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
+        {
+            var ids = primarySkillDTOs.Select(x => x.Id).ToList();
+            return PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
         }
     }
 }

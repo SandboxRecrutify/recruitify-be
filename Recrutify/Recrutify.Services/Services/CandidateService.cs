@@ -52,7 +52,7 @@ namespace Recrutify.Services.Services
             return _mapper.ProjectTo<CandidateDTO>(candidates);
         }
 
-        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTest(Guid projectId)
         {
             var candidates = _candidateRepository.GetCandidatesPassedTestByProject(projectId);
             var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
@@ -65,7 +65,7 @@ namespace Recrutify.Services.Services
             return candidatesDtos;
         }
 
-        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId)
+        public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidates(Guid projectId)
         {
             var candidates = _candidateRepository.GetUnassignedCandidatesByProject(projectId);
             var candidatesDtos = _mapper.ProjectTo<ScheduleCandidateInfoDTO>(candidates).ToList();
@@ -219,7 +219,7 @@ namespace Recrutify.Services.Services
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
         }
 
-        public async Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId)
+        public async Task<CandidatesProjectInfoDTO> GetCandidatesProjectInfoAsync(Guid? projectId)
         {
            var primarySkillsAddLocations = await _candidateRepository.CandidatesProjectInfoAsync(projectId);
            var candidatesProjectInfo = _mapper.Map<CandidatesProjectInfoDTO>(primarySkillsAddLocations);
