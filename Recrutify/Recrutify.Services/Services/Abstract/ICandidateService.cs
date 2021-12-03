@@ -30,12 +30,12 @@ namespace Recrutify.Services.Services.Abstract
 
         Task BulkUpdateStatusReasonAsync(BulkUpdateStatusDTO bulkUpdateStatusDTO, Guid projectId);
 
-        IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTestSlots(Guid projectId);
+        IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTest(Guid projectId);
 
-        IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidatesSlots(Guid projectId);
+        IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidates(Guid projectId);
 
         Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
 
-        Task<CandidatesProjectInfoDTO> CandidatesProjectInfoAsync(Guid? projectId);
+        Task<CandidatesProjectInfoDTO> GetCandidatesProjectInfoAsync(Guid? projectId);
     }
 }
