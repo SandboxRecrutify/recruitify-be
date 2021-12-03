@@ -1,5 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
+using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
@@ -8,7 +12,16 @@ namespace Recrutify.Services.Validators
     {
         private const string Skype = "Skype";
 
-        public CreateCandidateValidator()
+        private readonly IPrimarySkillRepository _primarySkillRepository;
+
+        public CreateCandidateValidator(IPrimarySkillRepository primarySkillRepository)
+        {
+            _primarySkillRepository = primarySkillRepository;
+
+            ConfigureRules();
+        }
+
+        private void ConfigureRules()
         {
             RuleFor(c => c.Name)
                 .NotNull()
@@ -27,13 +40,13 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .EmailAddress();
             RuleFor(c => c.Contacts)
-                .NotNull()
-                .NotEmpty();
+               .NotNull()
+               .NotEmpty();
             RuleFor(c => c.Contacts)
-                .Must(c => c.Any(contact => contact.Type == Skype))
-                .WithMessage("Skype is required")
-                .Must(c => c.Count() <= 5)
-                .WithMessage("Maximum contacts reached");
+               .Must(c => c.Any(contact => contact.Type == Skype))
+               .WithMessage("Skype is required")
+               .Must(c => c.Count() <= 5)
+               .WithMessage("Maximum contacts reached");
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
@@ -49,9 +62,40 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
-                .NotEmpty();
+                .NotEmpty()
+                .Must(b => b >= 9 && b <= 18);
             RuleFor(c => c.PrimarySkillId)
+                .NotEmpty()
+                .MustAsync(CheckPrimarySkillsAsync);
+            RuleFor(c => c.CurrentJob)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
+            RuleFor(c => c.Certificates)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.AdditionalQuestions)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.AdditionalInfo)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.EnglishLevel)
+                .IsInEnum()
                 .NotEmpty();
+            RuleFor(c => c.ProjectLanguage)
+                .IsInEnum()
+                .NotEmpty();
+            RuleFor(c => c.GoingToExadel)
+                .NotEmpty();
+        }
+
+        private Task<bool> CheckPrimarySkillsAsync(Guid primarySkillId, CancellationToken cancellation)
+        {
+            return _primarySkillRepository.ExistsAsync(primarySkillId);
         }
     }
 }
