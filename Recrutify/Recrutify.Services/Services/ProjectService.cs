@@ -112,7 +112,6 @@ namespace Recrutify.Services.Services
                 PrimarySkills = await _primarySkillService.GetAllAsync(),
                 StaffGroup = await _userService.GetStaffByRolesAsync(roles),
             };
-            var t = result;
 
             return result;
         }
