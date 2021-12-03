@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Exceptions;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
@@ -84,14 +85,13 @@ namespace Recrutify.Services.Services
         public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
         {
             var currentProject = await _projectRepository.GetAsync(projectDto.Id);
-            var newProject = _mapper.Map<Project>(projectDto);
+            var newProject = _mapper.Map(projectDto, currentProject.DeepCopy());
             var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             newProject.Interviewers = projectDto.Interviewers.GetStaff(users);
             newProject.Managers = projectDto.Managers.GetStaff(users);
             newProject.Mentors = projectDto.Mentors.GetStaff(users);
             newProject.Recruiters = projectDto.Recruiters.GetStaff(users);
-            newProject.CurrentApplicationsCount = currentProject.CurrentApplicationsCount;
             await _projectRepository.UpdateAsync(newProject);
             await _userService.BulkUpdateProjectRolesAsync(projectDto.Id, _staffHelper.GetStaffUsersByRoles(currentProject), _staffHelper.GetStaffUsersByRoles(newProject));
             return _mapper.Map<ProjectDTO>(newProject);

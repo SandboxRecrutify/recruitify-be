@@ -37,7 +37,7 @@ namespace Recrutify.Host.Controllers.OData
         public IEnumerable<CandidateDTO> GetByProject(ODataQueryOptions<CandidateDTO> options, [FromQuery] Guid projectId)
         {
             var candidates = _candidateService.GetByProject(projectId);
-            var filteredCandidates = options.ApplyTo(candidates) as IEnumerable<CandidateDTO>;
+            var filteredCandidates = options.ApplyTo(candidates, new ODataQuerySettings() { HandleNullPropagation = HandleNullPropagationOption.False }) as IEnumerable<CandidateDTO>;
             var result = filteredCandidates!.OrderByDescending(x => x.ProjectResults
                                             ?.FirstOrDefault(x => x.ProjectId == projectId)
                                             ?.Feedbacks

@@ -5,8 +5,8 @@ namespace Recrutify.Services.Validators
 {
     public class CreateProjectValidator : BaseProjectValidator<CreateProjectDTO>
     {
-        public CreateProjectValidator(IUserRepository userRepository)
-            : base(userRepository)
+        public CreateProjectValidator(IUserRepository userRepository, IPrimarySkillRepository primarySkillRepository)
+            : base(userRepository, primarySkillRepository)
         {
         }
     }
