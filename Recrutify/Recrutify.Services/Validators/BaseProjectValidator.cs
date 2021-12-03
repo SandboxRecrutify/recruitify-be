@@ -104,10 +104,10 @@ namespace Recrutify.Services.Validators
             return stuffIds;
         }
 
-        private async Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
+        private Task<bool> CheckPrimarySkillsAsync(IEnumerable<ProjectPrimarySkillDTO> primarySkillDTOs, CancellationToken cancellation)
         {
             var ids = primarySkillDTOs.Select(x => x.Id).ToList();
-            return await PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
+            return PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
         }
     }
 }
