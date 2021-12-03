@@ -26,7 +26,7 @@ namespace Recrutify.Host.Controllers.OData
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
         public IEnumerable<ScheduleCandidateInfoDTO> GetCandidatesPassedTest([FromQuery] Guid projectId)
         {
-            return _candidateService.GetCandidatesPassedTestSlots(projectId);
+            return _candidateService.GetCandidatesPassedTest(projectId);
         }
 
         [EnableQuery(
@@ -35,7 +35,7 @@ namespace Recrutify.Host.Controllers.OData
         [ODataAuthorize(Policy = Constants.Policies.RecruiterPolicy)]
         public IEnumerable<ScheduleCandidateInfoDTO> GetUnassignedCandidates([FromQuery] Guid projectId)
         {
-            return _candidateService.GetUnassignedCandidatesSlots(projectId);
+            return _candidateService.GetUnassignedCandidates(projectId);
         }
     }
 }
