@@ -84,11 +84,6 @@ namespace Recrutify.Services.Services
         public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
         {
             var currentProject = await _projectRepository.GetAsync(projectDto.Id);
-            if (currentProject == null)
-            {
-                throw new ValidationException("Project does't exist!");
-            }
-
             var newProject = _mapper.Map<Project>(projectDto);
             var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
