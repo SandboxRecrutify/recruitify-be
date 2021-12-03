@@ -13,23 +13,27 @@ namespace Recrutify.Services.Validators
     public class BulkCreateTestFeedbackValidator : AbstractValidator<BulkCreateTestFeedbackDTO>
     {
         private readonly ICandidateRepository _candidateRepository;
+        private readonly IProjectRepository _projectRepository;
 
-        public BulkCreateTestFeedbackValidator(ICandidateRepository candidateRepository)
+        public BulkCreateTestFeedbackValidator(ICandidateRepository candidateRepository, IProjectRepository projectRepository)
         {
             _candidateRepository = candidateRepository;
+            _projectRepository = projectRepository;
 
             ConfigureRules();
         }
 
         private void ConfigureRules()
         {
+            RuleFor(x => x)
+                .MustAsync(CheckProjectAsync);
             RuleFor(x => x.CandidatesIds)
                 .NotNull()
                 .NotEmpty()
                 .MustAsync(CandidatesAreExistingAsync)
-                .WithMessage("One or more candidates doesn't exist");
+                .WithMessage("One or more candidates doesn't exist on project with status Test and no test feedbacks");
             RuleFor(x => x.Rating)
-                .Must(r => r >= 0 && r <= 10)
+                .Must(r => r >= 1 && r <= 10)
                 .WithMessage("Rating is out of range");
         }
 
@@ -40,6 +44,11 @@ namespace Recrutify.Services.Validators
                                                        ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId && p.Status == Status.Test)
                                                        ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false);
             return filteredCandidatesCount == candidatsIds.Count();
+        }
+
+        private Task<bool> CheckProjectAsync(BulkCreateTestFeedbackDTO dto, CancellationToken cancellation)
+        {
+            return _projectRepository.ExistsAsync(dto.ProjectId);
         }
     }
 }
