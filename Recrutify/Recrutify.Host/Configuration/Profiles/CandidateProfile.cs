@@ -9,16 +9,24 @@ namespace Recrutify.Host.Configuration.Profiles
         public CandidateProfile()
         {
             CreateMap<Candidate, CandidateDTO>();
+
+            CreateMap<Candidate, ScheduleCandidateInfoDTO>()
+               .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
+
             CreateMap<CandidateCreateDTO, Candidate>()
                 .ForMember(dest => dest.ProjectResults, opt => opt.Ignore())
                 .ForMember(dest => dest.RegistrationDate, conf => conf.MapFrom(src => DateTime.UtcNow.Date))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
+
+            CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
+
             CreateMap<ProjectResult, ProjectResultDTO>()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }))
                 .ForMember(dest => dest.IsAssigned, conf => conf.MapFrom(src => false));
-            CreateMap<ProjectResult, ScheduleCandidateProjectResultDTO>().ReverseMap()
+            CreateMap<ProjectResult, ScheduleCandidateProjectResultDTO>()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }));
-            CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
 
             CreateMap<UpsertFeedbackDTO, Feedback>()
                 .ForMember(dest => dest.CreatedOn, opt => opt.Ignore())
@@ -29,11 +37,6 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ContactDTO, Contact>().ReverseMap();
 
             CreateMap<LocationDTO, Location>().ReverseMap();
-
-            CreateMap<Candidate, ScheduleCandidateInfoDTO>()
-                .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
-
-            CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
         }
     }
 }
