@@ -13,12 +13,14 @@ namespace Recrutify.Host.Configuration.Profiles
         {
             CreateMap<CreateProjectDTO, Project>()
                 .ForMember(dest => dest.Id, conf => conf.MapFrom(src => Guid.NewGuid()))
+                .ForMember(dest => dest.CurrentApplicationsCount, conf => conf.Ignore())
                 .ForMember(dest => dest.Managers, conf => conf.MapFrom(src => src.Managers.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))
                 .ForMember(dest => dest.Recruiters, conf => conf.MapFrom(src => src.Recruiters.Select(r => new Staff() { UserId = r })));
             CreateMap<Project, ProjectDTO>();
             CreateMap<UpdateProjectDTO, Project>()
+                .ForMember(dest => dest.CurrentApplicationsCount, conf => conf.Ignore())
                 .ForMember(dest => dest.Managers, conf => conf.MapFrom(src => src.Managers.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Mentors, conf => conf.MapFrom(src => src.Mentors.Select(m => new Staff() { UserId = m })))
                 .ForMember(dest => dest.Interviewers, conf => conf.MapFrom(src => src.Interviewers.Select(i => new Staff() { UserId = i })))

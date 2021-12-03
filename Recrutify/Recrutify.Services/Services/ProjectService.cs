@@ -90,6 +90,7 @@ namespace Recrutify.Services.Services
             newProject.Managers = projectDto.Managers.GetStaff(users);
             newProject.Mentors = projectDto.Mentors.GetStaff(users);
             newProject.Recruiters = projectDto.Recruiters.GetStaff(users);
+            newProject.CurrentApplicationsCount = currentProject.CurrentApplicationsCount;
             await _projectRepository.UpdateAsync(newProject);
             await _userService.BulkUpdateProjectRolesAsync(projectDto.Id, _staffHelper.GetStaffUsersByRoles(currentProject), _staffHelper.GetStaffUsersByRoles(newProject));
             return _mapper.Map<ProjectDTO>(newProject);
