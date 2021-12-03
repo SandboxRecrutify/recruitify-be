@@ -228,9 +228,9 @@ namespace Recrutify.Services.Services
            return candidatesProjectInfo;
         }
 
-        public async Task UpdateIsAssignedAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlots, Guid projectId)
+        public Task UpdateIsAssigned(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
         {
-            await _candidateRepository.UpdateIsAssignedAsync(interviewAppointmentSlots, projectId);
+            return _candidateRepository.UpdateIsAssigned(_mapper.Map<List<CandidateRenewal>>(interviewAppointmentDTOs), projectId);
         }
     }
 }

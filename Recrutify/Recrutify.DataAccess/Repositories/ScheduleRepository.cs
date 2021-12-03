@@ -30,12 +30,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
-        public Task UpdateOrCancelScheduleCandidateInfosAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlot)
+        public Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlot)
         {
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = interviewAppointmentSlot.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
-                i.IsAppointment ? updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", i.ScheduleSlot.ScheduleCandidateInfo) : updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", BsonNull.Value))
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", i.ScheduleSlot.ScheduleCandidateInfo))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.ScheduleSlot.AvailableTime)) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }

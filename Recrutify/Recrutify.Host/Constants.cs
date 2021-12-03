@@ -21,10 +21,5 @@
         {
             public const string ProjectIdParam = "projectId";
         }
-
-        public static class Contacts
-        {
-            public const string Skype = "Skype";
-        }
     }
 }

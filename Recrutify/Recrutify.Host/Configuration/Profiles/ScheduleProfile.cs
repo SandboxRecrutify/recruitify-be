@@ -12,7 +12,6 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<ScheduleSlot, ScheduleSlotDTO>().ReverseMap();
             CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>().ReverseMap();
             CreateMap<ScheduleCandidateProjectResult, ScheduleCandidateProjectResultDTO>().ReverseMap();
-            CreateMap<InterviewAppointmentSlot, InterviewAppointmentSlotDTO>().ReverseMap();
         }
     }
 }
