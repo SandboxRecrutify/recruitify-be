@@ -69,7 +69,7 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.PrimarySkillId)
                 .NotEmpty()
                 .MustAsync(_primarySkillRepository.ExistsIdAsync)
-                .WithMessage("Primary Skill doesn't exist");
+                .WithMessage("One or more candidates doesn't exist");
             RuleFor(c => c.CurrentJob)
                 .NotNull()
                 .NotEmpty()
