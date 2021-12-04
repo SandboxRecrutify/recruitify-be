@@ -20,9 +20,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task DeleteAsync(Guid id);
 
-        Task<bool> ExistsAsync(Guid id);
-
-        Task<bool> ExistsIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken);
 
         Task<bool> ExistsByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
     }

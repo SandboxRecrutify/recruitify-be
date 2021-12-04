@@ -59,14 +59,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             await GetCollection().DeleteOneAsync(filter);
         }
 
-        public async Task<bool> ExistsAsync(Guid id)
-        {
-            var filter = _filterBuilder.Eq(e => e.Id, id);
-            var result = await GetCollection().Find(filter).CountDocumentsAsync();
-            return result != 0;
-        }
-
-        public async Task<bool> ExistsIdAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
             var filter = _filterBuilder.Eq(e => e.Id, id);
             var result = await GetCollection().Find(filter).CountDocumentsAsync();

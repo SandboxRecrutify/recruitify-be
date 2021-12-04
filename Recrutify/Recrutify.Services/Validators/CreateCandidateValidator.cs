@@ -40,8 +40,6 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .EmailAddress();
             RuleFor(c => c.Contacts)
-               .NotNull()
-               .NotEmpty()
                .Must(c => c.Any(contact => contact.Type == Skype))
                .WithMessage("Skype is required")
                .Must(c => c.Count() <= 5)
@@ -68,7 +66,7 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Time is out of range");
             RuleFor(c => c.PrimarySkillId)
                 .NotEmpty()
-                .MustAsync(_primarySkillRepository.ExistsIdAsync)
+                .MustAsync(_primarySkillRepository.ExistsAsync)
                 .WithMessage("One or more candidates doesn't exist");
             RuleFor(c => c.CurrentJob)
                 .NotNull()

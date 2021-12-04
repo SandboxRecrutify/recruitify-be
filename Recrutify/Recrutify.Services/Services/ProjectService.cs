@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
@@ -100,9 +101,9 @@ namespace Recrutify.Services.Services
             await _projectRepository.DeleteAsync(id);
         }
 
-        public Task<bool> ExistsAsync(Guid id)
+        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _projectRepository.ExistsAsync(id);
+            return _projectRepository.ExistsAsync(id, cancellationToken);
         }
 
         public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles)
