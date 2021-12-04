@@ -171,7 +171,7 @@
                 ],
                 "Status": NumberInt(1),
                 "PrimarySkill": {
-                    "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                    "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
                     "Name": "BusinessAnalyst"
                 },
                 "IsAssignedOnInterview": false
