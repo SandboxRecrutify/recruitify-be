@@ -8,9 +8,13 @@ namespace Recrutify.Host.Configuration.Profiles
         public ScheduleProfile()
         {
             CreateMap<Schedule, ScheduleDTO>();
+
             CreateMap<UserPrimarySkill, UserPrimarySkillDTO>();
+
             CreateMap<ScheduleSlot, ScheduleSlotDTO>();
+
             CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>();
+
             CreateMap<ScheduleCandidateProjectResult, ScheduleCandidateProjectResultDTO>();
         }
     }

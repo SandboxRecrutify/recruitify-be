@@ -31,6 +31,12 @@ namespace Recrutify.Services.Validators
         private async Task UmmutableFieldsAreKeepingUnchanged(UpdateProjectDTO dto, ValidationContext<UpdateProjectDTO> context, CancellationToken cancellationToken)
         {
             var project = await _projectRepository.GetAsync(dto.Id);
+            if (project == null)
+            {
+               context.AddFailure("Project doesn't exist");
+               return;
+            }
+
             var currentPrimarySkillsIds = project.PrimarySkills.Select(x => x.Id).ToList();
             var primarySkillIds = dto.PrimarySkills.Select(x => x.Id).ToList();
             if (dto.Name != project.Name)

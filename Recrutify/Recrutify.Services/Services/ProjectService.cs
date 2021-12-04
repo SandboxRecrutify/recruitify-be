@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Recrutify.DataAccess;
@@ -83,7 +84,7 @@ namespace Recrutify.Services.Services
         public async Task<ProjectDTO> UpdateAsync(UpdateProjectDTO projectDto)
         {
             var currentProject = await _projectRepository.GetAsync(projectDto.Id);
-            var newProject = _mapper.Map<Project>(projectDto);
+            var newProject = _mapper.Map(projectDto, currentProject.DeepCopy());
             var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             newProject.Interviewers = projectDto.Interviewers.GetStaff(users);
@@ -100,9 +101,9 @@ namespace Recrutify.Services.Services
             await _projectRepository.DeleteAsync(id);
         }
 
-        public Task<bool> ExistsAsync(Guid id)
+        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _projectRepository.ExistsAsync(id);
+            return _projectRepository.ExistsAsync(id, cancellationToken);
         }
 
         public async Task<PrimarySkillsAndStaffDTO> GetPrimarySkillsAndStaff(IEnumerable<Role> roles)
