@@ -111,7 +111,7 @@ namespace Recrutify.Services.Validators
             return PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
         }
 
-        private static bool LinkMustBeAUri(string link)
+        private bool LinkMustBeAUri(string link)
         {
             if (string.IsNullOrWhiteSpace(link))
             {
