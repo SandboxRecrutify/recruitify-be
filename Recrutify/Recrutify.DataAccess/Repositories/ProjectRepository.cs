@@ -19,7 +19,7 @@ namespace Recrutify.DataAccess.Repositories
 
         public IQueryable<Project> GetShort()
         {
-            return GetCollection().AsQueryable().Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now)
+            return GetCollection().AsQueryable().Where(x => x.IsActive && x.StartRegistrationDate >= DateTime.Now.Date)
                                             .OrderBy(x => x.StartRegistrationDate);
         }
 
