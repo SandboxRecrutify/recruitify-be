@@ -40,15 +40,18 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .EmailAddress();
             RuleFor(c => c.Contacts)
-               .Must(c => c.Any(contact => contact.Type == Skype))
-               .WithMessage("Skype is required")
-               .Must(c => c.Count() <= 5)
-               .WithMessage("Maximum contacts reached");
+                .NotNull()
+                .NotEmpty();
             RuleForEach(c => c.Contacts)
                 .NotNull()
                 .NotEmpty()
                 .ChildRules(x => x.RuleFor(x => x.Type).MaximumLength(50))
                 .ChildRules(x => x.RuleFor(x => x.Value).MaximumLength(50));
+            RuleFor(c => c.Contacts)
+                .Must(c => c.Any(contact => contact.Type == Skype))
+                .WithMessage("Skype is required")
+                .Must(c => c.Count() <= 5)
+                .WithMessage("Maximum contacts reached");
             RuleFor(c => c.Location.City)
                 .NotNull()
                 .NotEmpty()
