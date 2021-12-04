@@ -16,6 +16,36 @@ namespace Recrutify.Services.DTOs
 
         public IEnumerable<FeedbackDTO> Feedbacks { get; set; }
 
+        public int TestRating
+        {
+            get => Feedbacks?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Test)?.Rating ?? 0;
+            set { }
+        }
+
+        public int MentorFeedbackRating
+        {
+            get => Feedbacks?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Mentor)?.Rating ?? 0;
+            set { }
+        }
+
+        public int InterviewRating
+        {
+            get => Feedbacks?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.Interview)?.Rating ?? 0;
+            set { }
+        }
+
+        public int TechInterviewOneStepRating
+        {
+            get => Feedbacks?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.TechInterviewOneStep)?.Rating ?? 0;
+            set { }
+        }
+
+        public int TechInterviewSecondStepRating
+        {
+            get => Feedbacks?.FirstOrDefault(x => x.Type == FeedbackTypeDTO.TechInterviewSecondStep)?.Rating ?? 0;
+            set { }
+        }
+
         public CandidatePrimarySkillDTO PrimarySkill { get; set; }
     }
 }
