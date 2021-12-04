@@ -66,6 +66,13 @@ namespace Recrutify.DataAccess.Repositories.Abstract
             return result != 0;
         }
 
+        public async Task<bool> ExistsIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var filter = _filterBuilder.Eq(e => e.Id, id);
+            var result = await GetCollection().Find(filter).CountDocumentsAsync();
+            return result != 0;
+        }
+
         public async Task<bool> ExistsByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken)
         {
             var filter = _filterBuilder.In(u => u.Id, ids);

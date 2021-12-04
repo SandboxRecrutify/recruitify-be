@@ -41,15 +41,16 @@ namespace Recrutify.Services.Validators
                 .EmailAddress();
             RuleFor(c => c.Contacts)
                .NotNull()
-               .NotEmpty();
-            RuleFor(c => c.Contacts)
+               .NotEmpty()
                .Must(c => c.Any(contact => contact.Type == Skype))
                .WithMessage("Skype is required")
                .Must(c => c.Count() <= 5)
                .WithMessage("Maximum contacts reached");
             RuleForEach(c => c.Contacts)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .ChildRules(x => x.RuleFor(x => x.Type).MaximumLength(50))
+                .ChildRules(x => x.RuleFor(x => x.Value).MaximumLength(50));
             RuleFor(c => c.Location.City)
                 .NotNull()
                 .NotEmpty()
@@ -63,10 +64,12 @@ namespace Recrutify.Services.Validators
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
                 .NotEmpty()
-                .Must(b => b >= 9 && b <= 18);
+                .Must(b => b >= 9 && b <= 18)
+                .WithMessage("Time is out of range");
             RuleFor(c => c.PrimarySkillId)
                 .NotEmpty()
-                .MustAsync(CheckPrimarySkillsAsync);
+                .MustAsync(_primarySkillRepository.ExistsIdAsync)
+                .WithMessage("Primary Skill doesn't exist");
             RuleFor(c => c.CurrentJob)
                 .NotNull()
                 .NotEmpty()
@@ -89,13 +92,6 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.ProjectLanguage)
                 .IsInEnum()
                 .NotEmpty();
-            RuleFor(c => c.GoingToExadel)
-                .NotEmpty();
-        }
-
-        private Task<bool> CheckPrimarySkillsAsync(Guid primarySkillId, CancellationToken cancellation)
-        {
-            return _primarySkillRepository.ExistsAsync(primarySkillId);
         }
     }
 }
