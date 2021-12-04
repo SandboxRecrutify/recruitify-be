@@ -24,7 +24,6 @@ namespace Recrutify.Host.Configuration.Profiles
 
             CreateMap<ProjectResult, ProjectResultDTO>()
                 .ForMember(dest => dest.PrimarySkill, conf => conf.MapFrom(src => new CandidatePrimarySkillDTO { Id = src.PrimarySkill.Id, Name = src.PrimarySkill.Name }))
-                .ForMember(dest => dest.IsAssigned, conf => conf.MapFrom(src => false))
                 .ForMember(dest => dest.TestRating, opt => opt.Ignore())
                 .ForMember(dest => dest.MentorFeedbackRating, opt => opt.Ignore())
                 .ForMember(dest => dest.InterviewRating, opt => opt.Ignore())
