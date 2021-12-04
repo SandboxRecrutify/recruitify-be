@@ -61,8 +61,8 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty()
                 .ChildRules(x => x.RuleFor(x => x.TestLink)
-                .Must(LinkMustBeAUri)
-                .WithMessage("The test link must be a valid URI!"));
+                                       .Must(LinkMustBeAUri)
+                                       .WithMessage("The test link must be a valid URI!"));
             RuleFor(p => p.Mentors)
                  .NotNull()
                  .NotEmpty();
