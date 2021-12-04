@@ -60,7 +60,9 @@ namespace Recrutify.Services.Validators
             RuleForEach(p => p.PrimarySkills)
                 .NotNull()
                 .NotEmpty()
-                .ChildRules(x => x.RuleFor(x => x.TestLink).Must(LinkMustBeAUri).WithMessage("The test link must be a valid URI!"));
+                .ChildRules(x => x.RuleFor(x => x.TestLink)
+                .Must(LinkMustBeAUri)
+                .WithMessage("The test link must be a valid URI!"));
             RuleFor(p => p.Mentors)
                  .NotNull()
                  .NotEmpty();
@@ -118,8 +120,7 @@ namespace Recrutify.Services.Validators
                 return false;
             }
 
-            Uri result;
-            return Uri.TryCreate(link, UriKind.Absolute, out result);
+            return Uri.TryCreate(link, UriKind.Absolute, out var result);
         }
     }
 }
