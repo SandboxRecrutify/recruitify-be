@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,9 +54,9 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpPut]
-        public async Task<ActionResult<ProjectDTO>> UpateProject([FromBody] UpdateProjectDTO projectDto)
+        public async Task<ActionResult<ProjectDTO>> UpateProject([FromBody] UpdateProjectDTO projectDto, CancellationToken cancellationToken)
         {
-            var projectExists = await _projectService.ExistsAsync(projectDto.Id);
+            var projectExists = await _projectService.ExistsAsync(projectDto.Id, cancellationToken);
             if (!projectExists)
             {
                 return NotFound();
@@ -67,9 +68,9 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
         [HttpDelete("{id:guid}")]
-        public async Task<ActionResult> DeleteAsync([FromRoute] Guid id)
+        public async Task<ActionResult> DeleteAsync([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var projectExists = await _projectService.ExistsAsync(id);
+            var projectExists = await _projectService.ExistsAsync(id, cancellationToken);
             if (!projectExists)
             {
                 return NotFound();
