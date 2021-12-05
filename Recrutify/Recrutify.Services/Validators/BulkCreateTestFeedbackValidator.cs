@@ -25,8 +25,9 @@ namespace Recrutify.Services.Validators
 
         private void ConfigureRules()
         {
-            RuleFor(x => x)
-                .MustAsync(CheckProjectAsync);
+            RuleFor(x => x.ProjectId)
+                .MustAsync(_projectRepository.ExistsAsync)
+                .WithMessage("Project doesn't exist");
             RuleFor(x => x.CandidatesIds)
                 .NotNull()
                 .NotEmpty()
@@ -44,11 +45,6 @@ namespace Recrutify.Services.Validators
                                                        ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId && p.Status == Status.Test)
                                                        ?.Feedbacks.All(f => f.Type != FeedbackType.Test) ?? false);
             return filteredCandidatesCount == candidatsIds.Count();
-        }
-
-        private Task<bool> CheckProjectAsync(BulkCreateTestFeedbackDTO dto, CancellationToken cancellation)
-        {
-            return _projectRepository.ExistsAsync(dto.ProjectId);
         }
     }
 }

@@ -22,8 +22,9 @@ namespace Recrutify.Services.Validators
 
         private void ConfigureRules()
         {
-            RuleFor(x => x)
-                .MustAsync(CheckProjectAsync);
+            RuleFor(x => x.ProjectId)
+                 .MustAsync(_projectRepository.ExistsAsync)
+                 .WithMessage("Project doesn't exist");
             RuleFor(x => x.CandidatesIds)
                 .NotNull()
                 .NotEmpty()
@@ -42,9 +43,5 @@ namespace Recrutify.Services.Validators
                 .WithMessage("Cannot change to selected status manually");
         }
 
-        private Task<bool> CheckProjectAsync(BulkUpdateStatusDTO dto, CancellationToken cancellation)
-        {
-            return _projectRepository.ExistsAsync(dto.ProjectId);
-        }
     }
 }
