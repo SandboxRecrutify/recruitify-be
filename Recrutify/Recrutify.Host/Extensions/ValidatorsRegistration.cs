@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Collections.Generic;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
@@ -18,6 +19,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IValidator<BulkCreateTestFeedbackDTO>, BulkCreateTestFeedbackValidator>();
             services.AddSingleton<IValidator<BulkUpdateStatusDTO>, BulkUpdateStatusReasonCandidatsValidator>();
             services.AddSingleton<IValidator<BulkSendEmailWithTestDTO>, BulkSendEmailsWithTestValidator>();
+            services.AddSingleton<IValidator<IEnumerable<ScheduleSlot>>, UpdateScheduleSlotsValidator>();
         }
     }
 }
