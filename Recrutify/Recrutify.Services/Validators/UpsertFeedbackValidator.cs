@@ -12,7 +12,9 @@ namespace Recrutify.Services.Validators
                 .NotEmpty()
                 .MaximumLength(500);
             RuleFor(f => f.Rating)
-                .NotEmpty();
+                .NotEmpty()
+                .Must(r => r >= 1 && r <= 4)
+                .WithMessage("Rating is out of range");
             RuleFor(f => f.Type)
                 .IsInEnum()
                 .WithMessage("Type doesn't exist")
