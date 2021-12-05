@@ -12,5 +12,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointment> appointInterviews);
 
         Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum);
+
+        Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime);
+
+        Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate);
     }
 }

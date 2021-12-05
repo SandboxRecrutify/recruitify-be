@@ -12,5 +12,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum);
 
         Task BulkAppointOrCancelInterviewsAsync(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId);
+
+        Task UpdateScheduleSlotsForCurrentUserAsync(IEnumerable<DateTime> dates);
     }
 }
