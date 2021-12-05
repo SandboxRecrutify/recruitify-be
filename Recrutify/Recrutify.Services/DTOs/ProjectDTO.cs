@@ -7,6 +7,8 @@ namespace Recrutify.Services.DTOs
     {
         public Guid Id { get; set; }
 
+        public int CurrentApplicationsCount { get; set; }
+
         public IEnumerable<StaffDTO> Managers { get; set; }
 
         public IEnumerable<StaffDTO> Interviewers { get; set; }
