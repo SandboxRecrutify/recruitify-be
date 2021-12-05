@@ -7,7 +7,6 @@ using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
-using Recrutify.Services.Helpers;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
@@ -26,9 +25,9 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
         }
 
-        public Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
+        public Task<Dictionary<Guid, string>> GetNamesAndEmailsByIdsAsync(IEnumerable<Guid> ids)
         {
-            return _userRepository.GetNamesByIdsAsync(ids);
+            return _userRepository.GetNamesAndEmailsByIdsAsync(ids);
         }
 
         public async Task<StaffGroupDTO> GetStaffByRolesAsync(IEnumerable<Role> roles)

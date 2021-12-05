@@ -12,7 +12,7 @@ namespace Recrutify.DataAccess.Extensions
             var staff = userIds.Select(u => new Staff()
             {
                 UserId = u,
-                UserName = users.TryGetValue(u, out var id) ? id : default,
+                UserName = users.TryGetValue(u, out var id) ? id.Split(',')[0] : default,
             }).Where(u => u.UserName != null);
             return staff;
         }

@@ -33,7 +33,7 @@ namespace Recrutify.Services.Services
 
         public async Task<ProjectDTO> CreateAsync(CreateProjectDTO projectDto)
         {
-            var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
+            var users = await _userService.GetNamesAndEmailsByIdsAsync(projectDto.Interviewers
                 .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             var project = _mapper.Map<Project>(projectDto);
             project.Interviewers = projectDto.Interviewers.GetStaff(users);
@@ -85,7 +85,7 @@ namespace Recrutify.Services.Services
         {
             var currentProject = await _projectRepository.GetAsync(projectDto.Id);
             var newProject = _mapper.Map(projectDto, currentProject.DeepCopy());
-            var users = await _userService.GetNamesByIdsAsync(projectDto.Interviewers
+            var users = await _userService.GetNamesAndEmailsByIdsAsync(projectDto.Interviewers
                .Union(projectDto.Managers).Union(projectDto.Mentors).Union(projectDto.Recruiters));
             newProject.Interviewers = projectDto.Interviewers.GetStaff(users);
             newProject.Managers = projectDto.Managers.GetStaff(users);

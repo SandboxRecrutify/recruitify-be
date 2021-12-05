@@ -7,8 +7,8 @@ namespace Recrutify.Services.EmailModels
         [Display(Name ="recruity interview")]
         RecruityInterview,
         [Display(Name = "first technical interview")]
-        TerchicalInterviewOne,
+        TechnicalInterviewOne,
         [Display(Name = "second technical interview")]
-        TerchicalInterviewSecond,
+        TechnicalInterviewSecond,
     }
 }

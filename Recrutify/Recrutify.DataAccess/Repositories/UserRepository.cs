@@ -20,7 +20,7 @@ namespace Recrutify.DataAccess.Repositories
         {
         }
 
-        public async Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids)
+        public async Task<Dictionary<Guid, string>> GetNamesAndEmailsByIdsAsync(IEnumerable<Guid> ids)
         {
             var filter = _filterBuilder.In(u => u.Id, ids);
             var users = await GetCollection().Find(filter).Project(u =>
@@ -29,8 +29,9 @@ namespace Recrutify.DataAccess.Repositories
                     u.Id,
                     u.Name,
                     u.Surname,
+                    u.Email,
                 }).ToListAsync();
-            return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname}");
+            return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname}, {u.Email}");
         }
 
         public Task<User> GetByEmailAsync(string email)

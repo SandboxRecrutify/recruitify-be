@@ -8,6 +8,8 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.Constant;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
+using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
@@ -19,19 +21,23 @@ namespace Recrutify.Services.Services
         private readonly IProjectService _projectService;
         private readonly IScheduleRepository _scheduleRepository;
         private readonly ICandidateService _candidateService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IUserProvider _userProvider;
         private readonly IScheduleSlotHelper _scheduleSlotHelper;
+        private readonly IInviteEventPublisher _inviteEventPublisher;
         private readonly IValidator<IEnumerable<ScheduleSlot>> _validator;
 
-        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IValidator<IEnumerable<ScheduleSlot>> validator, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService)
+        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IValidator<IEnumerable<ScheduleSlot>> validator, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService, IInviteEventPublisher inviteEventPublisher, IUserService userService)
         {
             _projectService = projectService;
             _scheduleRepository = scheduleRepository;
             _mapper = mapper;
             _candidateService = candidateService;
             _userProvider = userProvider;
+            _userService = userService;
             _scheduleSlotHelper = scheduleSlotHelper;
+            _inviteEventPublisher = inviteEventPublisher;
             _validator = validator;
         }
 
@@ -64,6 +70,8 @@ namespace Recrutify.Services.Services
 
             await _scheduleRepository.UpdateScheduleSlotsCandidateInfoAsync(interviewAppointments);
             await _candidateService.UpdateIsAssignedAndStatusAsync(candidates, projectId);
+
+            _inviteEventPublisher.OnAssignedInterview(new Events.AssignedInterviewEventArgs() { Interviews = await GetInterviews(candidates, interviewAppointmentDTOs, projectId) });
         }
 
         public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
@@ -100,6 +108,33 @@ namespace Recrutify.Services.Services
             var newListDateTime = _scheduleSlotHelper.GetAddedDateTimeInSheduleSlots(GetDateTimeInScheduleSlots(scheduleSlotsOfCurrentUser), dates);
 
             await _scheduleRepository.BulkUpdateScheduleSlotsAsync(currentUserId, newListDateTime, removedListDateTime);
+        }
+
+        private async Task<IEnumerable<Interview>> GetInterviews(IEnumerable<CandidateDTO> candidates, IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
+        {
+            var nameAndEmailUsers = await _userService.GetNamesAndEmailsByIdsAsync(interviewAppointmentDTOs.Where(i => i.IsAppointment == true).Select(i => i.UserId));
+            var interviews = new List<Interview>();
+            foreach (var candidate in candidates)
+            {
+                var projectResult = candidate.ProjectResults.FirstOrDefault(pr => pr.ProjectId == projectId);
+                var userId = interviewAppointmentDTOs.FirstOrDefault(i => i.CandidateId == candidate.Id).UserId;
+                if (userId != Guid.Empty)
+                {
+                    var interview = _mapper.Map<Interview>(candidate);
+                    interview.User = new UserEmailInfo()
+                    {
+                        Id = userId,
+                        Email = nameAndEmailUsers.TryGetValue(userId, out var strEmail) ? strEmail.Split(',')[0] : default,
+                        Name = nameAndEmailUsers.TryGetValue(userId, out var strName) ? strName.Split(',')[1] : default,
+                    };
+                    interview.AppointDateTimeUtc = interviewAppointmentDTOs.FirstOrDefault(i => i.CandidateId == candidate.Id).DateTime;
+                    interview.InterviewType = projectResult.Status == StatusDTO.Test ? InterviewType.RecruityInterview
+                        : projectResult.Status == StatusDTO.RecruiterInterview ? InterviewType.TechnicalInterviewOne
+                        : InterviewType.TechnicalInterviewSecond;
+                }
+            }
+
+            return interviews;
         }
 
         private IEnumerable<DateTime> GetDateTimeInScheduleSlots(IEnumerable<ScheduleSlot> scheduleSlots)

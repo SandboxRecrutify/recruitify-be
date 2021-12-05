@@ -10,7 +10,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
     {
         Task<User> GetByEmailAsync(string email);
 
-        Task<Dictionary<Guid, string>> GetNamesByIdsAsync(IEnumerable<Guid> ids);
+        Task<Dictionary<Guid, string>> GetNamesAndEmailsByIdsAsync(IEnumerable<Guid> ids);
 
         Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles);
 
