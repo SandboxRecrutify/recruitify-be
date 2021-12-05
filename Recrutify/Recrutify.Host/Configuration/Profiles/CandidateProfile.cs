@@ -49,8 +49,8 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
             CreateMap<ProjectResultDTO, CandidateRenewal>()
                 .ForMember(dest => dest.CandidateId, opt => opt.Ignore())
-                .ForMember(dest => dest.IsAssignedOnInterview, conf => conf.MapFrom(src => !src.IsAssigned))
-                .ForMember(dest => dest.Status, conf => conf.MapFrom(src => src.IsAssigned ? src.Status - 1 : src.Status + 1));
+                .ForMember(dest => dest.IsAssignedOnInterview, conf => conf.MapFrom(src => !src.IsAssignedOnInterview))
+                .ForMember(dest => dest.Status, conf => conf.MapFrom(src => src.IsAssignedOnInterview ? src.Status - 1 : src.Status + 1));
         }
     }
 }

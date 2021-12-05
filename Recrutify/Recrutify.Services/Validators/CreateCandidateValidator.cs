@@ -11,7 +11,6 @@ namespace Recrutify.Services.Validators
 {
     public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
-
         private readonly IPrimarySkillRepository _primarySkillRepository;
 
         public CreateCandidateValidator(IPrimarySkillRepository primarySkillRepository)

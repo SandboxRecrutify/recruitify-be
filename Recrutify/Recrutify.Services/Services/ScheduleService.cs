@@ -77,7 +77,7 @@ namespace Recrutify.Services.Services
             foreach (var candidate in candidates)
             {
                 var projectResult = candidate.ProjectResults.FirstOrDefault(pr => pr.ProjectId == projectId);
-                if (!projectResult.IsAssigned)
+                if (!projectResult.IsAssignedOnInterview)
                 {
                     var scheduleCandidateInfo = _mapper.Map<ScheduleCandidateInfoDTO>(candidate);
                     scheduleCandidateInfo.ProjectResult = new ScheduleCandidateProjectResultDTO()
