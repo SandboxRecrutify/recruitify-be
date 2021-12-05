@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Recrutify.DataAccess.Configuration;
 using Recrutify.DataAccess.Models;
@@ -54,6 +55,27 @@ namespace Recrutify.DataAccess.Repositories
                                                     _filterBuilder.Eq(s => s.UserId, userId),
                                                     updateBuilder.PullFilter(s => s.ScheduleSlots, filterBuilder.Eq(ss => ss.AvailableTime, dt))));
             return GetCollection().BulkWriteAsync(updateModelsWithNewScheduleSlot.Union(updateModelsWithRemovedUsers));
+        }
+
+        public Task BulkСancelInterviewsAsync(IEnumerable<Interview> cancelledInterviews)
+        {
+            ScheduleCandidateInfo scheduleCandidateInfo = null;
+            var updateBuilder = Builders<Schedule>.Update;
+            var updateModels = cancelledInterviews.Select(i => new UpdateOneModel<Schedule>(
+                _filterBuilder.Eq(s => s.Id, i.UserId),
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", scheduleCandidateInfo))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.AppointDateTimeUtc)) } });
+            return GetCollection().BulkWriteAsync(updateModels);
+        }
+
+        public Task BulkAppointInterviewsAsync(IEnumerable<Interview> cancelledInterviews)
+        {
+            var updateBuilder = Builders<Schedule>.Update;
+            var updateModels = cancelledInterviews.Select(i => new UpdateOneModel<Schedule>(
+                _filterBuilder.Eq(s => s.Id, i.UserId),
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", new ScheduleCandidateInfo() { Id = i.CandidateId }))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.AppointDateTimeUtc)) } });
+            return GetCollection().BulkWriteAsync(updateModels);
         }
 
         private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)

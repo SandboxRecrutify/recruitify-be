@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
@@ -15,5 +16,7 @@ namespace Recrutify.Services.Services.Abstract
         Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum);
 
         Task UpdateScheduleSlotsForCurrentUserAsync(IEnumerable<DateTime> dates);
+
+        Task ProcessingAppointOrCancelInterviewsAsync(IEnumerable<InterviewDTO> interviews, Guid projectId, CancellationToken cancellationToken);
     }
 }

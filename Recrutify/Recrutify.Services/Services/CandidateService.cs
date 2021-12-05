@@ -228,5 +228,10 @@ namespace Recrutify.Services.Services
            candidatesProjectInfo.ProjectName = projectName;
            return candidatesProjectInfo;
         }
+
+        public async Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
+        {
+            await _candidateRepository.BulkUpdateStatusAsync(candidatesIds, projectId, status);
+        }
     }
 }

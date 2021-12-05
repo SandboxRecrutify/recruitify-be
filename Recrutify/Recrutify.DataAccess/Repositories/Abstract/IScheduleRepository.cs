@@ -14,5 +14,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime);
 
         Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate);
+
+        Task BulkСancelInterviewsAsync(IEnumerable<Interview> cancelledInterviews);
+
+        Task BulkAppointInterviewsAsync(IEnumerable<Interview> appointedInterviews);
     }
 }
