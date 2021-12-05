@@ -35,17 +35,13 @@ namespace Recrutify.Host.Controllers
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
         }
 
-        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut]
         public async Task<ActionResult> UpdateScheduleSlotsAsync(IEnumerable<DateTime> dates)
         {
             try
             {
                 await _scheduleService.UpdateScheduleSlotsForCurrentUserAsync(dates);
-            }
-            catch (NotFoundException)
-            {
-                return NotFound();
             }
             catch (ValidationException ex)
             {

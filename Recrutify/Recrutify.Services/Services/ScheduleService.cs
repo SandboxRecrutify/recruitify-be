@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
+using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
@@ -28,7 +29,6 @@ namespace Recrutify.Services.Services
             _scheduleRepository = scheduleRepository;
             _mapper = mapper;
             _userProvider = userProvider;
-            _scheduleSlotHelper = scheduleSlotHelper;
             _scheduleSlotHelper = scheduleSlotHelper;
             _validator = validator;
         }
@@ -60,21 +60,30 @@ namespace Recrutify.Services.Services
         public async Task UpdateScheduleSlotsForCurrentUserAsync(IEnumerable<DateTime> dates)
         {
             var currentUserId = _userProvider.GetUserId();
-            var scheduleSlotByCurrentUser = await _scheduleRepository.GetScheduleSlotsByDatePeriodAsync(currentUserId, dates.Min());
+            var periodStartDate = dates.Min();
+            var periodFinishDate = periodStartDate.Date.AddDays(Constants.Week.CountDays - (int)periodStartDate.DayOfWeek + 1);
+            dates = dates.Where(dt => dt < periodFinishDate).ToList();
 
-            var remoteDateTime = _scheduleSlotHelper.GetRemovedDateTimeInSheduleSlots(scheduleSlotByCurrentUser.Select(s => s.AvailableTime), dates);
-            if (remoteDateTime.Any())
+            var scheduleSlotsByCurrentUser = await _scheduleRepository.GetScheduleSlotsOfDatePeriodAsync(currentUserId, periodStartDate, periodFinishDate);
+
+            var removedListDateTime = _scheduleSlotHelper.GetRemovedDateTimeInSheduleSlots(GetBulkDateTimeInScheduleSlots(scheduleSlotsByCurrentUser), dates);
+            if (removedListDateTime.Any())
             {
-                var validationResult = await _validator.ValidateAsync(scheduleSlotByCurrentUser.Where(s => remoteDateTime.Contains(s.AvailableTime)));
+                var validationResult = await _validator.ValidateAsync(scheduleSlotsByCurrentUser.Where(s => removedListDateTime.Contains(s.AvailableTime)));
                 if (!validationResult.IsValid)
                 {
                     throw new ValidationException(validationResult.Errors);
                 }
             }
 
-            var newDateTime = _scheduleSlotHelper.GetAddedDateTimeInSheduleSlots(scheduleSlotByCurrentUser.Select(s => s.AvailableTime), dates);
+            var newListDateTime = _scheduleSlotHelper.GetAddedDateTimeInSheduleSlots(GetBulkDateTimeInScheduleSlots(scheduleSlotsByCurrentUser), dates);
 
-            await _scheduleRepository.BulkUpdateScheduleSlotAsync(currentUserId, newDateTime, remoteDateTime);
+            await _scheduleRepository.BulkUpdateScheduleSlotsAsync(currentUserId, newListDateTime, removedListDateTime);
+        }
+
+        private IEnumerable<DateTime> GetBulkDateTimeInScheduleSlots(IEnumerable<ScheduleSlot> scheduleSlots)
+        {
+            return scheduleSlots?.Select(s => s.AvailableTime) ?? new List<DateTime>();
         }
     }
 }

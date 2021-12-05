@@ -11,8 +11,8 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<Schedule> GetByDatePeriodAsync(Guid userId, DateTime date, int daysNum);
 
-        Task BulkUpdateScheduleSlotAsync(Guid userId, IEnumerable<DateTime> newScheduleSlot, IEnumerable<DateTime> remoteScheduleSlot);
+        Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime);
 
-        Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsByDatePeriodAsync(Guid userId, DateTime dateStartPeriod);
+        Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate);
     }
 }

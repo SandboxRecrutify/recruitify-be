@@ -31,5 +31,10 @@ namespace Recrutify.DataAccess
             public const string Subject = "Interview";
             public const int TimeZone = 3;
         }
+
+        public static class Week
+        {
+            public const int CountDays = 7;
+        }
     }
 }

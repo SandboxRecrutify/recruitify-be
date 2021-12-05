@@ -29,27 +29,27 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
-        public Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsByDatePeriodAsync(Guid userId, DateTime dateStartPeriod)
+        public Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate)
         {
             var filter = _filterBuilder.Eq(u => u.UserId, userId);
-            return GetFindFluentScheduleSlotsByDatePeriod(filter, dateStartPeriod).FirstOrDefaultAsync();
+            return GetFindFluentScheduleSlotsOfDatePeriod(filter, periodStartDate, periodFinishDate).FirstOrDefaultAsync();
         }
 
-        public Task BulkUpdateScheduleSlotAsync(Guid userId, IEnumerable<DateTime> newDateTime, IEnumerable<DateTime> remoteDateTime)
+        public Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime)
         {
             var updateBuilder = Builders<Schedule>.Update;
             var filterBuilder = Builders<ScheduleSlot>.Filter;
 
-            var updateModelsWithNewScheduleSlot = newDateTime.Select(ur => new UpdateOneModel<Schedule>(
-                                                    _filterBuilder.Eq(u => u.UserId, userId),
+            var updateModelsWithNewScheduleSlot = newListDateTime.Select(dt => new UpdateOneModel<Schedule>(
+                                                    _filterBuilder.Eq(s => s.UserId, userId),
                                                     updateBuilder
                                                     .AddToSet(
                                                         nameof(Schedule.ScheduleSlots),
-                                                        new ScheduleSlot() { AvailableTime = DateTime.SpecifyKind(ur, DateTimeKind.Utc) })));
+                                                        new ScheduleSlot() { AvailableTime = dt })));
 
-            var updateModelsWithRemovedUsers = remoteDateTime.Select(ur => new UpdateOneModel<Schedule>(
-                                                    _filterBuilder.Eq(u => u.UserId, userId),
-                                                    updateBuilder.PullFilter(p => p.ScheduleSlots, filterBuilder.Eq(x => x.AvailableTime, DateTime.SpecifyKind(ur, DateTimeKind.Utc)))));
+            var updateModelsWithRemovedUsers = removedListDateTime.Select(dt => new UpdateOneModel<Schedule>(
+                                                    _filterBuilder.Eq(s => s.UserId, userId),
+                                                    updateBuilder.PullFilter(s => s.ScheduleSlots, filterBuilder.Eq(ss => ss.AvailableTime, dt))));
             return GetCollection().BulkWriteAsync(updateModelsWithNewScheduleSlot.Union(updateModelsWithRemovedUsers));
         }
 
@@ -69,11 +69,11 @@ namespace Recrutify.DataAccess.Repositories
                         });
         }
 
-        private IFindFluent<Schedule, IEnumerable<ScheduleSlot>> GetFindFluentScheduleSlotsByDatePeriod(FilterDefinition<Schedule> filter, DateTime dateStart, int daysNum = 7)
+        private IFindFluent<Schedule, IEnumerable<ScheduleSlot>> GetFindFluentScheduleSlotsOfDatePeriod(FilterDefinition<Schedule> filter, DateTime periodStartDate, DateTime periodFinishDate)
         {
             return GetCollection()
                         .Find(filter)
-                        .Project(x => x.ScheduleSlots.Where(x => x.AvailableTime >= dateStart.Date && x.AvailableTime < dateStart.Date.AddDays(daysNum)));
+                        .Project(x => x.ScheduleSlots.Where(x => x.AvailableTime >= periodStartDate && x.AvailableTime < periodFinishDate));
         }
     }
 }
