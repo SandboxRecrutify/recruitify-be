@@ -29,6 +29,33 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
+        public Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate)
+        {
+            var filter = _filterBuilder.Eq(u => u.UserId, userId);
+            return GetCollection()
+                        .Find(filter)
+                        .Project(x => x.ScheduleSlots.Where(x => x.AvailableTime >= periodStartDate && x.AvailableTime < periodFinishDate))
+                        .FirstOrDefaultAsync();
+        }
+
+        public Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime)
+        {
+            var updateBuilder = Builders<Schedule>.Update;
+            var filterBuilder = Builders<ScheduleSlot>.Filter;
+
+            var updateModelsWithNewScheduleSlot = newListDateTime.Select(dt => new UpdateOneModel<Schedule>(
+                                                    _filterBuilder.Eq(s => s.UserId, userId),
+                                                    updateBuilder
+                                                    .AddToSet(
+                                                        nameof(Schedule.ScheduleSlots),
+                                                        new ScheduleSlot() { AvailableTime = dt })));
+
+            var updateModelsWithRemovedUsers = removedListDateTime.Select(dt => new UpdateOneModel<Schedule>(
+                                                    _filterBuilder.Eq(s => s.UserId, userId),
+                                                    updateBuilder.PullFilter(s => s.ScheduleSlots, filterBuilder.Eq(ss => ss.AvailableTime, dt))));
+            return GetCollection().BulkWriteAsync(updateModelsWithNewScheduleSlot.Union(updateModelsWithRemovedUsers));
+        }
+
         private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)
         {
             return GetCollection()
