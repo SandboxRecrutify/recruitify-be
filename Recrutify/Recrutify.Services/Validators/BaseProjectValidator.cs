@@ -59,7 +59,10 @@ namespace Recrutify.Services.Validators
                 .MustAsync(CheckPrimarySkillsAsync);
             RuleForEach(p => p.PrimarySkills)
                 .NotNull()
-                .NotEmpty();
+                .NotEmpty()
+                .ChildRules(x => x.RuleFor(x => x.TestLink)
+                                       .Must(LinkMustBeAUri)
+                                       .WithMessage("The test link must be a valid URI!"));
             RuleFor(p => p.Mentors)
                  .NotNull()
                  .NotEmpty();
@@ -108,6 +111,16 @@ namespace Recrutify.Services.Validators
         {
             var ids = primarySkillDTOs.Select(x => x.Id).ToList();
             return PrimarySkillRepository.ExistsByIdsAsync(ids, cancellation);
+        }
+
+        private bool LinkMustBeAUri(string link)
+        {
+            if (string.IsNullOrWhiteSpace(link))
+            {
+                return false;
+            }
+
+            return Uri.TryCreate(link, UriKind.Absolute, out var result);
         }
     }
 }

@@ -1,13 +1,27 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentValidation;
 using Recrutify.DataAccess;
+using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Validators
 {
     public class CreateCandidateValidator : AbstractValidator<CandidateCreateDTO>
     {
-        public CreateCandidateValidator()
+
+        private readonly IPrimarySkillRepository _primarySkillRepository;
+
+        public CreateCandidateValidator(IPrimarySkillRepository primarySkillRepository)
+        {
+            _primarySkillRepository = primarySkillRepository;
+
+            ConfigureRules();
+        }
+
+        private void ConfigureRules()
         {
             RuleFor(c => c.Name)
                 .NotNull()
@@ -28,14 +42,16 @@ namespace Recrutify.Services.Validators
             RuleFor(c => c.Contacts)
                 .NotNull()
                 .NotEmpty();
+            RuleForEach(c => c.Contacts)
+                .NotNull()
+                .NotEmpty()
+                .ChildRules(x => x.RuleFor(x => x.Type).MaximumLength(50))
+                .ChildRules(x => x.RuleFor(x => x.Value).MaximumLength(50));
             RuleFor(c => c.Contacts)
                 .Must(c => c.Any(contact => contact.Type == Constants.Contacts.Skype))
                 .WithMessage("Skype is required")
                 .Must(c => c.Count() <= 5)
                 .WithMessage("Maximum contacts reached");
-            RuleForEach(c => c.Contacts)
-                .NotNull()
-                .NotEmpty();
             RuleFor(c => c.Location.City)
                 .NotNull()
                 .NotEmpty()
@@ -48,8 +64,34 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty();
             RuleForEach(c => c.BestTimeToConnect)
-                .NotEmpty();
+                .NotEmpty()
+                .Must(b => b >= 9 && b <= 18)
+                .WithMessage("Time is out of range");
             RuleFor(c => c.PrimarySkillId)
+                .NotEmpty()
+                .MustAsync(_primarySkillRepository.ExistsAsync)
+                .WithMessage("One or more candidates doesn't exist");
+            RuleFor(c => c.CurrentJob)
+                .NotNull()
+                .NotEmpty()
+                .MaximumLength(50);
+            RuleFor(c => c.Certificates)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.AdditionalQuestions)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.AdditionalInfo)
+               .NotNull()
+               .NotEmpty()
+               .MaximumLength(100);
+            RuleFor(c => c.EnglishLevel)
+                .IsInEnum()
+                .NotEmpty();
+            RuleFor(c => c.ProjectLanguage)
+                .IsInEnum()
                 .NotEmpty();
         }
     }

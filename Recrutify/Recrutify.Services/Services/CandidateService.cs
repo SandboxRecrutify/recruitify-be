@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
@@ -180,9 +181,9 @@ namespace Recrutify.Services.Services
             }
         }
 
-        public Task<bool> ExistsAsync(Guid id)
+        public Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
-            return _candidateRepository.ExistsAsync(id);
+            return _candidateRepository.ExistsAsync(id, cancellationToken);
         }
 
         public Task BulkCreateTestFeedbacksAsync(BulkCreateTestFeedbackDTO bulkCreateTestFeedbackDTO, Guid projectId)
@@ -216,7 +217,7 @@ namespace Recrutify.Services.Services
         {
             var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
             var project = await _projectService.GetAsync(projectId);
-            _sendQueueEmailService.SendEmailQueueForTest(candidates, project);
+            _sendQueueEmailService.SendEmailQueueForTest(candidates, project, bulkSendEmailWithTestDTO.TestDeadlineDate, bulkSendEmailWithTestDTO.PersonToContactEmail);
         }
 
         public async Task<CandidatesProjectInfoDTO> GetCandidatesProjectInfoAsync(Guid? projectId)
