@@ -229,13 +229,20 @@ namespace Recrutify.Services.Services
            return candidatesProjectInfo;
         }
 
-        public Task UpdateIsAssignedAndStatusAsync(IEnumerable<CandidateDTO> candidateDTOs, Guid projectId)
+        public Task UpdateIsAssignedAndStatusAsync(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, IEnumerable<CandidateDTO> candidateDTOs, Guid projectId)
         {
             var candidateRenewals = new List<CandidateRenewal>();
-            foreach (var candidate in candidateDTOs)
+            foreach (var interviewAppointment in interviewAppointmentDTOs)
             {
-                var candidateRenewal = _mapper.Map<CandidateRenewal>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
-                candidateRenewal.CandidateId = candidate.Id;
+                var candidate = candidateDTOs.FirstOrDefault(c => c.Id == interviewAppointment.CandidateId);
+                var projectResult = candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId);
+                var candidateRenewal = new CandidateRenewal()
+                {
+                    CandidateId = candidate.Id,
+                    IsAssignedOnInterview = interviewAppointment.IsAppointment,
+                    Status = _mapper.Map<Status>(interviewAppointment.IsAppointment ? projectResult.Status + 1 : projectResult.Status - 1),
+                };
+
                 candidateRenewals.Add(candidateRenewal);
             }
 

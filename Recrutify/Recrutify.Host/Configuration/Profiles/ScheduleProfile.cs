@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Recrutify.DataAccess.Models;
+﻿using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.EmailModels;
 
@@ -25,7 +24,6 @@ namespace Recrutify.Host.Configuration.Profiles
                     Email = src.Email,
                     Name = src.Name,
                     PhoneNumber = src.PhoneNumber,
-                    Skype = src.Contacts.FirstOrDefault(c => c.Type == DataAccess.Constants.Contacts.Skype).Value,
                 }))
                 .ForMember(dest => dest.User, opt => opt.Ignore())
                 .ForMember(dest => dest.InterviewType, opt => opt.Ignore())

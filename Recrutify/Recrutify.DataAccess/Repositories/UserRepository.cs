@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -31,7 +30,7 @@ namespace Recrutify.DataAccess.Repositories
                     u.Surname,
                     u.Email,
                 }).ToListAsync();
-            return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname}, {u.Email}");
+            return users.ToDictionary(u => u.Id, u => $"{u.Name} {u.Surname},{u.Email}");
         }
 
         public Task<User> GetByEmailAsync(string email)

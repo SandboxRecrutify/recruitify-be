@@ -39,6 +39,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<CandidatesProjectInfoDTO> GetCandidatesProjectInfoAsync(Guid? projectId);
 
-        Task UpdateIsAssignedAndStatusAsync(IEnumerable<CandidateDTO> candidateDTOs, Guid projectId);
+        Task UpdateIsAssignedAndStatusAsync(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, IEnumerable<CandidateDTO> candidateDTOs, Guid projectId);
     }
 }
