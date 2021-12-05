@@ -217,8 +217,7 @@ namespace Recrutify.Services.Services
         {
             var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
             var project = await _projectService.GetAsync(projectId);
-            var status = Status.Test;
-            await _candidateRepository.BulkUpdateStatusTestAsync(bulkSendEmailWithTestDTO.CandidatesIds, project.Id, status);
+            await _candidateRepository.BulkUpdateStatusAsync(bulkSendEmailWithTestDTO.CandidatesIds, project.Id, Status.Test);
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project, bulkSendEmailWithTestDTO.TestDeadlineDate, bulkSendEmailWithTestDTO.PersonToContactEmail);
         }
 

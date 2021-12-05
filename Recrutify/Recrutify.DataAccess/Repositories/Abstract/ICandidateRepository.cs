@@ -30,6 +30,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<CandidatesProjectInfo> CandidatesProjectInfoAsync(Guid? projectId);
 
-        Task BulkUpdateStatusTestAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status);
+        Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status);
     }
 }

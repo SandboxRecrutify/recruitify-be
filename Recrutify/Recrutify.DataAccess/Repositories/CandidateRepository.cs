@@ -143,7 +143,7 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 
-        public Task BulkUpdateStatusTestAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
+        public Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
         {
             var filter = _filterBuilder.In(x => x.Id, candidatesIds);
             var updateBuilder = Builders<Candidate>.Update;
