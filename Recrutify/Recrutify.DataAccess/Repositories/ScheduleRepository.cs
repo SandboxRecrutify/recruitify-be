@@ -32,7 +32,10 @@ namespace Recrutify.DataAccess.Repositories
         public Task<IEnumerable<ScheduleSlot>> GetScheduleSlotsOfDatePeriodAsync(Guid userId, DateTime periodStartDate, DateTime periodFinishDate)
         {
             var filter = _filterBuilder.Eq(u => u.UserId, userId);
-            return GetFindFluentScheduleSlotsOfDatePeriod(filter, periodStartDate, periodFinishDate).FirstOrDefaultAsync();
+            return GetCollection()
+                        .Find(filter)
+                        .Project(x => x.ScheduleSlots.Where(x => x.AvailableTime >= periodStartDate && x.AvailableTime < periodFinishDate))
+                        .FirstOrDefaultAsync();
         }
 
         public Task BulkUpdateScheduleSlotsAsync(Guid userId, IEnumerable<DateTime> newListDateTime, IEnumerable<DateTime> removedListDateTime)
@@ -67,13 +70,6 @@ namespace Recrutify.DataAccess.Repositories
                                                     y => y.AvailableTime >= date.Date &&
                                                     y.AvailableTime < date.Date.AddDays(daysNum)),
                         });
-        }
-
-        private IFindFluent<Schedule, IEnumerable<ScheduleSlot>> GetFindFluentScheduleSlotsOfDatePeriod(FilterDefinition<Schedule> filter, DateTime periodStartDate, DateTime periodFinishDate)
-        {
-            return GetCollection()
-                        .Find(filter)
-                        .Project(x => x.ScheduleSlots.Where(x => x.AvailableTime >= periodStartDate && x.AvailableTime < periodFinishDate));
         }
     }
 }

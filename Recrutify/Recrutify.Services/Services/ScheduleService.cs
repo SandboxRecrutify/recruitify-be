@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
+using Recrutify.Services.Constant;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
@@ -64,24 +64,24 @@ namespace Recrutify.Services.Services
             var periodFinishDate = periodStartDate.Date.AddDays(Constants.Week.CountDays - (int)periodStartDate.DayOfWeek + 1);
             dates = dates.Where(dt => dt < periodFinishDate).ToList();
 
-            var scheduleSlotsByCurrentUser = await _scheduleRepository.GetScheduleSlotsOfDatePeriodAsync(currentUserId, periodStartDate, periodFinishDate);
+            var scheduleSlotsOfCurrentUser = await _scheduleRepository.GetScheduleSlotsOfDatePeriodAsync(currentUserId, periodStartDate, periodFinishDate);
 
-            var removedListDateTime = _scheduleSlotHelper.GetRemovedDateTimeInSheduleSlots(GetBulkDateTimeInScheduleSlots(scheduleSlotsByCurrentUser), dates);
+            var removedListDateTime = _scheduleSlotHelper.GetRemovedDateTimeInSheduleSlots(GetDateTimeInScheduleSlots(scheduleSlotsOfCurrentUser), dates);
             if (removedListDateTime.Any())
             {
-                var validationResult = await _validator.ValidateAsync(scheduleSlotsByCurrentUser.Where(s => removedListDateTime.Contains(s.AvailableTime)));
+                var validationResult = await _validator.ValidateAsync(scheduleSlotsOfCurrentUser.Where(s => removedListDateTime.Contains(s.AvailableTime)));
                 if (!validationResult.IsValid)
                 {
                     throw new ValidationException(validationResult.Errors);
                 }
             }
 
-            var newListDateTime = _scheduleSlotHelper.GetAddedDateTimeInSheduleSlots(GetBulkDateTimeInScheduleSlots(scheduleSlotsByCurrentUser), dates);
+            var newListDateTime = _scheduleSlotHelper.GetAddedDateTimeInSheduleSlots(GetDateTimeInScheduleSlots(scheduleSlotsOfCurrentUser), dates);
 
             await _scheduleRepository.BulkUpdateScheduleSlotsAsync(currentUserId, newListDateTime, removedListDateTime);
         }
 
-        private IEnumerable<DateTime> GetBulkDateTimeInScheduleSlots(IEnumerable<ScheduleSlot> scheduleSlots)
+        private IEnumerable<DateTime> GetDateTimeInScheduleSlots(IEnumerable<ScheduleSlot> scheduleSlots)
         {
             return scheduleSlots?.Select(s => s.AvailableTime) ?? new List<DateTime>();
         }
