@@ -42,6 +42,5 @@ namespace Recrutify.Services.Validators
                 .Must(s => new[] { StatusDTO.Accepted, StatusDTO.Declined, StatusDTO.WaitingList, }.Contains(s))
                 .WithMessage("Cannot change to selected status manually");
         }
-
     }
 }
