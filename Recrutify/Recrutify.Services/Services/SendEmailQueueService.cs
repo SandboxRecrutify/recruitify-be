@@ -35,9 +35,9 @@ namespace Recrutify.Services.Services
             }
         }
 
-        public void SendEmailQueueForTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project)
+        public void SendEmailQueueForTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project, DateTime testDeadlineDate, string emailToContact)
         {
-            var requests = _formEmailService.GetEmailRequestsForSendTest(candidates, project);
+            var requests = _formEmailService.GetEmailRequestsForSendTest(candidates, project, testDeadlineDate, emailToContact);
             SendEmailInBackgroundJob(requests);
         }
 

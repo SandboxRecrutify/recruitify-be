@@ -27,7 +27,7 @@ namespace Recrutify.Services.Validators
                 .NotNull()
                 .NotEmpty()
                 .MustAsync(CandidatesAreExistingAsync)
-                .WithMessage("One or more candidates doesn't exist");
+                .WithMessage("One or more candidates doesn't exist on project with status New");
         }
 
         private async Task<bool> CandidatesAreExistingAsync(BulkSendEmailWithTestDTO dto, IEnumerable<Guid> candidatsIds, CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ namespace Recrutify.Services.Validators
             var candidates = await _candidateRepository.GetByIdsAsync(candidatsIds);
             int filteredCandidatesCount = candidates.Count(c => c.ProjectResults
                                                        ?.FirstOrDefault(p => p.ProjectId == dto.ProjectId)
-                                                       ?.Status.Equals(Status.Test) ?? false);
+                                                       ?.Status.Equals(Status.New) ?? false);
             return filteredCandidatesCount == candidatsIds.Count();
         }
     }

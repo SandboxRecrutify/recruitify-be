@@ -35,7 +35,7 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project)
+        public IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project, DateTime testDeadlineDate, string emailToContact)
         {
             var emailRequests = new List<EmailRequest>();
             var generator = CreateGenerator(Constants.TemplatePath.TestTemplate);
@@ -47,6 +47,7 @@ namespace Recrutify.Services.Services
                 var testLink = project.PrimarySkills.Where(prskill => prskill.Id == primarySkillId)
                     .Select(prskill => prskill.TestLink)
                     .FirstOrDefault();
+                var date = testDeadlineDate.AddHours(3).ToString();
                 var emailMessage = new EmailRequest();
                 emailMessage.Subject = $"\"{project.Name}\"";
                 emailMessage.HtmlBody = generator.Render(new
@@ -54,6 +55,8 @@ namespace Recrutify.Services.Services
                     name = candidate.Name,
                     projectName = $"\"{project.Name}\"",
                     testLink = testLink,
+                    dateTimeDeadline = date,
+                    personToContactEmail = emailToContact,
                 });
                 emailMessage.ToEmail = candidate.Email;
                 emailRequests.Add(emailMessage);
