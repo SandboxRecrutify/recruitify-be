@@ -39,10 +39,10 @@ namespace Recrutify.Host.Configuration.Profiles
                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts.FirstOrDefault(c => c.Type == DataAccess.Constants.Contacts.Skype).Value));
 
             CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
-            CreateMap<InterviewAppointmentDTO, CandidateRenewal>()
-                .ForMember(dest => dest.CandidateId, conf => conf.MapFrom(src => src.CandidateId))
-                .ForMember(dest => dest.IsAssignedOnInterview, conf => conf.MapFrom(src => src.IsAppointment))
-                .ForMember(dest => dest.Status, conf => conf.MapFrom(src => src.IsAppointment ? StatusDTO.TechInterviewOneStep : StatusDTO.RecruiterInterview));
+            CreateMap<ProjectResultDTO, CandidateRenewal>()
+                .ForMember(dest => dest.CandidateId, opt => opt.Ignore())
+                .ForMember(dest => dest.IsAssignedOnInterview, conf => conf.MapFrom(src => !src.IsAssigned))
+                .ForMember(dest => dest.Status, conf => conf.MapFrom(src => src.IsAssigned ? src.Status - 1 : src.Status + 1));
         }
     }
 }

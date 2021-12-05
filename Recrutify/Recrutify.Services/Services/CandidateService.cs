@@ -228,9 +228,17 @@ namespace Recrutify.Services.Services
            return candidatesProjectInfo;
         }
 
-        public Task UpdateIsAssigned(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
+        public Task UpdateIsAssignedAndStatusAsync(IEnumerable<CandidateDTO> candidateDTOs, Guid projectId)
         {
-            return _candidateRepository.UpdateIsAssigned(_mapper.Map<List<CandidateRenewal>>(interviewAppointmentDTOs), projectId);
+            var candidateRenewals = new List<CandidateRenewal>();
+            foreach (var candidate in candidateDTOs)
+            {
+                var candidateRenewal = _mapper.Map<CandidateRenewal>(candidate.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId));
+                candidateRenewal.CandidateId = candidate.Id;
+                candidateRenewals.Add(candidateRenewal);
+            }
+
+            return _candidateRepository.UpdateIsAssigned(candidateRenewals, projectId);
         }
     }
 }

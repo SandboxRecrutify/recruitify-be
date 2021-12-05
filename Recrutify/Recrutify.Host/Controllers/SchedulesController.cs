@@ -31,7 +31,7 @@ namespace Recrutify.Host.Controllers
             return _scheduleService.GetByDatePeriodForCurrentUserAsync(date, daysNum);
         }
 
-        [HttpPut]
+        [HttpPut("bulk/appoint_cancel_interviews")]
         public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] BulkAppointInterviewsDTO bulkAppointInterviewsDTO, [FromQuery, Required] Guid projectId)
         {
             await _scheduleService.BulkAppointOrCancelInterviewsAsync(bulkAppointInterviewsDTO.InterviewAppointments, bulkAppointInterviewsDTO.ProjectId);

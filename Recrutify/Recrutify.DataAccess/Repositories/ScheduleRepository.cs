@@ -30,7 +30,7 @@ namespace Recrutify.DataAccess.Repositories
             return GetFindFluentByDate(filter, date, daysNum).FirstOrDefaultAsync();
         }
 
-        public Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointmentSlot> interviewAppointmentSlot)
+        public Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointment> interviewAppointmentSlot)
         {
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = interviewAppointmentSlot.Select(i => new UpdateOneModel<Schedule>(

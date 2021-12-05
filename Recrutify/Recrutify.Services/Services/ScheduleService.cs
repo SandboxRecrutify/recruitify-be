@@ -43,20 +43,20 @@ namespace Recrutify.Services.Services
         public async Task BulkAppointOrCancelInterviewsAsync(IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
         {
             var candidates = await _candidateService.GetCandidatesByIdsAsync(interviewAppointmentDTOs.Select(c => c.CandidateId));
-            var scheduleCandidateInfos = GetScheduleCandidateInfos(candidates, interviewAppointmentDTOs, projectId);
-            var appointInterviewSlots = interviewAppointmentDTOs.Select(a => new InterviewAppointmentSlot()
+            var scheduleCandidateInfos = GetScheduleCandidateInfos(candidates, projectId);
+            var interviewAppointments = interviewAppointmentDTOs.Select(a => new InterviewAppointment()
             {
                 ScheduleSlot = new ScheduleSlot()
                 {
-                    AvailableTime = a.AppointmentDateTime,
+                    AvailableTime = a.DateTime,
                     ScheduleCandidateInfo = _mapper.Map<ScheduleCandidateInfo>(scheduleCandidateInfos.FirstOrDefault(c => c.Id == a.CandidateId)),
                 },
                 UserId = a.UserId,
                 IsAppointment = a.IsAppointment,
             }).ToList();
 
-            await _scheduleRepository.UpdateScheduleSlotsCandidateInfoAsync(appointInterviewSlots);
-            await _candidateService.UpdateIsAssigned(interviewAppointmentDTOs, projectId);
+            await _scheduleRepository.UpdateScheduleSlotsCandidateInfoAsync(interviewAppointments);
+            await _candidateService.UpdateIsAssignedAndStatusAsync(candidates, projectId);
         }
 
         public async Task<ScheduleDTO> GetByDatePeriodForCurrentUserAsync(DateTime? date, int daysNum)
@@ -71,26 +71,25 @@ namespace Recrutify.Services.Services
             return _mapper.Map<ScheduleDTO>(schedules);
         }
 
-        private IEnumerable<ScheduleCandidateInfoDTO> GetScheduleCandidateInfos(IEnumerable<CandidateDTO> candidates, IEnumerable<InterviewAppointmentDTO> interviewAppointmentDTOs, Guid projectId)
+        private IEnumerable<ScheduleCandidateInfoDTO> GetScheduleCandidateInfos(IEnumerable<CandidateDTO> candidates, Guid projectId)
         {
             var scheduleCandidateInfos = new List<ScheduleCandidateInfoDTO>();
             foreach (var candidate in candidates)
             {
                 var projectResult = candidate.ProjectResults.FirstOrDefault(pr => pr.ProjectId == projectId);
-                var scheduleCandidateInfo = interviewAppointmentDTOs.Where(a => a.CandidateId == candidate.Id && a.IsAppointment == true).Any() ? _mapper.Map<ScheduleCandidateInfoDTO>(candidate)
-                   : new ScheduleCandidateInfoDTO();
-                if (scheduleCandidateInfo != null)
+                if (!projectResult.IsAssigned)
                 {
+                    var scheduleCandidateInfo = _mapper.Map<ScheduleCandidateInfoDTO>(candidate);
                     scheduleCandidateInfo.ProjectResult = new ScheduleCandidateProjectResultDTO()
                     {
                         IsAssignedOnInterview = true,
                         PrimarySkill = projectResult.PrimarySkill,
                         ProjectId = projectResult.ProjectId,
-                        Status = StatusDTO.TechInterviewOneStep,
+                        Status = projectResult.Status + 1,
                     };
-                }
 
-                scheduleCandidateInfos.Add(scheduleCandidateInfo);
+                    scheduleCandidateInfos.Add(scheduleCandidateInfo);
+                }
             }
 
             return scheduleCandidateInfos;

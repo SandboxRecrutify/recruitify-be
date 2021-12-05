@@ -2,7 +2,7 @@
 
 namespace Recrutify.DataAccess.Models
 {
-    public class InterviewAppointmentSlot
+    public class InterviewAppointment
     {
         public ScheduleSlot ScheduleSlot { get; set; }
 
