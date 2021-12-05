@@ -9,6 +9,7 @@ namespace Recrutify.Host.Extensions
         public static void AddHelpers(this IServiceCollection services)
         {
             services.AddSingleton<IStaffHelper, StaffHelper>();
+            services.AddSingleton<IScheduleSlotHelper, ScheduleSlotHelper>();
         }
     }
 }
