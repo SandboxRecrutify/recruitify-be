@@ -57,10 +57,10 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().BulkWriteAsync(updateModelsWithNewScheduleSlot.Union(updateModelsWithRemovedUsers));
         }
 
-        public Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointment> interviewAppointmentSlot)
+        public Task UpdateScheduleSlotsCandidateInfoAsync(IEnumerable<InterviewAppointment> interviewAppointment)
         {
             var updateBuilder = Builders<Schedule>.Update;
-            var updateModels = interviewAppointmentSlot.Select(i => new UpdateOneModel<Schedule>(
+            var updateModels = interviewAppointment.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
                 updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", i.ScheduleSlot.ScheduleCandidateInfo))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.ScheduleSlot.AvailableTime)) } });

@@ -143,7 +143,7 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().UpdateManyAsync(filter, updateDefinition, updateOptions);
         }
 
-        public Task UpdateIsAssigned(IEnumerable<CandidateRenewal> candidateRenewals, Guid projectId)
+        public Task UpdateIsAssignedAsync(IEnumerable<CandidateRenewal> candidateRenewals, Guid projectId)
         {
             var updateBuilder = Builders<Candidate>.Update;
             var updateModels = candidateRenewals.Select(i => new UpdateOneModel<Candidate>(

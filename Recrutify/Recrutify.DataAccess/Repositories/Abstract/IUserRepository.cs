@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Recrutify.DataAccess.Models;
 
@@ -12,7 +11,7 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<Dictionary<Guid, string>> GetNamesAndEmailsByIdsAsync(IEnumerable<Guid> ids);
 
-        Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles);
+        Task<IEnumerable<User>> GetByRolesAsync(IEnumerable<Role> roles);
 
         Task BulkAddProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles);
 

@@ -39,7 +39,7 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<User>> GetByRoles(IEnumerable<Role> roles)
+        public async Task<IEnumerable<User>> GetByRolesAsync(IEnumerable<Role> roles)
         {
             var filterBuilder = Builders<BsonDocument>.Filter;
             var filter = filterBuilder

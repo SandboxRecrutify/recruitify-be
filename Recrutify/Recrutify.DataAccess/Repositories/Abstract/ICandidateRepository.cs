@@ -30,6 +30,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task<CandidatesProjectInfo> CandidatesProjectInfoAsync(Guid? projectId);
 
-        Task UpdateIsAssigned(IEnumerable<CandidateRenewal> candidateRenewals, Guid projectId);
+        Task UpdateIsAssignedAsync(IEnumerable<CandidateRenewal> candidateRenewals, Guid projectId);
     }
 }

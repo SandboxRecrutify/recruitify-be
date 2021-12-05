@@ -246,7 +246,7 @@ namespace Recrutify.Services.Services
                 candidateRenewals.Add(candidateRenewal);
             }
 
-            return _candidateRepository.UpdateIsAssigned(candidateRenewals, projectId);
+            return _candidateRepository.UpdateIsAssignedAsync(candidateRenewals, projectId);
         }
     }
 }
