@@ -11,9 +11,6 @@ namespace Recrutify.Host.Configuration.Profiles
         {
             CreateMap<Candidate, CandidateDTO>();
 
-            CreateMap<Candidate, ScheduleCandidateInfoDTO>()
-               .ForMember(dest => dest.ProjectResult, opt => opt.Ignore());
-
             CreateMap<CandidateCreateDTO, Candidate>()
                 .ForMember(dest => dest.ProjectResults, opt => opt.Ignore())
                 .ForMember(dest => dest.RegistrationDate, conf => conf.MapFrom(src => DateTime.UtcNow.Date))
@@ -46,7 +43,6 @@ namespace Recrutify.Host.Configuration.Profiles
                .ForMember(dest => dest.ProjectResult, opt => opt.Ignore())
                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts.FirstOrDefault(c => c.Type == DataAccess.Constants.Contacts.Skype).Value));
 
-            CreateMap<CandidatesProjectInfo, CandidatesProjectInfoDTO>();
             CreateMap<ProjectResultDTO, CandidateRenewal>()
                 .ForMember(dest => dest.CandidateId, opt => opt.Ignore())
                 .ForMember(dest => dest.IsAssignedOnInterview, conf => conf.MapFrom(src => !src.IsAssignedOnInterview))
