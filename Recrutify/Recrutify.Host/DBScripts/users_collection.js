@@ -248,5 +248,27 @@
                 "v": [NumberInt(2)]
             }
         ]
-    }
+    },
+    {
+        "_id": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+        "Email": "lis.alesia@mail.ru",
+        "Name": "Alesia",
+        "Surname": "Lis",
+        "Password": "706b32925a5d3018630603989ed03e58b86e7b864ab61a61fcec0a0858504cf7",
+        "Salt": "FDG4354GFD345545",
+        "PrimarySkill": {
+            "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+            "Name": ".Net"
+        },
+        "ProjectRoles": [
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(0), NumberInt(1), NumberInt(2), NumberInt(3), NumberInt(4)]
+            },
+            {
+                "k": UUID("0703d85c-08ce-4002-a526-8ac757ac1ac3"),
+                "v": [NumberInt(1), NumberInt(2), NumberInt(3), NumberInt(4)]
+            }
+        ]
+    },
 ]
