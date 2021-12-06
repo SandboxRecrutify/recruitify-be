@@ -121,7 +121,7 @@ namespace Recrutify.Services.Services
 
         private async Task BulkСancelInterviewsAsync(Guid projectId, IEnumerable<Candidate> candidates, IEnumerable<Interview> interviews)
         {
-            var canceledСandidateIds = interviews.Select(i => i.CandidateId);
+            var canceledСandidateIds = interviews.Select(i => i.CandidateId).ToList();
             var currentStatusCandidates = candidates.FirstOrDefault(c => canceledСandidateIds.Contains(c.Id)).ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status;
 
             await _scheduleRepository.BulkСancelInterviewsAsync(interviews);
@@ -130,8 +130,8 @@ namespace Recrutify.Services.Services
 
         private async Task BulkAppointInterviewsAsync(Guid projectId, IEnumerable<Candidate> candidates, IEnumerable<Interview> interviews)
         {
-            var appointedСandidateIds = interviews.Select(i => i.CandidateId);
-            var appointedСandidate = candidates.Where(c => appointedСandidateIds.Contains(c.Id));
+            var appointedСandidateIds = interviews.Select(i => i.CandidateId).ToList();
+            var appointedСandidate = candidates.Where(c => appointedСandidateIds.Contains(c.Id)).ToList();
             var currentStatusCandidates = appointedСandidate.FirstOrDefault().ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status;
             var usersForInvite = await _userService.GetUsersShortByIdsAsync(interviews.Select(i => i.UserId));
             var candidatesForInvite = _mapper.Map<IEnumerable<CandidateShort>>(appointedСandidate);
@@ -157,7 +157,7 @@ namespace Recrutify.Services.Services
                         candidateInfo.ProjectResult = _mapper.Map<ScheduleCandidateProjectResult>(projectResult);
                         return candidateInfo;
                     }));
-            await _candidateService.BulkUpdateStatusAsync(interviews.Select(i => i.CandidateId), projectId, _statusHelper.GetStatusUp(currentStatusCandidates));
+            await _candidateService.BulkUpdateStatusAsync(appointedСandidateIds, projectId, _statusHelper.GetStatusUp(currentStatusCandidates));
             _inviteEventPublisher.OnAssignedInterview(args);
         }
 
@@ -165,5 +165,5 @@ namespace Recrutify.Services.Services
         {
             return scheduleSlots?.Select(s => s.AvailableTime) ?? new List<DateTime>();
         }
-}
+    }
 }
