@@ -26,7 +26,7 @@ namespace Recrutify.Host.Controllers
             _userService = userService;
         }
 
-        [Authorize(Policy = Constants.Policies.AdminPolicy)]
+        [Authorize(Policy = Constants.Policies.AllAccessPolicy)]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("primary_skills")]
         public async Task<ActionResult<List<PrimarySkillDTO>>> GeAllPrimarySkillsAsync()

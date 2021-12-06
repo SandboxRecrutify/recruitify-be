@@ -25,7 +25,7 @@ namespace Recrutify.DataAccess.Repositories
 
         public IQueryable<Candidate> GetCandidatesPassedTestByProject(Guid projectId)
         {
-            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(p => p.ProjectId == projectId && p.Status == Status.Test));
+            return GetCollection().AsQueryable().Where(x => x.ProjectResults.Any(p => p.ProjectId == projectId && p.Status == Status.Test && p.Feedbacks.Any(x => x.Rating != 0)));
         }
 
         public IQueryable<Candidate> GetUnassignedCandidatesByProject(Guid projectId)
