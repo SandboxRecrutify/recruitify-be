@@ -6,7 +6,7 @@ using AutoMapper;
 using FluentValidation;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
-using Recrutify.Services.Constant;
+using Recrutify.Services.Constants;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
@@ -61,7 +61,7 @@ namespace Recrutify.Services.Services
         {
             var currentUserId = _userProvider.GetUserId();
             var periodStartDate = dates.Min();
-            var periodFinishDate = periodStartDate.Date.AddDays(Constants.Week.CountDays - (int)periodStartDate.DayOfWeek + 1);
+            var periodFinishDate = periodStartDate.Date.AddDays(Constants.Constants.Week.CountDays - (int)periodStartDate.DayOfWeek + 1);
             dates = dates.Where(dt => dt < periodFinishDate).ToList();
 
             var scheduleSlotsOfCurrentUser = await _scheduleRepository.GetScheduleSlotsOfDatePeriodAsync(currentUserId, periodStartDate, periodFinishDate);
