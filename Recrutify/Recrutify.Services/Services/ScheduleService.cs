@@ -105,8 +105,8 @@ namespace Recrutify.Services.Services
                                                 .GroupBy(i => i.IsAppointment)
                                                 .ToDictionary(k => k.Key, v => v.ToList());
 
-            var canceledInterviews = dictionaryInterviews.TryGetValue(false, out var i) ? i : default;
-            var appointedInterviews = dictionaryInterviews.TryGetValue(true, out var l) ? l : default;
+            var canceledInterviews = dictionaryInterviews.TryGetValue(false, out var listCanceledInterviews) ? listCanceledInterviews : default;
+            var appointedInterviews = dictionaryInterviews.TryGetValue(true, out var listAppointedInterviews) ? listAppointedInterviews : default;
 
             if (canceledInterviews != null)
             {
