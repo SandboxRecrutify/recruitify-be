@@ -1,17 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using Moq;
 using NUnit.Framework;
 using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
+using Recrutify.Host.Configuration;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services;
 using Recrutify.Services.Services.Abstract;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recrutify.Tests.Service
 {
@@ -20,7 +18,7 @@ namespace Recrutify.Tests.Service
         private ProjectService _projectService;
         private Mock<IProjectRepository> _projectRepositoryMock;
         private Mock<IUserService> _userServiceMock;
-        private Mock<IMapper> _mapperMock;
+        private IMapper _mapper;
         private Mock<IPrimarySkillService> _primarySkillMock;
         private Mock<IStaffHelper> _staffHelperMock;
 
@@ -29,32 +27,37 @@ namespace Recrutify.Tests.Service
         {
             _projectRepositoryMock = new Mock<IProjectRepository>();
             _userServiceMock = new Mock<IUserService>();
-            _mapperMock = new Mock<IMapper>();
+            _mapper = MapperConfig.GetConfiguration()
+                .CreateMapper();
             _primarySkillMock = new Mock<IPrimarySkillService>();
             _staffHelperMock = new Mock<IStaffHelper>();
 
             _projectService = new ProjectService(
                _projectRepositoryMock.Object,
-               _mapperMock.Object,
+               _mapper,
                _userServiceMock.Object,
                _primarySkillMock.Object,
                _staffHelperMock.Object);
         }
 
         [Test]
-        [TestCase(8, "New")]
-        public void GetTestAsync(Guid id, ProjectDTO expectProject)
+        public async Task GetAsync_Success()
         {
             var project = new Project()
             {
                 Name = "New",
             };
-            _projectRepositoryMock.Setup(x => x.GetAsync(id).Result)
-                .Returns(project);
-            var dto = new ProjectDTO();
-            var actualResult = _mapperMock.Setup(x => x.Map(dto, project));
-            Assert.AreEqual(expectProject, actualResult);
-        }
+            var id = Guid.NewGuid();
+            _projectRepositoryMock.Setup(x => x.GetAsync(id))
+                .ReturnsAsync(project);
+            var dto = new ProjectDTO()
+            {
+                Name = "New",
+            };
 
+            var result = await _projectService.GetAsync(id);
+
+            Assert.AreEqual(dto.Name, result.Name);
+        }
     }
 }

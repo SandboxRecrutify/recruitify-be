@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Recrutify.DataAccess\Recrutify.DataAccess.csproj" />
+    <ProjectReference Include="..\Recrutify.Host\Recrutify.Host.csproj" />
     <ProjectReference Include="..\Recrutify.Services\Recrutify.Services.csproj" />
   </ItemGroup>
 
