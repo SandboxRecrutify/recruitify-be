@@ -73,20 +73,20 @@ namespace Recrutify.Services.Services
 
             return interviews.Select(x => CreateEmailRequest(
                                                 x.Candidate.Email,
-                                                CreateInviteFile(x.AppointDateTimeUtc, "Exadel: Invitation for an interview"),
+                                                CreateInviteFile(x.AppoitmentDateTime, "Exadel: Invitation for an interview"),
                                                 generatorForCandidate
                                                 .Render(
                                                     new
                                                     {
                                                         name = x.Candidate.Name,
                                                         interviewerType = x.InterviewType.GetDisplayName(),
-                                                        dateTime = x.AppointDateTimeUtc.AddHours(3).ToString(),
+                                                        dateTime = x.AppoitmentDateTime.AddHours(3).ToString(),
                                                     })))
                 .Union(
                 interviews.Select(x => CreateEmailRequest(
                                                 x.User.Email,
                                                 CreateInviteFile(
-                                                    x.AppointDateTimeUtc,
+                                                    x.AppoitmentDateTime,
                                                     CreateInviteDescriptionForInterviewer(
                                                         x.Candidate,
                                                         x.InterviewType.GetDisplayName())),
@@ -96,7 +96,7 @@ namespace Recrutify.Services.Services
                                                     {
                                                         name = x.User.Name,
                                                         candidateName = x.Candidate.Name,
-                                                        dateTime = x.AppointDateTimeUtc.AddHours(3).ToString(),
+                                                        dateTime = x.AppoitmentDateTime.AddHours(3).ToString(),
                                                     }))));
         }
 
