@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Exceptions;
 using Recrutify.Services.Services.Abstract;
 
 namespace Recrutify.Host.Controllers
@@ -84,13 +85,15 @@ namespace Recrutify.Host.Controllers
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<ProjectDTO>> GetByIdAsync([FromRoute] Guid id)
         {
-            var project = await _projectService.GetAsync(id);
-            if (project == null)
+            try
+            {
+                var project = await _projectService.GetAsync(id);
+                return Ok(project);
+            }
+            catch (NotFoundException)
             {
                 return NotFound();
             }
-
-            return Ok(project);
         }
 
         [Authorize(Policy = Constants.Policies.AdminPolicy)]
