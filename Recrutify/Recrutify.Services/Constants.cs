@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Recrutify.Services.Constants
+namespace Recrutify.Services
 {
     public static class Constants
     {
