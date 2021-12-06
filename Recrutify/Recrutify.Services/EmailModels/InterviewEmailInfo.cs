@@ -9,7 +9,7 @@ namespace Recrutify.Services.EmailModels
 
         public CandidateShort Candidate { get; set; }
 
-        public DateTime AppointDateTimeUtc { get; set; }
+        public DateTime AppoitmentDateTime { get; set; }
 
         public InterviewType InterviewType { get; set; }
     }
