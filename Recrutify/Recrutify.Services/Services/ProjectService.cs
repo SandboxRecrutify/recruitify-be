@@ -9,6 +9,7 @@ using Recrutify.DataAccess.Extensions;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.Exceptions;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services.Abstract;
 
@@ -49,6 +50,11 @@ namespace Recrutify.Services.Services
         public async Task<ProjectDTO> GetAsync(Guid id)
         {
             var project = await _projectRepository.GetAsync(id);
+            if (project == null)
+            {
+                 throw new NotFoundException();
+            }
+
             return _mapper.Map<ProjectDTO>(project);
         }
 
