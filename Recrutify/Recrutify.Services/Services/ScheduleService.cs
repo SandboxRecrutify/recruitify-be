@@ -6,7 +6,6 @@ using AutoMapper;
 using FluentValidation;
 using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
-using Recrutify.Services.Constant;
 using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
