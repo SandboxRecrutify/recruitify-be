@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FluentValidation;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.DTOs;

@@ -318,5 +318,61 @@ var projects = [
             }
         ],
         "IsActive": false,
-    }
+    },
+    {
+        "_id": UUID("0703d85c-08ce-4002-a526-8ac757ac1ac3"),
+        "Name": "BA, JS, .NET",
+        "StartDate": new Date("2022-01-15T00:00:00.000Z"),
+        "EndDate": new Date("2022-03-30T00:00:00.000Z"),
+        "StartRegistrationDate": new Date("2022-01-01T00:00:00.000Z"),
+        "EndRegistrationDate": new Date("2022-01-10T00:00:00.000Z"),
+        "CurrentApplicationsCount": NumberInt(1),
+        "PlannedApplicationsCount": NumberInt(4),
+        "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
+        "PrimarySkills": [
+            {
+                "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                "Name": ".Net",
+                "Description": "OOP, Design patterns, SQL, ASP.NET",
+                "TestLink": "https://exadel.com/tests/net"
+            },
+            {
+                "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                "Name": "JavaScript",
+                "Description": "HTML, React, Github, Bash, Express.js",
+                "TestLink": "https://exadel.com/tests/javascript"
+            },
+            {
+                "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                "Name": "BusinessAnalyst",
+                "Description": "Power BI, Tableau, Miro, Google Sheet, MySQL",
+                "TestLink": "https://exadel.com/tests/businessanalyst"
+            }
+        ],
+        "Managers": [
+            {
+                "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+                "UserName": "Alesia Lis"
+            }
+        ],
+        "Interviewers": [
+            {
+                "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+                "UserName": "Alesia Lis"
+            }
+        ],
+        "Recruiters": [
+            {
+                "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+                "UserName": "Alesia Lis"
+            }
+        ],
+        "Mentors": [
+            {
+                "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+                "UserName": "Alesia Lis"
+            }
+        ],
+        "IsActive": true,
+    },
 ]
