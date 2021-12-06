@@ -11,6 +11,6 @@ namespace Recrutify.Services.Services.Abstract
 
         void SendEmailQueueForTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project, DateTime testDeadlineDate, string emailToContact);
 
-        void SendEmailQueueForInvite(IEnumerable<Interview> interviews);
+        void SendEmailQueueForInvite(IEnumerable<InterviewEmailInfo> interviews);
     }
 }

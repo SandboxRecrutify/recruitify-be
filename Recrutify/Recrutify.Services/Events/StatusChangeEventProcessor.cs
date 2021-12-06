@@ -26,7 +26,7 @@ namespace Recrutify.Services.Events
 
         public async Task UpdateCandidatesStatusesAsync(UpdateStatusEventArgs e)
         {
-            var candidates = await _candidateService.GetCandidatesByIdsAsync(e.CandidatesIds);
+            var candidates = await _candidateService.GetCandidatesDTOByIdsAsync(e.CandidatesIds);
             var project = await _projectService.GetAsync(e.ProjectId);
             _sendQueueEmailService.SendEmailQueueForStatusChange(candidates, e.CandidateStatus, project);
         }

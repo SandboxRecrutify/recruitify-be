@@ -5,10 +5,10 @@ namespace Recrutify.Services.EmailModels
     public enum InterviewType
     {
         [Display(Name ="recruity interview")]
-        RecruityInterview,
+        RecruiterInterview,
         [Display(Name = "first technical interview")]
-        TerchicalInterviewOne,
+        TechInterviewOneStep,
         [Display(Name = "second technical interview")]
-        TerchicalInterviewSecond,
+        TechInterviewSecondStep,
     }
 }
