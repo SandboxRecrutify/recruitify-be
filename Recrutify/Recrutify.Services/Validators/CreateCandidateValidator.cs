@@ -72,20 +72,12 @@ namespace Recrutify.Services.Validators
                 .MustAsync(_primarySkillRepository.ExistsAsync)
                 .WithMessage("One or more primary skill doesn't exist");
             RuleFor(c => c.CurrentJob)
-                .NotNull()
-                .NotEmpty()
                 .MaximumLength(50);
             RuleFor(c => c.Certificates)
-               .NotNull()
-               .NotEmpty()
                .MaximumLength(100);
             RuleFor(c => c.AdditionalQuestions)
-               .NotNull()
-               .NotEmpty()
                .MaximumLength(100);
             RuleFor(c => c.AdditionalInfo)
-               .NotNull()
-               .NotEmpty()
                .MaximumLength(100);
             RuleFor(c => c.EnglishLevel)
                 .IsInEnum();

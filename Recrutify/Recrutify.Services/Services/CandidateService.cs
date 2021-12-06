@@ -100,9 +100,8 @@ namespace Recrutify.Services.Services
                 throw new ValidationException("Primary skill does't exist!");
             }
 
-            var feedbacks = new List<Feedback> { };
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(new CandidatePrimarySkillDTO { Id = candidateCreateDTO.PrimarySkillId, Name = currentPrimarySkill.Name });
-            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill, Feedbacks = feedbacks } };
+            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill, Feedbacks = new List<Feedback> { } } };
 
             if (currentCandidate == null)
             {
