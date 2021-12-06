@@ -65,7 +65,7 @@ namespace Recrutify.Services.Services
             return emailRequests;
         }
 
-        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews)
+        public IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<InterviewEmailInfo> interviews)
         {
             var mailMessages = new List<EmailRequest>();
             var generatorForCandidate = CreateGenerator(Constants.TemplatePath.InterviewTemplate);

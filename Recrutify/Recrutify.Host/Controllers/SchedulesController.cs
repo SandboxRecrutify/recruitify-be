@@ -55,7 +55,8 @@ namespace Recrutify.Host.Controllers
             return NoContent();
         }
 
-        [HttpPut("bulk/appoint_cancel_interviews")]
+        [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
+        [HttpPut("bulk/update_assigned_interviews")]
         public async Task<ActionResult> BulkAppointOrCancelInterviewsAsync([FromBody] IEnumerable<InterviewDTO> interviews, [FromQuery, Required] Guid projectId, CancellationToken cancellationToken)
         {
             try
@@ -64,8 +65,9 @@ namespace Recrutify.Host.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);////отловить ошибку проекта 400
+                return BadRequest(e.Message);
             }
+
             return NoContent();
         }
     }

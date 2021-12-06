@@ -9,6 +9,9 @@ using Recrutify.DataAccess.Models;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Services.Constant;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
+using Recrutify.Services.Events;
+using Recrutify.Services.Events.Abstract;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Providers;
 using Recrutify.Services.Services.Abstract;
@@ -24,8 +27,11 @@ namespace Recrutify.Services.Services
         private readonly IUserProvider _userProvider;
         private readonly IScheduleSlotHelper _scheduleSlotHelper;
         private readonly IValidator<IEnumerable<ScheduleSlot>> _validator;
+        private readonly IStatusHelper _statusHelper;
+        private readonly IUserService _userService;
+        private readonly IInviteEventPublisher _inviteEventPublisher;
 
-        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IValidator<IEnumerable<ScheduleSlot>> validator, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService)
+        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IUserService userService, IInviteEventPublisher inviteEventPublisher, IValidator<IEnumerable<ScheduleSlot>> validator, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService, IStatusHelper statusHelper)
         {
             _projectService = projectService;
             _candidateService = candidateService;
@@ -34,6 +40,9 @@ namespace Recrutify.Services.Services
             _userProvider = userProvider;
             _scheduleSlotHelper = scheduleSlotHelper;
             _validator = validator;
+            _statusHelper = statusHelper;
+            _userService = userService;
+            _inviteEventPublisher = inviteEventPublisher;
         }
 
         public async Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime? date, Guid primarySkillId)
@@ -92,21 +101,70 @@ namespace Recrutify.Services.Services
                 throw new Exception("Project does not exist.");
             }
 
+            var allCadidates = await _candidateService.GetCandidatesByIdsAsync(interviews.Select(i => i.CandidateId));
+
             var cancelledInterviews = _mapper.Map<IEnumerable<Interview>>(interviews.Where(i => i.IsAppointment == false));
-            var candidatesIdsOfCancelledInterviews = cancelledInterviews.Select(i => i.UserId);
+            var cadidatesIdsCancelledInterviews = cancelledInterviews.Select(i => i.CandidateId);
+            var cuurentStatusCadidates = allCadidates.Where(c => cadidatesIdsCancelledInterviews.Contains(c.Id)).Select(c => c.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status).FirstOrDefault();
 
             if (cancelledInterviews.Any())
             {
                 await _scheduleRepository.BulkСancelInterviewsAsync(cancelledInterviews);
-                await _candidateService
+                await _candidateService.BulkUpdateStatusAsync(cancelledInterviews.Select(i => i.CandidateId), projectId, _statusHelper.GetStatusDown(cuurentStatusCadidates));
             }
 
             var appointedInterviews = _mapper.Map<IEnumerable<Interview>>(interviews.Where(i => i.IsAppointment == true));
-            var candidatesIdsOfAppointedInterviews = cancelledInterviews.Select(i => i.UserId);
+            var users = await _userService.GetUsersShortByIdsAsync(appointedInterviews.Select(i => i.UserId));
+            var cadidatesIdsAppointedInterviews = appointedInterviews.Select(i => i.CandidateId);
+            cuurentStatusCadidates = allCadidates.Where(c => cadidatesIdsAppointedInterviews.Contains(c.Id)).Select(c => c.ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status).FirstOrDefault();
+
+            var usersForInvite = users.Select(c => new UserEmailInfo() { Id = c.Id, Email = c.Email, Name = c.Name }).ToList();
+            var candidatesForInvite = allCadidates.Where(c => cadidatesIdsAppointedInterviews.Contains(c.Id))
+                                        .Select(c => new CandidateEmailInfo()
+                                        {
+                                            Email = c.Email,
+                                            Id = c.Id,
+                                            Name = c.Name,
+                                            PhoneNumber = c.PhoneNumber,
+                                            Skype = c?.Contacts?.FirstOrDefault(s => s.Type == "Skype")?.Value,
+                                        }).ToList();
+
+            var args = new AssignedInterviewEventArgs()
+            {
+                Interviews = appointedInterviews
+                                .Select(i => new InterviewEmailInfo()
+                                {
+                                    AppointDateTimeUtc = i.AppointDateTimeUtc,
+                                    InterviewType = (InterviewType)Enum.Parse(typeof(InterviewType), cuurentStatusCadidates.ToString(), true),
+                                    Candidate = candidatesForInvite.FirstOrDefault(c => c.Id == i.CandidateId),
+                                    User = usersForInvite.FirstOrDefault(u => u.Id == i.UserId),
+                                }),
+            };
 
             if (appointedInterviews.Any())
             {
-                await _scheduleRepository.BulkAppointInterviewsAsync(appointedInterviews);
+                await _scheduleRepository.BulkAppointInterviewsAsync(
+                    appointedInterviews,
+                    allCadidates.Where(c => cadidatesIdsAppointedInterviews.Contains(c.Id)).Select(c => new ScheduleCandidateInfo()
+                    {
+                         BestTimeToConnect = c.BestTimeToConnect,
+                         Id = c.Id,
+                         Name = c.Name,
+                         Surname = c.Surname,
+                         Email = c.Email,
+                         Skype = c?.Contacts?.FirstOrDefault(s => s.Type == "Skype")?.Value,
+                         ProjectResult = c.ProjectResults
+                                              .Select(p => new ScheduleCandidateProjectResult()
+                                              {
+                                                  ProjectId = p.ProjectId,
+                                                  IsAssignedOnInterview = p.IsAssignedOnInterview,
+                                                  PrimarySkill = p.PrimarySkill,
+                                                  Status = _statusHelper.GetStatusUp(p.Status),
+                                              })
+                                              .FirstOrDefault(p => p.ProjectId == projectId),
+                    }));
+                await _candidateService.BulkUpdateStatusAsync(appointedInterviews.Select(i => i.CandidateId), projectId, _statusHelper.GetStatusUp(cuurentStatusCadidates));
+                _inviteEventPublisher.OnAssignedInterview(args);
             }
         }
 

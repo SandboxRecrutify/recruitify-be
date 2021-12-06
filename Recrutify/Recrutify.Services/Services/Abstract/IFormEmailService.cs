@@ -11,6 +11,6 @@ namespace Recrutify.Services.Services.Abstract
 
         IEnumerable<EmailRequest> GetEmailRequestsForSendTest(IEnumerable<CandidateDTO> candidates, ProjectDTO project, DateTime testDeadlineDate, string emailToContact);
 
-        IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<Interview> interviews);
+        IEnumerable<EmailRequest> GetEmailRequestsForInterviewInvite(IEnumerable<InterviewEmailInfo> interviews);
     }
 }

@@ -63,5 +63,10 @@ namespace Recrutify.Services.Services
             var updateUsers = _staffHelper.GetUpdatedUsersRoles(currentUsersRoles, newUsersRoles);
             return _userRepository.BulkUpdateProjectRolesAsync(projectId, newUsers, remoteUsers, updateUsers);
         }
+
+        public async Task<IEnumerable<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids)
+        {
+            return await _userRepository.GetUsersShortByIdsAsync(ids);
+        }
     }
 }

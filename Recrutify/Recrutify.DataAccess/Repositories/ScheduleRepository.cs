@@ -68,12 +68,12 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().BulkWriteAsync(updateModels);
         }
 
-        public Task BulkAppointInterviewsAsync(IEnumerable<Interview> cancelledInterviews)
+        public Task BulkAppointInterviewsAsync(IEnumerable<Interview> cancelledInterviews, IEnumerable<ScheduleCandidateInfo> candidatesInfo)
         {
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = cancelledInterviews.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
-                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", new ScheduleCandidateInfo() { Id = i.CandidateId }))
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", candidatesInfo.FirstOrDefault(c => c.Id == i.CandidateId)))
             { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.AppointDateTimeUtc)) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }

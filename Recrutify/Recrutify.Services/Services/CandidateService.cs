@@ -207,7 +207,7 @@ namespace Recrutify.Services.Services
             return _candidateRepository.UpdateStatusByIdsAsync(bulkUpdateStatusDTO.CandidatesIds, projectId, _mapper.Map<Status>(bulkUpdateStatusDTO.Status), bulkUpdateStatusDTO.Reason);
         }
 
-        public async Task<IEnumerable<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        public async Task<IEnumerable<CandidateDTO>> GetCandidatesDTOByIdsAsync(IEnumerable<Guid> ids)
         {
             var candidates = await _candidateRepository.GetByIdsAsync(ids);
             return _mapper.Map<List<CandidateDTO>>(candidates);
@@ -215,7 +215,7 @@ namespace Recrutify.Services.Services
 
         public async Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId)
         {
-            var candidates = await GetCandidatesByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
+            var candidates = await GetCandidatesDTOByIdsAsync(bulkSendEmailWithTestDTO.CandidatesIds);
             var project = await _projectService.GetAsync(projectId);
             await _candidateRepository.BulkUpdateStatusAsync(bulkSendEmailWithTestDTO.CandidatesIds, project.Id, Status.Test);
             _sendQueueEmailService.SendEmailQueueForTest(candidates, project, bulkSendEmailWithTestDTO.TestDeadlineDate, bulkSendEmailWithTestDTO.PersonToContactEmail);
@@ -233,6 +233,11 @@ namespace Recrutify.Services.Services
         public async Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
         {
             await _candidateRepository.BulkUpdateStatusAsync(candidatesIds, projectId, status);
+        }
+
+        public async Task<IEnumerable<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        {
+            return await _candidateRepository.GetByIdsAsync(ids);
         }
     }
 }

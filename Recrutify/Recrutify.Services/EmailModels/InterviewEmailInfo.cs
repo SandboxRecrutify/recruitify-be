@@ -2,7 +2,7 @@
 
 namespace Recrutify.Services.EmailModels
 {
-    public class Interview
+    public class InterviewEmailInfo
     {
         public UserEmailInfo User { get; set; }
 

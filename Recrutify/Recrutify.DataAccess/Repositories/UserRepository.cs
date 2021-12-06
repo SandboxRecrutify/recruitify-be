@@ -81,6 +81,18 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().BulkWriteAsync(updateModelsWithNewUsers.Union(updateModelsWithRemovedUsers).Union(updateModelsWithUpdateUsers));
         }
 
+        public async Task<IEnumerable<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids)
+        {
+            var filter = _filterBuilder.In(u => u.Id, ids);
+            return await GetCollection().Find(filter).Project(u =>
+                                                            new UserShort
+                                                            {
+                                                                Id = u.Id,
+                                                                Name = u.Name,
+                                                                Email = u.Email,
+                                                            }).ToListAsync();
+        }
+
         private IEnumerable<UpdateOneModel<User>> GetUpdateModelsForAddingRoles(Guid projectId, IDictionary<Guid, IEnumerable<Role>> usersRoles)
         {
             var updateBuilder = Builders<User>.Update;

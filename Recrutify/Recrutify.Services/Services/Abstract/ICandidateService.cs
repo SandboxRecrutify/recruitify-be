@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
 
 namespace Recrutify.Services.Services.Abstract
@@ -23,7 +24,7 @@ namespace Recrutify.Services.Services.Abstract
 
         Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken);
 
-        Task<IEnumerable<CandidateDTO>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
+        Task<IEnumerable<CandidateDTO>> GetCandidatesDTOByIdsAsync(IEnumerable<Guid> ids);
 
         Task<CandidateDTO> GetCandidateWithProjectAsync(Guid id, Guid projectId);
 
@@ -38,5 +39,9 @@ namespace Recrutify.Services.Services.Abstract
         Task BulkSendEmailsWithTestAsync(BulkSendEmailWithTestDTO bulkSendEmailWithTestDTO, Guid projectId);
 
         Task<CandidatesProjectInfoDTO> GetCandidatesProjectInfoAsync(Guid? projectId);
+
+        Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status);
+
+        Task<IEnumerable<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
     }
 }
