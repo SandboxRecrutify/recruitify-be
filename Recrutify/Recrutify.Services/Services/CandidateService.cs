@@ -230,14 +230,14 @@ namespace Recrutify.Services.Services
            return candidatesProjectInfo;
         }
 
-        public async Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
+        public Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status)
         {
-            await _candidateRepository.BulkUpdateStatusAsync(candidatesIds, projectId, status);
+            return _candidateRepository.BulkUpdateStatusAsync(candidatesIds, projectId, status);
         }
 
-        public async Task<IEnumerable<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
+        public Task<List<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids)
         {
-            return await _candidateRepository.GetByIdsAsync(ids);
+            return _candidateRepository.GetByIdsAsync(ids);
         }
     }
 }

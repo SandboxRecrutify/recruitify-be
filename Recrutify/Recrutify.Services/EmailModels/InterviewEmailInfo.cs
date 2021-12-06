@@ -1,12 +1,13 @@
 ﻿using System;
+using Recrutify.DataAccess.Models;
 
 namespace Recrutify.Services.EmailModels
 {
     public class InterviewEmailInfo
     {
-        public UserEmailInfo User { get; set; }
+        public UserShort User { get; set; }
 
-        public CandidateEmailInfo Candidate { get; set; }
+        public CandidateShort Candidate { get; set; }
 
         public DateTime AppointDateTimeUtc { get; set; }
 

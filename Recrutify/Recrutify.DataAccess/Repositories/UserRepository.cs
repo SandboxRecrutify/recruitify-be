@@ -81,10 +81,10 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().BulkWriteAsync(updateModelsWithNewUsers.Union(updateModelsWithRemovedUsers).Union(updateModelsWithUpdateUsers));
         }
 
-        public async Task<IEnumerable<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids)
+        public Task<List<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids)
         {
             var filter = _filterBuilder.In(u => u.Id, ids);
-            return await GetCollection().Find(filter).Project(u =>
+            return GetCollection().Find(filter).Project(u =>
                                                             new UserShort
                                                             {
                                                                 Id = u.Id,

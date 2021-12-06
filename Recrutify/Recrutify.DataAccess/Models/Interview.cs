@@ -12,7 +12,7 @@ namespace Recrutify.DataAccess.Models
 
         public Guid CandidateId { get; set; }
 
-        public DateTime AppointDateTimeUtc { get; set; }
+        public DateTime AppoitmentDateTime { get; set; }
 
         public bool IsAppointment { get; set; }
     }

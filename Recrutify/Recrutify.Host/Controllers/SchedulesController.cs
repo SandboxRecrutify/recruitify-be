@@ -63,9 +63,12 @@ namespace Recrutify.Host.Controllers
             {
                 await _scheduleService.ProcessingAppointOrCancelInterviewsAsync(interviews, projectId, cancellationToken);
             }
-            catch (Exception e)
+            catch (ValidationException ex)
             {
-                return BadRequest(e.Message);
+                return ValidationProblem(new ValidationProblemDetails(
+                      ex.Errors
+                       .GroupBy(o => o.PropertyName)
+                       .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray())));
             }
 
             return NoContent();

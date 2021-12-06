@@ -100,7 +100,7 @@ namespace Recrutify.Services.Services
                                                     }))));
         }
 
-        private string CreateInviteDescriptionForInterviewer(CandidateEmailInfo candidate, string interviewTypeDescription)
+        private string CreateInviteDescriptionForInterviewer(CandidateShort candidate, string interviewTypeDescription)
         {
             return $"Candidate: {candidate.Name}" +
                    $"\\nSkype: {candidate.Skype}" +

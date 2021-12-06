@@ -42,6 +42,6 @@ namespace Recrutify.Services.Services.Abstract
 
         Task BulkUpdateStatusAsync(IEnumerable<Guid> candidatesIds, Guid projectId, Status status);
 
-        Task<IEnumerable<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
+        Task<List<Candidate>> GetCandidatesByIdsAsync(IEnumerable<Guid> ids);
     }
 }

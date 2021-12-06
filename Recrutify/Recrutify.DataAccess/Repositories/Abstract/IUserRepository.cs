@@ -18,6 +18,6 @@ namespace Recrutify.DataAccess.Repositories.Abstract
 
         Task BulkUpdateProjectRolesAsync(Guid projectId, IDictionary<Guid, IEnumerable<Role>> newUsersRoles, IDictionary<Guid, IEnumerable<Role>> removeUsersRoles, IDictionary<Guid, IEnumerable<Role>> updateUsersRoles);
 
-        Task<IEnumerable<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids);
+        Task<List<UserShort>> GetUsersShortByIdsAsync(IEnumerable<Guid> ids);
     }
 }

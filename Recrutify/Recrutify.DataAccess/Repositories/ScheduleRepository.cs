@@ -59,12 +59,11 @@ namespace Recrutify.DataAccess.Repositories
 
         public Task BulkСancelInterviewsAsync(IEnumerable<Interview> cancelledInterviews)
         {
-            ScheduleCandidateInfo scheduleCandidateInfo = null;
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = cancelledInterviews.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
-                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", scheduleCandidateInfo))
-            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.AppointDateTimeUtc)) } });
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlot].ScheduleCandidateInfo", BsonNull.Value))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlot.AvailableTime", i.AppoitmentDateTime)) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }
 
@@ -73,8 +72,8 @@ namespace Recrutify.DataAccess.Repositories
             var updateBuilder = Builders<Schedule>.Update;
             var updateModels = cancelledInterviews.Select(i => new UpdateOneModel<Schedule>(
                 _filterBuilder.Eq(s => s.Id, i.UserId),
-                updateBuilder.Set("ScheduleSlots.$[scheduleSlots].ScheduleCandidateInfo", candidatesInfo.FirstOrDefault(c => c.Id == i.CandidateId)))
-            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlots.AvailableTime", i.AppointDateTimeUtc)) } });
+                updateBuilder.Set("ScheduleSlots.$[scheduleSlot].ScheduleCandidateInfo", candidatesInfo.FirstOrDefault(c => c.Id == i.CandidateId)))
+            { ArrayFilters = new List<ArrayFilterDefinition>() { new BsonDocumentArrayFilterDefinition<ScheduleSlot>(new BsonDocument("scheduleSlot.AvailableTime", i.AppoitmentDateTime)) } });
             return GetCollection().BulkWriteAsync(updateModels);
         }
 
