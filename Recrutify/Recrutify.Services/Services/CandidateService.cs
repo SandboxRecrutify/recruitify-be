@@ -101,7 +101,7 @@ namespace Recrutify.Services.Services
             }
 
             var primarySkill = _mapper.Map<CandidatePrimarySkill>(new CandidatePrimarySkillDTO { Id = candidateCreateDTO.PrimarySkillId, Name = currentPrimarySkill.Name });
-            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill } };
+            var projectResults = new List<ProjectResult> { new ProjectResult { ProjectId = projectId, PrimarySkill = primarySkill, Feedbacks = new List<Feedback> { } } };
 
             if (currentCandidate == null)
             {
