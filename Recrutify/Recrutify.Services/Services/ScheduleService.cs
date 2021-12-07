@@ -25,12 +25,13 @@ namespace Recrutify.Services.Services
         private readonly IMapper _mapper;
         private readonly IUserProvider _userProvider;
         private readonly IScheduleSlotHelper _scheduleSlotHelper;
-        private readonly IValidator<IEnumerable<ScheduleSlot>> _validator;
+        private readonly IValidator<IEnumerable<ScheduleSlot>> _validatorForScheduleSlot;
+        private readonly IValidator<IEnumerable<InterviewDTO>> _validatorInterview;
         private readonly IStatusHelper _statusHelper;
         private readonly IUserService _userService;
         private readonly IInviteEventPublisher _inviteEventPublisher;
 
-        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IUserService userService, IInviteEventPublisher inviteEventPublisher, IValidator<IEnumerable<ScheduleSlot>> validator, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService, IStatusHelper statusHelper)
+        public ScheduleService(IProjectService projectService, IScheduleRepository scheduleRepository, IUserService userService, IInviteEventPublisher inviteEventPublisher, IValidator<IEnumerable<ScheduleSlot>> validatorForScheduleSlot, IValidator<IEnumerable<InterviewDTO>> validatorInterview, IMapper mapper, IUserProvider userProvider, IScheduleSlotHelper scheduleSlotHelper, ICandidateService candidateService, IStatusHelper statusHelper)
         {
             _projectService = projectService;
             _candidateService = candidateService;
@@ -38,10 +39,11 @@ namespace Recrutify.Services.Services
             _mapper = mapper;
             _userProvider = userProvider;
             _scheduleSlotHelper = scheduleSlotHelper;
-            _validator = validator;
+            _validatorForScheduleSlot = validatorForScheduleSlot;
             _statusHelper = statusHelper;
             _userService = userService;
             _inviteEventPublisher = inviteEventPublisher;
+            _validatorInterview = validatorInterview;
         }
 
         public async Task<IEnumerable<ScheduleDTO>> GetByUserPrimarySkillAsync(Guid projectId, DateTime? date, Guid primarySkillId)
@@ -101,7 +103,7 @@ namespace Recrutify.Services.Services
             var removedListDateTime = _scheduleSlotHelper.GetRemovedDateTimeInSheduleSlots(GetDateTimeInScheduleSlots(scheduleSlotsOfCurrentUser), dates);
             if (removedListDateTime.Any())
             {
-                var validationResult = await _validator.ValidateAsync(scheduleSlotsOfCurrentUser.Where(s => removedListDateTime.Contains(s.AvailableTime)));
+                var validationResult = await _validatorForScheduleSlot.ValidateAsync(scheduleSlotsOfCurrentUser.Where(s => removedListDateTime.Contains(s.AvailableTime)));
                 if (!validationResult.IsValid)
                 {
                     throw new ValidationException(validationResult.Errors);
@@ -119,6 +121,12 @@ namespace Recrutify.Services.Services
             if (!projectExists)
             {
                 throw new ValidationException("Project does not exist.");
+            }
+
+            var validationResult = await _validatorInterview.ValidateAsync(interviews);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidationException(validationResult.Errors);
             }
 
             var allCandidates = await _candidateService.GetCandidatesByIdsAsync(interviews.Select(i => i.CandidateId));
@@ -153,7 +161,7 @@ namespace Recrutify.Services.Services
         {
             var appointedСandidateIds = interviews.Select(i => i.CandidateId).ToList();
             var appointedСandidate = candidates.Where(c => appointedСandidateIds.Contains(c.Id)).ToList();
-            var currentStatusCandidates = appointedСandidate.FirstOrDefault().ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status;
+            var currentStatusCandidates = _statusHelper.GetStatusUp(appointedСandidate.FirstOrDefault().ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status);
             var usersForInvite = await _userService.GetUsersShortByIdsAsync(interviews.Select(i => i.UserId));
             var candidatesForInvite = _mapper.Map<IEnumerable<CandidateShort>>(appointedСandidate);
 
@@ -178,7 +186,7 @@ namespace Recrutify.Services.Services
                         candidateInfo.ProjectResult = _mapper.Map<ScheduleCandidateProjectResult>(projectResult);
                         return candidateInfo;
                     }));
-            await _candidateService.BulkUpdateStatusAsync(appointedСandidateIds, projectId, _statusHelper.GetStatusUp(currentStatusCandidates));
+            await _candidateService.BulkUpdateStatusAsync(appointedСandidateIds, projectId, currentStatusCandidates);
             _inviteEventPublisher.OnAssignedInterview(args);
         }
 

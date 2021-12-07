@@ -20,6 +20,7 @@ namespace Recrutify.Services.Extensions
             services.AddSingleton<IValidator<BulkUpdateStatusDTO>, BulkUpdateStatusReasonCandidatsValidator>();
             services.AddSingleton<IValidator<BulkSendEmailWithTestDTO>, BulkSendEmailsWithTestValidator>();
             services.AddSingleton<IValidator<IEnumerable<ScheduleSlot>>, UpdateScheduleSlotsValidator>();
+            services.AddSingleton<IValidator<IEnumerable<InterviewDTO>>, UpdateAssignedScheduleSlotsValidator>();
         }
     }
 }

@@ -13,8 +13,13 @@ namespace Recrutify.Host.Configuration.Profiles
             CreateMap<UserPrimarySkill, UserPrimarySkillDTO>();
 
             CreateMap<ScheduleSlot, ScheduleSlotDTO>();
+            CreateMap<ScheduleSlot, ScheduleSlotShort>()
+                .ForMember(dest => dest.CandidateId, conf => conf.MapFrom(src => src.ScheduleCandidateInfo.Id));
 
             CreateMap<ScheduleCandidateInfo, ScheduleCandidateInfoDTO>();
+
+            CreateMap<InterviewDTO, ScheduleSlotShort>()
+                .ForMember(dest => dest.AvailableTime, conf => conf.MapFrom(src => src.AppoitmentDateTime));
 
             CreateMap<Candidate, ScheduleCandidateInfo>()
                 .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts.FirstOrDefault(c => c.Type == Constants.Contacts.Skype).Value))

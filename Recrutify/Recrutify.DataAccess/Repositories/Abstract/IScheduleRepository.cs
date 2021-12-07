@@ -18,5 +18,9 @@ namespace Recrutify.DataAccess.Repositories.Abstract
         Task BulkСancelInterviewsAsync(IEnumerable<Interview> cancelledInterviews);
 
         Task BulkAppointInterviewsAsync(IEnumerable<Interview> appointedInterviews, IEnumerable<ScheduleCandidateInfo> candidatesInfo);
+
+        Task<List<ScheduleShort>> GetNotFreeShuduleSlotsBySlotsAsync(Dictionary<Guid, List<ScheduleSlotShort>> slots);
+
+        Task<List<ScheduleShort>> GetFreeShuduleSlotsBySlotsAsync(Dictionary<Guid, List<ScheduleSlotShort>> slots);
     }
 }
