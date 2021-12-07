@@ -77,6 +77,36 @@ namespace Recrutify.DataAccess.Repositories
             return GetCollection().BulkWriteAsync(updateModels);
         }
 
+        public Task<List<ScheduleShort>> GetNotFreeShuduleSlotsBySlotsAsync(Dictionary<Guid, List<ScheduleSlotShort>> slots)
+        {
+            var filter = _filterBuilder.In(u => u.UserId, slots.Keys);
+            return GetCollection()
+                        .Find(filter)
+                        .Project(x => new ScheduleShort
+                        {
+                            UserId = x.UserId,
+                            ScheduleSlots = x.ScheduleSlots.Where(
+                                s => s.ScheduleCandidateInfo != null
+                                     && slots[x.Id].Select(slotShort => slotShort.AvailableTime).Contains(s.AvailableTime)
+                                     && s.ScheduleCandidateInfo.Id == slots[x.Id].FirstOrDefault(slotShotr => slotShotr.AvailableTime == s.AvailableTime).CandidateId)
+                                        .Select(slot => new ScheduleSlotShort() { AvailableTime = slot.AvailableTime, CandidateId = slot.ScheduleCandidateInfo.Id }),
+                        }).ToListAsync();
+        }
+
+        public Task<List<ScheduleShort>> GetFreeShuduleSlotsBySlotsAsync(Dictionary<Guid, List<ScheduleSlotShort>> slots)
+        {
+            var filter = _filterBuilder.In(u => u.UserId, slots.Keys);
+            return GetCollection()
+                        .Find(filter)
+                        .Project(x => new ScheduleShort
+                        {
+                            UserId = x.UserId,
+                            ScheduleSlots = x.ScheduleSlots.Where(
+                                s => slots[x.Id].Select(slot => slot.AvailableTime).Contains(s.AvailableTime) && s.ScheduleCandidateInfo == null)
+                                    .Select(slot => new ScheduleSlotShort() { AvailableTime = slot.AvailableTime }),
+                        }).ToListAsync();
+        }
+
         private IFindFluent<Schedule, Schedule> GetFindFluentByDate(FilterDefinition<Schedule> filter, DateTime date, int daysNum = 1)
         {
             return GetCollection()
