@@ -5,6 +5,6 @@ namespace Recrutify.Services.Events
 {
     public class AssignedInterviewEventArgs
     {
-        public IEnumerable<Interview> Interviews { get; set; }
+        public IEnumerable<InterviewEmailInfo> Interviews { get; set; }
     }
 }

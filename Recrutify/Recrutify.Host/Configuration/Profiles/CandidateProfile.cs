@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using Recrutify.DataAccess.Models;
 using Recrutify.Services.DTOs;
+using Recrutify.Services.EmailModels;
 
 namespace Recrutify.Host.Configuration.Profiles
 {
@@ -17,6 +19,9 @@ namespace Recrutify.Host.Configuration.Profiles
                 .ForMember(dest => dest.ProjectResults, opt => opt.Ignore())
                 .ForMember(dest => dest.RegistrationDate, conf => conf.MapFrom(src => DateTime.UtcNow.Date))
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+            CreateMap<Candidate, CandidateShort>()
+                .ForMember(dest => dest.Skype, conf => conf.MapFrom(src => src.Contacts.FirstOrDefault(c => c.Type == "Skype").Value));
 
             CreateMap<CandidatePrimarySkill, CandidatePrimarySkillDTO>().ReverseMap();
 

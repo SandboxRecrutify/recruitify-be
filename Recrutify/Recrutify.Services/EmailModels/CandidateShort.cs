@@ -2,12 +2,16 @@
 
 namespace Recrutify.Services.EmailModels
 {
-    public class BasePersonEmailInfo
+    public class CandidateShort
     {
         public Guid Id { get; set; }
 
         public string Email { get; set; }
 
         public string Name { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string Skype { get; set; }
     }
 }

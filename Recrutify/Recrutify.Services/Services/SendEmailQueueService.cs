@@ -41,7 +41,7 @@ namespace Recrutify.Services.Services
             SendEmailInBackgroundJob(requests);
         }
 
-        public void SendEmailQueueForInvite(IEnumerable<Interview> interviews)
+        public void SendEmailQueueForInvite(IEnumerable<InterviewEmailInfo> interviews)
         {
             var requests = _formEmailService.GetEmailRequestsForInterviewInvite(interviews);
             SendEmailInBackgroundJob(requests);

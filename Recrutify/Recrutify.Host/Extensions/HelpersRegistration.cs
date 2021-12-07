@@ -10,6 +10,7 @@ namespace Recrutify.Host.Extensions
         {
             services.AddSingleton<IStaffHelper, StaffHelper>();
             services.AddSingleton<IScheduleSlotHelper, ScheduleSlotHelper>();
+            services.AddSingleton<IStatusHelper, StatusHelper>();
         }
     }
 }
