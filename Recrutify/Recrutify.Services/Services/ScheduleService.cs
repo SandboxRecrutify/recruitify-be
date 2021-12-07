@@ -68,11 +68,32 @@ namespace Recrutify.Services.Services
             return _mapper.Map<ScheduleDTO>(schedules);
         }
 
-        public async Task UpdateScheduleSlotsForCurrentUserAsync(IEnumerable<DateTime> dates)
+        public async Task UpdateScheduleSlotsForCurrentUserAsync(IEnumerable<DateTime> dates, DateTime? weekStart)
         {
+            DateTime periodStartDate = default;
             var currentUserId = _userProvider.GetUserId();
-            var periodStartDate = dates.Min();
-            var periodFinishDate = periodStartDate.Date.AddDays(Constants.Week.CountDays - (int)periodStartDate.DayOfWeek + 1);
+            if (dates.Count() != 0)
+            {
+                var minDateTime = dates.Min();
+                var dayNum = (int)minDateTime.DayOfWeek;
+                if (dayNum == 0)
+                {
+                    dayNum = Constants.Week.CountDays;
+                }
+
+                periodStartDate = minDateTime.Date.AddDays(1 - dayNum);
+            }
+            else if (dates.Count() == 0 && weekStart.HasValue)
+            {
+                periodStartDate = weekStart.Value;
+            }
+            else
+            {
+                throw new ValidationException("Unknown start of the week.");
+            }
+
+            var periodFinishDate = periodStartDate.AddDays(Constants.Week.CountDays - 1);
+
             dates = dates.Where(dt => dt < periodFinishDate).ToList();
 
             var scheduleSlotsOfCurrentUser = await _scheduleRepository.GetScheduleSlotsOfDatePeriodAsync(currentUserId, periodStartDate, periodFinishDate);

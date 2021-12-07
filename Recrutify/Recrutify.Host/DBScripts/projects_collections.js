@@ -320,14 +320,14 @@ var projects = [
         "IsActive": false,
     },
     {
-        "_id": UUID("0703d85c-08ce-4002-a526-8ac757ac1ac3"),
-        "Name": "BA, JS, .NET",
+        "_id": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+        "Name": "JS &.NET + BA Sandbox",
         "StartDate": new Date("2022-01-15T00:00:00.000Z"),
         "EndDate": new Date("2022-03-30T00:00:00.000Z"),
         "StartRegistrationDate": new Date("2022-01-01T00:00:00.000Z"),
         "EndRegistrationDate": new Date("2022-01-10T00:00:00.000Z"),
-        "CurrentApplicationsCount": NumberInt(1),
-        "PlannedApplicationsCount": NumberInt(4),
+        "CurrentApplicationsCount": NumberInt(0),
+        "PlannedApplicationsCount": NumberInt(10),
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
@@ -353,24 +353,40 @@ var projects = [
             {
                 "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
                 "UserName": "Alesia Lis"
+            },
+            {
+                "UserId": UUID("4a0d4bdf-601d-4216-ae5b-076887e8e7ec"),
+                "UserName": "Carole Medina"
             }
         ],
         "Interviewers": [
             {
                 "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
                 "UserName": "Alesia Lis"
+            },
+            {
+                "UserId": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
+                "UserName": "Justin Walker"
             }
         ],
         "Recruiters": [
             {
                 "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
                 "UserName": "Alesia Lis"
+            },
+            {
+                "UserId": UUID("03699464-c0a6-412f-8c83-eca85b359e91"),
+                "UserName": "Kevin Wils"
             }
         ],
         "Mentors": [
             {
                 "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
                 "UserName": "Alesia Lis"
+            },
+            {
+                "UserId": UUID("d761cb7c-81a8-4213-bf98-b38ccd9b35ec"),
+                "UserName": "Agnes Cook"
             }
         ],
         "IsActive": true,

@@ -14,6 +14,8 @@ namespace Recrutify.Services.Helpers
                 case Status.RecruiterInterview:
                     return Status.TechInterviewOneStep;
                 case Status.TechInterviewOneStep:
+                    return Status.TechInterviewOneStep;
+                case Status.Accepted:
                     return Status.TechInterviewSecondStep;
                 default: return status;
             }
@@ -24,11 +26,11 @@ namespace Recrutify.Services.Helpers
             switch (status)
             {
                 case Status.TechInterviewSecondStep:
-                    return Status.TechInterviewOneStep;
+                    return Status.Accepted;
                 case Status.TechInterviewOneStep:
                     return Status.RecruiterInterview;
                 case Status.RecruiterInterview:
-                    return Status.New;
+                    return Status.Test;
                 default: return status;
             }
         }
