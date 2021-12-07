@@ -270,5 +270,39 @@
                     },
             }
         ],
+    },
+    {
+        "_id": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+        "UserId": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
+        "UserName": "Alesia",
+        "UserSurname": "Lis",
+        "UserEmail": "lis.alesia@mail.ru",
+        "UserPrimarySkill": {
+            "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+            "Name": ".Net"
+        },
+        "ScheduleSlots": [
+            {
+                "AvailableTime": new Date("2021-12-02T00:00:00.000Z"),
+                "ScheduleCandidateInfo":
+                {
+                    "Name": "Yan",
+                    "_id": UUID("d66d9d10-3775-11ec-9f7d-f7d443b3f4f3"),
+                    "Email": "yan@mail.ru",
+                    "Skype": "id=100002956147957",
+                    "BestTimeToConnect": [NumberInt(7), NumberInt(13), NumberInt(14), NumberInt(15)],
+                    "ProjectResult":
+                    {
+                        "ProjectId": UUID("bdbc3af0-f882-4f4f-bbb8-3e87ba16b768"),
+                        "Status": NumberInt(3),
+                        "IsAssignedOnInterview": false,
+                        "PrimarySkill": {
+                            "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+                            "Name": "JavaScript"
+                        },
+                    },
+                },
+            }
+        ],
     }
 ]
