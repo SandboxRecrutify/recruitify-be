@@ -38,11 +38,11 @@ namespace Recrutify.Host.Controllers
 
         [Authorize(Policy = Constants.Policies.FeedbackPolicy)]
         [HttpPut]
-        public async Task<ActionResult> UpdateScheduleSlotsAsync(IEnumerable<DateTime> dates)
+        public async Task<ActionResult> UpdateScheduleSlotsAsync(IEnumerable<DateTime> dates, DateTime? weekStart)
         {
             try
             {
-                await _scheduleService.UpdateScheduleSlotsForCurrentUserAsync(dates);
+                await _scheduleService.UpdateScheduleSlotsForCurrentUserAsync(dates, weekStart);
             }
             catch (ValidationException ex)
             {
