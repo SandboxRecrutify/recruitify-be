@@ -17,6 +17,7 @@
                     NumberInt(0)
                 ]
             }
+
         ]
     },
     {
@@ -191,7 +192,7 @@
     },
     {
         "_id": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
-        "Email": "justinwalker@gmail.com",
+        "Email": "justinwalker.recrutify@gmail.com",
         "Name": "Justin",
         "Surname": "Walker",
         "Password": "2B8CB1313018D3FAE4A5A58E2231AF82EFB6BE435574742A728AA7851615976F",
@@ -215,6 +216,10 @@
             },
             {
                 "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
+                "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
                 "v": [NumberInt(3)]
             }
         ]
@@ -246,6 +251,10 @@
             {
                 "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
                 "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(2)]
             }
         ]
     },
@@ -263,6 +272,10 @@
         "ProjectRoles": [
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(1)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
                 "v": [NumberInt(1)]
             }
         ]
@@ -282,10 +295,12 @@
             {
                 "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
                 "v": [NumberInt(4)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(4)]
             }
         ]
-    }
-]
     },
     {
         "_id": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
