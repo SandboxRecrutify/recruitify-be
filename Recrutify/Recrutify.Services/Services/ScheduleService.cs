@@ -132,7 +132,7 @@ namespace Recrutify.Services.Services
         {
             var appointedСandidateIds = interviews.Select(i => i.CandidateId).ToList();
             var appointedСandidate = candidates.Where(c => appointedСandidateIds.Contains(c.Id)).ToList();
-            var currentStatusCandidates = appointedСandidate.FirstOrDefault().ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status;
+            var currentStatusCandidates = _statusHelper.GetStatusUp(appointedСandidate.FirstOrDefault().ProjectResults.FirstOrDefault(p => p.ProjectId == projectId).Status);
             var usersForInvite = await _userService.GetUsersShortByIdsAsync(interviews.Select(i => i.UserId));
             var candidatesForInvite = _mapper.Map<IEnumerable<CandidateShort>>(appointedСandidate);
 
@@ -157,7 +157,7 @@ namespace Recrutify.Services.Services
                         candidateInfo.ProjectResult = _mapper.Map<ScheduleCandidateProjectResult>(projectResult);
                         return candidateInfo;
                     }));
-            await _candidateService.BulkUpdateStatusAsync(appointedСandidateIds, projectId, _statusHelper.GetStatusUp(currentStatusCandidates));
+            await _candidateService.BulkUpdateStatusAsync(appointedСandidateIds, projectId, currentStatusCandidates);
             _inviteEventPublisher.OnAssignedInterview(args);
         }
 
