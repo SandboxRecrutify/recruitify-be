@@ -304,10 +304,10 @@
     },
     {
         "_id": UUID("aa9104bc-a200-44d9-8b55-53aef3132c23"),
-        "Email": "lis.alesia@mail.ru",
+        "Email": "alesialis.1@gmail.com",
         "Name": "Alesia",
         "Surname": "Lis",
-        "Password": "706b32925a5d3018630603989ed03e58b86e7b864ab61a61fcec0a0858504cf7",
+        "Password": "1f1d5ff94c1eeb79aa7e8ac5a49c64600629fc78238d0cb239f48fbb07dd77c3",
         "Salt": "FDG4354GFD345545",
         "PrimarySkill": {
             "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
@@ -319,9 +319,9 @@
                 "v": [NumberInt(0), NumberInt(1), NumberInt(2), NumberInt(3), NumberInt(4)]
             },
             {
-                "k": UUID("0703d85c-08ce-4002-a526-8ac757ac1ac3"),
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
                 "v": [NumberInt(1), NumberInt(2), NumberInt(3), NumberInt(4)]
             }
         ]
-    },
+    }
 ]

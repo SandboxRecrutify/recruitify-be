@@ -910,5 +910,41 @@
         "CurrentJob": "LTD Bank-Alfa",
         "AdditionalInfo": "I can only do an internship in the evening"
     },
+    {
+        "_id": UUID("bca021ca-7c57-428e-827e-80276cec6e13"),
+        "Name": "Alesia",
+        "Surname": "Lis",
+        "EnglishLevel": NumberInt(1),
+        "ProjectLanguage": NumberInt(1),
+        "PhoneNumber": "+375291191293",
+        "Email": "lis.alesia@mail.ru",
+        "Contacts": [
+            {
+                "Type": "Skype",
+                "Value": "live:.cid.340d5da4b77520a7"
+            }
+        ],
+        "Location": {
+            "City": "Minsk",
+            "Country": "Belarus"
+        },
+        "RegistrationDate": new Date("2021-12-02 00:00:00.000Z"),
+        "BestTimeToConnect": [NumberInt(10), NumberInt(11), NumberInt(12), NumberInt(13), NumberInt(14)],
+        "GoingToExadel": true,
+        "ProjectResults": [
+            {
+                "ProjectId": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "Feedbacks": [],
+                "Status": NumberInt(0),
+                "PrimarySkill": {
+                    "_id": UUID("aeb0e468-3774-11ec-83d4-97dbf3c3f8eb"),
+                    "Name": ".Net"
+                },
+                "IsAssignedOnInterview": true
+            }
+        ],
+        "CurrentJob": "Cosmos TV",
+        "AdditionalInfo": "I can only do an internship in the evening"
+    },
 ]
 
