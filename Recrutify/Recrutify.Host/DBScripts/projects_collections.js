@@ -320,14 +320,14 @@ var projects = [
         "IsActive": false,
     },
     {
-        "_id": UUID("0703d85c-08ce-4002-a526-8ac757ac1ac3"),
-        "Name": "BA, JS, .NET",
+        "_id": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+        "Name": "JS &.NET + BA Sandbox",
         "StartDate": new Date("2022-01-15T00:00:00.000Z"),
         "EndDate": new Date("2022-03-30T00:00:00.000Z"),
         "StartRegistrationDate": new Date("2022-01-01T00:00:00.000Z"),
         "EndRegistrationDate": new Date("2022-01-10T00:00:00.000Z"),
-        "CurrentApplicationsCount": NumberInt(1),
-        "PlannedApplicationsCount": NumberInt(4),
+        "CurrentApplicationsCount": NumberInt(0),
+        "PlannedApplicationsCount": NumberInt(10),
         "Description": "A Web developer is a specialist engaged in writing, updating, correcting and improving algorithms for applications, sites and individual elements using different programming languages.",
         "PrimarySkills": [
             {
