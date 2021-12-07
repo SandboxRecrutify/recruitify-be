@@ -102,7 +102,7 @@ namespace Recrutify.DataAccess.Repositories
                         {
                             UserId = x.UserId,
                             ScheduleSlots = x.ScheduleSlots.Where(
-                                s => slots[x.Id].Select(slot => slot.AvailableTime).Contains(s.AvailableTime) && s.ScheduleCandidateInfo == null)
+                                s => slots[x.UserId].Select(slot => slot.AvailableTime).Contains(s.AvailableTime) && s.ScheduleCandidateInfo == null)
                                     .Select(slot => new ScheduleSlotShort() { AvailableTime = slot.AvailableTime }),
                         }).ToListAsync();
         }
