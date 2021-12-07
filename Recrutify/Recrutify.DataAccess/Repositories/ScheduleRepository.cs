@@ -89,7 +89,7 @@ namespace Recrutify.DataAccess.Repositories
                             ScheduleSlots = x.ScheduleSlots
                                                 .Where(
                                                     y => y.AvailableTime >= date.Date &&
-                                                    y.AvailableTime < date.Date.AddDays(daysNum)),
+                                                    y.AvailableTime < date.Date.AddDays(daysNum)) 
                         });
         }
     }
