@@ -1,7 +1,7 @@
 ﻿var users = [
     {
         "_id": UUID("ce33e6c4-30ac-11ec-8d3d-0242ac130003"),
-        "Email": "alexanderson@gmail.com",
+        "Email": "alexanderson.recrutify@gmail.com",
         "Name": "Alex",
         "Surname": "Anderson",
         "Password": "2B8358C34FFFE78D302F826F54A4E9D92BDB657F6DFE01FA3FA22FA89D3347DB",
@@ -17,6 +17,7 @@
                     NumberInt(0)
                 ]
             }
+
         ]
     },
     {
@@ -93,7 +94,7 @@
     },
     {
         "_id": UUID("d1b13d9f-3799-456b-87e2-1bef7db71cb1"),
-        "Email": "christopherjohnson@gmail.com",
+        "Email": "christopherjohnson.recruitify@gmail.com",
         "Name": "Christopher",
         "Surname": "Johnson",
         "Password": "31144862B60C43C5F045EAAC4D99E9F59DA3CFDAE42B372704D7C458B1E6DA8A",
@@ -191,7 +192,7 @@
     },
     {
         "_id": UUID("71da4db7-36ec-4a6b-bfb3-38d2462bdf2d"),
-        "Email": "justinwalker@gmail.com",
+        "Email": "justinwalker.recrutify@gmail.com",
         "Name": "Justin",
         "Surname": "Walker",
         "Password": "2B8CB1313018D3FAE4A5A58E2231AF82EFB6BE435574742A728AA7851615976F",
@@ -216,12 +217,16 @@
             {
                 "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
                 "v": [NumberInt(3)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(3)]
             }
         ]
     },
     {
         "_id": UUID("03699464-c0a6-412f-8c83-eca85b359e91"),
-        "Email": "kevingarcia@gmail.com",
+        "Email": "kevinwils.recrutify@gmail.com",
         "Name": "Kevin",
         "Surname": "Wils",
         "Password": "4B0BEB558891202DF7BC320DB22F8C7930BA3899D433B57A8E862CA42AF08305",
@@ -246,6 +251,54 @@
             {
                 "k": UUID("871b1e7a-30b5-11ec-9b40-437a6473123c"),
                 "v": [NumberInt(2)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(2)]
+            }
+        ]
+    },
+    {
+        "_id": UUID("4a0d4bdf-601d-4216-ae5b-076887e8e7ec"),
+        "Email": "carolemedine.recrutify@gmail.com",
+        "Name": "Carole",
+        "Surname": "Medina",
+        "Password": "ba914a03727fe8b0ed3c905107530e40863c5fa7d42eb48511605ffde97f1633",
+        "Salt": "5$RHvDjMhfHj",
+        "PrimarySkill": {
+            "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+            "Name": "JavaScript"
+        },
+        "ProjectRoles": [
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(1)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(1)]
+            }
+        ]
+    },
+    {
+        "_id": UUID("d761cb7c-81a8-4213-bf98-b38ccd9b35ec"),
+        "Email": "agnescook.recrutify@gmail.com",
+        "Name": "Agnes",
+        "Surname": "Cook",
+        "Password": "8153be0ee6dfeca7f9cfe3fd391b6aa557d3ea08468f615735215f41fe2468e1",
+        "Salt": "m15u*p2li94&",
+        "PrimarySkill": {
+            "_id": UUID("a539cb10-3775-11ec-8803-1b868ded28bd"),
+            "Name": "JavaScript"
+        },
+        "ProjectRoles": [
+            {
+                "k": UUID("a6cc25ba-3e12-11ec-9bbc-0242ac130002"),
+                "v": [NumberInt(4)]
+            },
+            {
+                "k": UUID("69b2fc0a-2a75-4b06-8e12-d72243607fc2"),
+                "v": [NumberInt(4)]
             }
         ]
     },
