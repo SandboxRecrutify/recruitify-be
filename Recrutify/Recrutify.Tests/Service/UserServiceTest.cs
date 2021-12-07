@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Moq;
 using NUnit.Framework;
-using Recrutify.DataAccess;
 using Recrutify.DataAccess.Repositories.Abstract;
 using Recrutify.Host.Configuration;
-using Recrutify.Services.DTOs;
 using Recrutify.Services.Helpers.Abstract;
 using Recrutify.Services.Services;
 using Recrutify.Services.Services.Abstract;
