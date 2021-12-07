@@ -175,6 +175,7 @@ namespace Recrutify.Host
                 app.UseHttpStatusExceptionHandler();
             }
 
+            loggerFactory.AddLog4Net();
             app.UseForwardedHeaders(ForwardedHeadersSettings.Get());
             app.UseCors(Constants.Cors.CorsForUI);
 
